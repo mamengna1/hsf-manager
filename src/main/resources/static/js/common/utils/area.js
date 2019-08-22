@@ -573,3 +573,19 @@ function chooseCity2(tag){
         }
     }
 }
+
+/**
+ *  三级回显 文字
+ * @param index1
+ * @param index2
+ * @param index3
+ * @returns {string}
+ */
+function showProvince(index1, index2, index3) {
+    var provinceName = provinceList[index1].name;
+    var cityList = provinceList[index1].cityList;
+    var cityName = cityList[index2].name;
+    var areaList = cityList[index2].areaList;
+    var areaName = areaList[index3];
+    return provinceName +  " / " + cityName + " / " + areaName;
+}

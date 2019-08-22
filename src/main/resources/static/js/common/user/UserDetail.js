@@ -3,14 +3,26 @@
  * @param id
  */
 function selUserDetailById(id) {
+    $.ajaxSettings.async = false;
     $.getJSON("/userMaster/selRealMessage",{"id":id},function (data) {
         $("#realName,#birthArea,#phones,#nickName,#skills").html("");
         $("#realName").html(data.userDetail.name)
-        $("#birthArea").html(data.userDetail.placeProvince+"/"+data.userDetail.placeCity+"/"+data.userDetail.placeArea)
+        var birthArea = showProvince(data.userDetail.placeProvince,data.userDetail.placeCity,data.userDetail.placeArea)
+        $("#birthArea").html(birthArea)
         $("#phones").html(data.user.phone)
-        $("#skills").html(data.userDetail.skills)
+
+        //技能
+        var skills = (data.userDetail.skills).split(",");
+        var array = new Array();
+        for (var i = 0; i < skills.length; i ++){
+            array[i] =  userSkillById(skills[i])
+        }
+
+        $("#skills").html(array.join());
 
     })
+
+    $.ajaxSettings.async = true;
 }
 
 /**

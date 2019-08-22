@@ -13,7 +13,7 @@ function searchCustomer(currentPage,names,statusId) {
         for (var i = 0; i < data.list.length; i++) {
             var a = data.list[i].status;
             var message = data.list[i].statusMessage == null ? '' : data.list[i].statusMessage;
-            var createDate = toDate(new Date(data.list[i].createDate).toJSON())
+            var workArea = showProvince(data.list[i].workProvince,data.list[i].workCity,data.list[i].workArea);
             $("#theBody").append("<tr>" +
                 "<td><input type=\"checkbox\" class='userCheck'/></td>" +
                 "<td>" +
@@ -25,7 +25,7 @@ function searchCustomer(currentPage,names,statusId) {
                 "<td>" + data.list[i].card + "</td>" +
                 "<td><img src='"+  data.list[i].cardOne +"' width='50px' height='50px'/></td>" +
                 "<td><img src='"+  data.list[i].cardTwo +"' width='50px' height='50px'/></td>" +
-                "<td>" + data.list[i].workProvince+ '/'+data.list[i].workCity+'/'+data.list[i].workArea+"</td>" +
+                "<td>" + workArea+"</td>" +
                 "<td>" +message+"</td>" +
                 "<td>" +
                 "<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" data-toggle=\"modal\" data-target=\"#auditModal\"  onclick='selAudit("+data.list[i].id+")' style=\"" + ((a == 0) ? '' : 'display:none;') + "\" >审核</a>" +

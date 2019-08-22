@@ -6,6 +6,7 @@ import cn.hsf.hsfmanager.pojo.user.UserScoreSource;
 import cn.hsf.hsfmanager.service.user.UserDetailService;
 import cn.hsf.hsfmanager.service.user.UserScoreSourceService;
 import cn.hsf.hsfmanager.service.user.UserService;
+import cn.hsf.hsfmanager.service.wx.TemplateService;
 import cn.hsf.hsfmanager.util.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +29,8 @@ public class UserMasterController {
     private UserService userService;
     @Resource
     private UserScoreSourceService scoreSourceService;
+    @Resource
+    private TemplateService templateService;
 
     /**
      * 进入师父信息界面
@@ -114,13 +117,22 @@ public class UserMasterController {
     @ResponseBody
     public boolean updateUserDetail(Integer id,Integer status,@RequestParam(value = "statusMessage",required = false,defaultValue = "") String statusMessage){
         Integer lineStatus = 0;
+        User u =  userService.selUserByDetailId(id);
+        UserDetail userDetail = userDetailService.selUserDetailById(id);
+        String o = u.getOpenId();;
         if(status ==1 ){
-            String openId = userService.selUserByDetailId(id).getOpenId();
-            String o = userService.selUserByDetailId(id).getOpenId();
+            String openId =u.getOpenId();
             double[] pre = new double[]{5,2};
             userService.updateUserByOpenId(new User(openId,pre[0]));    //修改提交审核人的积分
             UserScoreSource userScoreSource = new UserScoreSource(openId,pre[0],5);
             scoreSourceService.insScoreSource(userScoreSource);   //记录成为师父的积分来源记录
+
+            // 发送审核成功的模板
+            Map map = new HashMap();
+            map.put("openId",o);
+            map.put("name",userDetail.getName());
+            templateService.sendAuditSuccess(map);
+
             //修改推广人的积分
             for (int i = 0; i < 2; i++) {
                 User user = userService.selUserByOpenId(openId);
@@ -131,13 +143,25 @@ public class UserMasterController {
                         userService.updateUserByOpenId(parent);
                         UserScoreSource ScoreSource = new UserScoreSource(userParent,pre[i],2,o);
                         scoreSourceService.insScoreSource(ScoreSource);   //记录分红的积分来源记录
+                        Map map2 = new HashMap();
+                        map2.put("openId",userParent);
+                        map2.put("title","恭喜，您获得了一笔新的分销积分啦。来自："+user.getNickName());
+                        map2.put("fenHong",pre[i]);
+                        map2.put("total",pre[0]);
+                        templateService.sendScore(map2);
                         openId = userParent;
                     }
                 }
             }
             lineStatus = 1;
+        }else if(status ==2){   //审核失败
+            Map map = new HashMap();
+            map.put("openId",o);
+            map.put("name",userDetail.getName());
+            map.put("message",statusMessage);
+            templateService.sendAuditFail(map);
         }
-        UserDetail userDetail = new UserDetail(id,status,statusMessage,lineStatus);
-        return  userDetailService.updateUserDetail(userDetail) > 0 ? true : false;
+        UserDetail detail = new UserDetail(id,status,statusMessage,lineStatus);
+        return  userDetailService.updateUserDetail(detail) > 0 ? true : false;
     }
 }

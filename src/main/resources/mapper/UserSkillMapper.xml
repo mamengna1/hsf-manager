@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace:映射命名空间-->
+<mapper namespace="cn.hsf.hsfmanager.mapper.UserSkillMapper">
+
+    <select id="selNameById" parameterType="int" resultType="cn.hsf.hsfmanager.pojo.user.UserSkill">
+        select `id`,`skillName` from `tb_user_skill` where id = #{id}
+    </select>
+
+
+    <select id="selAllSkill" resultType="cn.hsf.hsfmanager.pojo.user.UserSkill" parameterType="int">
+         select `id`,`skillName` from `tb_user_skill`
+           limit #{pageCurrentNo},#{pageSize}
+    </select>
+
+    <select id="selSkillTotal" resultType="int">
+        select count(*) from  `tb_user_skill`
+    </select>
+</mapper>
