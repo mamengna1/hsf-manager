@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace:映射命名空间-->
+<mapper namespace="cn.hsf.hsfmanager.mapper.AppMenuTypeMapper">
+
+    <!--    AppMenuType selById(Integer id); -->
+    <select id="selById" resultType="cn.hsf.hsfmanager.pojo.appMenu.AppMenuType">
+        SELECT `id`, `typeName`, `urlOrMessage`
+        FROM `tb_app_menu_type`
+        WHERE id = #{id}
+    </select>
+
+    <!--  List<AppMenuType> selAll(); -->
+    <select id="selAll" resultType="cn.hsf.hsfmanager.pojo.appMenu.AppMenuType">
+        SELECT `id`, `typeName`, `urlOrMessage`
+        FROM `tb_app_menu_type`
+    </select>
+
+</mapper>

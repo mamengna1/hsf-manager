@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace:映射命名空间-->
+<mapper namespace="cn.hsf.hsfmanager.mapper.AppMapper">
+
+
+    <select id="selApp" resultType="cn.hsf.hsfmanager.pojo.App">
+        SELECT `id`,`appId`,`mchId`,`appSecret`,`token`,`key` from tb_app
+    </select>
+
+
+
+</mapper>

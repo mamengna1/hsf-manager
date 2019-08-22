@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace:映射命名空间-->
+<mapper namespace="cn.hsf.hsfmanager.mapper.UserMapper">
+
+    <!--分页-->
+    <select id="selUserAll" resultType="cn.hsf.hsfmanager.pojo.user.User" parameterType="int">
+        SELECT `id`,`nickName`,`openId`,`sex`,`headPic`,`country`,`province`,`city`,`phone`,`isSub`,`memberType`,`sourceType`,`totalMoney`,`balanceMoney`,`totalScore`,`balanceScore`,`userParent`,`createDate`,`lastLoginTime`,`detailId`
+        FROM `tb_user`
+        <where>
+            <if test="isSub !=null and isSub  &gt; -1">
+              and  isSub =#{isSub}
+            </if>
+            <if test="detailId == 0 ">
+                and  detailId =0
+            </if>
+            <if test="detailId &gt; 0 ">
+                and  detailId >0
+            </if>
+        </where>
+        limit #{pageCurrentNo},#{pageSize}
+    </select>
+
+    <select id="selUserTotal" resultType="int" parameterType="int">
+        SELECT count(*) FROM `tb_user`
+        <where>
+            <if test="isSub !=null and isSub  &gt; -1">
+                and  isSub =#{isSub}
+            </if>
+            <if test="detailId == 0 ">
+                and  detailId =0
+            </if>
+            <if test="detailId &gt; 0 ">
+                and  detailId >0
+            </if>
+        </where>
+    </select>
+
+<!--   根据条件查询-->
+
+    <select id="selUserByOpenId" parameterType="string" resultType="cn.hsf.hsfmanager.pojo.user.User">
+        SELECT `id`,`nickName`,`openId`,`sex`,`headPic`,`country`,`province`,`city`,`phone`,`isSub`,`memberType`,`sourceType`,`totalMoney`,`balanceMoney`,`totalScore`,`balanceScore`,`userParent`,`createDate`,`lastLoginTime`,`detailId`
+        FROM `tb_user`
+        where openId = #{openId}
+    </select>
+
+
+    <select id="selUserById"  parameterType="int" resultType="cn.hsf.hsfmanager.pojo.user.User">
+        SELECT `id`,`nickName`,`openId`,`sex`,`headPic`,`country`,`province`,`city`,`phone`,`isSub`,`memberType`,`sourceType`,`totalMoney`,`balanceMoney`,`totalScore`,`balanceScore`,`userParent`,`createDate`,`lastLoginTime`,`detailId`
+        FROM `tb_user`
+        where id = #{id}
+    </select>
+
+    <select id="selUserByDetailId"  parameterType="int" resultType="cn.hsf.hsfmanager.pojo.user.User">
+         SELECT `id`,`nickName`,`openId`,`sex`,`headPic`,`country`,`province`,`city`,`phone`,`isSub`,`memberType`,`sourceType`,`totalMoney`,`balanceMoney`,`totalScore`,`balanceScore`,`userParent`,`createDate`,`lastLoginTime`,`detailId`
+        FROM `tb_user`
+        where detailId = #{detailId}
+    </select>
+    <!--修改-->
+    <update id="updateUser" parameterType="cn.hsf.hsfmanager.pojo.user.User">
+        update  `tb_user`
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+            <if test="id != null and id!=''">
+                id=#{id},
+            </if>
+            <if test="nickName != null and nickName!=''">
+                nickName=#{nickName},
+            </if>
+            <if test="openId != null and openId!=''">
+                openId=#{openId},
+            </if>
+            <if test="sex != null and sex!=''">
+                sex=#{sex},
+            </if>
+            <if test="headPic != null and headPic!=''">
+                headPic=#{headPic},
+            </if>
+            <if test="country != null and country!=''">
+                country=#{country},
+            </if>
+            <if test="province != null and province!=''">
+                province=#{province},
+            </if>
+            <if test="city != null and city!=''">
+                city=#{city},
+            </if>
+            <if test="phone != null and phone!=''">
+                phone=#{phone},
+            </if>
+            <if test="isSub != null and isSub!=''">
+                isSub=#{isSub},
+            </if>
+            <if test="memberType != null and memberType!=''">
+                memberType=#{memberType},
+            </if>
+            <if test="sourceType != null and sourceType!=''">
+                sourceType=#{sourceType},
+            </if>
+            <if test="totalMoney != null and totalMoney!=''">
+                totalMoney= totalMoney +  #{totalMoney},
+            </if>
+            <if test="balanceMoney != null and balanceMoney!=''">
+                balanceMoney=#{balanceMoney},
+            </if>
+            <if test="totalScore != null and totalScore!=''">
+                totalScore= totalScore + #{totalScore},
+            </if>
+            <if test="balanceScore != null and balanceScore!=''">
+                balanceScore=#{balanceScore},
+            </if>
+            <if test="userParent != null and userParent!=''">
+                userParent=#{userParent},
+            </if>
+            <if test="createDate != null and createDate!=''">
+                createDate=#{createDate},
+            </if>
+            <if test="lastLoginTime != null and lastLoginTime!=''">
+                lastLoginTime=#{lastLoginTime},
+            </if>
+            <if test="detailId != null and detailId!=''">
+                detailId=#{detailId}
+            </if>
+        </trim>
+    </update>
+
+    <!--修改-->
+    <update id="updateUserByOpenId" parameterType="cn.hsf.hsfmanager.pojo.user.User">
+        update  `tb_user`
+        <trim prefix="set" suffixOverrides="," suffix="where openId=#{openId}">
+            <if test="id != null and id!=''">
+                id=#{id},
+            </if>
+            <if test="nickName != null and nickName!=''">
+                nickName=#{nickName},
+            </if>
+            <if test="openId != null and openId!=''">
+                openId=#{openId},
+            </if>
+            <if test="sex != null and sex!=''">
+                sex=#{sex},
+            </if>
+            <if test="headPic != null and headPic!=''">
+                headPic=#{headPic},
+            </if>
+            <if test="country != null and country!=''">
+                country=#{country},
+            </if>
+            <if test="province != null and province!=''">
+                province=#{province},
+            </if>
+            <if test="city != null and city!=''">
+                city=#{city},
+            </if>
+            <if test="phone != null and phone!=''">
+                phone=#{phone},
+            </if>
+            <if test="isSub != null and isSub!=''">
+                isSub=#{isSub},
+            </if>
+            <if test="memberType != null and memberType!=''">
+                memberType=#{memberType},
+            </if>
+            <if test="sourceType != null and sourceType!=''">
+                sourceType=#{sourceType},
+            </if>
+            <if test="totalMoney != null and totalMoney!=''">
+                totalMoney= totalMoney +  #{totalMoney},
+            </if>
+            <if test="balanceMoney != null and balanceMoney!=''">
+                balanceMoney=#{balanceMoney},
+            </if>
+            <if test="totalScore != null and totalScore!=''">
+                totalScore= totalScore + #{totalScore},
+            </if>
+            <if test="balanceScore != null and balanceScore!=''">
+                balanceScore=#{balanceScore},
+            </if>
+            <if test="userParent != null and userParent!=''">
+                userParent=#{userParent},
+            </if>
+            <if test="createDate != null and createDate!=''">
+                createDate=#{createDate},
+            </if>
+            <if test="lastLoginTime != null and lastLoginTime!=''">
+                lastLoginTime=#{lastLoginTime},
+            </if>
+            <if test="detailId != null and detailId!=''">
+                detailId=#{detailId}
+            </if>
+        </trim>
+    </update>
+    <delete id="delUser" parameterType="int">
+        delete from `tb_user` where id =#{id}
+    </delete>
+</mapper>

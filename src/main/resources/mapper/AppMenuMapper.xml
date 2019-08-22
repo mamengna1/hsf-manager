@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace:映射命名空间-->
+<mapper namespace="cn.hsf.hsfmanager.mapper.AppMenuMapper">
+
+    <resultMap id="selMenuType" type="cn.hsf.hsfmanager.pojo.appMenu.AppMenu">
+        <id property="id" column="id"/>
+        <result property="menuTypeId" column="menuTypeId"/>
+        <association property="appMenuType" column="menuTypeId" select="cn.hsf.hsfmanager.mapper.AppMenuTypeMapper.selById"/>
+    </resultMap>
+
+    <select id="selAllByParent" resultMap="selMenuType">
+        SELECT `id`, `menuName`, `menuTypeId`, `parentMenuId`, `message`, `key`
+        FROM `tb_app_menu`
+        WHERE parentMenuId = #{id}
+    </select>
+
+    <!--分页-->
+    <select id="selAllMenu" resultMap="selMenuType">
+        SELECT `id`, `menuName`, `menuTypeId`, `parentMenuId`, `message`, `key`
+        FROM `tb_app_menu`
+        limit #{pageCurrentNo},#{pageSize}
+    </select>
+
+    <select id="selMenuTotal" resultType="int">
+        SELECT count(*) FROM `tb_app_menu`
+    </select>
+
+
+    <insert id="insertAppMenu" parameterType="cn.hsf.hsfmanager.pojo.appMenu.AppMenu">
+        insert into `tb_app_menu`( `menuName`, `menuTypeId`, `parentMenuId`, `message`, `key`) values(#{menuName},#{menuTypeId},#{parentMenuId},#{message},#{key})
+    </insert>
+
+    <select id="selAllKey"  resultType="String">
+        SELECT `key` FROM `tb_app_menu`
+    </select>
+
+    <delete id="delMenuById" parameterType="int">
+        delete from tb_app_menu where id = #{id}
+    </delete>
+
+    <select id="selAppMenuById" parameterType="int" resultType="cn.hsf.hsfmanager.pojo.appMenu.AppMenu">
+        select `id`, `menuName`, `menuTypeId`, `parentMenuId`, `message`, `key` from tb_app_menu  where id = #{id}
+    </select>
+
+    <update id="updateAppMenuById" parameterType="cn.hsf.hsfmanager.pojo.appMenu.AppMenu">
+        update tb_app_menu
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+            <if test="id != null and id!=''">
+                id=#{id},
+            </if>
+            <if test="menuName != null and menuName!=''">
+                menuName=#{menuName},
+            </if>
+            <if test="menuTypeId != null and menuTypeId!=''">
+                menuTypeId=#{menuTypeId},
+            </if>
+            <if test="parentMenuId != null and parentMenuId!=''">
+                parentMenuId=#{parentMenuId},
+            </if>
+            <if test="message != null and message!=''">
+                message=#{message},
+            </if>
+            <if test="key != null and key!=''">
+                `key` = #{key},
+            </if>
+            `key` = #{key}
+        </trim>
+    </update>
+</mapper>

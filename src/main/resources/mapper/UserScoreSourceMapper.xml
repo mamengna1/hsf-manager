@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace:映射命名空间-->
+<mapper namespace="cn.hsf.hsfmanager.mapper.UserScoreSourceMapper">
+
+    <insert id="insScoreSource" parameterType="cn.hsf.hsfmanager.pojo.user.UserScoreSource">
+        insert into `tb_user_score_source`(`openId`,`score`,`scoreSourceId`,`sourceOpenId`,`createDate`) values(#{openId},#{score},#{scoreSourceId},#{sourceOpenId},now())
+    </insert>
+</mapper>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace:映射命名空间-->
+<mapper namespace="cn.hsf.hsfmanager.mapper.AdminMapper">
+    <!--查询所有订单-->
+    <select id="checkLogin" resultType="cn.hsf.hsfmanager.pojo.Admin">
+        SELECT `id`,`account`,`password`
+        FROM `tb_admin`
+        WHERE account = #{account} AND password = #{password}
+    </select>
+
+</mapper>

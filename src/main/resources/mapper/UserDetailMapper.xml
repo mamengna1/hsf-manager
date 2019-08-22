@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace:映射命名空间-->
+<mapper namespace="cn.hsf.hsfmanager.mapper.UserDetailMapper">
+
+    <!--分页-->
+    <select id="selUserDetailAll" resultType="cn.hsf.hsfmanager.pojo.user.UserDetail" >
+        SELECT `id`,`name`,`card`,`placeProvince`,`placeCity`,`placeArea`,`address`,`cardOne`,`cardTwo`,`skills`,`workProvince`,`workCity`,`workArea`,`status`,`statusMessage`,`lineStatus`
+        FROM `tb_user_detail`
+        <where>
+            <if test="name !=null and name  !='' ">
+                and  name like concat('%',#{name},'%')
+            </if>
+            <if test="status ==1 ">
+                and  `status` = 1
+            </if>
+            <if test="status !=1 and  status != 2">
+                and  `status` !=1 and  status != 2
+            </if>
+            <if test="status == 2">
+                and  `status` = 2
+            </if>
+        </where>
+        limit #{pageCurrentNo},#{pageSize}
+    </select>
+
+    <select id="selUserDetailTotal" resultType="int" >
+        SELECT count(*) FROM `tb_user_detail`
+        <where>
+            <if test="name !=null and name  !='' ">
+                and  name like concat('%',#{name},'%')
+            </if>
+            <if test="status == 1 ">
+                and  `status` = 1
+            </if>
+            <if test="status !=1 and  status != 2">
+                and  `status` !=1 and  status != 2
+            </if>
+            <if test="status == 2">
+                and  `status` = 2
+            </if>
+        </where>
+    </select>
+
+
+    <select id="selUserDetailById" parameterType="int" resultType="cn.hsf.hsfmanager.pojo.user.UserDetail">
+         SELECT `id`,`name`,`card`,`placeProvince`,`placeCity`,`placeArea`,`address`,`cardOne`,`cardTwo`,`skills`,`workProvince`,`workCity`,`workArea`,`status`,`statusMessage`,`lineStatus`
+        FROM `tb_user_detail`
+        where id = #{id}
+    </select>
+
+    <update id="updateUserDetail" parameterType="cn.hsf.hsfmanager.pojo.user.UserDetail">
+        update `tb_user_detail`
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+            <if test="id != null and id!=''">
+                id=#{id},
+            </if>
+            <if test="name != null and name!=''">
+                name=#{name},
+            </if>
+            <if test="card != null and card!=''">
+                card=#{card},
+            </if>
+            <if test="skills != null and skills!=''">
+                skills=#{skills},
+            </if>
+            <if test="status != null and status!=''">
+                status=#{status},
+            </if>
+            <if test="workProvince != null and workProvince!=''">
+                workProvince=#{workProvince}
+            </if>
+            <if test="workCity != null and workCity!=''">
+                workCity=#{workCity},
+            </if>
+            <if test="workArea != null and workArea!=''">
+                workArea=#{workArea},
+            </if>
+
+            <if test="lineStatus != null and lineStatus!=''">
+                lineStatus=#{lineStatus},
+            </if>
+            <if test="cardOne != null and cardOne!=''">
+                cardOne=#{cardOne},
+            </if>
+            <if test="cardTwo != null and cardTwo!=''">
+                cardTwo=#{cardTwo},
+            </if>
+            <if test="address != null and address!=''">
+                address=#{address},
+            </if>
+            <if test="placeProvince != null and placeProvince!=''">
+                placeProvince=#{placeProvince},
+            </if>
+            <if test="placeCity != null and placeCity!=''">
+                placeCity=#{placeCity},
+            </if>
+            <if test="placeArea != null and placeArea!=''">
+                placeArea=#{placeArea},
+            </if>
+            statusMessage=#{statusMessage}
+        </trim>
+    </update>
+</mapper>
