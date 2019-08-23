@@ -17,7 +17,7 @@ public class LoginInterceptor  implements HandlerInterceptor {
        Admin admin= (Admin) request.getSession().getAttribute("admin");
         //如果session中没有user，表示没登陆
         if (admin == null){
-            request.getRequestDispatcher("login").forward(request,response);
+            request.getRequestDispatcher("/login").forward(request,response);
             return false;
         }else {
             return true;    //如果session里有user，表示该用户已经登陆，放行，用户即可继续调用自己需要的接口

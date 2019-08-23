@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="UTF-8" xmlns:th="http://www.springframework.org/schema/jdbc">
+<head>
+    <!-- 页面meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>修改师傅信息</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+
+    <link rel="stylesheet" href="/manager/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/manager/plugins/adminLTE/css/AdminLTE.css">
+    <link rel="stylesheet" href="/manager/plugins/adminLTE/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="/manager/css/style.css">
+    <script src="/manager/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="/manager/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+    <style>
+        div {
+            width: 100%;
+        }
+    </style>
+    <script th:src="@{/ueditor/ueditor.config.js}"></script>
+    <script th:src="@{/ueditor/ueditor.all.min.js}"></script>
+    <script th:src="@{/ueditor/lang/zh-cn/zh-cn.js}"></script>
+    <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+</head>
+
+<body class="hold-transition skin-red sidebar-mini">
+
+<!-- 正文区域 -->
+<section class="content">
+
+    <div class="box-body">
+        <form action="/updateUe" method="post" enctype="multipart/form-data" id="myForm">
+            <!--表单内容-->
+            <div class="row data-type">
+                <input type="hidden" name="ids" id="ids" th:value="${userDetail.getId()}">
+                <div class="col-md-2 title">真实姓名</div>
+                <div class="col-md-10 data">
+                    <input type="text" name="name" id="name" th:value="${userDetail.getName()}"/>
+                </div>
+                <div class="col-md-2 title">身份证号</div>
+                <div class="col-md-10 data">
+                    <input type="text" name="card" id="card" th:value="${userDetail.getCard()}" readonly/>
+                </div>
+
+                <div class="col-md-2 title">居住地区</div>
+                <div class="col-md-10 data">
+                    <table>
+                        <tr>
+                            <td>
+                                <select id="queryCategoryLevel1" name="queryCategoryLevel1" class="form-control" >  <!--th:each="list: ${allUser}"-->
+                                   <option value="-1">&#45;&#45;请选择&#45;&#45;</option>
+                                 <!--   <option th:each="category :${category1}" th:value="${category.id}"
+                                            th:text="${category.categoryName}">
+                                    </option>-->
+
+                                </select>
+                            </td>
+                            <td>
+                                <input type="hidden" name="categorylevel2list" id="categorylevel2list"/>
+                                <select name="queryCategoryLevel2" id="queryCategoryLevel2" class="form-control">
+                               <!--     <option value="-1">&#45;&#45;请选择&#45;&#45;</option>-->
+                                 <!--   <option th:each="category :${category2}" th:value="${category.id}"
+                                            th:text="${category.categoryName}">
+                                    </option>-->
+                                </select>
+                            </td>
+                            <td>
+                                <select name="queryCategoryLevel3" id="queryCategoryLevel3" class="form-control">
+                               <!--     <option value="-1">&#45;&#45;请选择&#45;&#45;</option>-->
+                                   <!-- <option th:each="category :${category3}" th:value="${category.id}"
+                                            th:text="${category.categoryName}">
+                                    </option>-->
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+
+
+                <div class="col-md-2 title">技能</div>
+                <div class="col-md-10 data">
+                 <select></select>
+                </div>
+                <div class="col-md-2 title">工作地区</div>
+                <div class="col-md-10 data">
+                    <table>
+                        <tr>
+                            <td>
+                                <select id="work" name="queryCategoryLevel1" class="form-control" >  <!--th:each="list: ${allUser}"-->
+                                    <option value="-1">&#45;&#45;请选择&#45;&#45;</option>
+                                    <!--   <option th:each="category :${category1}" th:value="${category.id}"
+                                               th:text="${category.categoryName}">
+                                       </option>-->
+
+                                </select>
+                            </td>
+                            <td>
+                                <input type="hidden"/>
+                                <select name="queryCategoryLevel2"class="form-control">
+                                    <!--     <option value="-1">&#45;&#45;请选择&#45;&#45;</option>-->
+                                    <!--   <option th:each="category :${category2}" th:value="${category.id}"
+                                               th:text="${category.categoryName}">
+                                       </option>-->
+                                </select>
+                            </td>
+                            <td>
+                                <select name="queryCategoryLevel3" class="form-control">
+                                    <!--     <option value="-1">&#45;&#45;请选择&#45;&#45;</option>-->
+                                    <!-- <option th:each="category :${category3}" th:value="${category.id}"
+                                             th:text="${category.categoryName}">
+                                     </option>-->
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+
+            <!--    <div class="col-md-2 title" style="height:100px;" >压缩图</div>
+                <div class="col-md-10 data"style="height:100px;" >
+                    <input type="hidden" id="logoPicPath" name="logoPicPath" th:value="${advert.imageUrl}"/>
+                    &lt;!&ndash;   <input id="attach"  type="file"  name="attach" accept="image/jpg,image/png,image/jpeg,image/pneg"  th:value="${advert.imageUrl}" /><span id="imgUrls" th:value="${advert.imageUrl}" ></span>&ndash;&gt;
+                    <div id="uploadfile" style="display: none">
+                        <input id="attach"  type="file" class="form-control col-md-7 col-xs-12" name="attach" accept="image/jpg,image/png,image/jpeg,image/pneg" />
+                    </div>
+                    <div id="logoFile"></div>
+                </div>-->
+                <div class="col-md-2 title">详细地址</div>
+                <div class="col-md-10 data">
+                    <input type="text" name="address" id="address" th:value="${userDetail.getAddress()}"/>
+                </div>
+                <div class="col-md-2 title">工作年限</div>
+                <div class="col-md-10 data">
+              <!--      <input type="text" class="form-control" placeholder="副标题" th:value="${advert.subtitle}"  name="副标题" id="副标题" >-->
+                    <select></select>
+                </div>
+                <div class="col-md-2 title">手机号</div>
+                <div class="col-md-10 data">
+                    <input type="text" name="phone" id="phone" th:value="${user.getPhone()}"/>
+                </div>
+                <div class="col-md-2 title" style="height:100px;">积分</div>
+                <div class="col-md-10 data" style="height:100px;">
+                    <div class="input-group">
+                        <input type="number" class="form-control" placeholder="积分" name="totalScore" id="totalScore" th:value="${user.getTotalScore()}">
+                        积分来源 <select></select>
+                        <input type="checkbox" name="checkbox1" value="发送模板"/>发送模板
+                        <input type="checkbox" name="checkbox1" value="不发送模板" checked="checked"/>不发送模板
+                    </div>
+                </div>
+                <div class="col-md-10 data" style="width:100%;"></div>
+
+            </div>
+            <input class="btn btn-primary" type="submit" value="保存修改" id="btns"/>
+
+        </form>
+    </div>
+
+
+</section>
+
+</body>
+
+</html>

@@ -2,7 +2,7 @@
 var currentPage = 1;  //当前页码
 //过滤查询
 function searchCustomer(currentPage) {
-    $.getJSON("/showMenu/showMenuIndex",{"pageCurrentNo":currentPage},callback)
+    $.getJSON("/manager/showMenu/showMenuIndex",{"pageCurrentNo":currentPage},callback)
     //回调
     function callback(data) {
         $("#theBody").html("");
@@ -76,7 +76,7 @@ function delMenu() {
     for (var i = 0; i < delUsers.length; i++) {
         if (delUsers[i].checked) {
             var id = $(delUsers[i]).parent().next().html();
-            $.getJSON("/showMenu/delMenuById", {"id": id}, function (data) {
+            $.getJSON("/manager/showMenu/delMenuById", {"id": id}, function (data) {
                 if(data == true){
                     alert("删除成功！")
                     window.location.reload();
@@ -90,7 +90,7 @@ function delMenu() {
 
 //新建
 function goCreateMenu() {
-    location.href="/menu/goCreateMenu";
+    location.href="/manager/menu/goCreateMenu";
 }
 
 //修改
@@ -100,7 +100,7 @@ function updMenuById(id) {
     $("#oneKey").hide();
 
     //数据渲染
-    $.getJSON("/showMenu/selAppMenuById",{"id":id},function (data) {
+    $.getJSON("/manager/showMenu/selAppMenuById",{"id":id},function (data) {
         $("#ids,#menuName,#menuType,#message,#key,#path").val("");
         $("#ids").val(data.id)
         $("#menuName").val(data.menuName)
@@ -163,7 +163,7 @@ function saveAppMenu() {
     var k = message == '' ? '' : key;
     $.ajaxSettings.async = false;
     var flag  = false;
-    $.getJSON("/menu/showMenu",{"parentId":0},function (data) {
+    $.getJSON("/manager/menu/showMenu",{"parentId":0},function (data) {
         for (var i = 0; i < data.selKey.length; i++) {
             if(data.selKey[i] == key){
                 alert("已经存在相同的key,请更换！！！")
@@ -173,11 +173,11 @@ function saveAppMenu() {
         flag = true;
     })
     if (flag == true) {
-        $.getJSON("/showMenu/updateAppMenu", {"id": id, "menuName": menuName, "menuTypeId": menuTypeId, "message": m, "key": k
+        $.getJSON("/manager/showMenu/updateAppMenu", {"id": id, "menuName": menuName, "menuTypeId": menuTypeId, "message": m, "key": k
         }, function (data) {
             if (data == true) {
                 alert("修改成功")
-                location.href = "/showMenu/goMenuIndex";
+                location.href = "/manager/showMenu/goMenuIndex";
             } else {
                 alert("修改失败")
             }

@@ -1,5 +1,5 @@
 function selUserByOpenId(openId) {
-    $.getJSON("/user/selUserByOpenId",{"openId":openId},function (data) {
+    $.getJSON("/manager/user/selUserByOpenId",{"openId":openId},function (data) {
         $("#imageUrl,#openId,#nickName,#sex,#address,#userType,#phone,#totalMoney,#balanceMoney,#totalScore,#balanceScore,#lastLoginTime").html("");
         $("#imageUrl").attr("src",data.headPic);
         $("#nickName").append(data.nickName)

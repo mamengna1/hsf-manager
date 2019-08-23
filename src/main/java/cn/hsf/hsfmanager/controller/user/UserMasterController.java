@@ -67,6 +67,8 @@ public class UserMasterController {
     public String goAuditNot(){
         return "user/userMasterNot";
     }
+
+
     /**
      * 分页显示数据   审核
      * @param pageCurrentNo
@@ -163,5 +165,21 @@ public class UserMasterController {
         }
         UserDetail detail = new UserDetail(id,status,statusMessage,lineStatus);
         return  userDetailService.updateUserDetail(detail) > 0 ? true : false;
+    }
+
+    /**
+     * 进入用户修改信息界面
+     * @return
+     */
+    @RequestMapping("/goUserUpd")
+    public String goUserUpd(Integer id , Model model){
+        System.out.println("id :"+ id);
+        UserDetail userDetail = userDetailService.selUserDetailById(id);
+        User user = userService.selUserByDetailId(id);
+        model.addAttribute("userDetail",userDetail);
+        model.addAttribute("user",user);
+        System.out.println(user);
+        System.out.println(userDetail);
+        return "user/userUpd";
     }
 }

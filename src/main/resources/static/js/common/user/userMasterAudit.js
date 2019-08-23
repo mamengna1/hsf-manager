@@ -6,7 +6,7 @@ var names = $("#names").val();
 var statusId = 1;  //已审核信息
 //过滤查询
 function searchCustomer(currentPage,names,statusId) {
-    $.getJSON("/userMaster/userAll",{"pageCurrentNo":currentPage,"names":names,"statusId":statusId},callback)
+    $.getJSON("/manager/userMaster/userAll",{"pageCurrentNo":currentPage,"names":names,"statusId":statusId},callback)
     //回调
     function callback(data) {
         $("#theBody").html("");
@@ -24,6 +24,9 @@ function searchCustomer(currentPage,names,statusId) {
                 "<td><img src='"+  data.list[i].cardOne +"' width='50px' height='50px'/></td>" +
                 "<td><img src='"+  data.list[i].cardTwo +"' width='50px' height='50px'/></td>" +
                 "<td>" + workArea+"</td>" +
+                "<td>" +
+                "<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\"  onclick='updDetail("+data.list[i].id+")'>修改</a>" +
+                "</td>" +
                 "</tr>")
 
         }
@@ -81,7 +84,7 @@ function delUser() {
     for (var i = 0; i < delUsers.length; i++) {
         if (delUsers[i].checked) {
             var id = $(delUsers[i]).parent().next().html();
-            $.getJSON("/user/delUserById", {"id": id}, function (data) {
+            $.getJSON("/manager/user/delUserById", {"id": id}, function (data) {
                 if(data == true){
                     alert("删除成功！")
                     window.location.reload();
@@ -102,10 +105,10 @@ function saveUser() {
     var balanceMoney = $("#balanceMoney2").val()
     var totalScore = $("#totalScore2").val();
     var balanceScore = $("#balanceScore2").val();
-    $.getJSON("/user/updateUser",{"id":id,"userType":userType,"balanceMoney":balanceMoney,"totalScore":totalScore,"balanceScore":balanceScore},function (data) {
+    $.getJSON("/manager/user/updateUser",{"id":id,"userType":userType,"balanceMoney":balanceMoney,"totalScore":totalScore,"balanceScore":balanceScore},function (data) {
         if(data == true){
             alert("修改成功")
-            location.href="/user/goUserIndex";
+            location.href="/manager/user/goUserIndex";
         }else{
             alert("修改失败")
         }
@@ -116,4 +119,13 @@ function saveUser() {
 function searchNames() {
     var na = $("#names").val();
     searchCustomer(1,na,statusId)
+}
+
+/**
+ * 修改
+ * @param id
+ */
+function updDetail(id) {
+    alert(id)
+    location.href="/manager/userMaster/goUserUpd?id="+id;
 }

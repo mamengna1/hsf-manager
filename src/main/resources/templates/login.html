@@ -6,11 +6,11 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE">
 	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 	<title>后台管理系统登录页面</title>
-	 <link rel="icon" href="../assets/img/favicon.ico">
+	 <link rel="icon" href="/manager/assets/img/favicon.ico">
 
 
-    <link rel="stylesheet" type="text/css" href="css/webbase.css" />
-    <link rel="stylesheet" type="text/css" href="css/pages-login-manage.css" />
+    <link rel="stylesheet" type="text/css" href="/manager/css/webbase.css" />
+    <link rel="stylesheet" type="text/css" href="/manager/css/pages-login-manage.css" />
 </head>
 
 <body>
@@ -36,7 +36,7 @@
 				<div class="tab-content tab-wraped">
 					<div id="index" class="tab-pane">
 						<p>二维码登录，暂为官网二维码</p>
-						<img src="../img/wx_cz.jpg" />
+						<img src="/manager/img/wx_cz.jpg" />
 					</div>
 					<div id="profile" class="tab-pane  active">
 						<form class="sui-form">
@@ -84,10 +84,10 @@
 	</div>
 
 
-<script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
-<script type="text/javascript" src="js/plugins/sui/sui.min.js"></script>
-<script type="text/javascript" src="js/plugins/jquery-placeholder/jquery.placeholder.min.js"></script>
-<script src="js/pages/jquery.slideunlock.js"></script>
+<script type="text/javascript" src="/manager/js/plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="/manager/js/plugins/sui/sui.min.js"></script>
+<script type="text/javascript" src="/manager/js/plugins/jquery-placeholder/jquery.placeholder.min.js"></script>
+<script src="/manager/js/pages/jquery.slideunlock.js"></script>
 <script>
 	/*$(function(){
 		var slider = new SliderUnlock("#slider",{
@@ -113,7 +113,7 @@
 	$("#btn").click(function () {
 		var userName = $("[name=userName]").val();
 		var password = $("[name=password]").val();
-		window.location.href="/checkAdmin?userName="+userName+"&password="+password;
+		window.location.href="/manager/checkAdmin?userName="+userName+"&password="+password;
 	})
 	</script>
 </body>

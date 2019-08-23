@@ -6,7 +6,7 @@ var isSub = 1;
 var detailId = 0;
 //过滤查询
 function searchCustomer(currentPage,isSub,detailId) {
-    $.getJSON("/user/userAll",{"pageCurrentNo":currentPage,"isSub":isSub,"detailId":detailId},callback)
+    $.getJSON("/manager/user/userAll",{"pageCurrentNo":currentPage,"isSub":isSub,"detailId":detailId},callback)
     //回调
     function callback(data) {
         $("#theBody").html("");
@@ -86,7 +86,7 @@ function delUser() {
     for (var i = 0; i < delUsers.length; i++) {
         if (delUsers[i].checked) {
             var id = $(delUsers[i]).parent().next().html();
-            $.getJSON("/user/delUserById", {"id": id}, function (data) {
+            $.getJSON("/manager/user/delUserById", {"id": id}, function (data) {
                 if(data == true){
                     alert("删除成功！")
                     window.location.reload();
@@ -107,10 +107,10 @@ function saveUser() {
     var balanceMoney = $("#balanceMoney2").val()
     var totalScore = $("#totalScore2").val();
     var balanceScore = $("#balanceScore2").val();
-    $.getJSON("/user/updateUser",{"id":id,"userType":userType,"balanceMoney":balanceMoney,"totalScore":totalScore,"balanceScore":balanceScore},function (data) {
+    $.getJSON("/manager/user/updateUser",{"id":id,"userType":userType,"balanceMoney":balanceMoney,"totalScore":totalScore,"balanceScore":balanceScore},function (data) {
         if(data == true){
             alert("修改成功")
-            location.href="/user/goUserIndex";
+            location.href="/manager/user/goUserIndex";
         }else{
             alert("修改失败")
         }

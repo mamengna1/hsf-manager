@@ -4,7 +4,7 @@
  */
 function selUserDetailById(id) {
     $.ajaxSettings.async = false;
-    $.getJSON("/userMaster/selRealMessage",{"id":id},function (data) {
+    $.getJSON("/manager/userMaster/selRealMessage",{"id":id},function (data) {
         $("#realName,#birthArea,#phones,#nickName,#skills").html("");
         $("#realName").html(data.userDetail.name)
         var birthArea = showProvince(data.userDetail.placeProvince,data.userDetail.placeCity,data.userDetail.placeArea)
@@ -17,8 +17,11 @@ function selUserDetailById(id) {
         for (var i = 0; i < skills.length; i ++){
             array[i] =  userSkillById(skills[i])
         }
-
-        $("#skills").html(array.join());
+        var a = array.join();
+        if(a.substr(0,1)==','){
+            a = a.substr(1)
+        }
+        $("#skills").html(a);
 
     })
 
@@ -30,7 +33,7 @@ function selUserDetailById(id) {
  * @param id
  */
 function selUserDetail(id) {
-    $.getJSON("/userMaster/selRealMessage",{"id":id},function (data) {
+    $.getJSON("/manager/userMaster/selRealMessage",{"id":id},function (data) {
 
         $("#openId").val("")
         $("#imageUrl,#openId,#nickName,#sex,#address,#userType,#phone,#totalMoney,#balanceMoney,#totalScore,#balanceScore,#lastLoginTime").html("");
@@ -49,7 +52,7 @@ function selUserDetail(id) {
  * @param id
  */
 function selAudit(id) {
-    $.getJSON("/userMaster/selRealMessage",{"id":id},function (data) {
+    $.getJSON("/manager/userMaster/selRealMessage",{"id":id},function (data) {
         $("#realNames,#card").html("");
         $("#idss").val("")
 
@@ -65,7 +68,7 @@ function selAudit(id) {
 function updateAudit(status) {
     var id = $("#idss").val();
     var statusMessage =  status == 1 ? '' : $("#statusMessage").val();
-    $.getJSON("/userMaster/updateUserDetail",{"id":id,"status":status,"statusMessage":statusMessage},function (data) {
+    $.getJSON("/manager/userMaster/updateUserDetail",{"id":id,"status":status,"statusMessage":statusMessage},function (data) {
         if(data ==true){
             alert("修改审核结果成功！")
             location.href="/userMaster/goUserMasterAudit";

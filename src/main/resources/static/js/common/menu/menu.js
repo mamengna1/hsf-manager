@@ -2,7 +2,7 @@
 
 //渲染一级
 function  selLevel1() {
-    $.getJSON("/menu/showLevel",{"parentId":null},callback);
+    $.getJSON("/manager/menu/showLevel",{"parentId":null},callback);
     function callback(data) {
         $(data).each(function () {
             $("[name=queryCategoryLevel1]").append("<option value='"+this.id+"'>"+this.menuName+"</option>")
@@ -22,7 +22,7 @@ function  selLevel1() {
 //渲染二级
 function  selLevel2(parentId1) {
     $("#queryCategoryLevel2").html("");
-    $.getJSON("/menu/showLevel",{"parentId":parentId1},callback);
+    $.getJSON("/manager/menu/showLevel",{"parentId":parentId1},callback);
     function callback(data) {
         $("[name=queryCategoryLevel2]").append("<option value='-1'> 请选择</option>")
         $(data).each(function () {

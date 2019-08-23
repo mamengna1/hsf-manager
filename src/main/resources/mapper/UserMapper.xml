@@ -93,9 +93,7 @@
             <if test="isSub != null and isSub!=''">
                 isSub=#{isSub},
             </if>
-            <if test="memberType != null and memberType!=''">
-                memberType=#{memberType},
-            </if>
+             memberType=#{memberType},
             <if test="sourceType != null and sourceType!=''">
                 sourceType=#{sourceType},
             </if>

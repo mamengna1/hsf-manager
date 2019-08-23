@@ -1,5 +1,5 @@
 function selUserById(id) {
-    $.getJSON("/user/selUserById",{"id":id},function (data) {
+    $.getJSON("/manager/user/selUserById",{"id":id},function (data) {
         $("#ids,#imageUrl,#openId,#nickName,#userType,#balanceMoney,#totalScore,#balanceScore").val("");
         $("#ids").val(data.id)
         $("#imageUrl2").attr("src",data.headPic);

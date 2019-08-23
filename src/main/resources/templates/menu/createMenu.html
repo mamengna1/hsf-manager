@@ -7,14 +7,14 @@
 		<title>菜单管理</title>
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
-		<link rel="stylesheet" href="/plugins/bootstrap/css/bootstrap.min.css">
-		<link rel="stylesheet" href="/plugins/adminLTE/css/AdminLTE.css">
-		<link rel="stylesheet" href="/plugins/adminLTE/css/skins/_all-skins.min.css">
-		<link rel="stylesheet" href="/css/style.css">
-		<script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
-		<script src="/plugins/bootstrap/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="/manager/plugins/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/manager/plugins/adminLTE/css/AdminLTE.css">
+		<link rel="stylesheet" href="/manager/plugins/adminLTE/css/skins/_all-skins.min.css">
+		<link rel="stylesheet" href="/manager/css/style.css">
+		<script src="/manager/plugins/jQuery/jquery-2.2.3.min.js"></script>
+		<script src="/manager/plugins/bootstrap/js/bootstrap.min.js"></script>
 
-		<script type="text/javascript" src="/js/common/menu/menu.js"></script>  <!--引入根据二级联查-->
+		<script type="text/javascript" src="/manager/js/common/menu/menu.js"></script>  <!--引入根据二级联查-->
 		<!--	<script src="/js/base.js"></script>-->
 
 
@@ -164,10 +164,10 @@
 				flag = true;
 			})
 			if (flag == true){
-				$.getJSON("/menu/saveMenu",{"menuName":menuName,"menuTypeId":menuTypeId,"parentMenuId":query1,"message":message,"key":keys},function (data) {
+				$.getJSON("/manager/menu/saveMenu",{"menuName":menuName,"menuTypeId":menuTypeId,"parentMenuId":query1,"message":message,"key":keys},function (data) {
 					if(data == true){
 						alert("创建成功")
-						location.href="/showMenu/goMenuIndex";
+						location.href="/manager/showMenu/goMenuIndex";
 					}else{
 						alert("创建失败")
 					}

@@ -29,7 +29,7 @@ public class LoginController {
         Admin checkLogin = adminService.checkLogin(admin);
         if(checkLogin !=null ){
             request.getSession().setAttribute("admin",admin);
-            return "redirect:/index";
+            return "index";
         }else{
             return "login";
         }
@@ -61,5 +61,10 @@ public class LoginController {
     public String loginOut(HttpServletRequest request){
         request.getSession().removeAttribute("admin");
         return "login";
+    }
+
+    @RequestMapping("/goHome")
+    public String goHome(){
+        return "home";
     }
 }

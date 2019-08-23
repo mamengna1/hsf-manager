@@ -5,7 +5,7 @@
 //初始化数据
 var currentPage = 1;  //当前页码
 function skillAll() {
-    $.getJSON("/userSkill/skillAll",{"pageCurrentNo":currentPage},callback)
+    $.getJSON("/manager/userSkill/skillAll",{"pageCurrentNo":currentPage},callback)
     //回调
     function callback(data) {
         $("#theBody").html("");
