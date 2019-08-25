@@ -69,16 +69,16 @@
         update `tb_admin`
         <set>
             <if test="id != null and id !='' ">
-                and `id` = #{id}
+                 `id` = #{id},
             </if>
             <if test="account != null and account !='' ">
-                and `account` = #{account}
+                 `account` = #{account},
             </if>
             <if test="level != null and level !='' ">
-                and  `level` = #{level}
+                  `level` = #{level},
             </if>
             <if test="typeId != null and typeId !='' ">
-                and `typeId` = #{typeId}
+                 `typeId` = #{typeId},
             </if>
         </set>
         where id =#{id}

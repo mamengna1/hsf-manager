@@ -68,6 +68,7 @@
 			$.getJSON("/manager/adminController/saveAdmin",{"account":account,"password":password,"level":level,"typeId":typeId},function (data) {
 				if(data == true){
 					alert("新增成功！")
+					location.href="/manager/adminController/goAdminList";
 				}else{
 					alert("新增失败！")
 				}
