@@ -6,10 +6,85 @@
 <!--namespace:映射命名空间-->
 <mapper namespace="cn.hsf.hsfmanager.mapper.AdminMapper">
     <!--查询所有订单-->
-    <select id="checkLogin" resultType="cn.hsf.hsfmanager.pojo.Admin">
-        SELECT `id`,`account`,`password`
+    <select id="checkLogin"  resultType="cn.hsf.hsfmanager.pojo.Admin" parameterType="cn.hsf.hsfmanager.pojo.Admin">
+        SELECT `id`,`account`,`password`,`level`,`typeId`
         FROM `tb_admin`
         WHERE account = #{account} AND password = #{password}
     </select>
 
+    <select id="selListAdmin" resultMap="selAdminType" parameterType="cn.hsf.hsfmanager.pojo.Admin">
+         SELECT `id`,`account`,`password`,`level`,`typeId`
+         FROM `tb_admin`
+         <where>
+
+             <if test="id != null and id !='' ">
+                and `id` = #{id}
+             </if>
+             <if test="account != null and account !='' ">
+                 and `account` = #{account}
+             </if>
+             <if test="level != null and level !='' ">
+                and  `level` >= #{level}
+             </if>
+             <if test="typeId != null and typeId !='' ">
+                and `typeId` = #{typeId}
+             </if>
+
+         </where>
+    </select>
+
+    <resultMap id="selAdminType" type="cn.hsf.hsfmanager.pojo.Admin">
+        <id property="id" column="id"/>
+        <result property="typeId" column="typeId"/>
+        <association property="adminType" column="typeId" select="cn.hsf.hsfmanager.mapper.AdminTypeMapper.selAdminTypeById"/>
+    </resultMap>
+
+
+    <insert id="saveAdmin" parameterType="cn.hsf.hsfmanager.pojo.Admin">
+        insert into `tb_admin` (`account`,`password`,`level`,`typeId`) values(#{account},#{password},#{level},#{typeId})
+    </insert>
+
+    <select id="selAdmin" parameterType="cn.hsf.hsfmanager.pojo.Admin" resultType="cn.hsf.hsfmanager.pojo.Admin">
+        SELECT `id`,`account`,`password`,`level`,`typeId`
+        FROM `tb_admin`
+        <where>
+
+            <if test="id != null and id !='' ">
+                and `id` = #{id}
+            </if>
+            <if test="account != null and account !='' ">
+                and `account` = #{account}
+            </if>
+            <if test="level != null and level !='' ">
+                and  `level` >= #{level}
+            </if>
+            <if test="typeId != null and typeId !='' ">
+                and `typeId` = #{typeId}
+            </if>
+
+        </where>
+    </select>
+
+    <update id="updAdmin"  parameterType="cn.hsf.hsfmanager.pojo.Admin">
+        update `tb_admin`
+        <set>
+            <if test="id != null and id !='' ">
+                and `id` = #{id}
+            </if>
+            <if test="account != null and account !='' ">
+                and `account` = #{account}
+            </if>
+            <if test="level != null and level !='' ">
+                and  `level` = #{level}
+            </if>
+            <if test="typeId != null and typeId !='' ">
+                and `typeId` = #{typeId}
+            </if>
+        </set>
+        where id =#{id}
+    </update>
+
+    <delete id="delAdmin" parameterType="int">
+        delete  from `tb_admin` where id = #{id}
+    </delete>
 </mapper>
