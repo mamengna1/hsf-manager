@@ -10,4 +10,5 @@ public interface UserSkillService {
 
     List<UserSkill> selAllSkill( Integer pageCurrentNo, Integer pageSize);
     int selSkillTotal();
+    List<UserSkill> selAll();
 }

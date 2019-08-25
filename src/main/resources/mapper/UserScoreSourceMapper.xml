@@ -9,4 +9,7 @@
     <insert id="insScoreSource" parameterType="cn.hsf.hsfmanager.pojo.user.UserScoreSource">
         insert into `tb_user_score_source`(`openId`,`score`,`scoreSourceId`,`sourceOpenId`,`createDate`) values(#{openId},#{score},#{scoreSourceId},#{sourceOpenId},now())
     </insert>
+
+
+
 </mapper>

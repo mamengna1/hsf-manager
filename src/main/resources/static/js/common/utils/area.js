@@ -450,11 +450,11 @@ function chooseProvince(th){
     } else if (typeof th == "number"){
         index = th;
     }
+    cityTag.innerHTML = "";
+    cityTag.add(new Option("选择市", -1));
+    areaTag.innerHTML = "";
+    areaTag.add(new Option("选中区县", -1));
     if (index == -1) {
-        cityTag.innerHTML="";
-        cityTag.add(new Option("选择市",-1));
-        areaTag.innerHTML="";
-        areaTag.add(new Option("选中区县",-1));
         return;
     }
     var provinceName = provinceArray[index];
@@ -463,7 +463,6 @@ function chooseProvince(th){
         var provice = provinceList[n];
         if (provice.name == provinceName){
             cityList = provice.cityList;
-            cityTag.innerHTML="";
             for(var c=0; c<cityList.length; c++){
                 var city = cityList[c];
                 var cityName = city.name;
@@ -475,7 +474,6 @@ function chooseProvince(th){
     var cityName = cityArray[0];
     var city1 = cityList[0];
     var areaList = city1.areaList;
-    areaTag.innerHTML="";
     for(var a=0; a<areaList.length; a++){
         var area = areaList[a];
         areaTag.add(new Option(area,a));
@@ -484,91 +482,88 @@ function chooseProvince(th){
 //选择市
 function chooseCity(tag){
     var index2;
-    if (typeof tag == "object"){
-        index2 = tag.selectedIndex-1;
-    } else if (typeof tag == "number"){
+    if (typeof tag == "object") {
+        index2 = tag.selectedIndex - 1;
+    } else if (typeof tag == "number") {
         index2 = tag;
     }
+    areaTag.innerHTML = "";
+    areaTag.add(new Option("选中区县", -1));
     if (index2 == -1) {
-        areaTag.innerHTML="";
-        areaTag.add(new Option("选中区县",-1));
         return;
     }
     var cityName = cityArray[index2];
-    for(var m=0; m<cityList.length; m++){
+    for (var m = 0; m < cityList.length; m++) {
         var city1 = cityList[m];
-        if (city1.name == cityName){
+        if (city1.name == cityName) {
             var areaList = city1.areaList;
-            areaTag.innerHTML="";
-            for(var a=0; a<areaList.length; a++){
+            for (var a = 0; a < areaList.length; a++) {
                 var area = areaList[a];
-                areaTag.add(new Option(area,a));
+                areaTag.add(new Option(area, a));
             }
         }
     }
 }
 
 //选择省
-function chooseProvince2(th){
+function chooseProvince2(th) {
     var index;
-    if (typeof th == "object"){
-        index = th.selectedIndex-1;
-    } else if (typeof th == "number"){
+    if (typeof th == "object") {
+        index = th.selectedIndex - 1;
+    } else if (typeof th == "number") {
         index = th;
     }
+    workCityTag.innerHTML = "";
+    workCityTag.add(new Option("选择市", -1));
+    workAreaTag.innerHTML = "";
+    workAreaTag.add(new Option("所有区县", -1));
     if (index == -1) {
-        workCityTag.innerHTML="";
-        workCityTag.add(new Option("选择市",-1));
-        workAreaTag.innerHTML="";
-        workAreaTag.add(new Option("所有区县",-1));
         return;
     }
     var provinceName = provinceArray[index];
 
-    for(var n=0; n<provinceList.length; n++){
+    for (var n = 0; n < provinceList.length; n++) {
         var provice = provinceList[n];
-        if (provice.name == provinceName){
+        if (provice.name == provinceName) {
             cityList = provice.cityList;
-            workCityTag.innerHTML="";
-            for(var c=0; c<cityList.length; c++){
+            for (var c = 0; c < cityList.length; c++) {
                 var city = cityList[c];
                 var cityName = city.name;
                 cityArray[c] = cityName;
-                workCityTag.add(new Option(cityName,c));
+                workCityTag.add(new Option(cityName, c));
             }
         }
     }
     var cityName = cityArray[0];
     var city1 = cityList[0];
     var areaList = city1.areaList;
-    workAreaTag.innerHTML="";
-    for(var a=0; a<areaList.length; a++){
+    for (var a = 0; a < areaList.length; a++) {
         var area = areaList[a];
-        workAreaTag.add(new Option(area,a));
+        workAreaTag.add(new Option(area, a));
     }
 }
+
 //选择市
-function chooseCity2(tag){
+function chooseCity2(tag) {
     var index2;
-    if (typeof tag == "object"){
-        index2 = ttagh.selectedIndex-1;
-    } else if (typeof tag == "number"){
+    if (typeof tag == "object") {
+        index2 = ttagh.selectedIndex - 1;
+    } else if (typeof tag == "number") {
         index2 = tag;
     }
+    workAreaTag.innerHTML = "";
+    workAreaTag.add(new Option("所有区县", -1));
     if (index2 == -1) {
-        workAreaTag.innerHTML="";
-        workAreaTag.add(new Option("所有区县",-1));
         return;
     }
     var cityName = cityArray[index2];
-    for(var m=0; m<cityList.length; m++){
+    for (var m = 0; m < cityList.length; m++) {
         var city1 = cityList[m];
-        if (city1.name == cityName){
+        if (city1.name == cityName) {
             var areaList = city1.areaList;
-            workAreaTag.innerHTML="";
-            for(var a=0; a<areaList.length; a++){
+            for (var a = 0; a < areaList.length; a++) {
                 var area = areaList[a];
-                workAreaTag.add(new Option(area,a));
+                workAreaTag.add(new Option(area, a));
             }
         }
     }

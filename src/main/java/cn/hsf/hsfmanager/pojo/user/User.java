@@ -64,6 +64,11 @@ public class User {
     public User() {
     }
 
+    public User(String openId, String phone) {
+        this.openId = openId;
+        this.phone = phone;
+    }
+
     //get set 方法
     public void setId (Integer  id){
         this.id=id;

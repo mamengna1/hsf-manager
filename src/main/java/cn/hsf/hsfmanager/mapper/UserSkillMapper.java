@@ -12,4 +12,6 @@ public interface UserSkillMapper {
 
      List<UserSkill> selAllSkill(@Param("pageCurrentNo") Integer pageCurrentNo, @Param("pageSize") Integer pageSize);
     int selSkillTotal();
+
+    List<UserSkill> selAll();
 }

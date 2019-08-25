@@ -47,7 +47,7 @@
 
 
     <select id="selUserDetailById" parameterType="int" resultType="cn.hsf.hsfmanager.pojo.user.UserDetail">
-         SELECT `id`,`name`,`card`,`placeProvince`,`placeCity`,`placeArea`,`address`,`cardOne`,`cardTwo`,`skills`,`workProvince`,`workCity`,`workArea`,`status`,`statusMessage`,`lineStatus`
+         SELECT `id`,`name`,`card`,`placeProvince`,`placeCity`,`placeArea`,`address`,`cardOne`,`cardTwo`,`skills`,`workProvince`,`workCity`,`workArea`,`status`,`statusMessage`,`lineStatus`,`yearWorkId`
         FROM `tb_user_detail`
         where id = #{id}
     </select>
@@ -59,7 +59,7 @@
                 id=#{id},
             </if>
             <if test="name != null and name!=''">
-                name=#{name},
+                `name`=#{name},
             </if>
             <if test="card != null and card!=''">
                 card=#{card},
@@ -71,7 +71,7 @@
                 status=#{status},
             </if>
             <if test="workProvince != null and workProvince!=''">
-                workProvince=#{workProvince}
+                workProvince=#{workProvince},
             </if>
             <if test="workCity != null and workCity!=''">
                 workCity=#{workCity},
@@ -104,4 +104,13 @@
             statusMessage=#{statusMessage}
         </trim>
     </update>
+
+    <select id="selYearAll" resultType="cn.hsf.hsfmanager.pojo.user.UserYearWork">
+        SELECT `id`, `yearName` FROM `tb_user_year_work`
+    </select>
+
+    <!--     List<ScoreSourceType> selSourceType();-->
+    <select id="selSourceType" resultType="cn.hsf.hsfmanager.pojo.user.ScoreSourceType">
+        select * from tb_score_source_type
+    </select>
 </mapper>

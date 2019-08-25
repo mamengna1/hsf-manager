@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="UTF-8" xmlns:th="http://www.springframework.org/schema/jdbc">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- 页面meta -->
     <meta charset="utf-8">
@@ -15,15 +15,6 @@
     <script src="/manager/plugins/jQuery/jquery-2.2.3.min.js"></script>
     <script src="/manager/plugins/bootstrap/js/bootstrap.min.js"></script>
 
-    <style>
-        div {
-            width: 100%;
-        }
-    </style>
-    <script th:src="@{/ueditor/ueditor.config.js}"></script>
-    <script th:src="@{/ueditor/ueditor.all.min.js}"></script>
-    <script th:src="@{/ueditor/lang/zh-cn/zh-cn.js}"></script>
-    <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
 </head>
 
 <body class="hold-transition skin-red sidebar-mini">
@@ -32,17 +23,18 @@
 <section class="content">
 
     <div class="box-body">
-        <form action="/updateUe" method="post" enctype="multipart/form-data" id="myForm">
+        <form action="/manager/userMaster/insUserDetail" method="post" enctype="multipart/form-data" id="myForm">
             <!--表单内容-->
             <div class="row data-type">
-                <input type="hidden" name="ids" id="ids" th:value="${userDetail.getId()}">
+                <input type="hidden" name="openId" th:value="${user.openId}">
+                <input type="hidden" name="id" id="id" th:value="${user.detailId}">
                 <div class="col-md-2 title">真实姓名</div>
                 <div class="col-md-10 data">
-                    <input type="text" name="name" id="name" th:value="${userDetail.getName()}"/>
+                    <input type="text" name="name" id="name"/>
                 </div>
                 <div class="col-md-2 title">身份证号</div>
                 <div class="col-md-10 data">
-                    <input type="text" name="card" id="card" th:value="${userDetail.getCard()}" readonly/>
+                    <input type="text" name="card" id="card" readonly/>
                 </div>
 
                 <div class="col-md-2 title">居住地区</div>
@@ -50,29 +42,20 @@
                     <table>
                         <tr>
                             <td>
-                                <select id="queryCategoryLevel1" name="queryCategoryLevel1" class="form-control" >  <!--th:each="list: ${allUser}"-->
-                                   <option value="-1">&#45;&#45;请选择&#45;&#45;</option>
-                                 <!--   <option th:each="category :${category1}" th:value="${category.id}"
-                                            th:text="${category.categoryName}">
-                                    </option>-->
+                                <select name="placeProvince" id="placeProvince" class="select1" onchange="chooseProvince(this)">
+                                        <option value="-1">选择省</option>
+                                </select>
 
-                                </select>
                             </td>
                             <td>
-                                <input type="hidden" name="categorylevel2list" id="categorylevel2list"/>
-                                <select name="queryCategoryLevel2" id="queryCategoryLevel2" class="form-control">
-                               <!--     <option value="-1">&#45;&#45;请选择&#45;&#45;</option>-->
-                                 <!--   <option th:each="category :${category2}" th:value="${category.id}"
-                                            th:text="${category.categoryName}">
-                                    </option>-->
+                                <select  name="placeCity" id="placeCity" class="select1" onChange="chooseCity(this)">
+                                        <option value="-1">选择市</option>
                                 </select>
+
                             </td>
                             <td>
-                                <select name="queryCategoryLevel3" id="queryCategoryLevel3" class="form-control">
-                               <!--     <option value="-1">&#45;&#45;请选择&#45;&#45;</option>-->
-                                   <!-- <option th:each="category :${category3}" th:value="${category.id}"
-                                            th:text="${category.categoryName}">
-                                    </option>-->
+                                <select  name="placeArea" id="placeArea" class="select1">
+                                        <option value="-1">选择区县</option>
                                 </select>
                             </td>
                         </tr>
@@ -83,36 +66,28 @@
 
                 <div class="col-md-2 title">技能</div>
                 <div class="col-md-10 data">
-                 <select></select>
+                    <input type="hidden" name="skills" id="skills">
+                    <label th:each="skill : ${skills}"><input type="checkbox" th:attr="sid=${skill.id}" class="skills"><i>[[${skill.skillName}]]</i></label>
                 </div>
                 <div class="col-md-2 title">工作地区</div>
                 <div class="col-md-10 data">
                     <table>
                         <tr>
                             <td>
-                                <select id="work" name="queryCategoryLevel1" class="form-control" >  <!--th:each="list: ${allUser}"-->
-                                    <option value="-1">&#45;&#45;请选择&#45;&#45;</option>
-                                    <!--   <option th:each="category :${category1}" th:value="${category.id}"
-                                               th:text="${category.categoryName}">
-                                       </option>-->
+                                <select name="workProvince" id="workProvince" class="select1" onchange="chooseProvince2(this)">
+                                        <option value="-1">选择省</option>
+                                </select>
 
-                                </select>
                             </td>
                             <td>
-                                <input type="hidden"/>
-                                <select name="queryCategoryLevel2"class="form-control">
-                                    <!--     <option value="-1">&#45;&#45;请选择&#45;&#45;</option>-->
-                                    <!--   <option th:each="category :${category2}" th:value="${category.id}"
-                                               th:text="${category.categoryName}">
-                                       </option>-->
+                                <select  name="workCity" id="workCity" class="select1" onChange="chooseCity2(this)">
+                                        <option value="-1">选择市</option>
                                 </select>
+
                             </td>
                             <td>
-                                <select name="queryCategoryLevel3" class="form-control">
-                                    <!--     <option value="-1">&#45;&#45;请选择&#45;&#45;</option>-->
-                                    <!-- <option th:each="category :${category3}" th:value="${category.id}"
-                                             th:text="${category.categoryName}">
-                                     </option>-->
+                                <select  name="workArea" id="workArea" class="select1">
+                                        <option value="-1">所有区县</option>
                                 </select>
                             </td>
                         </tr>
@@ -120,48 +95,45 @@
 
                 </div>
 
-            <!--    <div class="col-md-2 title" style="height:100px;" >压缩图</div>
-                <div class="col-md-10 data"style="height:100px;" >
-                    <input type="hidden" id="logoPicPath" name="logoPicPath" th:value="${advert.imageUrl}"/>
-                    &lt;!&ndash;   <input id="attach"  type="file"  name="attach" accept="image/jpg,image/png,image/jpeg,image/pneg"  th:value="${advert.imageUrl}" /><span id="imgUrls" th:value="${advert.imageUrl}" ></span>&ndash;&gt;
-                    <div id="uploadfile" style="display: none">
-                        <input id="attach"  type="file" class="form-control col-md-7 col-xs-12" name="attach" accept="image/jpg,image/png,image/jpeg,image/pneg" />
-                    </div>
-                    <div id="logoFile"></div>
-                </div>-->
+
                 <div class="col-md-2 title">详细地址</div>
                 <div class="col-md-10 data">
-                    <input type="text" name="address" id="address" th:value="${userDetail.getAddress()}"/>
+                    <input type="text" name="address" id="address"/>
                 </div>
                 <div class="col-md-2 title">工作年限</div>
                 <div class="col-md-10 data">
-              <!--      <input type="text" class="form-control" placeholder="副标题" th:value="${advert.subtitle}"  name="副标题" id="副标题" >-->
-                    <select></select>
+                    <select name="yearWorkId" id="yearWorkId" class="priceinput" style=" background:#fff;">
+                        <option value="-1">选择您的从业年限</option>
+                        <option th:each="year : ${yearWorks}" th:value="${year.id}" th:text="${year.yearName}"></option>
+                    </select>
                 </div>
                 <div class="col-md-2 title">手机号</div>
                 <div class="col-md-10 data">
-                    <input type="text" name="phone" id="phone" th:value="${user.getPhone()}"/>
+                    <input type="text" name="phone" th:value="${user.phone}" id="phone"/>
                 </div>
                 <div class="col-md-2 title" style="height:100px;">积分</div>
                 <div class="col-md-10 data" style="height:100px;">
                     <div class="input-group">
-                        <input type="number" class="form-control" placeholder="积分" name="totalScore" id="totalScore" th:value="${user.getTotalScore()}">
-                        积分来源 <select></select>
-                        <input type="checkbox" name="checkbox1" value="发送模板"/>发送模板
-                        <input type="checkbox" name="checkbox1" value="不发送模板" checked="checked"/>不发送模板
+                        <input type="number" class="form-control" th:value="${user.balanceScore}" placeholder="积分" name="score" id="totalScore" >
+                        积分来源 <select  id="sources" name="scoreSourceId" class="priceinput" style=" background:#fff;">
+                        <option th:each="source : ${sources}" th:value="${source.id}" th:text="${source.sourceName}"></option>
+                    </select>
+                        <input type="hidden" name="source" id="source" value="1"/>
+                        <input type="radio" name="checkbox1" value="发送模板" onclick="changeSou(1)" />发送模板
+                        <input type="radio" name="checkbox1" value="不发送模板" checked="checked" onclick="changeSou(2)"/>不发送模板
                     </div>
                 </div>
                 <div class="col-md-10 data" style="width:100%;"></div>
 
             </div>
             <input class="btn btn-primary" type="submit" value="保存修改" id="btns"/>
-
         </form>
     </div>
 
 
 </section>
-
+<script src="/manager/js/common/utils/area.js"></script>
+<script src="/manager/js/common/user/userUpd.js"></script>
 </body>
 
 </html>

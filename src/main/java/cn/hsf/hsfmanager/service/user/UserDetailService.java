@@ -1,6 +1,8 @@
 package cn.hsf.hsfmanager.service.user;
 
+import cn.hsf.hsfmanager.pojo.user.ScoreSourceType;
 import cn.hsf.hsfmanager.pojo.user.UserDetail;
+import cn.hsf.hsfmanager.pojo.user.UserYearWork;
 
 import java.util.List;
 
@@ -26,4 +28,7 @@ public interface UserDetailService {
     UserDetail selUserDetailById( Integer id);
 
     int updateUserDetail(UserDetail userDetail);
+
+    List<UserYearWork> selYearAll();
+    List<ScoreSourceType> selSourceType();
 }

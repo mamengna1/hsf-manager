@@ -37,6 +37,8 @@ public class UserDetail {
     //在线状态0不在线 1 在线
     private Integer lineStatus;
 
+    private Integer yearWorkId;
+
     public UserDetail() {
     }
 
@@ -69,6 +71,14 @@ public class UserDetail {
                 '}';
     }
     //get set 方法
+
+    public Integer getYearWorkId() {
+        return yearWorkId;
+    }
+
+    public void setYearWorkId(Integer yearWorkId) {
+        this.yearWorkId = yearWorkId;
+    }
 
     public Integer getLineStatus() {
         return lineStatus;

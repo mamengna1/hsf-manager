@@ -6,8 +6,10 @@ import cn.hsf.hsfmanager.pojo.user.UserScoreSource;
 import cn.hsf.hsfmanager.service.user.UserDetailService;
 import cn.hsf.hsfmanager.service.user.UserScoreSourceService;
 import cn.hsf.hsfmanager.service.user.UserService;
+import cn.hsf.hsfmanager.service.user.UserSkillService;
 import cn.hsf.hsfmanager.service.wx.TemplateService;
 import cn.hsf.hsfmanager.util.Page;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -167,19 +169,41 @@ public class UserMasterController {
         return  userDetailService.updateUserDetail(detail) > 0 ? true : false;
     }
 
+    @Autowired
+    private UserSkillService userSkillService;
+    @Autowired
+    private UserScoreSourceService userScoreSourceService;
+
     /**
      * 进入用户修改信息界面
      * @return
      */
     @RequestMapping("/goUserUpd")
     public String goUserUpd(Integer id , Model model){
-        System.out.println("id :"+ id);
-        UserDetail userDetail = userDetailService.selUserDetailById(id);
-        User user = userService.selUserByDetailId(id);
-        model.addAttribute("userDetail",userDetail);
-        model.addAttribute("user",user);
-        System.out.println(user);
-        System.out.println(userDetail);
+        model.addAttribute("yearWorks", userDetailService.selYearAll());
+        model.addAttribute("skills", userSkillService.selAll());
+        model.addAttribute("sources", userDetailService.selSourceType());
+        model.addAttribute("user", userService.selUserByDetailId(id));
         return "user/userUpd";
+    }
+
+    @ResponseBody
+    @RequestMapping("/selById")
+    public UserDetail selById(Integer id){
+        return userDetailService.selUserDetailById(id);
+    }
+
+    @RequestMapping("/insUserDetail")
+    public String insUserDetail(UserScoreSource userScoreSource, UserDetail userDetail, String phone, Integer source){
+        userScoreSourceService.insScoreSource(userScoreSource);
+        userService.updateUserByOpenId(new User(userScoreSource.getOpenId(), phone));
+        System.out.println(userDetail);
+        userDetailService.updateUserDetail(userDetail);
+        if (source == 1) {
+
+        } else {
+
+        }
+        return "user/userMasterAll";
     }
 }

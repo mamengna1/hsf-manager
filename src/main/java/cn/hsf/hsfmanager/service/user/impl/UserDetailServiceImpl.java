@@ -1,7 +1,9 @@
 package cn.hsf.hsfmanager.service.user.impl;
 
 import cn.hsf.hsfmanager.mapper.UserDetailMapper;
+import cn.hsf.hsfmanager.pojo.user.ScoreSourceType;
 import cn.hsf.hsfmanager.pojo.user.UserDetail;
+import cn.hsf.hsfmanager.pojo.user.UserYearWork;
 import cn.hsf.hsfmanager.service.user.UserDetailService;
 import org.springframework.stereotype.Service;
 
@@ -33,5 +35,15 @@ public class UserDetailServiceImpl implements UserDetailService {
     @Override
     public int updateUserDetail(UserDetail userDetail) {
         return userDetailMapper.updateUserDetail(userDetail);
+    }
+
+    @Override
+    public List<UserYearWork> selYearAll() {
+        return userDetailMapper.selYearAll();
+    }
+
+    @Override
+    public List<ScoreSourceType> selSourceType() {
+        return userDetailMapper.selSourceType();
     }
 }

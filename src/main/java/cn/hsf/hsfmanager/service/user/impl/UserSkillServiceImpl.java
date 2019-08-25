@@ -29,4 +29,9 @@ public class UserSkillServiceImpl implements UserSkillService {
     public int selSkillTotal() {
         return userSkillMapper.selSkillTotal();
     }
+
+    @Override
+    public List<UserSkill> selAll() {
+        return userSkillMapper.selAll();
+    }
 }

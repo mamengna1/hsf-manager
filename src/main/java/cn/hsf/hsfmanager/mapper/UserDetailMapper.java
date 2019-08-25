@@ -1,6 +1,8 @@
 package cn.hsf.hsfmanager.mapper;
 
+import cn.hsf.hsfmanager.pojo.user.ScoreSourceType;
 import cn.hsf.hsfmanager.pojo.user.UserDetail;
+import cn.hsf.hsfmanager.pojo.user.UserYearWork;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -26,4 +28,10 @@ public interface UserDetailMapper {
     UserDetail selUserDetailById(@Param("id") Integer id);
 
     int updateUserDetail(UserDetail userDetail);
+
+    List<UserYearWork> selYearAll();
+
+    List<ScoreSourceType> selSourceType();
+
+
 }
