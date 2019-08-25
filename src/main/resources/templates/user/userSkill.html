@@ -118,6 +118,7 @@
 			</div>
 			<div class="modal-body">
 				<table class="table table-bordered table-striped"  width="800px">
+					<input type="hidden" id="skillId"  />
 					<tr>
 						<td>原技能名称</td>
 						<td >
@@ -134,7 +135,7 @@
 
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-success" data-dismiss="modal" aria-hidden="true">保存</button>
+				<button class="btn btn-success" data-dismiss="modal" aria-hidden="true" th:onclick="saveUpdSkill()">保存</button>
 				<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
 			</div>
 		</div>

@@ -34,5 +34,20 @@ public class UserSkillServiceImpl implements UserSkillService {
     public List<UserSkill> selAll() {
         return userSkillMapper.selAll();
     }
+
+    @Override
+    public int insSkill(UserSkill userSkill) {
+        return userSkillMapper.insSkill(userSkill);
+    }
+
+    @Override
+    public int updSkill(UserSkill userSkill) {
+        return userSkillMapper.updSkill(userSkill);
+    }
+
+    @Override
+    public int delSkill(Integer id) {
+        return userSkillMapper.delSkill(id);
+    }
 }
 

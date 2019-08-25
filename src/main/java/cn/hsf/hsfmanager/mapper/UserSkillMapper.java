@@ -7,11 +7,16 @@ import java.util.List;
 public interface UserSkillMapper {
 
     //根据id查询技能名称
-     UserSkill selNameById(@Param("id") Integer id);
+    UserSkill selNameById(@Param("id") Integer id);
 
-     List<UserSkill> selAllSkill(@Param("pageCurrentNo") Integer pageCurrentNo, @Param("pageSize") Integer pageSize);
+    List<UserSkill> selAllSkill(@Param("pageCurrentNo") Integer pageCurrentNo, @Param("pageSize") Integer pageSize);
     int selSkillTotal();
 
     List<UserSkill> selAll();
+
+    //新增
+    int insSkill(UserSkill userSkill);
+    int updSkill(UserSkill userSkill);
+    int delSkill(@Param("id") Integer id);
 }
 

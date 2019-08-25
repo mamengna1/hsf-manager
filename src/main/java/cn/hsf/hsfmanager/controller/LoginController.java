@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class LoginController {
@@ -23,13 +24,13 @@ public class LoginController {
      * @return
      */
     @RequestMapping("/checkAdmin")
-    public String selByAdmin(String userName, String password, HttpServletRequest request){
+    public String selByAdmin(String userName, String password, HttpServletRequest request, HttpServletResponse response){
         Admin admin = new Admin(userName,password);
 
         Admin checkLogin = adminService.checkLogin(admin);
         if(checkLogin !=null ){
             request.getSession().setAttribute("admin",admin);
-            return "index";
+            return "redirect:/index";
         }else{
             return "login";
         }

@@ -24,4 +24,15 @@
         select * from  `tb_user_skill`
     </select>
 
+    <insert id="insSkill" parameterType="cn.hsf.hsfmanager.pojo.user.UserSkill">
+        insert into  `tb_user_skill` (`skillName`) values(#{skillName})
+    </insert>
+
+    <update id="updSkill" parameterType="cn.hsf.hsfmanager.pojo.user.UserSkill">
+        update `tb_user_skill` set  `skillName` = #{skillName} where id = #{id}
+    </update>
+
+    <delete id="delSkill" parameterType="int">
+        delete from  `tb_user_skill`  where id = #{id}
+    </delete>
 </mapper>

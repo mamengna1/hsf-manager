@@ -60,4 +60,49 @@ public class UserSkillController {
         return page;
     }
 
+
+    /**
+     * 新增
+     * @param skillName
+     * @return
+     */
+    @RequestMapping("/saveSkill")
+    @ResponseBody
+    public boolean saveSkill(String skillName){
+        UserSkill userSkill = new UserSkill(skillName);
+        return userSkillService.insSkill(userSkill) > 0 ? true : false;
+    }
+    /**
+     * 修改
+     * @param id
+     * @return
+     */
+    @RequestMapping("/updateSkill")
+    @ResponseBody
+    public boolean updateSkill(Integer id,String skillName){
+        UserSkill userSkill = new UserSkill(id,skillName);
+        return userSkillService.updSkill(userSkill) > 0 ? true : false;
+    }
+
+    /**
+     * 删除
+     * @param id
+     * @return
+     */
+    @RequestMapping("/delSkill")
+    @ResponseBody
+    public boolean delSkill(Integer id){
+        return userSkillService.delSkill(id) > 0 ? true : false;
+    }
+
+    /**
+     * 根据id进行数据的渲染
+     * @param id
+     * @return
+     */
+    @RequestMapping("/UserSkillById")
+    @ResponseBody
+    public UserSkill UserSkillById(Integer id){
+       return userSkillService.selNameById(id);
+    }
 }

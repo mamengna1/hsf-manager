@@ -15,8 +15,8 @@ function skillAll() {
                 "<td>" + data.list[i].id + "</td>" +
                 "<td>" + data.list[i].skillName + "</td>" +
                 "<td>" +
-                "<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" data-toggle=\"modal\" data-target=\"#updModal\" onclick='selUserById("+data.list[i].id+")'>修改</a>" +
-                "&nbsp;&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" onclick='selUserById("+data.list[i].id+")'>删除</a>" +
+                "<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" data-toggle=\"modal\" data-target=\"#updModal\" onclick='updateSkill("+data.list[i].id+")'>修改</a>" +
+                "&nbsp;&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" onclick='delSkill("+data.list[i].id+")'>删除</a>" +
                 "</td>" +
                 "</tr>")
         }
@@ -68,3 +68,58 @@ $(function () {
     })
 
 })
+
+/**
+ * 新增
+ */
+function saveSkill() {
+   var skillName = $("#skillName").val();
+   $.getJSON("/manager/userSkill/saveSkill",{"skillName":skillName},function (data) {
+       if(data ==  true){
+           alert("新增成功！")
+           window.location.reload();
+       }else{
+           alert("新增失败")
+       }
+   })
+}
+
+/**
+ * 渲染修改
+ */
+function updateSkill(id) {
+    $.getJSON("/manager/userSkill/UserSkillById",{"id":id},function (data) {
+        $("#skillName1,#skillId").val("")
+        $("#skillName1").val(data.skillName)
+        $("#skillId").val(data.id)
+    })
+}
+
+/**
+ * 保存修改结果
+ */
+function saveUpdSkill() {
+    var id =  $("#skillId").val();
+    var skillName = $("#skillName2").val();
+    $.getJSON("/manager/userSkill/updateSkill",{"id":id,"skillName":skillName},function (data) {
+        if(data ==  true){
+            alert("修改成功！")
+            window.location.reload();
+        }else{
+            alert("修改失败")
+        }
+    })
+}
+/**
+ * 删除
+ */
+function delSkill(id) {
+    $.getJSON("/manager/userSkill/delSkill",{"id":id},function (data) {
+        if(data ==  true){
+            alert("删除成功！")
+            window.location.reload();
+        }else{
+            alert("删除失败")
+        }
+    })
+}

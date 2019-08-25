@@ -27,4 +27,20 @@ public class UserSkill {
                 ", skillName='" + skillName + '\'' +
                 '}';
     }
+
+    public UserSkill(Integer id, String skillName) {
+        this.id = id;
+        this.skillName = skillName;
+    }
+
+    public UserSkill() {
+    }
+
+    public UserSkill(Integer id) {
+        this.id = id;
+    }
+
+    public UserSkill(String skillName) {
+        this.skillName = skillName;
+    }
 }
