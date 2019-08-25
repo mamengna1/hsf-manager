@@ -23,4 +23,5 @@
     <select id="selAll" resultType="cn.hsf.hsfmanager.pojo.user.UserSkill">
         select * from  `tb_user_skill`
     </select>
+
 </mapper>

@@ -1,5 +1,4 @@
 package cn.hsf.hsfmanager.mapper;
-
 import cn.hsf.hsfmanager.pojo.user.UserSkill;
 import org.apache.ibatis.annotations.Param;
 
@@ -15,3 +14,4 @@ public interface UserSkillMapper {
 
     List<UserSkill> selAll();
 }
+

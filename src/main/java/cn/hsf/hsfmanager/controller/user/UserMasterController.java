@@ -89,6 +89,7 @@ public class UserMasterController {
         page.setTotalCount(total);
         page.setTotalPages(page.getTotalPages());
         List<UserDetail> userDetails = userDetailService.selUserDetailAll(pageCurrentNo,10,name,status);
+        System.out.println("审核信息" + userDetails);
         page.setList(userDetails);
         return page;
     }
@@ -207,3 +208,4 @@ public class UserMasterController {
         return "user/userMasterAll";
     }
 }
+

@@ -119,8 +119,8 @@
                         <option th:each="source : ${sources}" th:value="${source.id}" th:text="${source.sourceName}"></option>
                     </select>
                         <input type="hidden" name="source" id="source" value="1"/>
-                        <input type="radio" name="checkbox1" value="发送模板" onclick="changeSou(1)" />发送模板
-                        <input type="radio" name="checkbox1" value="不发送模板" checked="checked" onclick="changeSou(2)"/>不发送模板
+                        <input type="radio" name="checkbox1" value="发送模板" checked="checked" onclick="changeSou(1)" />发送模板
+                        <input type="radio" name="checkbox1" value="不发送模板" onclick="changeSou(2)"/>不发送模板
                     </div>
                 </div>
                 <div class="col-md-10 data" style="width:100%;"></div>

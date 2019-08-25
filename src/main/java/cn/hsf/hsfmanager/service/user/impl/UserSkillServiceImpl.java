@@ -35,3 +35,4 @@ public class UserSkillServiceImpl implements UserSkillService {
         return userSkillMapper.selAll();
     }
 }
+

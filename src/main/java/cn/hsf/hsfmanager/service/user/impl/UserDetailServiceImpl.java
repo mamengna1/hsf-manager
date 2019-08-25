@@ -47,3 +47,4 @@ public class UserDetailServiceImpl implements UserDetailService {
         return userDetailMapper.selSourceType();
     }
 }
+

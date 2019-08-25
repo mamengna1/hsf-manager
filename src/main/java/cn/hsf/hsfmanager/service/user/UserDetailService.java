@@ -32,3 +32,4 @@ public interface UserDetailService {
     List<UserYearWork> selYearAll();
     List<ScoreSourceType> selSourceType();
 }
+

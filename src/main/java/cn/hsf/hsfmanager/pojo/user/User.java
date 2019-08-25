@@ -191,3 +191,4 @@ public class User {
         return this.detailId;
     }
 }
+
