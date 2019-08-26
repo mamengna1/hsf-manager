@@ -43,12 +43,10 @@ public interface UserDetailMapper {
      * @param pageCurrentNo
      * @param pageSize
      * @param skillId   技能
-     * @param yearWorkId  工作年限
-     * @param areas   地区
      * @return
      */
-    List<UserDetail> selPaiDanAll(@Param("pageCurrentNo") Integer pageCurrentNo, @Param("pageSize") Integer pageSize, @Param("skillId") Integer skillId, @Param("yearWorkId") Integer yearWorkId,@Param("areas") String areas);
+    List<UserDetail> selPaiDanAll(@Param("pageCurrentNo") Integer pageCurrentNo, @Param("pageSize") Integer pageSize, @Param("skillId") Integer skillId, @Param("workProvince") Integer workProvince,@Param("workCity") Integer workCity,@Param("workArea") Integer workArea);
     //总数量
-    int selPaiDanTotal(@Param("skillId") Integer skillId, @Param("yearWorkId") Integer yearWorkId,@Param("areas") String areas);
+    int selPaiDanTotal(@Param("skillId") Integer skillId, @Param("workProvince") Integer workProvince,@Param("workCity") Integer workCity,@Param("workArea") Integer workArea);
 }
 

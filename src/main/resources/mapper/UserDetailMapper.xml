@@ -122,33 +122,42 @@
 
     <!--派单-->
     <select id="selPaiDanAll" resultType="cn.hsf.hsfmanager.pojo.user.UserDetail">
-        SELECT d.*, (SELECT CONCAT(d.`workProvince`,d.`workCity`,d.`workArea`) )AS areas
-        FROM `tb_user_detail` AS d
+        SELECT `id`,`name`,`card`,`placeProvince`,`placeCity`,`placeArea`,`address`,`cardOne`,`cardTwo`,`skills`,`workProvince`,`workCity`,`workArea`,`status`,`statusMessage`,`lineStatus`,`yearWorkId`
+        FROM `tb_user_detail`
         <where>
-            <if test="skills != null  and skills !='' ">
+            <if test="skillId != null  and skillId &gt; -1 ">
                and skills like concat('%',#{skillId},'%')
             </if>
-            <if test="areas != null  and areas !='' ">
-                and areas = #{areas}
+            <if test="workProvince != null  and workProvince !='' ">
+                and workProvince = #{workProvince}
             </if>
-            AND d.`status`=1
+            <if test="workCity != null  and workCity !='' ">
+                and workCity = #{workCity}
+            </if>
+            <if test="workArea != null  and workArea !='' ">
+                and workArea = #{workArea}
+            </if>
+            AND `status`=1
         </where>
-        <if test="yearWorkId != null and yearWorkId !=''">
-            ORDER BY  d.`yearWorkId` DESC
-        </if>
         limit #{pageCurrentNo},#{pageSize}
     </select>
 
     <select id="selPaiDanTotal" resultType="int">
           SELECT count(*) FROM `tb_user_detail`
         <where>
-            <if test="skills != null  and skills !='' ">
+            <if test="skillId != null  and skillId &gt; -1  ">
                 and skills like concat('%',#{skillId},'%')
             </if>
-            <if test="areas != null  and areas !='' ">
-                and areas = #{areas}
+            <if test="workProvince != null  and workProvince !='' ">
+                and workProvince = #{workProvince}
             </if>
-            AND d.`status`=1
+            <if test="workCity != null  and workCity !='' ">
+                and workCity = #{workCity}
+            </if>
+            <if test="workArea != null  and workArea !='' ">
+                and workArea = #{workArea}
+            </if>
+            AND `status`=1
         </where>
     </select>
 </mapper>

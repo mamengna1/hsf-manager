@@ -31,7 +31,7 @@ function searchRelease(currentPage,state) {
                 "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#shifuModal\"  onclick='selShifuById(\""+data.list[i].receiveId+"\")'>"+ receiveId+"</a>" +
                 "<td>" +
                 "<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" data-toggle=\"modal\" data-target=\"#updateModal\" onclick='selUserById("+data.list[i].id+")'>修改</a>" +
-                "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" data-toggle=\"modal\" data-target=\"#updateModal\" onclick='selUserById("+data.list[i].id+")'>派单</a>" +
+                "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" data-toggle=\"modal\" data-target=\"#updateModal\" onclick='gopaidan("+data.list[i].id+")'>派单</a>" +
                 "</td>" +
                 "</tr>")
         }
@@ -166,4 +166,12 @@ function selShifuById(id) {
         $("#workYear").html(yearWork);
     })
     $.ajaxSettings.async = true;
+}
+
+/**
+ * 去到派单页面
+ * @param id
+ */
+function gopaidan(id) {
+    location.href="/manager/userDetail/goPaiDan?id="+id;
 }

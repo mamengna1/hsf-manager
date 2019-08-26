@@ -42,12 +42,10 @@ public interface UserDetailService {
      * @param pageCurrentNo
      * @param pageSize
      * @param skillId   技能
-     * @param yearWorkId  工作年限
-     * @param areas   地区
      * @return
      */
-    List<UserDetail> selPaiDanAll( Integer pageCurrentNo,Integer pageSize,Integer skillId,  Integer yearWorkId, String areas);
+    List<UserDetail> selPaiDanAll(Integer pageCurrentNo,Integer pageSize,Integer skillId, Integer workProvince, Integer workCity, Integer workArea);
     //总数量
-    int selPaiDanTotal( Integer skillId,  Integer yearWorkId,String areas);
+    int selPaiDanTotal( Integer skillId, Integer workProvince, Integer workCity,Integer workArea);
 }
 
