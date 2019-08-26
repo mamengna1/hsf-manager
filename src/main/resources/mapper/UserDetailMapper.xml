@@ -109,8 +109,46 @@
         SELECT `id`, `yearName` FROM `tb_user_year_work`
     </select>
 
+
+    <select id="selYearById" resultType="cn.hsf.hsfmanager.pojo.user.UserYearWork"  parameterType="int">
+        SELECT `id`, `yearName` FROM `tb_user_year_work` where id = #{id}
+    </select>
+
     <!--     List<ScoreSourceType> selSourceType();-->
     <select id="selSourceType" resultType="cn.hsf.hsfmanager.pojo.user.ScoreSourceType">
         select * from tb_score_source_type
+    </select>
+
+
+    <!--派单-->
+    <select id="selPaiDanAll" resultType="cn.hsf.hsfmanager.pojo.user.UserDetail">
+        SELECT d.*, (SELECT CONCAT(d.`workProvince`,d.`workCity`,d.`workArea`) )AS areas
+        FROM `tb_user_detail` AS d
+        <where>
+            <if test="skills != null  and skills !='' ">
+               and skills like concat('%',#{skillId},'%')
+            </if>
+            <if test="areas != null  and areas !='' ">
+                and areas = #{areas}
+            </if>
+            AND d.`status`=1
+        </where>
+        <if test="yearWorkId != null and yearWorkId !=''">
+            ORDER BY  d.`yearWorkId` DESC
+        </if>
+        limit #{pageCurrentNo},#{pageSize}
+    </select>
+
+    <select id="selPaiDanTotal" resultType="int">
+          SELECT count(*) FROM `tb_user_detail`
+        <where>
+            <if test="skills != null  and skills !='' ">
+                and skills like concat('%',#{skillId},'%')
+            </if>
+            <if test="areas != null  and areas !='' ">
+                and areas = #{areas}
+            </if>
+            AND d.`status`=1
+        </where>
     </select>
 </mapper>

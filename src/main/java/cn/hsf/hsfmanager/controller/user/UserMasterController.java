@@ -3,6 +3,7 @@ package cn.hsf.hsfmanager.controller.user;
 import cn.hsf.hsfmanager.pojo.user.User;
 import cn.hsf.hsfmanager.pojo.user.UserDetail;
 import cn.hsf.hsfmanager.pojo.user.UserScoreSource;
+import cn.hsf.hsfmanager.pojo.user.UserYearWork;
 import cn.hsf.hsfmanager.service.user.UserDetailService;
 import cn.hsf.hsfmanager.service.user.UserScoreSourceService;
 import cn.hsf.hsfmanager.service.user.UserService;
@@ -194,6 +195,14 @@ public class UserMasterController {
         return userDetailService.selUserDetailById(id);
     }
 
+    /**
+     * 保存修改结果
+     * @param userScoreSource
+     * @param userDetail
+     * @param phone
+     * @param source
+     * @return
+     */
     @RequestMapping("/insUserDetail")
     public String insUserDetail(UserScoreSource userScoreSource, UserDetail userDetail, String phone, Integer source){
         userScoreSourceService.insScoreSource(userScoreSource);
@@ -207,5 +216,12 @@ public class UserMasterController {
         }
         return "user/userMasterAll";
     }
+
+    @RequestMapping("/selYearWorkById")
+    @ResponseBody
+    public UserYearWork selYearWorkById(@RequestParam("id") Integer id){
+        return userDetailService.selYearById(id);
+    }
+
 }
 

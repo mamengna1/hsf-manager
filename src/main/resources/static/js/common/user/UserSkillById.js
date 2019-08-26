@@ -16,3 +16,19 @@ function userSkillById(id) {
 
 
 
+
+/**
+ * 根据id 得到工作年限
+ * @param id
+ * @returns {*}
+ */
+function userWorkYearById(id) {
+    var name ;
+    $.getJSON("/manager/userMaster/selYearWorkById",{"id":id},function (data) {
+        name =   data.yearName
+    })
+    return name;
+
+}
+
+

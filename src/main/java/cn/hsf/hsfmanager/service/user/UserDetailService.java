@@ -31,5 +31,23 @@ public interface UserDetailService {
 
     List<UserYearWork> selYearAll();
     List<ScoreSourceType> selSourceType();
+
+    UserYearWork selYearById( Integer id);
+
+
+    // 派单显示信息
+
+    /**
+     *
+     * @param pageCurrentNo
+     * @param pageSize
+     * @param skillId   技能
+     * @param yearWorkId  工作年限
+     * @param areas   地区
+     * @return
+     */
+    List<UserDetail> selPaiDanAll( Integer pageCurrentNo,Integer pageSize,Integer skillId,  Integer yearWorkId, String areas);
+    //总数量
+    int selPaiDanTotal( Integer skillId,  Integer yearWorkId,String areas);
 }
 

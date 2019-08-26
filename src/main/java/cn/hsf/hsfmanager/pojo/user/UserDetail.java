@@ -39,6 +39,10 @@ public class UserDetail {
 
     private Integer yearWorkId;
 
+    private Integer totalCount;  // 总结单数量
+    private Integer countDay;  // 当天已接几单
+    private String skillName;   //技能名称
+    private String areas;   //地区
     public UserDetail() {
     }
 
@@ -68,9 +72,45 @@ public class UserDetail {
                 ", status=" + status +
                 ", statusMessage='" + statusMessage + '\'' +
                 ", lineStatus=" + lineStatus +
+                ", yearWorkId=" + yearWorkId +
+                ", totalCount=" + totalCount +
+                ", countDay=" + countDay +
                 '}';
     }
+
     //get set 方法
+
+    public String getAreas() {
+        return areas;
+    }
+
+    public void setAreas(String areas) {
+        this.areas = areas;
+    }
+
+    public String getSkillName() {
+        return skillName;
+    }
+
+    public void setSkillName(String skillName) {
+        this.skillName = skillName;
+    }
+
+    public Integer getTotalCount() {
+        return totalCount;
+    }
+
+    public void setTotalCount(Integer totalCount) {
+        this.totalCount = totalCount;
+    }
+
+    public Integer getCountDay() {
+        return countDay;
+    }
+
+    public void setCountDay(Integer countDay) {
+        this.countDay = countDay;
+    }
 
     public Integer getYearWorkId() {
         return yearWorkId;

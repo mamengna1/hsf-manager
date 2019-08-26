@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace:映射命名空间-->
+<mapper namespace="cn.hsf.hsfmanager.mapper.UserReleaseMapper">
+
+    <!--分页-->
+    <select id="selUserReleaseAll" resultType="cn.hsf.hsfmanager.pojo.user.UserRelease" >
+        SELECT `id`,`title`,`nickName`,`phone`,`serviceProvince`,`serviceCity`,`serviceArea`,`serverDetail`,`appointTime`,`demand`,`createDate`,`state`,`receiveId`,`userId`
+        FROM `tb_user_release`
+        <where>
+            <if test="state !=null and state &gt; -1 ">
+                and  state = #{state}
+            </if>
+        </where>
+        limit #{pageCurrentNo},#{pageSize}
+    </select>
+
+    <select id="selUserReleaseTotal" resultType="int" >
+        SELECT count(*) FROM `tb_user_release`
+        <where>
+            <if test="state !=null and state &gt; -1 ">
+                and  state = #{state}
+            </if>
+        </where>
+    </select>
+
+
+    <select id="selUserReleaseById" parameterType="int" resultType="cn.hsf.hsfmanager.pojo.user.UserRelease">
+        SELECT `id`,`title`,`nickName`,`phone`,`serviceProvince`,`serviceCity`,`serviceArea`,`serverDetail`,`appointTime`,`demand`,`createDate`,`state`,`receiveId`,`userId`
+        FROM `tb_user_release`
+        where id = #{id}
+    </select>
+
+    <update id="updateUserRelease" parameterType="cn.hsf.hsfmanager.pojo.user.UserRelease">
+        update `tb_user_release`
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+            <if test="id != null and id!=''">
+                id=#{id},
+            </if>
+            <if test="title != null and title!=''">
+                `title`=#{title},
+            </if>
+            <if test="nickName != null and nickName!=''">
+                nickName=#{nickName},
+            </if>
+            <if test="phone != null and phone!=''">
+                phone=#{phone},
+            </if>
+            <if test="serviceProvince != null and serviceProvince!=''">
+                serviceProvince=#{serviceProvince},
+            </if>
+            <if test="serviceCity != null and serviceCity!=''">
+                serviceCity=#{serviceCity},
+            </if>
+            <if test="serviceArea != null and serviceArea!=''">
+                serviceArea=#{serviceArea},
+            </if>
+            <if test="serverDetail != null and serverDetail!=''">
+                serverDetail=#{serverDetail},
+            </if>
+
+            <if test="appointTime != null and appointTime!=''">
+                appointTime=#{appointTime},
+            </if>
+            <if test="demand != null and demand!=''">
+                demand=#{demand},
+            </if>
+            <if test="state != null and state!=''">
+                state=#{state},
+            </if>
+            <if test="receiveId != null and receiveId!=''">
+                receiveId=#{receiveId},
+            </if>
+            <if test="userId != null and userId!=''">
+                userId=#{userId},
+            </if>
+        </trim>
+    </update>
+
+</mapper>

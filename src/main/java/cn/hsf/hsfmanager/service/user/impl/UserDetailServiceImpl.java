@@ -46,5 +46,20 @@ public class UserDetailServiceImpl implements UserDetailService {
     public List<ScoreSourceType> selSourceType() {
         return userDetailMapper.selSourceType();
     }
+
+    @Override
+    public UserYearWork selYearById(Integer id) {
+        return userDetailMapper.selYearById(id);
+    }
+
+    @Override
+    public List<UserDetail> selPaiDanAll(Integer pageCurrentNo, Integer pageSize, Integer skillId, Integer yearWorkId, String areas) {
+        return userDetailMapper.selPaiDanAll(pageCurrentNo, pageSize, skillId, yearWorkId, areas);
+    }
+
+    @Override
+    public int selPaiDanTotal(Integer skillId, Integer yearWorkId, String areas) {
+        return userDetailMapper.selPaiDanTotal(skillId, yearWorkId, areas);
+    }
 }
 
