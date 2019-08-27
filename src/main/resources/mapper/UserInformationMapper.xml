@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace:映射命名空间-->
+<mapper namespace="cn.hsf.hsfmanager.mapper.UserInformationMapper">
+
+    <!--  int selTotal(); -->
+    <select id="selTotal" resultType="int">
+        select count(*) from `tb_user_information`
+        where isDelete = #{isDelete}
+    </select>
+
+    <!-- List<UserInformation> selAll(String openId); -->
+    <select id="selAll" resultType="cn.hsf.hsfmanager.pojo.user.UserInformation">
+        SELECT `id`, `openId`, `content`, `images`, `lookTotal`, `createDate`, `isDelete`, `delCause`
+        FROM `tb_user_information`
+        where isDelete = #{isDelete}
+        ORDER BY createDate desc
+        limit #{pageNo},#{pageSize}
+    </select>
+
+    <!--     UserInformation selById(Integer id); -->
+    <select id="selById" resultType="cn.hsf.hsfmanager.pojo.user.UserInformation">
+        SELECT `id`, `openId`, `content`, `images`, `lookTotal`, `createDate`
+        FROM `tb_user_information`
+        WHERE id = #{id}
+    </select>
+
+    <!--     int updInfor(UserInformation userInformation); -->
+    <update id="updInfor">
+        update `tb_user_information`
+        set isDelete = #{isDelete},delCause = #{delCause}
+        where id = #{id}
+    </update>
+</mapper>
