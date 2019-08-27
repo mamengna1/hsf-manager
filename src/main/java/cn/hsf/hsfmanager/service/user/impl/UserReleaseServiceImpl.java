@@ -33,4 +33,9 @@ public class UserReleaseServiceImpl implements UserReleaseService {
     public int updateUserRelease(UserRelease userRelease) {
         return userReleaseMapper.updateUserRelease(userRelease);
     }
+
+    @Override
+    public int updateUserRelease2(UserRelease userRelease, String date) {
+        return userReleaseMapper.updateUserRelease2(userRelease,date);
+    }
 }

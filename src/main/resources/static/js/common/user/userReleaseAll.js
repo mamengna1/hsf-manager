@@ -14,6 +14,7 @@ function searchRelease(currentPage,state) {
             var createDate = toDate(new Date(data.list[i].createDate).toJSON())
             var address  = showProvince(data.list[i].serviceProvince,data.list[i].serviceCity,data.list[i].serviceArea)+"/"+data.list[i].serverDetail;
             var receiveId = data.list[i].receiveId == null ? '' :data.list[i].receiveId;
+            var a = data.list[i].state;
             $("#theBody").append("<tr>" +
                 "<td><input type=\"checkbox\" class='userCheck'/></td>" +
                 "<td>" + data.list[i].id + "</td>" +
@@ -30,8 +31,8 @@ function searchRelease(currentPage,state) {
                 "<td>" +
                 "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#shifuModal\"  onclick='selShifuById(\""+data.list[i].receiveId+"\")'>"+ receiveId+"</a>" +
                 "<td>" +
-                "<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" data-toggle=\"modal\" data-target=\"#updateModal\" onclick='selUserById("+data.list[i].id+")'>修改</a>" +
-                "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" data-toggle=\"modal\" data-target=\"#updateModal\" onclick='gopaidan("+data.list[i].id+")'>派单</a>" +
+                "<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" onclick='goUpdUserRelease("+data.list[i].id+")'>修改</a>" +
+                "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" data-toggle=\"modal\" data-target=\"#updateModal\" onclick='gopaidan("+data.list[i].id+")' style=\"" + ((a ==0 ) ? '' : 'display:none;')+"\">派单</a>" +
                 "</td>" +
                 "</tr>")
         }
@@ -174,4 +175,12 @@ function selShifuById(id) {
  */
 function gopaidan(id) {
     location.href="/manager/userDetail/goPaiDan?id="+id;
+}
+
+/**
+ * 去到修改界面
+ * @param id
+ */
+function goUpdUserRelease(id) {
+    location.href="/manager/userDetail/goUpdUserRelease?id="+id;
 }

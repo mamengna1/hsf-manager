@@ -14,4 +14,5 @@ public interface UserReleaseMapper {
     UserRelease selUserReleaseById(@Param("id") Integer id);
     int updateUserRelease(UserRelease userRelease);
 
+    int updateUserRelease2(@Param("userRelease") UserRelease userRelease,@Param("date") String date);
 }

@@ -20,7 +20,8 @@
 	<script type="text/javascript" src="/manager/js/common/utils/area.js"></script>  <!--三级回显的js-->
 	<script type="text/javascript" src="/manager/js/common/utils/tranceToDate.js"></script>  <!--引入时间转换的js-->
 	<script type="text/javascript" src="/manager/js/common/user/UserSkillById.js"></script>  <!--引入查询skillName的js-->
-	<script type="text/javascript" src="/manager/js/common/user/userPaiDan.js"></script>  <!--引入查询-->
+
+
 </head>
 
 <body class="hold-transition skin-red sidebar-mini" >
@@ -34,26 +35,37 @@
 
 	<!-- 数据表格 -->
 	<div class="table-box">
-		<!--工具栏-->
-		<div class="pull-left">
-			<div class="form-group form-inline">
-				<div class="btn-group">
-					<button type="button" class="btn btn-default" title="删除" onclick="delUser()"><i class="fa fa-trash-o"></i> 删除</button>
 
-					<button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>
-				</div>
-			</div>
-		</div>
-		<div class="box-tools pull-right">
+		<input type="hidden"  id="serviceProvince"  th:value="${userRelease.serviceProvince}">
+		<input type="hidden" th:value="${userRelease.serviceCity}" id="serviceCity">
+		<input type="hidden" th:value="${userRelease.serviceArea}" id="serviceArea">
+		<input type="hidden" th:value="${userRelease.id}" id="userReleaseId">
+		<div class="box-tools pull-left">
 			<div class="has-feedback">
-				姓名查找：<input  type="text" name="names" id="names">
-				<button class="btn btn-default"  onclick="searchNames()">查询</button>
+				<table>
+					<tr>
+						<td>
+						技能
+						</td>
+					<td>
+						<select id="skills" name="skills"  class="form-control">
+							<option value="-1">--请选择--</option>
+							<option th:each="mt :${skills}" th:value="${mt.id}" th:text="${mt.skillName}" />
+						</select>
+					</td>
+					<td>
+						<button class="btn btn-default"  onclick="searchPaiDanSkill()">查询</button>
+					</td>
+
+					</tr>
+				</table>
+
 			</div>
 		</div>
-		<!--工具栏/-->
 
 		<!--数据列表-->
 		<table id="dataList" class="table table-bordered table-striped table-hover dataTable">
+
 			<thead>
 			<tr>
 				<th class="" style="padding-right:0px">
@@ -68,10 +80,7 @@
 				<th class="text-center">操作</th>
 			</tr>
 			</thead>
-			<input type="hidden" th:text="${userRelease.serviceProvince}" id="serviceProvince">
-			<input type="hidden" th:text="${userRelease.serviceCity}" id="serviceCity">
-			<input type="hidden" th:text="${userRelease.serviceArea}" id="serviceArea">
-			<input type="hidden" th:text="${userRelease.id}" id="userReleaseId">
+
 
 
 			<tbody id="theBody">
@@ -94,9 +103,8 @@
 
 
 </div>
-<!-- /.box-body -->
 
 </body>
-
-
+<!-- /.box-body -->
+<script type="text/javascript" src="/manager/js/common/user/userPaiDan.js"></script>  <!--引入查询-->
 </html>

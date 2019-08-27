@@ -3,28 +3,38 @@
 //初始化数据
 var currentPage = 1;  //当前页码
 var skillId = -1;
-var serviceProvince = $("#serviceProvince").val();
-var serviceCity = $("#serviceCity").val();
-var serviceArea = $("#serviceArea").val();
-
+var serviceProvince
+var serviceCity
+var serviceArea
+var userReleaseId;
 //过滤查询
 function searchPaiDan(currentPage,skillId,serviceProvince,serviceCity,serviceArea) {
-    alert("进入")
     $.getJSON("/manager/userDetail/userAll",{"pageCurrentNo":currentPage,"skillId":skillId,"serviceProvince":serviceProvince,"serviceCity":serviceCity,"serviceArea":serviceArea},callback)
     //回调
     function callback(data) {
+        $.ajaxSettings.async = false;
         $("#theBody").html("");
         for (var i = 0; i < data.list.length; i++) {
            var workArea = showProvince(data.list[i].workProvince,data.list[i].workCity,data.list[i].workArea);
+          /* var yearWork = userWorkYearById(data.list[i].yearWorkId)
+            //技能
+            var skills = (data.list[i].skills).split(",");
+            var array = new Array();
+            for (var i = 0; i < skills.length; i ++){
+                array[i] =  userSkillById(skills[i])
+            }
+            var skill = array.join();*/
+
             $("#theBody").append("<tr>" +
                 "<td><input type=\"checkbox\" class='userCheck'/></td>" +
                 "<td>" + data.list[i].id + "</td>" +
+                "<td>" + data.list[i].name + "</td>" +
                 "<td>" + data.list[i].card + "</td>" +
                 "<td>" + data.list[i].skills + "</td>" +
                 "<td>" + data.list[i].yearWorkId + "</td>" +
                 "<td>" + workArea+"</td>" +
                 "<td>" +
-                "<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\"  onclick='updDetail("+data.list[i].id+")'>确认派单</a>" +
+                "<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\"  onclick='updPaiDan("+data.list[i].id+")'>确认派单</a>" +
                 "</td>" +
                 "</tr>")
 
@@ -34,12 +44,16 @@ function searchPaiDan(currentPage,skillId,serviceProvince,serviceCity,serviceAre
         $("#totalPages").html(data.totalPages);
         $("#pageNo").html(currentPage);
     }
+    $.ajaxSettings.async = true;
 }
 
 //初始化加载数据
 $(function () {
-
-    searchPaiDan(currentPage,skillId,serviceProvince,serviceCity,serviceArea)
+    serviceProvince = $("#serviceProvince").val();
+    serviceCity = $("#serviceCity").val();
+    serviceArea = $("#serviceArea").val();
+    userReleaseId = $("#userReleaseId").val();
+   searchPaiDan(currentPage,skillId,serviceProvince,serviceCity,serviceArea)
     //首页
     $("#begin").click(function () {
         currentPage = 1;
@@ -75,3 +89,25 @@ $(function () {
     })
 
 })
+
+function searchPaiDanSkill() {
+    var skill = $("#skills").val();
+    searchPaiDan(currentPage,skill,serviceProvince,serviceCity,serviceArea)
+}
+
+/**
+ * 派单
+ * @param id
+ */
+function updPaiDan(id) {
+    var userReId  = userReleaseId;   // 发布信息id
+    $.getJSON("/manager/userDetail/updPaiDan",{"id":userReId,"userDetailId":id},function (data) {
+        alert(data)
+        if(data == true){
+            alert("成功发送派单请求通知")
+            location.href="/manager/userDetail/goUpdUserRelease?id="+userReId;
+        }else{
+            alert("派单失败")
+        }
+    })
+}
