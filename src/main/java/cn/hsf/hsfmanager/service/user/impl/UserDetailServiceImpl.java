@@ -54,7 +54,7 @@ public class UserDetailServiceImpl implements UserDetailService {
 
     @Override
     public List<UserDetail> selPaiDanAll(Integer pageCurrentNo, Integer pageSize, Integer skillId, Integer workProvince, Integer workCity, Integer workArea) {
-        return userDetailMapper.selPaiDanAll(pageCurrentNo, pageSize, skillId, workProvince, workCity, workArea);
+        return userDetailMapper.selPaiDanAll((pageCurrentNo-1)*pageSize, pageSize, skillId, workProvince, workCity, workArea);
     }
 
     @Override

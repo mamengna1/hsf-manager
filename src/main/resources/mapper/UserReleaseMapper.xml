@@ -80,4 +80,51 @@
         </trim>
     </update>
 
+
+    <update id="updateUserRelease2" >
+        update `tb_user_release`
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{userRelease.id}">
+            <if test="userRelease.id != null and userRelease.id!=''">
+                id=#{userRelease.id},
+            </if>
+            <if test="userRelease.title != null and userRelease.title!=''">
+                `title`=#{userRelease.title},
+            </if>
+            <if test="userRelease.nickName != null and userRelease.nickName!=''">
+                nickName=#{userRelease.nickName},
+            </if>
+            <if test="userRelease.phone != null and userRelease.phone!=''">
+                phone=#{userRelease.phone},
+            </if>
+            <if test="userRelease.serviceProvince != null and userRelease.serviceProvince!=''">
+                serviceProvince=#{userRelease.serviceProvince},
+            </if>
+            <if test="userRelease.serviceCity != null and userRelease.serviceCity!=''">
+                serviceCity=#{userRelease.serviceCity},
+            </if>
+            <if test="userRelease.serviceArea != null and userRelease.serviceArea!=''">
+                serviceArea=#{userRelease.serviceArea},
+            </if>
+            <if test="userRelease.serverDetail != null and userRelease.serverDetail!=''">
+                serverDetail=#{userRelease.serverDetail},
+            </if>
+
+            <if test="date != null and date!=''">
+                appointTime=#{date},
+            </if>
+            <if test="userRelease.demand != null and userRelease.demand!=''">
+                demand=#{userRelease.demand},
+            </if>
+            <if test="userRelease.state != null and userRelease.state!=''">
+                state=#{userRelease.state},
+            </if>
+            <if test="userRelease.receiveId != null and userRelease.receiveId!=''">
+                receiveId=#{userRelease.receiveId},
+            </if>
+            <if test="userRelease.userId != null and userRelease.userId!=''">
+                userId=#{userRelease.userId},
+            </if>
+        </trim>
+    </update>
+
 </mapper>

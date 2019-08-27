@@ -44,7 +44,6 @@ public class UserReleaseController {
         page.setTotalCount(total);
         page.setTotalPages(page.getTotalPages());
         List<UserRelease> userReleases =userReleaseService.selUserReleaseAll(pageCurrentNo,Contents.PAGENO,state);
-        System.out.println("发布信息 ; "+ userReleases);
         page.setList(userReleases);
         return page;
     }

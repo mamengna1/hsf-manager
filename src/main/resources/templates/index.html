@@ -402,23 +402,19 @@
                         <span>找师傅</span>
                         <span class="pull-right-container">
 				       			<i class="fa fa-angle-left pull-right"></i>
-				   		 	</span>
+                        </span>
                     </a>
                     <ul class="treeview-menu">
-
                         <li id="admin-login">
                             <a href="/manager/userRelease/goUserReleaseAll" target="iframe">
                                 <i class="fa fa-circle-o"></i>发布信息
                             </a>
                         </li>
-                        <li id="admin-login">
-                            <a href="/manager/userRelease/goUserReleaseAll" target="iframe">
-                                <i class="fa fa-circle-o"></i>派单
-                            </a>
-                        </li>
+
                     </ul>
                 </li>
                 <li class="treeview" th:if="${admins.level le 4}">
+
                     <a href="#">
                         <i class="fa fa-folder"></i>
                         <span>师傅信息管理</span>
@@ -482,7 +478,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="treeview"  th:if="${admins.level le 3}">
+                <li class="treeview" th:if="${admins.level le 3}">
                     <a href="#">
                         <i class="fa fa-folder"></i>
                         <span>技能管理</span>

@@ -11,4 +11,6 @@ public interface UserReleaseService {
 
     UserRelease selUserReleaseById( Integer id);
     int updateUserRelease(UserRelease userRelease);
+
+    int updateUserRelease2(UserRelease userRelease,String date);
 }

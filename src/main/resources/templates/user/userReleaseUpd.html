@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- 页面meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>修改发布信息</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+
+    <link rel="stylesheet" href="/manager/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/manager/plugins/adminLTE/css/AdminLTE.css">
+    <link rel="stylesheet" href="/manager/plugins/adminLTE/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="/manager/css/style.css">
+    <script src="/manager/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="/manager/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/manager/js/common/utils/tranceToDate.js"></script>
+</head>
+
+<body class="hold-transition skin-red sidebar-mini">
+
+<!-- 正文区域 -->
+<section class="content">
+
+    <div class="box-body">
+        <form action="/manager/userDetail/updUserRelease" method="post" enctype="multipart/form-data" id="myForm">
+            <input type="hidden" name="id" id="id" th:value="${userRelease.id}">
+            <!--表单内容-->
+            <div class="row data-type">
+                <div class="col-md-2 title">昵称</div>
+                <div class="col-md-10 data">
+                    <input type="text" name="nickName" id="nickName" th:value="${userRelease.nickName}"/>
+                </div>
+                <div class="col-md-2 title">雇佣标题</div>
+                <div class="col-md-10 data">
+                    <input type="text" name="title" id="title" th:value="${userRelease.title}"/>
+                </div>
+                <div class="col-md-2 title">手机号</div>
+                <div class="col-md-10 data">
+                    <input type="text" name="phone" id="phone" th:value="${userRelease.phone}" />
+                </div>
+                <div class="col-md-2 title">居住地区</div>
+                <div class="col-md-10 data">
+                    <table>
+                        <tr>
+                            <td>
+                                <select name="serviceProvince" id="placeProvince" class="select1" onchange="chooseProvince(this)">
+                                        <option value="-1">选择省</option>
+                                </select>
+
+                            </td>
+                            <td>
+                                <select  name="serviceCity" id="placeCity" class="select1" onChange="chooseCity(this)">
+                                        <option value="-1">选择市</option>
+                                </select>
+
+                            </td>
+                            <td>
+                                <select  name="serviceArea" id="placeArea" class="select1">
+                                        <option value="-1">选择区县</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+                <div class="col-md-2 title">详细地址</div>
+                <div class="col-md-10 data">
+                    <input type="text" name="serverDetail" id="serverDetail" th:value="${userRelease.serverDetail}" />
+                </div>
+
+                <div class="col-md-2 title">预约时间</div>
+                <div class="col-md-10 data">
+                    <input type="date" name="appointTimes" id="appointTime" />
+                </div>
+                <div class="col-md-2 title" style="height:100px;">接单师傅</div>
+                <div class="col-md-10 data" style="height:100px;">
+                    <div class="input-group">
+
+                        <input type="text" name="receiveId" id="userDetailId"  th:value="${userRelease.receiveId}" readonly/>
+                        <input type="button" value="更改"  id="gengGai"/>
+                    </div>
+                </div>
+                <div class="col-md-10 data" style="display: none">
+                    <table>
+                        <tr>
+                            <td>
+                                <select name="workProvince" id="workProvince" class="select1" onchange="chooseProvince2(this)">
+                                        <option value="-1">选择省</option>
+                                </select>
+
+                            </td>
+                            <td>
+                                <select  name="workCity" id="workCity" class="select1" onChange="chooseCity2(this)">
+                                        <option value="-1">选择市</option>
+                                </select>
+
+                            </td>
+                            <td>
+                                <select  name="workArea" id="workArea" class="select1">
+                                        <option value="-1">所有区县</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+                <div class="col-md-10 data" style="width:100%;"></div>
+
+            </div>
+            <input class="btn btn-primary" type="submit" value="保存修改" id="btns"/>
+        </form>
+    </div>
+
+
+</section>
+<script src="/manager/js/common/utils/area.js"></script>
+<script src="/manager/js/common/user/userReleaseUpd.js"></script>
+</body>
+
+</html>
