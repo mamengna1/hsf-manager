@@ -1,11 +1,9 @@
 package cn.hsf.hsfmanager.controller.user;
 
+import cn.hsf.hsfmanager.pojo.user.Distribution;
 import cn.hsf.hsfmanager.pojo.user.UserDetail;
 import cn.hsf.hsfmanager.pojo.user.UserRelease;
-import cn.hsf.hsfmanager.service.user.UserDetailService;
-import cn.hsf.hsfmanager.service.user.UserReleaseService;
-import cn.hsf.hsfmanager.service.user.UserService;
-import cn.hsf.hsfmanager.service.user.UserSkillService;
+import cn.hsf.hsfmanager.service.user.*;
 import cn.hsf.hsfmanager.util.Contents;
 import cn.hsf.hsfmanager.util.DateUtil;
 import cn.hsf.hsfmanager.util.Page;
@@ -36,6 +34,8 @@ public class UserDetailController {
     private UserSkillService userSkillService;
     @Resource
     private UserService userService;
+    @Resource
+    private DistributionService distributionService;
 
     /**
      * 去到派单页面
@@ -77,7 +77,7 @@ public class UserDetailController {
 
 
     /**
-     * 确认接单
+     * 确认派单
      * @param id   发布信息id
      * @param userDetailId   接单师傅的id
      * @return
@@ -85,8 +85,12 @@ public class UserDetailController {
     @RequestMapping("/updPaiDan")
     @ResponseBody
     public boolean updPaiDan(Integer id,Integer userDetailId){
-        UserRelease userRelease = new UserRelease(id,1,userDetailId);   //状态改为1  接单中
+        UserRelease userRelease = new UserRelease(id,1);   //状态改为1  接单中
         int n = userReleaseService.updateUserRelease(userRelease);
+
+        //往派单表中添加数据
+        Distribution distribution = new Distribution(id,userDetailId);
+        distributionService.insDistribution(distribution);
 
         //给师傅以及用户发送模板信息，师父确认接单状态改为2
        Integer userId =  userReleaseService.selUserReleaseById(id).getUserId();   //发布人的id

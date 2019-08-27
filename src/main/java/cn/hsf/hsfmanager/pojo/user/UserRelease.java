@@ -23,10 +23,9 @@ public class UserRelease {
     private Integer receiveId;  //接单师傅的id
     private Integer userId;   //发布人的id
 
-    public UserRelease(Integer id, Integer state, Integer receiveId) {
+    public UserRelease(Integer id, Integer state) {
         this.id = id;
         this.state = state;
-        this.receiveId = receiveId;
     }
 
     public UserRelease() {

@@ -105,7 +105,8 @@ function updPaiDan(id) {
         alert(data)
         if(data == true){
             alert("成功发送派单请求通知")
-            location.href="/manager/userDetail/goUpdUserRelease?id="+userReId;
+          location.href="/manager/userRelease/goUserReleaseAll";
+
         }else{
             alert("派单失败")
         }

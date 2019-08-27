@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace:映射命名空间-->
+<mapper namespace="cn.hsf.hsfmanager.mapper.DistributionMapper">
+
+    <insert id="insDistribution" parameterType="cn.hsf.hsfmanager.pojo.user.Distribution">
+        INSERT INTO `tb_distribution` ( `releaseId`,`statusId`,`refusedMessage`,`createTime`,`sfId`)
+        VALUES (#{releaseId},1,#{refusedMessage},now(),#{sfId})
+    </insert>
+
+    <select id="selByResId" parameterType="cn.hsf.hsfmanager.pojo.user.Distribution" resultType="cn.hsf.hsfmanager.pojo.user.Distribution">
+        SELECT `id`,`releaseId`,`statusId`,`refusedMessage`,`createTime`,`updateTime`,`sfId`,`orderId` FROM `tb_distribution`
+        <where>
+            <if test="id != null and id != '' ">
+                and id = #{id}
+            </if>
+            <if test="releaseId != null releaseId id != '' ">
+                and releaseId = #{releaseId}
+            </if>
+            <if test="statusId != null and statusId != '' ">
+                and statusId = #{statusId}
+            </if>
+            <if test="refusedMessage != null and refusedMessage != '' ">
+                and refusedMessage = #{refusedMessage}
+            </if>
+            <if test="sfId != null and sfId != '' ">
+                and sfId = #{sfId}
+            </if>
+            <if test="orderId != null and orderId != '' ">
+                and orderId = #{orderId}
+            </if>
+        </where>
+    </select>
+
+    <!--分页-->
+    <select id="selDistributionAll" resultType="cn.hsf.hsfmanager.pojo.user.Distribution" >
+     SELECT d.`id`,d.`releaseId`,d.`statusId`,d.`refusedMessage`,d.`createTime`,d.`updateTime`,d.`sfId`,d.`orderId` ,r.`title` AS realTitle,r.`nickName` AS realName,de.`name` AS sfName
+     FROM `tb_distribution` AS d
+     INNER JOIN `tb_user_release` AS r ON d.releaseId = r.id
+     INNER JOIN `tb_user_detail` AS de ON d.sfId = de.`id`
+     limit #{pageCurrentNo},#{pageSize}
+    </select>
+
+    <select id="selDistributionTotal" resultType="int" >
+        SELECT count(*) FROM `tb_distribution`
+
+    </select>
+</mapper>

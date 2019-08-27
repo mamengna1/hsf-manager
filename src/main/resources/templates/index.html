@@ -410,7 +410,11 @@
                                 <i class="fa fa-circle-o"></i>发布信息
                             </a>
                         </li>
-
+                        <li id="admin-login">
+                            <a href="/manager/distribution/goDistribution" target="iframe">
+                                <i class="fa fa-circle-o"></i>派单详情
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li class="treeview" th:if="${admins.level le 4}">
@@ -459,21 +463,6 @@
                         <li id="admin-login">
                             <a href="/manager/goUserInfo" target="iframe">
                                 <i class="fa fa-circle-o"></i>所有动态
-                            </a>
-                        </li>
-                        <li id="admin-login">
-                            <a href="/manager/userMaster/goUserMasterAudit" target="iframe">
-                                <i class="fa fa-circle-o"></i>审核通过
-                            </a>
-                        </li>
-                        <li id="admin-login">
-                            <a href="/manager/userMaster/goAuditWait" target="iframe">
-                                <i class="fa fa-circle-o"></i>待审核
-                            </a>
-                        </li>
-                        <li id="admin-login">
-                            <a href="/manager/userMaster/goAuditNot" target="iframe">
-                                <i class="fa fa-circle-o"></i>审核不通过
                             </a>
                         </li>
                     </ul>
