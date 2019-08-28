@@ -104,10 +104,7 @@ function delUser() {
 function saveUser() {
     var id = $("#ids").val();
     var userType = $("#userType2").val()
-    var balanceMoney = $("#balanceMoney2").val()
-    var totalScore = $("#totalScore2").val();
-    var balanceScore = $("#balanceScore2").val();
-    $.getJSON("/manager/user/updateUser",{"id":id,"userType":userType,"balanceMoney":balanceMoney,"totalScore":totalScore,"balanceScore":balanceScore},function (data) {
+    $.getJSON("/manager/user/updateUser",{"id":id,"userType":userType},function (data) {
         if(data == true){
             alert("修改成功")
             location.href="/manager/user/goUserIndex";

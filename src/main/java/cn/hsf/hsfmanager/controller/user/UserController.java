@@ -99,9 +99,11 @@ public class UserController {
      */
     @RequestMapping("/updateUser")
     @ResponseBody
-    public boolean updateUser(Integer id,Integer userType,Double balanceMoney,Double totalScore,Double balanceScore){
+    public boolean updateUser(Integer id,Integer userType){
         System.out.println("userType : "+userType);
-        User user = new User(id,userType,balanceMoney,totalScore,balanceScore);
+        User user = new User();
+        user.setId(id);
+        user.setMemberType(userType);
         System.out.println(user);
         int n = userService.updateUser(user);
         return n>0 ? true : false;

@@ -198,7 +198,7 @@ public class TemplateService {
         System.out.println(result);
     }
     /**
-     * 审核成功发送的模板
+     * 审核失败发送的模板
      * @param map
      */
     public  void sendAuditFail(Map<String,String> map){
@@ -207,6 +207,7 @@ public class TemplateService {
         String data = "{\n" +
                 "           \"touser\":\""+map.get("openId")+"\",\n" +
                 "           \"template_id\":\"nH6k8Kl01S1gTsc15MUpV5e3gNuq6ZvIFggy3hdFCbE\",\n" +
+                "           \"url\":\""+map.get("url")+"\",\n" +
                 "           \"data\":{\n" +
                 "                   \"first\": {\n" +
                 "                       \"value\":\"抱歉，您的帐号审核失败，请您重新申请。"+"\",\n" +

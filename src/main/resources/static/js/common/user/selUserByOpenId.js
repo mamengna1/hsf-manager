@@ -13,8 +13,14 @@ function selUserByOpenId(openId) {
         $("#balanceMoney").append(data.balanceMoney)
         $("#totalScore").append(data.totalScore);
         $("#balanceScore").append(data.balanceScore);
-        var da = new Date(data.lastLoginTime).toJSON();
-        var date = new Date(da).toISOString().replace(/T/g,' ').replace(/\.[\d]{3}Z/,'')
+        var date
+        if(data.lastLoginTime == null ){
+            data = '';
+        }else{
+            var da = new Date(data.lastLoginTime).toJSON();
+            date = new Date(da).toISOString().replace(/T/g,' ').replace(/\.[\d]{3}Z/,'')
+        }
+
         $("#lastLoginTime").append(date)
     })
 }

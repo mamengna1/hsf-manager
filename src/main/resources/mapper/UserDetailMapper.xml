@@ -17,11 +17,14 @@
             <if test="status ==1 ">
                 and  `status` = 1
             </if>
-            <if test="status !=1 and  status != 2">
-                and  `status` !=1 and  status != 2
+            <if test="status==  3 ">
+                and  `status` != 1 and   `status` != 2
             </if>
             <if test="status == 2">
                 and  `status` = 2
+            </if>
+            <if test="status == -1">
+                and  `status` >=0
             </if>
         </where>
         limit #{pageCurrentNo},#{pageSize}
@@ -36,11 +39,14 @@
             <if test="status == 1 ">
                 and  `status` = 1
             </if>
-            <if test="status !=1 and  status != 2">
-                and  `status` !=1 and  status != 2
+            <if test="status==  3 ">
+                and  `status` != 1 and   `status` != 2
             </if>
             <if test="status == 2">
                 and  `status` = 2
+            </if>
+            <if test="status == -1">
+                and  `status` >=0
             </if>
         </where>
     </select>

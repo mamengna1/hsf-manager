@@ -162,6 +162,7 @@ public class UserMasterController {
             map.put("openId",o);
             map.put("name",userDetail.getName());
             map.put("message",statusMessage);
+            map.put("url","https://www.baidu.com");
             templateService.sendAuditFail(map);
         }
         UserDetail detail = new UserDetail(id,status,statusMessage,lineStatus);

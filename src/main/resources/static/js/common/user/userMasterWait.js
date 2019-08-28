@@ -3,7 +3,7 @@
 //初始化数据
 var currentPage = 1;  //当前页码
 var names = $("#names").val();
-var statusId = 3;  //已审核信息
+var statusId = 3;  //待审核
 //过滤查询
 function searchCustomer(currentPage,names,statusId) {
     $.getJSON("/manager/userMaster/userAll",{"pageCurrentNo":currentPage,"names":names,"statusId":statusId},callback)

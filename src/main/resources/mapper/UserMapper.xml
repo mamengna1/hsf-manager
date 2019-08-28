@@ -15,10 +15,10 @@
               and  isSub =#{isSub}
             </if>
             <if test="detailId == 0 ">
-                and  detailId =0
+                and  detailId >= 0
             </if>
             <if test="detailId &gt; 0 ">
-                and  detailId >0
+                and  detailId >= 0
             </if>
         </where>
         limit #{pageCurrentNo},#{pageSize}
@@ -31,10 +31,10 @@
                 and  isSub =#{isSub}
             </if>
             <if test="detailId == 0 ">
-                and  detailId =0
+                and  detailId >= 0
             </if>
             <if test="detailId &gt; 0 ">
-                and  detailId >0
+                and  detailId >= 0
             </if>
         </where>
     </select>

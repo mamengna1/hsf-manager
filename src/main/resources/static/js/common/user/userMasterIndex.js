@@ -2,36 +2,34 @@
 
 //初始化数据
 var currentPage = 1;  //当前页码
-var isSub = -1;
-var detailId = 1;
+var names = $("#names").val();
+var statusId = -1;  //全部信息
 //过滤查询
-function searchCustomer(currentPage,isSub,detailId) {
-    $.getJSON("/manager/user/userAll",{"pageCurrentNo":currentPage,"isSub":isSub,"detailId":detailId},callback)
+function searchCustomer(currentPage,names,statusId) {
+    $.getJSON("/manager/userMaster/userAll",{"pageCurrentNo":currentPage,"names":names,"statusId":statusId},callback)
     //回调
     function callback(data) {
         $("#theBody").html("");
         for (var i = 0; i < data.list.length; i++) {
-            var createDate = toDate(new Date(data.list[i].createDate).toJSON())
+            var workArea = showProvince(data.list[i].workProvince,data.list[i].workCity,data.list[i].workArea);
             $("#theBody").append("<tr>" +
                 "<td><input type=\"checkbox\" class='userCheck'/></td>" +
-                "<td>" + data.list[i].id + "</td>" +
                 "<td>" +
-                "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\"  onclick='selUserByOpenId(\""+data.list[i].openId+"\")'>"+ data.list[i].openId+"</a>" +
-                "</td>" +
-                "<td>" + data.list[i].nickName + "</td>" +
-                "<td><img src='"+  data.list[i].headPic +"' width='50px' height='50px'/></td>" +
-                "<td>" + data.list[i].city+ "</td>" +
-                "<td>" + createDate+ "</td>" +
-                "<td>" +
-                "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\"  onclick='selUserByOpenId(\""+data.list[i].userParent+"\")'>"+ data.list[i].userParent+"</a>" +
+                "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\"  onclick='selUserDetail(\""+data.list[i].id+"\")'>"+ data.list[i].id+"</a>" +
                 "</td>" +
                 "<td>" +
-                "<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" data-toggle=\"modal\" data-target=\"#updateModal\" onclick='selUserById("+data.list[i].id+")'>修改</a>" +
+                "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#detailModal\"  onclick='selUserDetailById(\""+data.list[i].id+"\")'>"+ data.list[i].name+"</a>" +
+                "</td>" +
+                "<td>" + data.list[i].card + "</td>" +
+                "<td><img src='"+  data.list[i].cardOne +"' width='50px' height='50px'/></td>" +
+                "<td><img src='"+  data.list[i].cardTwo +"' width='50px' height='50px'/></td>" +
+                "<td>" + workArea+"</td>" +
+                "<td>" +
+                "<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\"  onclick='updDetail("+data.list[i].id+")'>修改</a>" +
                 "</td>" +
                 "</tr>")
+
         }
-
-
 
         $("#total").html(data.totalCount);
         $("#totalPages").html(data.totalPages);
@@ -42,11 +40,11 @@ function searchCustomer(currentPage,isSub,detailId) {
 //初始化加载数据
 $(function () {
 
-    searchCustomer(currentPage,isSub,detailId);
+    searchCustomer(currentPage,names,statusId);
     //首页
     $("#begin").click(function () {
         currentPage = 1;
-        searchCustomer(currentPage,isSub,detailId);
+        searchCustomer(currentPage,names,statusId);
         $("#pageNo").html(currentPage);
     })
     //上一页
@@ -55,7 +53,7 @@ $(function () {
         if (parseInt(currentPage) <1) {
             alert("已经是第一页了")
         } else {
-            searchCustomer(currentPage,isSub,detailId);
+            searchCustomer(currentPage,names,statusId);
             $("#pageNo").html(currentPage);
         }
     })
@@ -66,14 +64,14 @@ $(function () {
             alert("已经最后一页了");
             return;
         } else {
-            searchCustomer(currentPage,isSub,detailId);
+            searchCustomer(currentPage,names,statusId);
             $("#pageNo").html(currentPage);
         }
     })
     //最后一页
     $("#end").click(function () {
         currentPage = parseInt($("#totalPages").html());
-        searchCustomer(currentPage,isSub,detailId);
+        searchCustomer(currentPage,names,statusId);
         $("#pageNo").html(currentPage);
     })
 
@@ -110,10 +108,23 @@ function saveUser() {
     $.getJSON("/manager/user/updateUser",{"id":id,"userType":userType,"balanceMoney":balanceMoney,"totalScore":totalScore,"balanceScore":balanceScore},function (data) {
         if(data == true){
             alert("修改成功")
-            //location.href="/manager/user/goUserIndex";
-            window.location.reload();
+            location.href="/manager/user/goUserIndex";
         }else{
             alert("修改失败")
         }
     })
+}
+
+
+function searchNames() {
+    var na = $("#names").val();
+    searchCustomer(1,na,statusId)
+}
+
+/**
+ * 修改
+ * @param id
+ */
+function updDetail(id) {
+    location.href="/manager/userMaster/goUserUpd?id="+id;
 }
