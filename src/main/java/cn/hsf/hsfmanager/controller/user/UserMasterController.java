@@ -111,7 +111,7 @@ public class UserMasterController {
 
     /**
      * 审核
-     * @param id
+     * @param id   师傅详细信息id
      * @param status
      * @param statusMessage
      * @return
@@ -162,7 +162,7 @@ public class UserMasterController {
             map.put("openId",o);
             map.put("name",userDetail.getName());
             map.put("message",statusMessage);
-            map.put("url","https://www.baidu.com");
+            map.put("url","http://java.86blue.cn/_api/goRegister");
             templateService.sendAuditFail(map);
         }
         UserDetail detail = new UserDetail(id,status,statusMessage,lineStatus);

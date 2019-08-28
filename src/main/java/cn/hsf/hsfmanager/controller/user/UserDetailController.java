@@ -68,14 +68,14 @@ public class UserDetailController {
                         @RequestParam(value = "serviceProvince",required = false,defaultValue = "")  Integer serviceProvince,
                         @RequestParam(value = "serviceCity",required = false,defaultValue = "")  Integer serviceCity,
                         @RequestParam(value = "serviceArea",required = false,defaultValue = "")  Integer serviceArea){
-        int total = userDetailService.selPaiDanTotal(skillId, serviceProvince, serviceCity, serviceArea);
+        int total = userDetailService.selPaiDanTotal(skillId, serviceProvince, serviceCity, -1);
         System.out.println("total :" +total);
         Page page = new Page();
         page.setPageSize( Contents.PAGENO);
         page.setPageCurrentNo(pageCurrentNo);
         page.setTotalCount(total);
         page.setTotalPages(page.getTotalPages());
-        List<UserDetail> userDetails = userDetailService.selPaiDanAll(pageCurrentNo, Contents.PAGENO,skillId,serviceProvince,serviceCity,serviceArea);
+        List<UserDetail> userDetails = userDetailService.selPaiDanAll(pageCurrentNo, Contents.PAGENO,skillId,serviceProvince,serviceCity,-1);
         page.setList(userDetails);
         return page;
     }

@@ -143,7 +143,7 @@
             <if test="workCity != null  and workCity !='' ">
                 and workCity = #{workCity}
             </if>
-            <if test="workArea != null  and workArea !='' ">
+            <if test="workArea != null  and workArea &gt; -1 ">
                 and workArea = #{workArea}
             </if>
             AND `status`=1
@@ -163,7 +163,7 @@
             <if test="workCity != null  and workCity !='' ">
                 and workCity = #{workCity}
             </if>
-            <if test="workArea != null  and workArea !='' ">
+            <if test="workArea != null  and workArea &gt; -1 ">
                 and workArea = #{workArea}
             </if>
             AND `status`=1
