@@ -5,6 +5,7 @@ import cn.hsf.hsfmanager.util.WxSend;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -262,6 +263,95 @@ public class TemplateService {
                 "                   },\n" +
                 "                   \"remark\":{\n" +
                 "                       \"value\":\"感谢你的使用，再接再厉哦！\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   }\n" +
+                "           }\n" +
+                "       }";
+        String result = WxSend.post(url,data);
+        System.out.println(result);
+    }
+
+    /**
+     * 通用模板
+     *
+     * 您的法国租车订单99999999已经确认！车辆由神州公司提供，取车确认号为：88888888（如需与租车公司联系，请提供此确认号），订单金额999元（已支付）。用车时间：2015-06-20 06:30至2015-06-21 22:00，共2天，取车点：广州，还车点：广州。请查收邮件并打印英文电子提车凭证，祝您用车愉快！Your 神州 Confirmation No:111111111(Prepaid).Have a nice trip.
+     * 消息类型：订单确认
+     * 跟进时间：2015年5月13日 18:36
+     * 感谢关注租租车，由您的支持我们会做得更好。
+     * @param map
+     */
+    public  void sendTongYong(Map<String,String> map){
+        String at = wxService.getAccessToken();
+        String url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+at;
+        String data = "{\n" +
+                "           \"touser\":\""+map.get("openId")+"\",\n" +
+                "           \"template_id\":\""+map.get("template_id")+"\",\n" +
+                "           \"url\":\""+map.get("url")+"\",\n" +
+                "           \"data\":{\n" +
+                "                   \"first\": {\n" +
+                "                       \"value\":\""+map.get("title")+"\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   },\n" +
+                "                   \"keyword1\":{\n" +
+                "                       \"value\":\""+map.get("messageType")+"\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   },\n" +
+                "                   \"keyword2\": {\n" +
+                "                       \"value\":\""+DateUtil.tranfDate(System.currentTimeMillis())+"\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   },\n" +
+                "                   \"remark\":{\n" +
+                "                       \"value\":\""+map.get("end")+"\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   }\n" +
+                "           }\n" +
+                "       }";
+        String result = WxSend.post(url,data);
+        System.out.println(result);
+    }
+
+public void show(){
+    Map map = new HashMap();
+    map.put("openId","openId") ;
+    map.put("template_id","TF2-OgTgYB6EYKzmno0NjbZobdCadK7U0d0E9O9ZogA") ;
+    map.put("title","需求发布成功，请等待师傅接单") ;
+    map.put("serviceType","我有套房子需要找地板安装工") ;
+    map.put("orderNo","1111") ;
+    map.put("orderState","待接单") ;
+    map.put("end","师傅速达正在为您提供服务。") ;
+    aaa(map);
+}
+
+    public  void aaa(Map<String,String> map){
+        String at = wxService.getAccessToken();
+        String url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+at;
+        String data = "{\n" +
+                "           \"touser\":\""+map.get("openId")+"\",\n" +
+                "           \"template_id\":\""+map.get("template_id")+"\",\n" +
+                "           \"url\":\""+map.get("url")+"\",\n" +
+                "           \"data\":{\n" +
+                "                   \"first\": {\n" +
+                "                       \"value\":\""+map.get("title")+"\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   },\n" +
+                "                   \"keyword1\":{\n" +
+                "                       \"value\":\""+map.get("serviceType")+"\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   },\n" +
+                "                   \"keyword2\":{\n" +
+                "                       \"value\":\""+map.get("orderNo")+"\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   },\n" +
+                "                   \"keyword3\":{\n" +
+                "                       \"value\":\""+map.get("orderState")+"\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   },\n" +
+                "                   \"keyword4\": {\n" +
+                "                       \"value\":\""+DateUtil.tranfDate(System.currentTimeMillis())+"\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   },\n" +
+                "                   \"remark\":{\n" +
+                "                       \"value\":\""+map.get("end")+"\",\n" +
                 "                       \"color\":\"#173177\"\n" +
                 "                   }\n" +
                 "           }\n" +

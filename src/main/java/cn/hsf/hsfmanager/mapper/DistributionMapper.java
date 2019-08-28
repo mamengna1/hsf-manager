@@ -22,4 +22,6 @@ public interface DistributionMapper {
      * @return
      */
     int selDistributionTotal();
+
+    int updDistribution(Distribution distribution);
 }

@@ -126,6 +126,5 @@ function searchNames() {
  * @param id
  */
 function updDetail(id) {
-    alert(id)
     location.href="/manager/userMaster/goUserUpd?id="+id;
 }

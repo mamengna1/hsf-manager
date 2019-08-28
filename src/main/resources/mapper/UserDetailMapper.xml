@@ -8,7 +8,7 @@
 
     <!--分页-->
     <select id="selUserDetailAll" resultType="cn.hsf.hsfmanager.pojo.user.UserDetail" >
-        SELECT `id`,`name`,`card`,`placeProvince`,`placeCity`,`placeArea`,`address`,`cardOne`,`cardTwo`,`skills`,`workProvince`,`workCity`,`workArea`,`status`,`statusMessage`,`lineStatus`
+        SELECT `id`,`name`,`card`,`placeProvince`,`placeCity`,`placeArea`,`address`,`cardOne`,`cardTwo`,`skills`,`workProvince`,`workCity`,`workArea`,`status`,`statusMessage`,`lineStatus`,`yearWorkId`
         FROM `tb_user_detail`
         <where>
             <if test="name !=null and name  !='' ">
@@ -100,6 +100,9 @@
             </if>
             <if test="placeArea != null and placeArea!=''">
                 placeArea=#{placeArea},
+            </if>
+            <if test="yearWorkId != null and yearWorkId!=''">
+                yearWorkId=#{yearWorkId},
             </if>
             statusMessage=#{statusMessage}
         </trim>

@@ -33,4 +33,9 @@ public class DistributionServiceImpl implements DistributionService {
     public int selDistributionTotal() {
         return distributionMapper.selDistributionTotal();
     }
+
+    @Override
+    public int updDistribution(Distribution distribution) {
+        return distributionMapper.updDistribution(distribution);
+    }
 }

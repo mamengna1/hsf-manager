@@ -17,4 +17,6 @@ public interface DistributionService {
      * @return
      */
     int selDistributionTotal();
+
+    int updDistribution(Distribution distribution);
 }

@@ -551,7 +551,7 @@ function chooseProvince2(th) {
 function chooseCity2(tag) {
     var index2;
     if (typeof tag == "object") {
-        index2 = ttagh.selectedIndex - 1;
+        index2 = tag.selectedIndex - 1;
     } else if (typeof tag == "number") {
         index2 = tag;
     }

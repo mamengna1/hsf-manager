@@ -1,6 +1,7 @@
 package cn.hsf.hsfmanager.service.user.impl;
 
 import cn.hsf.hsfmanager.mapper.UserScoreSourceMapper;
+import cn.hsf.hsfmanager.pojo.user.ScoreSourceType;
 import cn.hsf.hsfmanager.pojo.user.UserScoreSource;
 import cn.hsf.hsfmanager.service.user.UserScoreSourceService;
 import org.springframework.stereotype.Service;
@@ -17,5 +18,10 @@ public class UserScoreSourceServiceImpl implements UserScoreSourceService {
     @Override
     public int insScoreSource(UserScoreSource userScoreSource) {
         return scoreSourceMapper.insScoreSource(userScoreSource);
+    }
+
+    @Override
+    public ScoreSourceType selById(Integer id) {
+        return scoreSourceMapper.selById(id);
     }
 }

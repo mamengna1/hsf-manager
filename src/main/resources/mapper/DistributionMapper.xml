@@ -6,7 +6,7 @@
 <!--namespace:映射命名空间-->
 <mapper namespace="cn.hsf.hsfmanager.mapper.DistributionMapper">
 
-    <insert id="insDistribution" parameterType="cn.hsf.hsfmanager.pojo.user.Distribution">
+    <insert id="insDistribution"  useGeneratedKeys="true" keyProperty="id" parameterType="cn.hsf.hsfmanager.pojo.user.Distribution" >
         INSERT INTO `tb_distribution` ( `releaseId`,`statusId`,`refusedMessage`,`createTime`,`sfId`)
         VALUES (#{releaseId},1,#{refusedMessage},now(),#{sfId})
     </insert>
@@ -17,7 +17,7 @@
             <if test="id != null and id != '' ">
                 and id = #{id}
             </if>
-            <if test="releaseId != null releaseId id != '' ">
+            <if test="releaseId != null and  releaseId  != '' ">
                 and releaseId = #{releaseId}
             </if>
             <if test="statusId != null and statusId != '' ">
@@ -37,10 +37,11 @@
 
     <!--分页-->
     <select id="selDistributionAll" resultType="cn.hsf.hsfmanager.pojo.user.Distribution" >
-     SELECT d.`id`,d.`releaseId`,d.`statusId`,d.`refusedMessage`,d.`createTime`,d.`updateTime`,d.`sfId`,d.`orderId` ,r.`title` AS realTitle,r.`nickName` AS realName,de.`name` AS sfName
+      SELECT d.`id`,d.`releaseId`,d.`statusId`,d.`refusedMessage`,d.`createTime`,d.`updateTime`,d.`sfId`,d.`orderId` ,r.`title` AS realTitle,r.`nickName` AS realName,de.`name` AS sfName,s.`statusName` AS statusName
      FROM `tb_distribution` AS d
      INNER JOIN `tb_user_release` AS r ON d.releaseId = r.id
      INNER JOIN `tb_user_detail` AS de ON d.sfId = de.`id`
+     INNER JOIN `tb_distribution_status` AS s ON d.`statusId` = s.id
      limit #{pageCurrentNo},#{pageSize}
     </select>
 
@@ -48,4 +49,30 @@
         SELECT count(*) FROM `tb_distribution`
 
     </select>
+
+    <update id="updDistribution" parameterType="cn.hsf.hsfmanager.pojo.user.Distribution">
+        update `tb_distribution`
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+            <if test="id != null and id != '' ">
+                 id = #{id},
+            </if>
+            <if test="releaseId != null and releaseId  != '' ">
+                 releaseId = #{releaseId},
+            </if>
+            <if test="statusId != null and statusId != '' ">
+                 statusId = #{statusId},
+            </if>
+            <if test="refusedMessage != null and refusedMessage != '' ">
+                 refusedMessage = #{refusedMessage},
+            </if>
+            <if test="sfId != null and sfId != '' ">
+                 sfId = #{sfId},
+            </if>
+            <if test="orderId != null and orderId != '' ">
+                 orderId = #{orderId},
+            </if>
+        </trim>
+    </update>
+
+
 </mapper>

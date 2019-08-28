@@ -10,11 +10,13 @@ $(function () {
         chooseCity(res.placeCity);
         $("#placeCity").val(res.placeCity);
         $("#placeArea").val(res.placeArea);
+
         chooseProvince2(res.workProvince);
         $("#workProvince").val(res.workProvince);
         chooseCity2(res.workCity);
         $("#workCity").val(res.workCity);
         $("#workArea").val(res.workArea);
+
         $("#yearWorkId").val(res.yearWorkId);
         var skills = (res.skills).split(",");
         var tags = document.getElementsByClassName("skills");

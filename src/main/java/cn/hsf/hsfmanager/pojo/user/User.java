@@ -56,17 +56,20 @@ public class User {
         this.balanceScore = balanceScore;
     }
 
-    public User(String openId, Double totalScore) {
+    public User(String openId, Double totalScore, Double balanceScore) {
         this.openId = openId;
         this.totalScore = totalScore;
+        this.balanceScore = balanceScore;
     }
 
     public User() {
     }
 
-    public User(String openId, String phone) {
+    public User(String openId, String phone,Double totalScore, Double balanceScore) {
         this.openId = openId;
         this.phone = phone;
+        this.totalScore = totalScore;
+        this.balanceScore = balanceScore;
     }
 
     //get set 方法

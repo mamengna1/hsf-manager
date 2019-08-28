@@ -16,14 +16,6 @@ function searchPaiDan(currentPage,skillId,serviceProvince,serviceCity,serviceAre
         $("#theBody").html("");
         for (var i = 0; i < data.list.length; i++) {
            var workArea = showProvince(data.list[i].workProvince,data.list[i].workCity,data.list[i].workArea);
-          /* var yearWork = userWorkYearById(data.list[i].yearWorkId)
-            //技能
-            var skills = (data.list[i].skills).split(",");
-            var array = new Array();
-            for (var i = 0; i < skills.length; i ++){
-                array[i] =  userSkillById(skills[i])
-            }
-            var skill = array.join();*/
 
             $("#theBody").append("<tr>" +
                 "<td><input type=\"checkbox\" class='userCheck'/></td>" +

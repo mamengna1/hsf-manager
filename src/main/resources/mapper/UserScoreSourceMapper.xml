@@ -10,6 +10,8 @@
         insert into `tb_user_score_source`(`openId`,`score`,`scoreSourceId`,`sourceOpenId`,`createDate`) values(#{openId},#{score},#{scoreSourceId},#{sourceOpenId},now())
     </insert>
 
-
+   <select id="selById" resultType="cn.hsf.hsfmanager.pojo.user.ScoreSourceType" parameterType="int">
+        select `id`,`sourceName`  from `tb_score_source_type` where id = #{id}
+   </select>
 
 </mapper>

@@ -12,18 +12,20 @@ function searchDistribution(currentPage) {
             var createTime = toDate(new Date(data.list[i].createTime).toJSON())
             var updateTime = data.list[i].updateTime == null ? '' : toDate(new Date(data.list[i].updateTime).toJSON());
             var message = data.list[i].refusedMessage == null ? '' : data.list[i].refusedMessage
+            var a = data.list[i].statusId;
             $("#theBody").append("<tr>" +
                 "<td><input type=\"checkbox\" class='userCheck'/></td>" +
                 "<td>" + data.list[i].id + "</td>" +
                 "<td>" + data.list[i].realName + "</td>" +
                 "<td>" + data.list[i].realTitle + "</td>" +
                 "<td>" + data.list[i].sfName + "</td>" +
-                "<td>" + data.list[i].statusId + "</td>" +
+                "<td>" + data.list[i].statusName + "</td>" +
                 "<td>" + message + "</td>" +
                 "<td>" + createTime + "</td>" +
                 "<td>" + updateTime+ "</td>" +
                 "<td>" +
-                "<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" onclick='goUpdUserRelease("+data.list[i].id+")'>修改</a>" +
+                "<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\">修改</a>" +
+                "&nbsp; &nbsp;  <a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" onclick='confirmAll("+data.list[i].id+")' style=\"" + ((a ==7 ) ? '' : 'display:none;')+"\" >确认完工</a>" +
                 "</td>" +
                 "</tr>")
         }
@@ -174,4 +176,27 @@ function gopaidan(id) {
  */
 function goUpdUserRelease(id) {
     location.href="/manager/userDetail/goUpdUserRelease?id="+id;
+}
+
+
+/**
+ * 确认完工
+ * @param id
+ */
+function confirmAll(id) {
+    var msg = "您确认要确定完工吗？";
+    if (confirm(msg)==true){
+        $.getJSON("/manager/distribution/confirmAll",{"id":id},function (data) {
+            if(data == true ){
+                alert("确认完工成功！")
+                window.location.reload();
+            }else{
+                alert("确认完工失败！")
+            }
+        })
+        return true;
+    }else{
+        alert("取消成功")
+        return false;
+    }
 }

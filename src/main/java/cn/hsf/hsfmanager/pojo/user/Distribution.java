@@ -19,13 +19,25 @@ public class Distribution {
     private String realName;   //雇佣人
     private String realTitle;  //派单标题
     private String sfName;  // 派单师傅id
-
+    private String statusName;   //状态名称
     public Distribution() {
     }
 
     public Distribution(Integer releaseId, Integer sfId) {
         this.releaseId = releaseId;
         this.sfId = sfId;
+    }
+
+    public Distribution(Integer id) {
+        this.id = id;
+    }
+
+    public String getStatusName() {
+        return statusName;
+    }
+
+    public void setStatusName(String statusName) {
+        this.statusName = statusName;
     }
 
     public String getRealName() {

@@ -71,9 +71,9 @@ function updateAudit(status) {
     $.getJSON("/manager/userMaster/updateUserDetail",{"id":id,"status":status,"statusMessage":statusMessage},function (data) {
         if(data ==true){
             alert("修改审核结果成功！")
-            location.href="/userMaster/goUserMasterAudit";
+            location.href="/manager/userMaster/goUserMasterAudit";
         }else{
-            alert("修改审核结果失败！")
+            alert("该条雇佣信息已经为这名师傅派过单了，请勿重复派单！")
         }
     })
 }

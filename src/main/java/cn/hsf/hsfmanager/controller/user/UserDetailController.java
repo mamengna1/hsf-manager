@@ -4,6 +4,7 @@ import cn.hsf.hsfmanager.pojo.user.Distribution;
 import cn.hsf.hsfmanager.pojo.user.UserDetail;
 import cn.hsf.hsfmanager.pojo.user.UserRelease;
 import cn.hsf.hsfmanager.service.user.*;
+import cn.hsf.hsfmanager.service.wx.TemplateService;
 import cn.hsf.hsfmanager.util.Contents;
 import cn.hsf.hsfmanager.util.DateUtil;
 import cn.hsf.hsfmanager.util.Page;
@@ -17,7 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 派单
@@ -36,6 +39,8 @@ public class UserDetailController {
     private UserService userService;
     @Resource
     private DistributionService distributionService;
+    @Resource
+    private TemplateService templateService;
 
     /**
      * 去到派单页面
@@ -90,14 +95,44 @@ public class UserDetailController {
 
         //往派单表中添加数据
         Distribution distribution = new Distribution(id,userDetailId);
-        distributionService.insDistribution(distribution);
+        Distribution distribution1 =  distributionService.selByResId(distribution);
+        if(distribution1 == null ){
+            distributionService.insDistribution(distribution);
 
-        //给师傅以及用户发送模板信息，师父确认接单状态改为2
-       Integer userId =  userReleaseService.selUserReleaseById(id).getUserId();   //发布人的id
-       String userOpenId =  userService.selUserById(userId).getOpenId();  // 发布人的openId
-       String userDetailOpenId =  userService.selUserByDetailId(userDetailId).getOpenId();   // 师傅的openId
+            //给师傅以及用户发送模板信息，师父确认接单状态改为2
+            Integer userId =  userReleaseService.selUserReleaseById(id).getUserId();   //发布人的id
+            String userOpenId =  userService.selUserById(userId).getOpenId();  // 发布人的openId
+            String userDetailOpenId =  userService.selUserByDetailId(userDetailId).getOpenId();   // 师傅的openId
+            String name =  userReleaseService.selUserReleaseById(id).getNickName();
+            String sfName = userDetailService.selUserDetailById(userDetailId).getName();
 
-        return  n > 0 ? true : false;
+            Integer pdId = distributionService.selByResId(distribution).getId();
+            System.out.println("============================派单id  ： "  + pdId );
+
+
+            //给用户发送推荐师傅的模板信息
+            Map map = new HashMap();
+            map.put("openId",userOpenId);
+            map.put("template_id","vIE5CFOjUbodaOaa4nHaz36cAJJWeesRTqTkugKX7nc");
+            map.put("url","http://java.86blue.cn/_api/goUserOrderDetail?id="+id);
+            map.put("title",name+"您好，你发布的信息我们已经接收到，并为您推荐【"+sfName+"】这位师傅为您服务");
+            map.put("messageType","雇佣消息通知");
+            map.put("end","感谢您的使用，如有疑问请致电000000");
+            templateService.sendTongYong(map);
+
+            //给师傅发送用户招聘信息
+            Map map2 = new HashMap();
+            map2.put("openId",userDetailOpenId);
+            map2.put("template_id","vIE5CFOjUbodaOaa4nHaz36cAJJWeesRTqTkugKX7nc");
+            map2.put("url","http://java.86blue.cn/_api/goOrderShow?id="+pdId);
+            map2.put("title",sfName+"您好，【"+name+"】顾客发送的雇佣信息与您符合，平台将为您接单，您可以选择 【接受或拒绝】");
+            map2.put("messageType","新订单消息通知");
+            map2.put("end","感谢您的使用，如有疑问请致电000000");
+            templateService.sendTongYong(map2);
+            return true;
+        }
+        return false;
+
     }
 
     /**

@@ -1,9 +1,6 @@
 package cn.hsf.hsfmanager.controller.user;
 
-import cn.hsf.hsfmanager.pojo.user.User;
-import cn.hsf.hsfmanager.pojo.user.UserDetail;
-import cn.hsf.hsfmanager.pojo.user.UserScoreSource;
-import cn.hsf.hsfmanager.pojo.user.UserYearWork;
+import cn.hsf.hsfmanager.pojo.user.*;
 import cn.hsf.hsfmanager.service.user.UserDetailService;
 import cn.hsf.hsfmanager.service.user.UserScoreSourceService;
 import cn.hsf.hsfmanager.service.user.UserService;
@@ -129,7 +126,7 @@ public class UserMasterController {
         if(status ==1 ){
             String openId =u.getOpenId();
             double[] pre = new double[]{5,2};
-            userService.updateUserByOpenId(new User(openId,pre[0]));    //修改提交审核人的积分
+            userService.updateUserByOpenId(new User(openId,pre[0],pre[0]));    //修改提交审核人的积分
             UserScoreSource userScoreSource = new UserScoreSource(openId,pre[0],5);
             scoreSourceService.insScoreSource(userScoreSource);   //记录成为师父的积分来源记录
 
@@ -145,15 +142,15 @@ public class UserMasterController {
                 if(user !=null){
                     String userParent = user.getUserParent();
                     if(userParent !=null && !userParent.equals("")){
-                        User parent = new User(userParent,pre[i]);
+                        User parent = new User(userParent,pre[i],pre[i]);
                         userService.updateUserByOpenId(parent);
                         UserScoreSource ScoreSource = new UserScoreSource(userParent,pre[i],2,o);
                         scoreSourceService.insScoreSource(ScoreSource);   //记录分红的积分来源记录
                         Map map2 = new HashMap();
                         map2.put("openId",userParent);
                         map2.put("title","恭喜，您获得了一笔新的分销积分啦。来自："+user.getNickName());
-                        map2.put("fenHong",pre[i]);
-                        map2.put("total",pre[0]);
+                        map2.put("fenHong",String.valueOf(pre[i]));
+                        map2.put("total",String.valueOf(pre[0]));
                         templateService.sendScore(map2);
                         openId = userParent;
                     }
@@ -196,7 +193,7 @@ public class UserMasterController {
     }
 
     /**
-     * 保存修改结果
+     * 保存修改结果（师傅信息）
      * @param userScoreSource
      * @param userDetail
      * @param phone
@@ -204,17 +201,24 @@ public class UserMasterController {
      * @return
      */
     @RequestMapping("/insUserDetail")
-    public String insUserDetail(UserScoreSource userScoreSource, UserDetail userDetail, String phone, Integer source){
+    public String insUserDetail(UserScoreSource userScoreSource, UserDetail userDetail, String phone, Integer source,Integer score){
         userScoreSourceService.insScoreSource(userScoreSource);
-        userService.updateUserByOpenId(new User(userScoreSource.getOpenId(), phone));
+        userService.updateUserByOpenId(new User(userScoreSource.getOpenId(), phone,Double.valueOf(score),Double.valueOf(score) ));
         System.out.println(userDetail);
         userDetailService.updateUserDetail(userDetail);
-        if (source == 1) {
-
+        ScoreSourceType scoreSourceType = userScoreSourceService.selById(userScoreSource.getScoreSourceId());
+        if (source == 1) {   // 发送模板
+            Map map = new HashMap();
+            map.put("openId",userScoreSource.getOpenId());
+            map.put("template_id","vIE5CFOjUbodaOaa4nHaz36cAJJWeesRTqTkugKX7nc");
+            map.put("title",userDetail.getName()+"您好，恭喜您获得【"+scoreSourceType.getSourceName()+"】积分，本次奖励积分："+score+"分");
+            map.put("messageType","积分增加提醒");
+            map.put("end","感谢您的使用，如有疑问请致电000000");
+            templateService.sendTongYong(map);
         } else {
 
         }
-        return "user/userMasterAll";
+        return "user/userMasterAudit";
     }
 
     @RequestMapping("/selYearWorkById")

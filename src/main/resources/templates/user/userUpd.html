@@ -111,16 +111,17 @@
                 <div class="col-md-10 data">
                     <input type="text" name="phone" th:value="${user.phone}" id="phone"/>
                 </div>
-                <div class="col-md-2 title" style="height:100px;">积分</div>
-                <div class="col-md-10 data" style="height:100px;">
+                <div class="col-md-2 title" style="height:300px;">积分</div>
+                <div class="col-md-10 data" style="height:300px;">
                     <div class="input-group">
-                        <input type="number" class="form-control" th:value="${user.balanceScore}" placeholder="积分" name="score" id="totalScore" >
-                        积分来源 <select  id="sources" name="scoreSourceId" class="priceinput" style=" background:#fff;">
+                       <p>总积分 </p>  <input type="number" class="form-control" th:value="${user.totalScore}" placeholder="总积分"  readonly>
+                       <p>奖励积分</p>  <input type="number" class="form-control"  placeholder="积分" name="score" id="totalScore" value="0" >
+                        <p> 积分来源 </p><select  id="sources" name="scoreSourceId" class="priceinput" style=" background:#fff;">
                         <option th:each="source : ${sources}" th:value="${source.id}" th:text="${source.sourceName}"></option>
                     </select>
                         <input type="hidden" name="source" id="source" value="1"/>
-                        <input type="radio" name="checkbox1" value="发送模板" checked="checked" onclick="changeSou(1)" />发送模板
-                        <input type="radio" name="checkbox1" value="不发送模板" onclick="changeSou(2)"/>不发送模板
+                        <input type="radio" name="checkbox1" value="发送模板"  onclick="changeSou(1)" />发送模板
+                        <input type="radio" name="checkbox1" value="不发送模板" onclick="changeSou(2)" checked="checked" />不发送模板
                     </div>
                 </div>
                 <div class="col-md-10 data" style="width:100%;"></div>
