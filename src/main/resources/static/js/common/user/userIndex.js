@@ -12,6 +12,7 @@ function searchCustomer(currentPage,isSub,detailId) {
         $("#theBody").html("");
         for (var i = 0; i < data.list.length; i++) {
             var createDate = toDate(new Date(data.list[i].createDate).toJSON())
+            var userParent = data.list[i].userParent == null ? '' : data.list[i].userParent;
             $("#theBody").append("<tr>" +
                 "<td><input type=\"checkbox\" class='userCheck'/></td>" +
                 "<td>" + data.list[i].id + "</td>" +
@@ -23,7 +24,7 @@ function searchCustomer(currentPage,isSub,detailId) {
                 "<td>" + data.list[i].city+ "</td>" +
                 "<td>" + createDate+ "</td>" +
                 "<td>" +
-                "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\"  onclick='selUserByOpenId(\""+data.list[i].userParent+"\")'>"+ data.list[i].userParent+"</a>" +
+                "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\"  onclick='selUserByOpenId(\""+data.list[i].userParent+"\")'>"+ userParent+"</a>" +
                 "</td>" +
                 "<td>" +
                 "<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" data-toggle=\"modal\" data-target=\"#updateModal\" onclick='selUserById("+data.list[i].id+")'>修改</a>" +

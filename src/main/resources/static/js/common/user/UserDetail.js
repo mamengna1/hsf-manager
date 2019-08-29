@@ -73,7 +73,8 @@ function updateAudit(status) {
             alert("修改审核结果成功！")
             location.href="/manager/userMaster/goUserMasterAudit";
         }else{
-            alert("该条雇佣信息已经为这名师傅派过单了，请勿重复派单！")
+
+            alert("审核失败成功！")
         }
     })
 }

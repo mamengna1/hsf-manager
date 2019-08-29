@@ -15,13 +15,15 @@ public interface DistributionMapper {
     Distribution selByResId(Distribution distribution);
 
     //分页
-    List<Distribution> selDistributionAll(@Param("pageCurrentNo") Integer pageCurrentNo, @Param("pageSize") Integer pageSize);
+    List<Distribution> selDistributionAll(@Param("pageCurrentNo") Integer pageCurrentNo, @Param("pageSize") Integer pageSize,@Param("statusId") Integer statusId);
 
     /**
      * 总记录数
      * @return
      */
-    int selDistributionTotal();
+    int selDistributionTotal(@Param("statusId") Integer statusId);
 
     int updDistribution(Distribution distribution);
+
+    Distribution selDistributionById(Integer id);
 }

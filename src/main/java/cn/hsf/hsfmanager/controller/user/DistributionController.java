@@ -1,6 +1,7 @@
 package cn.hsf.hsfmanager.controller.user;
 
 import cn.hsf.hsfmanager.pojo.user.Distribution;
+import cn.hsf.hsfmanager.pojo.user.DistributionStatus;
 import cn.hsf.hsfmanager.pojo.user.UserRelease;
 import cn.hsf.hsfmanager.service.user.DistributionService;
 import cn.hsf.hsfmanager.service.user.UserDetailService;
@@ -10,6 +11,7 @@ import cn.hsf.hsfmanager.service.wx.TemplateService;
 import cn.hsf.hsfmanager.util.Contents;
 import cn.hsf.hsfmanager.util.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -41,7 +43,9 @@ public class DistributionController {
      * @return
      */
     @RequestMapping("/goDistribution")
-    public String goDistribution(){
+    public String goDistribution(Model model){
+        List<DistributionStatus> distributionStatuses = distributionService.selAllDisName();
+        model.addAttribute("distributionStatuses",distributionStatuses);
         return "user/distributionAll";
     }
 
@@ -53,14 +57,15 @@ public class DistributionController {
      */
     @RequestMapping("/userAll")
     @ResponseBody
-    public Page userAll(@RequestParam(value = "pageCurrentNo",required = false,defaultValue = "1") Integer pageCurrentNo){
-        int total = distributionService.selDistributionTotal();
+    public Page userAll(@RequestParam(value = "pageCurrentNo",required = false,defaultValue = "1") Integer pageCurrentNo,
+                        @RequestParam(value = "statusId",required = false,defaultValue = "-1") Integer statusId){
+        int total = distributionService.selDistributionTotal(statusId);
         Page page = new Page();
         page.setPageSize( Contents.PAGENO);
         page.setPageCurrentNo(pageCurrentNo);
         page.setTotalCount(total);
         page.setTotalPages(page.getTotalPages());
-        List<Distribution> userDetails =distributionService.selDistributionAll(pageCurrentNo, Contents.PAGENO);
+        List<Distribution> userDetails =distributionService.selDistributionAll(pageCurrentNo, Contents.PAGENO,statusId);
         page.setList(userDetails);
         return page;
     }
@@ -102,5 +107,27 @@ public class DistributionController {
         //此处先省略默认给师父打分的环节
 
         return  n > 0 ? true : false;
+    }
+
+    /**
+     * 渲染修改数据
+     * @param id
+     * @return
+     */
+    @RequestMapping("/updDelById")
+    @ResponseBody
+    public Distribution updDelById(Integer id){
+        return distributionService.selDistributionById(id) ;
+    }
+
+    /**
+     * 保存修改状态的结果 "id":id,"statusId":statusId,"refusedMessage":refusedMessage
+     * @return
+     */
+    @RequestMapping("/saveDis")
+    @ResponseBody
+    public boolean saveDis(Integer id,Integer statusId,String refusedMessage){
+        Distribution distribution = new Distribution(id,statusId,refusedMessage);
+        return  distributionService.updDistribution(distribution) > 0 ? true : false;
     }
 }

@@ -2,9 +2,10 @@
 
 //初始化数据
 var currentPage = 1;  //当前页码
+var statusId = -1;
 //过滤查询
-function searchDistribution(currentPage) {
-    $.getJSON("/manager/distribution/userAll",{"pageCurrentNo":currentPage},callback)
+function searchDistribution(currentPage,statusId) {
+    $.getJSON("/manager/distribution/userAll",{"pageCurrentNo":currentPage,"statusId":statusId},callback)
     //回调
     function callback(data) {
         $("#theBody").html("");
@@ -13,10 +14,13 @@ function searchDistribution(currentPage) {
             var updateTime = data.list[i].updateTime == null ? '' : toDate(new Date(data.list[i].updateTime).toJSON());
             var message = data.list[i].refusedMessage == null ? '' : data.list[i].refusedMessage
             var a = data.list[i].statusId;
+
             $("#theBody").append("<tr>" +
                 "<td><input type=\"checkbox\" class='userCheck'/></td>" +
                 "<td>" + data.list[i].id + "</td>" +
-                "<td>" + data.list[i].realName + "</td>" +
+                "<td>" +
+                "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#guYongModal\"  onclick='selResById(\""+data.list[i].resId+"\")'>"+ data.list[i].realName+"</a>" +
+                "</td>" +
                 "<td>" + data.list[i].realTitle + "</td>" +
                 "<td>" + data.list[i].sfName + "</td>" +
                 "<td>" + data.list[i].statusName + "</td>" +
@@ -24,7 +28,7 @@ function searchDistribution(currentPage) {
                 "<td>" + createTime + "</td>" +
                 "<td>" + updateTime+ "</td>" +
                 "<td>" +
-                "<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\">修改</a>" +
+                "<a href='javascript:void(0)' data-toggle=\"modal\" data-target=\"#updateModal\"  class=\"btn bg-olive btn-xs\" onclick='updDelById("+data.list[i].id+")'>修改</a>" +
                 "&nbsp; &nbsp;  <a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" onclick='confirmAll("+data.list[i].id+")' style=\"" + ((a ==7 ) ? '' : 'display:none;')+"\" >确认完工</a>" +
                 "</td>" +
                 "</tr>")
@@ -41,11 +45,11 @@ function searchDistribution(currentPage) {
 //初始化加载数据
 $(function () {
 
-   searchDistribution(currentPage);
+   searchDistribution(currentPage,statusId);
     //首页
     $("#begin").click(function () {
         currentPage = 1;
-       searchDistribution(currentPage);
+       searchDistribution(currentPage,statusId);
         $("#pageNo").html(currentPage);
     })
     //上一页
@@ -54,7 +58,7 @@ $(function () {
         if (parseInt(currentPage) <1) {
             alert("已经是第一页了")
         } else {
-           searchDistribution(currentPage);
+           searchDistribution(currentPage,statusId);
             $("#pageNo").html(currentPage);
         }
     })
@@ -65,14 +69,14 @@ $(function () {
             alert("已经最后一页了");
             return;
         } else {
-           searchDistribution(currentPage);
+           searchDistribution(currentPage,statusId);
             $("#pageNo").html(currentPage);
         }
     })
     //最后一页
     $("#end").click(function () {
         currentPage = parseInt($("#totalPages").html());
-       searchDistribution(currentPage);
+       searchDistribution(currentPage,statusId);
         $("#pageNo").html(currentPage);
     })
 
@@ -199,4 +203,57 @@ function confirmAll(id) {
         alert("取消成功")
         return false;
     }
+}
+
+/**
+ * 根据雇佣人姓名查看雇佣的内容
+ * @param resId   雇佣人下单的id
+ */
+function selResById(resId) {
+    $.getJSON("/manager/userDetail/selUserReleaseById",{"id":resId},function (data) {
+        $("#relName,#title,#phones,#workAddress,#appointTime,#demand").html("");
+
+        $("#relName").append(data.nickName)
+        $("#title").append(data.title)
+        $("#phones").append(data.phone)
+        var workAddress = showProvince(data.serviceProvince,data.serviceCity,data.serviceArea)+"/"+data.serverDetail
+        $("#workAddress").append(workAddress)
+        var appointTime = toDate(new Date(data.appointTime).toJSON())
+        $("#appointTime").append(appointTime)
+        $("#demand").append(data.demand)
+
+    })
+}
+
+/**
+ * 渲染修改数据
+ * @param id
+ */
+function updDelById(id) {
+    $.getJSON("/manager/distribution/updDelById",{"id" :id},function (data) {
+        $("#id,#distName,#sfName,#statusId,#refusedMessage").val("")
+        $("#id").val(data.id)
+        $("#distName").val(data.realName)
+        $("#sfName").val(data.sfName)
+        $("#statusId").val(data.statusId)
+        $("#refusedMessage").val(data.refusedMessage)
+    })
+}
+
+/**
+ * 保存修改结果
+ */
+function saveDis() {
+    var id = $("#id").val();
+    var statusId = $("#statusId").val();
+    var refusedMessage = $("#refusedMessage").val();
+
+    $.getJSON("/manager/distribution/saveDis",{"id":id,"statusId":statusId,"refusedMessage":refusedMessage},function (data) {
+        if(data == true){
+            alert("修改状态成功")
+            window.location.reload();
+        }else{
+            alert("修改状态失败")
+        }
+    })
 }

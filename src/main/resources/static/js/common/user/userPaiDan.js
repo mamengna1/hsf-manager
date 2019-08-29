@@ -94,13 +94,12 @@ function searchPaiDanSkill() {
 function updPaiDan(id) {
     var userReId  = userReleaseId;   // 发布信息id
     $.getJSON("/manager/userDetail/updPaiDan",{"id":userReId,"userDetailId":id},function (data) {
-        alert(data)
         if(data == true){
             alert("成功发送派单请求通知")
           location.href="/manager/userRelease/goUserReleaseAll";
 
         }else{
-            alert("派单失败")
+            alert("该条雇佣信息已经为这名师傅派过单了，请勿重复派单！")
         }
     })
 }

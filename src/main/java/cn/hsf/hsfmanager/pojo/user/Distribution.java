@@ -18,8 +18,9 @@ public class Distribution {
 
     private String realName;   //雇佣人
     private String realTitle;  //派单标题
-    private String sfName;  // 派单师傅id
+    private String sfName;  // 派单师傅名称
     private String statusName;   //状态名称
+    private Integer resId;  // 雇佣id
     public Distribution() {
     }
 
@@ -28,8 +29,22 @@ public class Distribution {
         this.sfId = sfId;
     }
 
+    public Distribution(Integer id, Integer statusId, String refusedMessage) {
+        this.id = id;
+        this.statusId = statusId;
+        this.refusedMessage = refusedMessage;
+    }
+
     public Distribution(Integer id) {
         this.id = id;
+    }
+
+    public Integer getResId() {
+        return resId;
+    }
+
+    public void setResId(Integer resId) {
+        this.resId = resId;
     }
 
     public String getStatusName() {

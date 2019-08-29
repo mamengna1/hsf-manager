@@ -1,7 +1,9 @@
 package cn.hsf.hsfmanager.service.user.impl;
 
 import cn.hsf.hsfmanager.mapper.DistributionMapper;
+import cn.hsf.hsfmanager.mapper.DistributionStatusMapper;
 import cn.hsf.hsfmanager.pojo.user.Distribution;
+import cn.hsf.hsfmanager.pojo.user.DistributionStatus;
 import cn.hsf.hsfmanager.service.user.DistributionService;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,8 @@ public class DistributionServiceImpl implements DistributionService {
 
     @Resource
     private DistributionMapper distributionMapper;
+    @Resource
+    private DistributionStatusMapper distributionStatusMapper;
 
     @Override
     public int insDistribution(Distribution distribution) {
@@ -25,17 +29,32 @@ public class DistributionServiceImpl implements DistributionService {
     }
 
     @Override
-    public List<Distribution> selDistributionAll(Integer pageCurrentNo, Integer pageSize) {
-        return distributionMapper.selDistributionAll((pageCurrentNo-1)*pageSize, pageSize);
+    public List<Distribution> selDistributionAll(Integer pageCurrentNo, Integer pageSize,Integer statusId) {
+        return distributionMapper.selDistributionAll((pageCurrentNo-1)*pageSize, pageSize,statusId);
     }
 
     @Override
-    public int selDistributionTotal() {
-        return distributionMapper.selDistributionTotal();
+    public int selDistributionTotal(Integer statusId) {
+        return distributionMapper.selDistributionTotal(statusId);
     }
 
     @Override
     public int updDistribution(Distribution distribution) {
         return distributionMapper.updDistribution(distribution);
+    }
+
+    @Override
+    public Distribution selDistributionById(Integer id) {
+        return distributionMapper.selDistributionById(id);
+    }
+
+    @Override
+    public List<DistributionStatus> selAllDisName() {
+        return distributionStatusMapper.selAllDisName();
+    }
+
+    @Override
+    public DistributionStatus selByDisId(Integer id) {
+        return distributionStatusMapper.selByDisId(id);
     }
 }

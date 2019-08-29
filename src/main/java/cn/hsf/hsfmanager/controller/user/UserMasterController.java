@@ -157,6 +157,9 @@ public class UserMasterController {
                 }
             }
             lineStatus = 1;
+            UserDetail detail = new UserDetail(id,status,statusMessage,lineStatus);
+            userDetailService.updateUserDetail(detail);
+            return  true;
         }else if(status ==2){   //审核失败
             Map map = new HashMap();
             map.put("openId",o);
@@ -164,9 +167,11 @@ public class UserMasterController {
             map.put("message",statusMessage);
             map.put("url","http://java.86blue.cn/_api/goRegister");
             templateService.sendAuditFail(map);
+            UserDetail detail = new UserDetail(id,status,statusMessage,lineStatus);
+            userDetailService.updateUserDetail(detail);
+            return false;
         }
-        UserDetail detail = new UserDetail(id,status,statusMessage,lineStatus);
-        return  userDetailService.updateUserDetail(detail) > 0 ? true : false;
+        return false;
     }
 
     @Autowired

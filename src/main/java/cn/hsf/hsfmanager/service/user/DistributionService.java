@@ -1,6 +1,7 @@
 package cn.hsf.hsfmanager.service.user;
 
 import cn.hsf.hsfmanager.pojo.user.Distribution;
+import cn.hsf.hsfmanager.pojo.user.DistributionStatus;
 
 import java.util.List;
 
@@ -10,13 +11,18 @@ public interface DistributionService {
     Distribution selByResId(Distribution distribution);
 
     //分页
-    List<Distribution> selDistributionAll( Integer pageCurrentNo,  Integer pageSize);
+    List<Distribution> selDistributionAll( Integer pageCurrentNo,  Integer pageSize,Integer statusId);
 
     /**
      * 总记录数
      * @return
      */
-    int selDistributionTotal();
+    int selDistributionTotal(Integer statusId);
 
     int updDistribution(Distribution distribution);
+    Distribution selDistributionById(Integer id);
+
+    List<DistributionStatus> selAllDisName();
+
+    DistributionStatus selByDisId(Integer id);
 }
