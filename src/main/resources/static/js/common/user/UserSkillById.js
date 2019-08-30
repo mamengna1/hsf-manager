@@ -7,7 +7,7 @@
  */
 function userSkillById(id) {
     var name ;
-    $.getJSON("/manager/userSkill/getUserSkill",{"id":id},function (data) {
+    $.getJSON("/manager/userSkill/selSkillsById",{"id":id},function (data) {
         name =   data.skillName
     })
     return name;

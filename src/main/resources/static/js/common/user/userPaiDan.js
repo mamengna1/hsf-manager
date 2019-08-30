@@ -16,13 +16,13 @@ function searchPaiDan(currentPage,skillId,serviceProvince,serviceCity,serviceAre
         $("#theBody").html("");
         for (var i = 0; i < data.list.length; i++) {
            var workArea = showProvince(data.list[i].workProvince,data.list[i].workCity,data.list[i].workArea);
-
+            var skillName = getSkillName(data.list[i].skills)
             $("#theBody").append("<tr>" +
                 "<td><input type=\"checkbox\" class='userCheck'/></td>" +
                 "<td>" + data.list[i].id + "</td>" +
                 "<td>" + data.list[i].name + "</td>" +
                 "<td>" + data.list[i].card + "</td>" +
-                "<td>" + data.list[i].skills + "</td>" +
+                "<td>" + skillName + "</td>" +
                 "<td>" + data.list[i].yearWorkId + "</td>" +
                 "<td>" + workArea+"</td>" +
                 "<td>" +
@@ -82,8 +82,30 @@ $(function () {
 
 })
 
+/**
+ * 派单下拉选择
+ */
 function searchPaiDanSkill() {
-    var skill = $("#skills").val();
+    var skills = $("#skills").val();
+    var skills2 = $("#skills2").val();
+   // var S = new Array();
+    var skill;
+    if(skills == -1){   //都不选择时
+        skill = -1;
+    }else if (skills != -1 && skills2 == -1){   //只选择大类不选择小类时，得到此大类的所有小类
+
+        var r = trimSpace(C)
+        var a = r.join();
+        if(a.substr(0,1)=='-1'){
+            a = a.substr(1)
+        }
+        skill = a;
+    } else if(skills != -1 && skills2 != -1){    //选择了大类中的小类
+        skill = skills2;
+    }
+
+    alert("最终skill : "+ skill)
+
     searchPaiDan(currentPage,skill,serviceProvince,serviceCity,serviceArea)
 }
 
@@ -102,4 +124,18 @@ function updPaiDan(id) {
             alert("该条雇佣信息已经为这名师傅派过单了，请勿重复派单！")
         }
     })
+}
+
+function getSkillName(s) {
+    //技能
+    var skills = (s).split(",");
+    var array = new Array();
+    for (var i = 0; i < skills.length; i ++){
+        array[i] =  userSkillById(skills[i])
+    }
+    var a = array.join();
+    if(a.substr(0,1)==','){
+        a = a.substr(1)
+    }
+    return a;
 }

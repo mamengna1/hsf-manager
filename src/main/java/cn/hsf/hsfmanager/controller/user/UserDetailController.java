@@ -51,7 +51,7 @@ public class UserDetailController {
     public String goPaiDan(@RequestParam("id") Integer id, Model model){
         UserRelease userRelease = userReleaseService.selUserReleaseById(id);
         model.addAttribute("userRelease",userRelease);
-        model.addAttribute("skills", userSkillService.selAll());
+        model.addAttribute("skills", userSkillService.selSkillName(null));
         return "user/userPaiDan";
     }
 
@@ -59,23 +59,33 @@ public class UserDetailController {
     /**
      * 分页显示数据  派单师傅
      * @param pageCurrentNo
+     * @param  skillId    小类id
      * @return
      */
     @RequestMapping("/userAll")
     @ResponseBody
     public Page userAll(@RequestParam(value = "pageCurrentNo",required = false,defaultValue = "1") Integer pageCurrentNo,
-                        @RequestParam(value = "skillId",required = false,defaultValue = "-1")  Integer skillId,
+                        @RequestParam(value = "skillId",required = false,defaultValue = "-1")  String skillId,
                         @RequestParam(value = "serviceProvince",required = false,defaultValue = "")  Integer serviceProvince,
                         @RequestParam(value = "serviceCity",required = false,defaultValue = "")  Integer serviceCity,
                         @RequestParam(value = "serviceArea",required = false,defaultValue = "")  Integer serviceArea){
-        int total = userDetailService.selPaiDanTotal(skillId, serviceProvince, serviceCity, -1);
+
+        int total;
+        List<UserDetail> userDetails = null;
+        if(skillId == null || skillId.equals("-1") || skillId =="-1"){
+           total  = userDetailService.selPaiDanTotal(null, serviceProvince, serviceCity, -1);
+            userDetails = userDetailService.selPaiDanAll(pageCurrentNo, Contents.PAGENO,null,serviceProvince,serviceCity,-1);
+        }else{
+            total  = userDetailService.selPaiDanTotal(skillId, serviceProvince, serviceCity, -1);
+            userDetails = userDetailService.selPaiDanAll(pageCurrentNo, Contents.PAGENO,skillId,serviceProvince,serviceCity,-1);
+        }
+
         System.out.println("total :" +total);
         Page page = new Page();
         page.setPageSize( Contents.PAGENO);
         page.setPageCurrentNo(pageCurrentNo);
         page.setTotalCount(total);
         page.setTotalPages(page.getTotalPages());
-        List<UserDetail> userDetails = userDetailService.selPaiDanAll(pageCurrentNo, Contents.PAGENO,skillId,serviceProvince,serviceCity,-1);
         page.setList(userDetails);
         return page;
     }

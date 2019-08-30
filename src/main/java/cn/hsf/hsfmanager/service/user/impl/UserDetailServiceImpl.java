@@ -53,12 +53,12 @@ public class UserDetailServiceImpl implements UserDetailService {
     }
 
     @Override
-    public List<UserDetail> selPaiDanAll(Integer pageCurrentNo, Integer pageSize, Integer skillId, Integer workProvince, Integer workCity, Integer workArea) {
+    public List<UserDetail> selPaiDanAll(Integer pageCurrentNo, Integer pageSize, String skillId, Integer workProvince, Integer workCity, Integer workArea) {
         return userDetailMapper.selPaiDanAll((pageCurrentNo-1)*pageSize, pageSize, skillId, workProvince, workCity, workArea);
     }
 
     @Override
-    public int selPaiDanTotal(Integer skillId, Integer workProvince, Integer workCity, Integer workArea) {
+    public int selPaiDanTotal(String skillId, Integer workProvince, Integer workCity, Integer workArea) {
         return userDetailMapper.selPaiDanTotal(skillId, workProvince, workCity, workArea);
     }
 

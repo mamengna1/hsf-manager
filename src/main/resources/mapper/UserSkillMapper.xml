@@ -6,39 +6,6 @@
 <!--namespace:映射命名空间-->
 <mapper namespace="cn.hsf.hsfmanager.mapper.UserSkillMapper">
 
-    <select id="selNameById" parameterType="int" resultType="cn.hsf.hsfmanager.pojo.user.UserSkill">
-        select `id`,`skillName` from `tb_user_skill` where id = #{id}
-    </select>
-
-
-    <select id="selAllSkill" resultType="cn.hsf.hsfmanager.pojo.user.UserSkill" parameterType="int">
-         select `id`,`skillName` from `tb_user_skill`
-           limit #{pageCurrentNo},#{pageSize}
-    </select>
-
-    <select id="selSkillTotal" resultType="int">
-        select count(*) from  `tb_user_skill`
-    </select>
-
-    <select id="selAll" resultType="cn.hsf.hsfmanager.pojo.user.UserSkill">
-        select * from  `tb_user_skill`
-    </select>
-
-    <insert id="insSkill" parameterType="cn.hsf.hsfmanager.pojo.user.UserSkill">
-        insert into  `tb_user_skill` (`skillName`) values(#{skillName})
-    </insert>
-
-    <update id="updSkill" parameterType="cn.hsf.hsfmanager.pojo.user.UserSkill">
-        update `tb_user_skill` set  `skillName` = #{skillName} where id = #{id}
-    </update>
-
-    <delete id="delSkill" parameterType="int">
-        delete from  `tb_user_skill`  where id = #{id}
-    </delete>
-
-
-
-
 
     <!--技能详细信息-->
     <select id="selByParent" parameterType="int" resultType="cn.hsf.hsfmanager.pojo.user.UserSkills">

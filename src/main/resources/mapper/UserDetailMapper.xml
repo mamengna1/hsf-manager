@@ -129,13 +129,24 @@
     </select>
 
 
-    <!--派单-->
+    <!--派单
+       and skills like concat('%',#{skillId},'%')
+    <if test='skillId != null  and  skillId !=  "-1" ' >
+           and `skills` in
+                <foreach collection="skillId.split(',')" open="(" separator="," close=")" item="skill">
+                    #{skill}
+                </foreach>
+    -->
     <select id="selPaiDanAll" resultType="cn.hsf.hsfmanager.pojo.user.UserDetail">
         SELECT `id`,`name`,`card`,`placeProvince`,`placeCity`,`placeArea`,`address`,`cardOne`,`cardTwo`,`skills`,`workProvince`,`workCity`,`workArea`,`status`,`statusMessage`,`lineStatus`,`yearWorkId`
         FROM `tb_user_detail`
         <where>
-            <if test="skillId != null  and skillId &gt; -1 ">
-               and skills like concat('%',#{skillId},'%')
+            <if test="skillId != null  and  skillId !='' " >
+                and (
+                <foreach collection="skillId.split(',')" separator="or" item="skill">
+                    skills like concat('%',#{skill},'%')
+                </foreach>
+                )
             </if>
             <if test="workProvince != null  and workProvince !='' ">
                 and workProvince = #{workProvince}
@@ -154,9 +165,14 @@
     <select id="selPaiDanTotal" resultType="int">
           SELECT count(*) FROM `tb_user_detail`
         <where>
-            <if test="skillId != null  and skillId &gt; -1  ">
-                and skills like concat('%',#{skillId},'%')
+            <if test="skillId != null  and  skillId !='' " >
+                and (
+                <foreach collection="skillId.split(',')" separator="or" item="skill">
+                     skills like concat('%',#{skill},'%')
+                </foreach>
+                )
             </if>
+
             <if test="workProvince != null  and workProvince !='' ">
                 and workProvince = #{workProvince}
             </if>

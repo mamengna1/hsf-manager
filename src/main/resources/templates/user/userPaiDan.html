@@ -19,8 +19,8 @@
 	<script src="/manager/plugins/select2/select2.min.js" type="text/javascript"></script>
 	<script type="text/javascript" src="/manager/js/common/utils/area.js"></script>  <!--三级回显的js-->
 	<script type="text/javascript" src="/manager/js/common/utils/tranceToDate.js"></script>  <!--引入时间转换的js-->
+	<script type="text/javascript" src="/manager/js/common/utils/category.js"></script>  <!--引入查询skillName的js-->
 	<script type="text/javascript" src="/manager/js/common/user/UserSkillById.js"></script>  <!--引入查询skillName的js-->
-
 
 </head>
 
@@ -45,17 +45,22 @@
 				<table>
 					<tr>
 						<td>
-						技能
+							技能
 						</td>
-					<td>
-						<select id="skills" name="skills"  class="form-control">
-							<option value="-1">--请选择--</option>
-							<option th:each="mt :${skills}" th:value="${mt.id}" th:text="${mt.skillName}" />
-						</select>
-					</td>
-					<td>
-						<button class="btn btn-default"  onclick="searchPaiDanSkill()">查询</button>
-					</td>
+						<td>
+							<select id="skills" name="skills"  class="form-control">
+								<option value="-1">--请选择--</option>
+							</select>
+
+						</td>
+						<td>
+							<select id="skills2" name="skills2"  class="form-control">
+								<option value="-1">--请选择--</option>
+							</select>
+						</td>
+						<td>
+							<button class="btn btn-default"  onclick="searchPaiDanSkill()">查询</button>
+						</td>
 
 					</tr>
 				</table>

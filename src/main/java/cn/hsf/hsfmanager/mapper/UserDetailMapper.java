@@ -45,8 +45,8 @@ public interface UserDetailMapper {
      * @param skillId   技能
      * @return
      */
-    List<UserDetail> selPaiDanAll(@Param("pageCurrentNo") Integer pageCurrentNo, @Param("pageSize") Integer pageSize, @Param("skillId") Integer skillId, @Param("workProvince") Integer workProvince,@Param("workCity") Integer workCity,@Param("workArea") Integer workArea);
+    List<UserDetail> selPaiDanAll(@Param("pageCurrentNo") Integer pageCurrentNo, @Param("pageSize") Integer pageSize, @Param("skillId") String skillId, @Param("workProvince") Integer workProvince,@Param("workCity") Integer workCity,@Param("workArea") Integer workArea);
     //总数量
-    int selPaiDanTotal(@Param("skillId") Integer skillId, @Param("workProvince") Integer workProvince,@Param("workCity") Integer workCity,@Param("workArea") Integer workArea);
+    int selPaiDanTotal(@Param("skillId") String skillId, @Param("workProvince") Integer workProvince,@Param("workCity") Integer workCity,@Param("workArea") Integer workArea);
 }
 

@@ -38,6 +38,7 @@ public class DistributionController {
     private TemplateService templateService;
     @Resource
     private UserDetailService userDetailService;
+
     /**
      * 进入派单页面
      * @return
