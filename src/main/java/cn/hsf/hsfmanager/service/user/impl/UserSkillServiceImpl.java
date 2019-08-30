@@ -92,5 +92,10 @@ public class UserSkillServiceImpl implements UserSkillService {
     public int delSkillsById(Integer id) {
         return userSkillMapper.delSkillsById(id);
     }
+
+    @Override
+    public int delSkillsByParentId(Integer parentId) {
+        return userSkillMapper.delSkillsByParentId(parentId);
+    }
 }
 

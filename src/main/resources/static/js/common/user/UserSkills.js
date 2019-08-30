@@ -6,7 +6,7 @@
 var currentPage = 1;  //当前页码
 var parentId = -1;
 var flag = true;
-var B=new Array()
+var  B=new Array();;
 
 function skillAll(currentPage,parentId,flag) {
     $.getJSON("/manager/userSkill/showSkills",{"currentPage":currentPage,"parentId":parentId},callback)
@@ -95,6 +95,7 @@ function selById(pId) {
  * 新增父类
  */
 function saveSkills() {
+
     $.ajaxSettings.async = false;
     var name = $("#skillName").val();
     var skillName;
@@ -105,6 +106,7 @@ function saveSkills() {
         parentId = $("#parentId").val();
         describes = $("#describes").val();
     }else{
+
         skillName = name;
         parentId = -1;
         describes = null;
@@ -115,7 +117,11 @@ function saveSkills() {
             $.getJSON("/manager/userSkill/saveSkills",{"skillName":skillName,"parentId":parentId,"describes":describes},function (data) {
                 if(data ==  true){
                     alert("新增成功！")
+                    if(parentId == -1){   //父类
+                        skillAll(currentPage,parentId,true)
+                    }
                     window.location.reload();
+
                 }else{
                     alert("新增失败")
                 }
@@ -177,6 +183,9 @@ function saveUpdSkills() {
             $.getJSON("/manager/userSkill/saveUpdSkill",{"id":id,"skillName":skillName,"parentId":parentId,"describes":describes},function (data) {
                 if(data ==  true){
                     alert("修改成功！")
+                    if(parentId == -1){
+                        B.splice(id,1,skillName);
+                    }
                     window.location.reload();
                 }else{
                     alert("修改失败")
@@ -203,8 +212,23 @@ function delSkills(id) {
                 alert("删除子类失败")
             }
         })
-    }else{    //是父类先把父类数组中的清除 ，在删除子类，再删除父类
-       var etc = B[id]
-       B.remove(etc)
+    }else{    //是父类先把父类数组中的清除 ，先删除包含的所有子类，再删除父类
+        var r=confirm("您将要删除的是父类，父类下可能包含相关子类，您确定将其删除吗？")
+        if(r == true){
+            //清除父类数组中的相关元素
+            B.splice(id,1)
+
+            $.getJSON("/manager/userSkill/delSkillsByFu",{"id":id},function (data) {
+                if(data == true){
+                    alert("删除父类成功")
+                    window.location.reload();
+                }else{
+                    alert("删除父类失败")
+                }
+            })
+        }else{
+            alert("您取消了删除")
+        }
+
     }
 }

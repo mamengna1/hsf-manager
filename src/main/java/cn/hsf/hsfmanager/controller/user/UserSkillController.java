@@ -211,9 +211,32 @@ public class UserSkillController {
         return userSkillService.updSkills(userSkills) > 0 ? true : false;
     }
 
+    /**
+     * 直接删除子类
+     * @param id
+     * @return
+     */
     @RequestMapping("/delSkillsById")
     @ResponseBody
     public boolean delSkillsById(Integer id){
        return userSkillService.delSkillsById(id) > 0 ? true : false;
+    }
+
+    /**
+     * 删除父类
+     * @param id
+     * @return
+     */
+    @RequestMapping("/delSkillsByFu")
+    @ResponseBody
+    public boolean delSkillsByFu(Integer id){
+        System.out.println("进入后台删除父类id : " + id );
+        //先删除子类parentId = id的
+        int i = userSkillService.delSkillsByParentId(id);
+        System.out.println("删除父类中的子类结果 ： " + i );
+        //再删除父类
+        int res = userSkillService.delSkillsById(id);
+        System.out.println("删除子类结果 ： " +res );
+        return res > 0 ? true : false;
     }
 }
