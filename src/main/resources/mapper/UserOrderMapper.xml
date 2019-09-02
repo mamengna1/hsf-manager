@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace:映射命名空间-->
+<mapper namespace="cn.hsf.hsfmanager.mapper.UserOrderMapper">
+
+    <insert id="insUserOrder"  useGeneratedKeys="true" keyProperty="id" parameterType="cn.hsf.hsfmanager.pojo.user.UserOrder">
+       insert into `tb_user_order`(`comments`,`starLevel`,`commentTypeId`,`commentTime`,`userId`,`sfId`) values (#{comments},#{starLevel},#{commentTypeId},now(),#{userId},#{sfId})
+    </insert>
+
+
+    <update id="updUserOrder" parameterType="cn.hsf.hsfmanager.pojo.user.UserOrder">
+        update `tb_user_order`
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+            <if test="id != null and id!=''">
+                id=#{id},
+            </if>
+            <if test="comments != null and comments!=''">
+                comments=#{comments},
+            </if>
+            <if test="starLevel != null and starLevel!=''">
+                starLevel=#{starLevel},
+            </if>
+            <if test="commentTypeId != null and commentTypeId!=''">
+                commentTypeId=#{commentTypeId},
+            </if>
+            <if test="userId != null and userId!=''">
+                userId=#{userId},
+            </if>
+            <if test="sfId != null and sfId!=''">
+                sfId=#{sfId},
+            </if>
+            commentTime= now()
+        </trim>
+    </update>
+
+
+    <!--分页-->
+    <select id="selAllUserOrder" resultType="cn.hsf.hsfmanager.pojo.user.UserOrder" parameterType="int">
+        SELECT `id`,`comments`,`starLevel`,`commentTypeId`,`commentTime`,  `userId`,`sfId`
+        FROM `tb_user_order`
+        <where>
+            <if test="commentTypeId !=null and commentTypeId &gt; -1 ">
+                and  commentTypeId = #{commentTypeId}
+            </if>
+        </where>
+        limit #{pageCurrentNo},#{pageSize}
+    </select>
+
+    <select id="selUserOrderTotal" resultType="int" parameterType="int">
+        SELECT count(*) FROM `tb_user_order`
+        <where>
+            <if test="commentTypeId !=null and commentTypeId &gt; -1 ">
+                and  commentTypeId = #{commentTypeId}
+            </if>
+        </where>
+    </select>
+
+    <select id="selById" resultType="cn.hsf.hsfmanager.pojo.user.UserOrder" parameterType="int">
+        SELECT `id`,`comments`,`starLevel`,`commentTypeId`,`commentTime`,  `userId`,`sfId`
+        FROM `tb_user_order`
+        where id = #{id}
+    </select>
+
+    <select id="selByUserOrder" resultType="cn.hsf.hsfmanager.pojo.user.UserOrder"  parameterType="cn.hsf.hsfmanager.pojo.user.UserOrder" >
+        SELECT `id`,`comments`,`starLevel`,`commentTypeId`,`commentTime`,  `userId`,`sfId`
+        FROM `tb_user_order`
+        <where>
+            <if test="id !=null and id !=''">
+                and  id = #{id}
+            </if>
+            <if test="comments !=null and comments !=''">
+                and  comments = #{comments}
+            </if>
+            <if test="starLevel !=null and starLevel !=''">
+                and  starLevel = #{starLevel}
+            </if>
+            <if test="userId !=null and userId !=''">
+                and  userId = #{userId}
+            </if>
+            <if test="sfId !=null and sfId !=''">
+                and  sfId = #{sfId}
+            </if>
+            <if test="commentTypeId !=null and commentTypeId &gt; -1 ">
+                and  commentTypeId = #{commentTypeId}
+            </if>
+        </where>
+    </select>
+
+    <delete id="delUserOrderById" parameterType="int">
+        delete from `tb_user_order` where id = #{id}
+    </delete>
+</mapper>

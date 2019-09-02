@@ -465,6 +465,11 @@
                                 <i class="fa fa-circle-o"></i>所有动态
                             </a>
                         </li>
+                        <li id="admin-login">
+                            <a href="/manager/userOrder/goUserOrder" target="iframe">
+                                <i class="fa fa-circle-o"></i>用户评论
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li class="treeview" th:if="${admins.level le 3}">
@@ -478,7 +483,7 @@
                     <ul class="treeview-menu">
                         <li id="admin-login">
                             <a href="/manager/userSkill/goAllSkills" target="iframe">
-                                <i class="fa fa-circle-o"></i>技能信息2
+                                <i class="fa fa-circle-o"></i>技能信息
                             </a>
                         </li>
                     </ul>
