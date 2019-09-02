@@ -68,22 +68,15 @@
                 <div class="col-md-10 data" style="height:230px;">
                     <table>
                         <input type="hidden" name="skills" id="skills">
-
-                            <label th:each="skill : ${skills}">
-                                <tr>
-                                   <td>
-                                    <input type="checkbox" th:attr="sid=${skill.id}" class="skills"><i>[[${skill.skillName}]]</i>
-                                        <span id="ziLei">
-
-                                        </span>
-                                   </td>
-                                </tr>
-                            </label>
-
-
-
+                            <tr th:each="parentSkill : ${parentSkills}">
+                                <td>
+                                    <label style="margin-right: 50px"><input type="hidden" th:attr="sid=${parentSkill.id}" class="skills"/><span>[[${parentSkill.skillName}]]</span></label>
+                                </td>
+                                <td th:each="skill : ${userSkills}"  th:if="${skill.parentId} == ${parentSkill.id}">
+                                    <label style="margin-right: 20px"><input type="checkbox" th:attr="sid=${skill.id}" class="skills"/><span>[[${skill.skillName}]]</span></label>
+                                </td>
+                            </tr>
                     </table>
-
                 </div>
                 <div class="col-md-2 title">工作地区</div>
                 <div class="col-md-10 data">

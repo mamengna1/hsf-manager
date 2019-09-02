@@ -186,7 +186,8 @@ public class UserMasterController {
     @RequestMapping("/goUserUpd")
     public String goUserUpd(Integer id , Model model){
         model.addAttribute("yearWorks", userDetailService.selYearAll());
-        model.addAttribute("skills", userSkillService.selSkillName(null));
+        model.addAttribute("parentSkills", userSkillService.selSkillName(null));
+        model.addAttribute("userSkills", userSkillService.selAllSkills());
         model.addAttribute("sources", userDetailService.selSourceType());
         model.addAttribute("user", userService.selUserByDetailId(id));
         return "user/userUpd";

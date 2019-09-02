@@ -64,4 +64,14 @@ public class UserSkills {
     public void setDescribes(String describes) {
         this.describes = describes;
     }
+
+    @Override
+    public String toString() {
+        return "UserSkills{" +
+                "id=" + id +
+                ", skillName='" + skillName + '\'' +
+                ", parentId=" + parentId +
+                ", describes='" + describes + '\'' +
+                '}';
+    }
 }

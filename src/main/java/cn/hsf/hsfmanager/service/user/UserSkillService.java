@@ -16,4 +16,5 @@ public interface UserSkillService {
     int updSkills(UserSkills userSkills);
     int delSkillsById(Integer id);
     int delSkillsByParentId( Integer parentId);
+    List<UserSkills> selAllSkills();
 }

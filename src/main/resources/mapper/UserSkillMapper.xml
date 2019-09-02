@@ -80,4 +80,8 @@
     <delete id="delSkillsByParentId" parameterType="int">
            delete from `tb_user_skills` where parentId =#{parentId}
     </delete>
+
+    <select id="selAllSkills" resultType="cn.hsf.hsfmanager.pojo.user.UserSkills">
+         select  `id`,`skillName`,`parentId`,`describes` FROM `tb_user_skills`
+    </select>
 </mapper>

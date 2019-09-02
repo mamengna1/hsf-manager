@@ -17,5 +17,6 @@ public interface UserSkillMapper {
     int updSkills(UserSkills userSkills);
     int delSkillsById(@Param("id") Integer id);
     int delSkillsByParentId(@Param("parentId") Integer parentId);
+    List<UserSkills> selAllSkills();
 }
 
