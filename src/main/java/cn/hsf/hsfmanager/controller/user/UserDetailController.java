@@ -68,7 +68,8 @@ public class UserDetailController {
                         @RequestParam(value = "skillId",required = false,defaultValue = "-1")  String skillId,
                         @RequestParam(value = "serviceProvince",required = false,defaultValue = "")  Integer serviceProvince,
                         @RequestParam(value = "serviceCity",required = false,defaultValue = "")  Integer serviceCity,
-                        @RequestParam(value = "serviceArea",required = false,defaultValue = "")  Integer serviceArea){
+                        @RequestParam(value = "serviceArea",required = false,defaultValue = "")  Integer serviceArea,
+                        @RequestParam(value = "recId",required = false,defaultValue = "")  Integer recId){
 
         int total;
         List<UserDetail> userDetails = null;
@@ -78,6 +79,18 @@ public class UserDetailController {
         }else{
             total  = userDetailService.selPaiDanTotal(skillId, serviceProvince, serviceCity, -1);
             userDetails = userDetailService.selPaiDanAll(pageCurrentNo, Contents.PAGENO,skillId,serviceProvince,serviceCity,-1);
+        }
+        //判断是否存在
+        String isExist = null;
+        for (int i = 0; i <userDetails.size() ; i++) {
+            //判断派单表是否已经存在
+            Distribution distribution =  distributionService.selByResId(new Distribution(recId,userDetails.get(i).getId()));
+            if(distribution == null){   //不存在
+                isExist = "true";
+            }else{
+                isExist = "false";
+            }
+            userDetails.get(i).setIsExist(isExist);
         }
 
         System.out.println("total :" +total);
@@ -100,13 +113,14 @@ public class UserDetailController {
     @RequestMapping("/updPaiDan")
     @ResponseBody
     public boolean updPaiDan(Integer id,Integer userDetailId){
-        UserRelease userRelease = new UserRelease(id,1);   //状态改为1  接单中
-        int n = userReleaseService.updateUserRelease(userRelease);
 
-        //往派单表中添加数据
+        int n = userReleaseService.updateUserRelease( new UserRelease(id,1));  //状态改为1  接单中
+        UserRelease userRelease = userReleaseService.selUserReleaseById(id);
+        //判断派单表是否已经存在
         Distribution distribution = new Distribution(id,userDetailId);
         Distribution distribution1 =  distributionService.selByResId(distribution);
         if(distribution1 == null ){
+            //往派单表中添加数据
             distributionService.insDistribution(distribution);
 
             //给师傅以及用户发送模板信息，师父确认接单状态改为2
@@ -115,6 +129,7 @@ public class UserDetailController {
             String userDetailOpenId =  userService.selUserByDetailId(userDetailId).getOpenId();   // 师傅的openId
             String name =  userReleaseService.selUserReleaseById(id).getNickName();
             String sfName = userDetailService.selUserDetailById(userDetailId).getName();
+            String sfPhone = userService.selUserByDetailId(userDetailId).getPhone();
 
             Integer pdId = distributionService.selByResId(distribution).getId();
             System.out.println("============================派单id  ： "  + pdId );
@@ -127,7 +142,7 @@ public class UserDetailController {
             map.put("url","http://java.86blue.cn/_api/goUserOrderDetail?id="+id);
             map.put("title",name+"您好，你发布的信息我们已经接收到，并为您推荐【"+sfName+"】这位师傅为您服务");
             map.put("messageType","雇佣消息通知");
-            map.put("end","感谢您的使用，如有疑问请致电000000");
+            map.put("end","师傅信息："+sfName+sfPhone);
             templateService.sendTongYong(map);
 
             //给师傅发送用户招聘信息
@@ -137,8 +152,22 @@ public class UserDetailController {
             map2.put("url","http://java.86blue.cn/_api/goOrderShow?id="+pdId);
             map2.put("title",sfName+"您好，【"+name+"】顾客发送的雇佣信息与您符合，平台将为您接单，您可以选择 【接受或拒绝】");
             map2.put("messageType","新订单消息通知");
-            map2.put("end","感谢您的使用，如有疑问请致电000000");
+            map2.put("end","用户信息："+userRelease.getNickName()+userRelease.getPhone());
             templateService.sendTongYong(map2);
+
+            String[] managerOpenId = Contents.MANAGER_OPENID;
+            //给管理员发送模板信息
+            for (int j = 0; j <managerOpenId.length ; j++) {
+                Map map3 = new HashMap();
+                map3.put("openId",managerOpenId[j]) ;
+                map3.put("template_id","TF2-OgTgYB6EYKzmno0NjbZobdCadK7U0d0E9O9ZogA") ;
+                map3.put("title","平台推荐师傅信息") ;
+                map3.put("serviceType",userRelease.getTitle()) ;
+                map3.put("orderNo","无") ;
+                map3.put("orderState","新消息提醒") ;
+                map3.put("end","用户信息："+userRelease.getNickName()+userRelease.getPhone()+"\\n推荐师傅信息 ："+sfName+sfPhone) ;
+                templateService.serviceStatus(map3);
+            }
             return true;
         }
         return false;

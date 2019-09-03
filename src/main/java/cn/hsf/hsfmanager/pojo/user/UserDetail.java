@@ -43,6 +43,8 @@ public class UserDetail {
     private Integer countDay;  // 当天已接几单
     private String skillName;   //技能名称
     private String areas;   //地区
+    private String isExist;   //是否存在
+
     public UserDetail() {
     }
 
@@ -79,6 +81,15 @@ public class UserDetail {
     }
 
     //get set 方法
+
+
+    public String getIsExist() {
+        return isExist;
+    }
+
+    public void setIsExist(String isExist) {
+        this.isExist = isExist;
+    }
 
     public String getAreas() {
         return areas;

@@ -82,15 +82,20 @@ $(function () {
 
 //删除
 function delUserOrder(id) {
+    var r=confirm("您确认要删除此条评论吗？")
+    if(r == true){
+        $.getJSON("/manager/userOrder/delUserOrder", {"id": id}, function (data) {
+            if(data == true){
+                alert("删除成功！")
+                window.location.reload();
+            }else {
+                alert("删除失败！")
+            }
+        });
+    }else{
+        alert("您取消了删除")
+    }
 
-    $.getJSON("/manager/userOrder/delUserOrder", {"id": id}, function (data) {
-        if(data == true){
-            alert("删除成功！")
-            window.location.reload();
-        }else {
-            alert("删除失败！")
-        }
-    });
 
 }
 

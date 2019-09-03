@@ -101,22 +101,45 @@ public class DistributionController {
 
         String userOpenId =   userService.selUserById( userRelease.getUserId()).getOpenId();   // 用户userOpenId
         String sfOpenId = userService.selUserByDetailId( userRelease.getReceiveId()).getOpenId();   // 接单师傅id
+
+        String sfName = userDetailService.selUserDetailById(userRelease.getReceiveId()).getName();
+        String sfPhone = userService.selUserByDetailId( userRelease.getReceiveId()).getPhone();
+        String orderNo = distributionService.selByResId(new Distribution(id)).getOrderId()+"";
+        //给用户发送模板信息
         Map map = new HashMap();
-        map.put("openId",userOpenId);
-        map.put("template_id","vIE5CFOjUbodaOaa4nHaz36cAJJWeesRTqTkugKX7nc");
-        map.put("title",userService.selUserByOpenId(userOpenId).getNickName()+"您好，您此次的雇佣信息已经完工，平台已为您确认完工");
-        map.put("messageType","雇佣完工信息通知");
-        map.put("end","感谢您的使用，如有疑问请致电000000");
-        templateService.sendTongYong(map);
+        map.put("openId",userOpenId) ;
+        map.put("template_id","TF2-OgTgYB6EYKzmno0NjbZobdCadK7U0d0E9O9ZogA") ;
+        map.put("title","服务已经顺利完工") ;
+        map.put("serviceType",userRelease.getTitle()) ;
+        map.put("orderNo",orderNo) ;
+        map.put("orderState","已完工") ;
+        map.put("end","师傅信息："+sfName+sfPhone) ;
+        templateService.serviceStatus(map);
 
+        //给师傅发送模板信息
         Map map1 = new HashMap();
-        map1.put("openId",sfOpenId);
-        map1.put("template_id","vIE5CFOjUbodaOaa4nHaz36cAJJWeesRTqTkugKX7nc");
-        map1.put("title",userDetailService.selUserDetailById(userRelease.getReceiveId()).getName()+"您好，您提交的信息平台已确认核实，已为您更改");
-        map1.put("messageType","雇佣完工信息通知");
-        map1.put("end","感谢您的使用，如有疑问请致电000000");
-        templateService.sendTongYong(map1);
+        map1.put("openId",sfOpenId) ;
+        map1.put("template_id","TF2-OgTgYB6EYKzmno0NjbZobdCadK7U0d0E9O9ZogA") ;
+        map1.put("title","服务已经顺利完工") ;
+        map1.put("serviceType",userRelease.getTitle()) ;
+        map1.put("orderNo",orderNo) ;
+        map1.put("orderState","已完工") ;
+        map1.put("end","用户信息："+userRelease.getNickName()+userRelease.getPhone()) ;
+        templateService.serviceStatus(map1);
 
+        String[] managerOpenId = Contents.MANAGER_OPENID;
+        //给管理员发送模板信息
+        for (int j = 0; j <managerOpenId.length ; j++) {
+            Map map2 = new HashMap();
+            map2.put("openId",managerOpenId[j]) ;
+            map2.put("template_id","TF2-OgTgYB6EYKzmno0NjbZobdCadK7U0d0E9O9ZogA") ;
+            map2.put("title","服务已经顺利完工") ;
+            map2.put("serviceType",userRelease.getTitle()) ;
+            map2.put("orderNo",orderNo) ;
+            map2.put("orderState","已完工") ;
+            map2.put("end","用户信息："+userRelease.getNickName()+userRelease.getPhone()+"\\n师傅信息 ："+sfName+sfPhone) ;
+            templateService.serviceStatus(map2);
+        }
         return  n > 0 ? true : false;
     }
 

@@ -6,6 +6,7 @@ import cn.hsf.hsfmanager.service.user.UserScoreSourceService;
 import cn.hsf.hsfmanager.service.user.UserService;
 import cn.hsf.hsfmanager.service.user.UserSkillService;
 import cn.hsf.hsfmanager.service.wx.TemplateService;
+import cn.hsf.hsfmanager.util.Contents;
 import cn.hsf.hsfmanager.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -159,6 +160,20 @@ public class UserMasterController {
             lineStatus = 1;
             UserDetail detail = new UserDetail(id,status,statusMessage,lineStatus);
             userDetailService.updateUserDetail(detail);
+
+            //给管理员发送模板信息
+            String[] managerOpenId = Contents.MANAGER_OPENID;
+            for (int j = 0; j <managerOpenId.length ; j++) {
+                Map map2 = new HashMap();
+                map2.put("openId",managerOpenId[j]) ;
+                map2.put("template_id","TF2-OgTgYB6EYKzmno0NjbZobdCadK7U0d0E9O9ZogA") ;
+                map2.put("title","又有一位新的师傅诞生啦") ;
+                map2.put("serviceType","师傅审核成功通知") ;
+                map2.put("orderNo","无") ;
+                map2.put("orderState","新师傅暂无接单") ;
+                map2.put("end","师傅信息："+userDetail.getName()+u.getPhone()) ;
+                templateService.serviceStatus(map2);
+            }
             return  true;
         }else if(status ==2){   //审核失败
             Map map = new HashMap();

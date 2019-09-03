@@ -219,7 +219,7 @@
 					<tr>
 						<td>星级</td>
 						<td >
-							<input type="number" id="starLevel" name="starLevel">
+							<input type="number" id="starLevel" name="starLevel" placeholder="1~5" oninput="if(value > 5 || value < 1 ){alert('非法输入！');value = ''}" required>
 						</td>
 					</tr>
 					<tr>

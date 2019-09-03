@@ -311,19 +311,12 @@ public class TemplateService {
         System.out.println(result);
     }
 
-public void show(){
-    Map map = new HashMap();
-    map.put("openId","openId") ;
-    map.put("template_id","TF2-OgTgYB6EYKzmno0NjbZobdCadK7U0d0E9O9ZogA") ;
-    map.put("title","需求发布成功，请等待师傅接单") ;
-    map.put("serviceType","我有套房子需要找地板安装工") ;
-    map.put("orderNo","1111") ;
-    map.put("orderState","待接单") ;
-    map.put("end","师傅速达正在为您提供服务。") ;
-    aaa(map);
-}
 
-    public  void aaa(Map<String,String> map){
+    /**
+     *服务状态提醒  模板
+     * @param map
+     */
+    public  void serviceStatus(Map<String,String> map){
         String at = wxService.getAccessToken();
         String url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+at;
         String data = "{\n" +
