@@ -45,9 +45,12 @@ public class AdminController {
      * @return
      */
     @RequestMapping("/goCreateAdmin")
-    public String goCreateAdmin(Model model){
+    public String goCreateAdmin(Model model,HttpServletRequest request){
         List<AdminType> adminTypes = adminTypeService.selAdminTypeList();
+        Admin admin = (Admin) request.getSession().getAttribute("admin");
+
         model.addAttribute("adminTypes",adminTypes);
+        model.addAttribute("admins",admin);
         return "admin/createAdmin";
     }
 

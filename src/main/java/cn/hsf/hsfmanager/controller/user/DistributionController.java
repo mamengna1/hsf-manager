@@ -74,7 +74,7 @@ public class DistributionController {
 
     /**
      * 确认完工
-     * @param id
+     * @param id  派单表id
      * @return
      */
     @RequestMapping("/confirmAll")
@@ -105,9 +105,12 @@ public class DistributionController {
         String sfName = userDetailService.selUserDetailById(userRelease.getReceiveId()).getName();
         String sfPhone = userService.selUserByDetailId( userRelease.getReceiveId()).getPhone();
         String orderNo = distributionService.selByResId(new Distribution(id)).getOrderId()+"";
+
+        System.out.println("给用户发送的id ： "+ distribution1.getReleaseId() +"\t给师傅发送的id :"+id);
         //给用户发送模板信息
         Map map = new HashMap();
         map.put("openId",userOpenId) ;
+        map.put("url","http://java.86blue.cn/_api/goUserOrderDetail?id="+distribution1.getReleaseId());
         map.put("template_id","TF2-OgTgYB6EYKzmno0NjbZobdCadK7U0d0E9O9ZogA") ;
         map.put("title","服务已经顺利完工") ;
         map.put("serviceType",userRelease.getTitle()) ;
@@ -119,6 +122,7 @@ public class DistributionController {
         //给师傅发送模板信息
         Map map1 = new HashMap();
         map1.put("openId",sfOpenId) ;
+        map1.put("url","http://java.86blue.cn/_api/goOrderShow?id="+id);
         map1.put("template_id","TF2-OgTgYB6EYKzmno0NjbZobdCadK7U0d0E9O9ZogA") ;
         map1.put("title","服务已经顺利完工") ;
         map1.put("serviceType",userRelease.getTitle()) ;

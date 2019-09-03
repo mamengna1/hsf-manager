@@ -14,8 +14,14 @@ function skillAll(currentPage,parentId,flag) {
     function callback(data) {
         $("#theBody").html("");
         for (var i = 0; i < data.list.length; i++) {
+            $("#reflushFu").hide();
+            $("#returnFu").hide();
+
             if(flag == true){
                 B[data.list[i].id] = data.list[i].skillName;
+                $("#reflushFu").show();
+            }else{
+                $("#returnFu").show();
             }
             var name = B[parentId]+"/"+data.list[i].skillName
             $("#theBody").append("<tr>" +

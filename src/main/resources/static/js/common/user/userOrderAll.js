@@ -12,26 +12,27 @@ function searchUserOrder(currentPage,commentTypeId) {
         for (var i = 0; i < data.list.length; i++) {
             var commentTime = toDate(new Date(data.list[i].commentTime).toJSON())
             var a = data.list[i].commentTypeId;
-            $("#theBody").append("<tr>" +
-                "<td><input type=\"checkbox\" class='userCheck'/></td>" +
-                "<td>" + data.list[i].id + "</td>" +
-                "<td>" +
-                "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#shifuModal\"  onclick='selShifuById(\""+data.list[i].sfId+"\")'>"+ data.list[i].sfId+"</a>" +
-                "</td>" +
-                "<td>" + data.list[i].comments + "</td>" +
-                "<td>" + data.list[i].starLevel + "</td>" +
-                "<td>" +
-                "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\"  onclick='selById(\""+data.list[i].userId+"\")'>"+ data.list[i].userId+"</a>" +
-                "</td>" +
-                "<td>" + commentTime+ "</td>" +
-                "<td>" +
-                "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#updOrderModal\" class=\"btn bg-olive btn-xs\" onclick='goUpdOrder("+data.list[i].id+")'>修改</a>" +
-                "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" onclick='delUserOrder("+data.list[i].id+")'>删除</a>" +
-                "</td>" +
-                "</tr>")
+            if(data.list[i].sfId !=null && data.list[i].sfId !=''){
+                $("#theBody").append("<tr>" +
+                    "<td><input type=\"checkbox\" class='userCheck'/></td>" +
+                    "<td>" + data.list[i].id + "</td>" +
+                    "<td>" +
+                    "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#shifuModal\"  onclick='selShifuById(\""+data.list[i].sfId+"\")'>"+ data.list[i].sfId+"</a>" +
+                    "</td>" +
+                    "<td>" + data.list[i].comments + "</td>" +
+                    "<td>" + data.list[i].starLevel + "</td>" +
+                    "<td>" +
+                    "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\"  onclick='selById(\""+data.list[i].userId+"\")'>"+ data.list[i].userId+"</a>" +
+                    "</td>" +
+                    "<td>" + commentTime+ "</td>" +
+                    "<td>" +
+                    "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#updOrderModal\" class=\"btn bg-olive btn-xs\" onclick='goUpdOrder("+data.list[i].id+")'>修改</a>" +
+                    "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" onclick='delUserOrder("+data.list[i].id+")'>删除</a>" +
+                    "</td>" +
+                    "</tr>")
+            }
+
         }
-
-
 
         $("#total").html(data.totalCount);
         $("#totalPages").html(data.totalPages);

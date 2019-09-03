@@ -14,7 +14,10 @@ function searchDistribution(currentPage,statusId) {
             var updateTime = data.list[i].updateTime == null ? '' : toDate(new Date(data.list[i].updateTime).toJSON());
             var message = data.list[i].refusedMessage == null ? '' : data.list[i].refusedMessage
             var a = data.list[i].statusId;
-
+            $("#reason").hide()
+            if(statusId == 3 || statusId == 5){   //拒绝和已取消
+                $("#reason").show()
+            }
             $("#theBody").append("<tr>" +
                 "<td><input type=\"checkbox\" class='userCheck'/></td>" +
                 "<td>" + data.list[i].id + "</td>" +
@@ -24,7 +27,7 @@ function searchDistribution(currentPage,statusId) {
                 "<td>" + data.list[i].realTitle + "</td>" +
                 "<td>" + data.list[i].sfName + "</td>" +
                 "<td>" + data.list[i].statusName + "</td>" +
-                "<td>" + message + "</td>" +
+                "<td style='" + ((statusId == 3|| statusId ==5) ? '' : 'display:none;') + "'>" + message + "</td>" +
                 "<td>" + createTime + "</td>" +
                 "<td>" + updateTime+ "</td>" +
                 "<td>" +
