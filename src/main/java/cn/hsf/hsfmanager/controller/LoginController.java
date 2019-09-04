@@ -1,7 +1,11 @@
 package cn.hsf.hsfmanager.controller;
 
 import cn.hsf.hsfmanager.pojo.Admin;
+import cn.hsf.hsfmanager.pojo.user.UserRelease;
 import cn.hsf.hsfmanager.service.admin.AdminService;
+import cn.hsf.hsfmanager.service.user.UserDetailService;
+import cn.hsf.hsfmanager.service.user.UserReleaseService;
+import cn.hsf.hsfmanager.service.user.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +22,12 @@ public class LoginController {
 
     @Resource
     private AdminService adminService;
-
+    @Resource
+    private UserDetailService userDetailService;
+    @Resource
+    private UserService userService;
+    @Resource
+    private UserReleaseService userReleaseService;
 
     /**
      * 登录验证
@@ -28,11 +37,15 @@ public class LoginController {
      * @return
      */
     @RequestMapping("/checkAdmin")
-    public String selByAdmin(String userName, String password, HttpServletRequest request, HttpServletResponse response){
+    public String selByAdmin(String userName, String password, HttpServletRequest request){
         Admin admin = new Admin(userName,password);
         Admin checkLogin = adminService.checkLogin(admin);
         if(checkLogin !=null ){
             request.getSession().setAttribute("admin",checkLogin);
+            request.getSession().setAttribute("waitTotal",userDetailService.selUserDetailTotal(null,3));
+            request.getSession().setAttribute("userTotal",userService.userTotal());
+            request.getSession().setAttribute("releaseTotal",userReleaseService.selUserReleaseTotal(-1,2));
+            System.out.println("releaseTotal :" + userReleaseService.selUserReleaseTotal(-1,2));
             return "redirect:/index";
         }else{
             return "login";

@@ -33,4 +33,7 @@ public interface UserMapper {
     //修改
     int updateUserByOpenId(User user);
     int delUser(Integer id);
+    //新用户
+    List<User> UserAll(@Param("pageCurrentNo") Integer pageCurrentNo, @Param("pageSize") Integer pageSize);
+    int userTotal();
 }

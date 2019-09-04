@@ -3,6 +3,7 @@ package cn.hsf.hsfmanager.controller.user;
 
 import cn.hsf.hsfmanager.pojo.user.User;
 import cn.hsf.hsfmanager.service.user.UserService;
+import cn.hsf.hsfmanager.util.Contents;
 import cn.hsf.hsfmanager.util.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,6 +49,15 @@ public class UserController {
     }
 
     /**
+     * 进入关注页面
+     * @return
+     */
+    @RequestMapping("/goUserNew")
+    public String goUserNew(){
+        return "user/userNew";
+    }
+
+    /**
      * 分页显示数据
      * @param pageCurrentNo
      * @param isSub
@@ -67,6 +77,26 @@ public class UserController {
         page.setTotalCount(total);
         page.setTotalPages(page.getTotalPages());
         List<User> orderList = userService.selUserAll(pageCurrentNo,10,a,d);
+        page.setList(orderList);
+        return page;
+    }
+
+    /**
+     * 分页显示数据
+     * @param pageCurrentNo
+
+     * @return
+     */
+    @RequestMapping("/userAllNew")
+    @ResponseBody
+    public Page userAllNew(@RequestParam(value = "pageCurrentNo",required = false,defaultValue = "1") Integer pageCurrentNo){
+        int total = userService.userTotal();
+        Page page = new Page();
+        page.setPageSize(Contents.PAGENO);
+        page.setPageCurrentNo(pageCurrentNo);
+        page.setTotalCount(total);
+        page.setTotalPages(page.getTotalPages());
+        List<User> orderList = userService.UserAll(pageCurrentNo, Contents.PAGENO);
         page.setList(orderList);
         return page;
     }

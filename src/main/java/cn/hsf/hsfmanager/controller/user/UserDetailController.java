@@ -16,6 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -180,9 +184,10 @@ public class UserDetailController {
      * @return
      */
     @RequestMapping("/goUpdUserRelease")
-    public String goUpdUserRelease(@RequestParam("id") Integer id,Model model){
+    public String goUpdUserRelease(@RequestParam("id") Integer id,Integer mark,Model model){
         UserRelease userRelease = userReleaseService.selUserReleaseById(id);
         model.addAttribute("userRelease",userRelease);
+        model.addAttribute("mark",mark);
         return "user/userReleaseUpd";
     }
 
@@ -199,8 +204,14 @@ public class UserDetailController {
     }
 
     @RequestMapping("/updUserRelease")
-    public String updUserRelease(UserRelease userRelease,@RequestParam("appointTimes") String appointTimes){
+    public String updUserRelease(UserRelease userRelease, @RequestParam("appointTimes") String appointTimes, @RequestParam("mark") Integer mark, HttpServletResponse response, HttpServletRequest request) throws IOException {
         int n = userReleaseService.updateUserRelease2(userRelease,appointTimes);
-        return n > 0 ? "user/userReleaseAll" : "";
+    /*    response.setHeader("Content-Type","text/html;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        PrintWriter out = response.getWriter();
+        out.print("<script language=\"javascript\">alert('修改成功')</script>");
+        response.sendRedirect("redirect:/userRelease/goUserReleaseAll?mark="+mark);
+        out.close();*/
+        return "redirect:/userRelease/goUserReleaseAll?mark="+mark;
     }
 }

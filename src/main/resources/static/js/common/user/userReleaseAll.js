@@ -3,13 +3,21 @@
 //初始化数据
 var currentPage = 1;  //当前页码
 var state = -1;
+var mark;
 //过滤查询
-function searchRelease(currentPage,state) {
-    $.getJSON("/manager/userRelease/userAll",{"pageCurrentNo":currentPage,"state":state},callback)
+function searchRelease(currentPage,state,mark) {
+    $.getJSON("/manager/userRelease/userAll",{"pageCurrentNo":currentPage,"state":state,"mark":mark},callback)
     //回调
     function callback(data) {
         $("#theBody").html("");
+
         for (var i = 0; i < data.list.length; i++) {
+            $("#release1,#release2,#release3,#release4").show();
+            if(mark == 1){
+                $("#release1,#release2,#release3,#release4").show();
+            }else if(mark == 2){
+                $("#release1,#release2,#release3,#release4").hide();
+            }
             var appointTime = toDate(new Date(data.list[i].appointTime).toJSON())
             var createDate = toDate(new Date(data.list[i].createDate).toJSON())
             var address  = showProvince(data.list[i].serviceProvince,data.list[i].serviceCity,data.list[i].serviceArea)+"/"+data.list[i].serverDetail;
@@ -47,12 +55,13 @@ function searchRelease(currentPage,state) {
 
 //初始化加载数据
 $(function () {
+    mark = $("#mark").val()
 
-    searchRelease(currentPage,state);
+   searchRelease(currentPage,state,mark);
     //首页
     $("#begin").click(function () {
         currentPage = 1;
-        searchRelease(currentPage,state);
+       searchRelease(currentPage,state,mark);
         $("#pageNo").html(currentPage);
     })
     //上一页
@@ -61,7 +70,7 @@ $(function () {
         if (parseInt(currentPage) <1) {
             alert("已经是第一页了")
         } else {
-            searchRelease(currentPage,state);
+           searchRelease(currentPage,state,mark);
             $("#pageNo").html(currentPage);
         }
     })
@@ -72,14 +81,14 @@ $(function () {
             alert("已经最后一页了");
             return;
         } else {
-            searchRelease(currentPage,state);
+           searchRelease(currentPage,state,mark);
             $("#pageNo").html(currentPage);
         }
     })
     //最后一页
     $("#end").click(function () {
         currentPage = parseInt($("#totalPages").html());
-        searchRelease(currentPage,state);
+       searchRelease(currentPage,state,mark);
         $("#pageNo").html(currentPage);
     })
 
@@ -116,8 +125,7 @@ function saveUser() {
     $.getJSON("/manager/user/updateUser",{"id":id,"userType":userType,"balanceMoney":balanceMoney,"totalScore":totalScore,"balanceScore":balanceScore},function (data) {
         if(data == true){
             alert("修改成功")
-            //location.href="/manager/user/goUserIndex";
-            window.location.reload();
+           window.location.reload();
         }else{
             alert("修改失败")
         }
@@ -182,5 +190,6 @@ function gopaidan(id) {
  * @param id
  */
 function goUpdUserRelease(id) {
-    location.href="/manager/userDetail/goUpdUserRelease?id="+id;
+    location.href="/manager/userDetail/goUpdUserRelease?id="+id+"&mark="+mark;
+    //   location.href="/manager/userRelease/goUserReleaseAll?mark="+mark;
 }

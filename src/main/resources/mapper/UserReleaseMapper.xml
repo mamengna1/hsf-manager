@@ -14,7 +14,11 @@
             <if test="state !=null and state &gt; -1 ">
                 and  state = #{state}
             </if>
+            <if test="mark != null and mark == 2 ">
+                and  DATE_FORMAT(`createDate`, '%Y-%m-%d') =  DATE_FORMAT(NOW(), '%Y-%m-%d')
+            </if>
         </where>
+        order by  createDate
         limit #{pageCurrentNo},#{pageSize}
     </select>
 
@@ -23,6 +27,9 @@
         <where>
             <if test="state !=null and state &gt; -1 ">
                 and  state = #{state}
+            </if>
+            <if test="mark != null and mark == 2 ">
+                and  DATE_FORMAT(`createDate`, '%Y-%m-%d') =  DATE_FORMAT(NOW(), '%Y-%m-%d')
             </if>
         </where>
     </select>

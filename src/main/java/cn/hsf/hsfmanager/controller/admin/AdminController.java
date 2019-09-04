@@ -4,6 +4,7 @@ import cn.hsf.hsfmanager.pojo.Admin;
 import cn.hsf.hsfmanager.pojo.AdminType;
 import cn.hsf.hsfmanager.service.admin.AdminService;
 import cn.hsf.hsfmanager.service.admin.AdminTypeService;
+import cn.hsf.hsfmanager.service.user.UserDetailService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;

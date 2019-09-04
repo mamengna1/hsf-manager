@@ -21,6 +21,7 @@
                 and  detailId >= 0
             </if>
         </where>
+        order by createDate desc
         limit #{pageCurrentNo},#{pageSize}
     </select>
 
@@ -37,6 +38,7 @@
                 and  detailId >= 0
             </if>
         </where>
+        order by createDate desc
     </select>
 
 <!--   根据条件查询-->
@@ -193,4 +195,17 @@
     <delete id="delUser" parameterType="int">
         delete from `tb_user` where id =#{id}
     </delete>
+
+    <!--新用户-->
+    <select id="UserAll"  parameterType="int" resultType="cn.hsf.hsfmanager.pojo.user.User">
+        SELECT `id`,`nickName`,`openId`,`sex`,`headPic`,`country`,`province`,`city`,`phone`,`isSub`,`memberType`,`sourceType`,`totalMoney`,`balanceMoney`,`totalScore`,`balanceScore`,`userParent`,`createDate`,`lastLoginTime`,`detailId`
+        FROM `tb_user`
+        WHERE DATE_FORMAT(`createDate`, '%Y-%m-%d') =  DATE_FORMAT(NOW(), '%Y-%m-%d')
+    </select>
+
+    <select id="userTotal" resultType="int">
+       SELECT count(*)
+        FROM `tb_user`
+        WHERE  DATE_FORMAT(`createDate`, '%Y-%m-%d') =  DATE_FORMAT(NOW(), '%Y-%m-%d')
+    </select>
 </mapper>

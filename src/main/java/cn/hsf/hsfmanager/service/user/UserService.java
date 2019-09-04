@@ -32,4 +32,7 @@ public interface UserService {
     int updateUser(User user);
     int updateUserByOpenId(User user);
     int delUser(Integer id);
+
+    List<User> UserAll( Integer pageCurrentNo,Integer pageSize);
+    int userTotal();
 }

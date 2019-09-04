@@ -15,13 +15,13 @@ public class UserReleaseServiceImpl implements UserReleaseService {
     private UserReleaseMapper userReleaseMapper;
 
     @Override
-    public List<UserRelease> selUserReleaseAll(Integer pageCurrentNo, Integer pageSize, Integer state) {
-        return userReleaseMapper.selUserReleaseAll((pageCurrentNo-1)*pageSize,pageSize,state);
+    public List<UserRelease> selUserReleaseAll(Integer pageCurrentNo, Integer pageSize, Integer state,Integer mark) {
+        return userReleaseMapper.selUserReleaseAll((pageCurrentNo-1)*pageSize,pageSize,state,mark);
     }
 
     @Override
-    public int selUserReleaseTotal(Integer state) {
-        return userReleaseMapper.selUserReleaseTotal(state);
+    public int selUserReleaseTotal(Integer state,Integer mark) {
+        return userReleaseMapper.selUserReleaseTotal(state,mark);
     }
 
     @Override

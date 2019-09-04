@@ -55,4 +55,14 @@ public class UserServiceImpl implements UserService {
     public int delUser(Integer id) {
         return userMapper.delUser(id);
     }
+
+    @Override
+    public List<User> UserAll(Integer pageCurrentNo, Integer pageSize) {
+        return userMapper.UserAll((pageCurrentNo-1)*pageSize,pageSize);
+    }
+
+    @Override
+    public int userTotal() {
+        return userMapper.userTotal();
+    }
 }

@@ -25,6 +25,7 @@
     <div class="box-body">
         <form action="/manager/userDetail/updUserRelease" method="post" enctype="multipart/form-data" id="myForm">
             <input type="hidden" name="id" id="id" th:value="${userRelease.id}">
+            <input type="hidden" name="mark" id="mark" th:value="${mark}">
             <!--表单内容-->
             <div class="row data-type">
                 <div class="col-md-2 title">昵称</div>
