@@ -127,7 +127,18 @@ public class UserDetailController {
             //往派单表中添加数据
             distributionService.insDistribution(distribution);
 
-            //给师傅以及用户发送模板信息，师父确认接单状态改为2
+            //判断这名师傅是否已经拒单超过三次
+            Distribution distribution2 = new Distribution();
+            distribution2.setStatusId(3);
+            distribution2.setSfId(userDetailId);
+            distribution.setTag(1);
+            List<Distribution> list = distributionService.selByDistribution(distribution2);
+            if(list.size() >=3){
+                System.out.println("===============这名师傅今天的拒单数量已经超过了3次，请及时处理！========================");
+            }
+
+
+            //给师傅以及用户发送模板信息
             Integer userId =  userReleaseService.selUserReleaseById(id).getUserId();   //发布人的id
             String userOpenId =  userService.selUserById(userId).getOpenId();  // 发布人的openId
             String userDetailOpenId =  userService.selUserByDetailId(userDetailId).getOpenId();   // 师傅的openId

@@ -21,6 +21,8 @@ public class Distribution {
     private String sfName;  // 派单师傅名称
     private String statusName;   //状态名称
     private Integer resId;  // 雇佣id
+
+    private Integer tag;  //标记
     public Distribution() {
     }
 
@@ -33,6 +35,14 @@ public class Distribution {
         this.id = id;
         this.statusId = statusId;
         this.refusedMessage = refusedMessage;
+    }
+
+    public Integer getTag() {
+        return tag;
+    }
+
+    public void setTag(Integer tag) {
+        this.tag = tag;
     }
 
     public Distribution(Integer id) {

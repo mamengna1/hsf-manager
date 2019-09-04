@@ -57,4 +57,9 @@ public class DistributionServiceImpl implements DistributionService {
     public DistributionStatus selByDisId(Integer id) {
         return distributionStatusMapper.selByDisId(id);
     }
+
+    @Override
+    public List<Distribution> selByDistribution(Distribution distribution) {
+        return distributionMapper.selByDistribution(distribution);
+    }
 }

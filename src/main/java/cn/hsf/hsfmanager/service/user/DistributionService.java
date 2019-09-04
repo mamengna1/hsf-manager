@@ -25,4 +25,5 @@ public interface DistributionService {
     List<DistributionStatus> selAllDisName();
 
     DistributionStatus selByDisId(Integer id);
+    List<Distribution> selByDistribution(Distribution distribution);
 }

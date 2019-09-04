@@ -26,4 +26,5 @@ public interface DistributionMapper {
     int updDistribution(Distribution distribution);
 
     Distribution selDistributionById(Integer id);
+    List<Distribution> selByDistribution(Distribution distribution);
 }

@@ -94,4 +94,31 @@
      INNER JOIN `tb_distribution_status` AS s ON d.`statusId` = s.id
      where d.`id` = #{id}
     </select>
+
+    <select id="selByDistribution" resultType="cn.hsf.hsfmanager.pojo.user.Distribution" parameterType="cn.hsf.hsfmanager.pojo.user.Distribution">
+        SELECT `id`,`releaseId`,`statusId`,`refusedMessage`,`createTime`,`updateTime`,`sfId`,`orderId` FROM `tb_distribution`
+        <where>
+            <if test="id != null and id != '' ">
+                and id = #{id}
+            </if>
+            <if test="releaseId != null and  releaseId  != '' ">
+                and releaseId = #{releaseId}
+            </if>
+            <if test="statusId != null and statusId != '' ">
+                and statusId = #{statusId}
+            </if>
+            <if test="refusedMessage != null and refusedMessage != '' ">
+                and refusedMessage = #{refusedMessage}
+            </if>
+            <if test="sfId != null and sfId != '' ">
+                and sfId = #{sfId}
+            </if>
+            <if test="orderId != null and orderId != '' ">
+                and orderId = #{orderId}
+            </if>
+            <if test="tag != null and tag == 1 ">
+                and DATE_FORMAT(`updateTime`, '%Y-%m-%d') =  DATE_FORMAT(NOW(), '%Y-%m-%d')
+            </if>
+        </where>
+    </select>
 </mapper>
