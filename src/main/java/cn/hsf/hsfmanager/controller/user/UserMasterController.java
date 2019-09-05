@@ -8,6 +8,7 @@ import cn.hsf.hsfmanager.service.user.UserSkillService;
 import cn.hsf.hsfmanager.service.wx.TemplateService;
 import cn.hsf.hsfmanager.util.Contents;
 import cn.hsf.hsfmanager.util.Page;
+import com.sun.org.apache.bcel.internal.generic.MONITORENTER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,35 +39,9 @@ public class UserMasterController {
      * @return
      */
     @RequestMapping("/selMaster")
-    public String selMaster(){
+    public String selMaster(@RequestParam(value = "statusId",required = false,defaultValue = "-1") Integer statusId,Model model){
+        model.addAttribute("statusId",statusId);
         return "user/userMasterAll";
-    }
-
-    /**
-     * 进入师傅已审核界面
-     * @return
-     */
-    @RequestMapping("/goUserMasterAudit")
-    public String goUserMasterAudit(){
-        return "user/userMasterAudit";
-    }
-
-    /**
-     * 进入师傅待审核界面
-     * @return
-     */
-    @RequestMapping("/goAuditWait")
-    public String goAuditWait(){
-        return "user/userMasterWait";
-    }
-
-    /**
-     * 进入审核不通过页面
-     * @return
-     */
-    @RequestMapping("/goAuditNot")
-    public String goAuditNot(){
-        return "user/userMasterNot";
     }
 
 
@@ -88,7 +63,6 @@ public class UserMasterController {
         page.setTotalCount(total);
         page.setTotalPages(page.getTotalPages());
         List<UserDetail> userDetails = userDetailService.selUserDetailAll(pageCurrentNo,10,name,status);
-        System.out.println("审核信息" + userDetails);
         page.setList(userDetails);
         return page;
     }
@@ -206,6 +180,20 @@ public class UserMasterController {
         model.addAttribute("sources", userDetailService.selSourceType());
         model.addAttribute("user", userService.selUserByDetailId(id));
         return "user/userUpd";
+    }
+
+    /**
+     * 进入用户信息查看界面
+     * @return
+     */
+    @RequestMapping("/goUserMasterShow")
+    public String goUserMasterShow(Integer id , Model model){
+        model.addAttribute("yearWorks", userDetailService.selYearAll());
+        model.addAttribute("parentSkills", userSkillService.selSkillName(null));
+        model.addAttribute("userSkills", userSkillService.selAllSkills());
+        model.addAttribute("sources", userDetailService.selSourceType());
+        model.addAttribute("user", userService.selUserByDetailId(id));
+        return "user/userMasterShow";
     }
 
     @ResponseBody

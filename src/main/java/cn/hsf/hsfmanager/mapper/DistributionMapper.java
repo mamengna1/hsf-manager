@@ -14,19 +14,14 @@ public interface DistributionMapper {
 
     Distribution selByResId(Distribution distribution);
 
-    //分页
-    List<Distribution> selDistributionAll(@Param("pageCurrentNo") Integer pageCurrentNo, @Param("pageSize") Integer pageSize,@Param("statusId") Integer statusId);
-
-    /**
-     * 总记录数
-     * @return
-     */
-    int selDistributionTotal(@Param("statusId") Integer statusId);
-
     int updDistribution(Distribution distribution);
     int delDetailById(@Param("id") Integer id);
 
 
     Distribution selDistributionById(Integer id);
     List<Distribution> selByDistribution(Distribution distribution);
+
+    //接单记录分页
+    List<Distribution> selDisList(@Param("pageCurrentNo") Integer pageCurrentNo, @Param("pageSize") Integer pageSize,@Param("statusId") Integer statusId,@Param("sfId") Integer sfId);
+    int selDisTotal(@Param("statusId") Integer statusId,@Param("sfId") Integer sfId);
 }

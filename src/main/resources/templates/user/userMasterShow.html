@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- 页面meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>查看师傅信息详情</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+
+    <link rel="stylesheet" href="/manager/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/manager/plugins/adminLTE/css/AdminLTE.css">
+    <link rel="stylesheet" href="/manager/plugins/adminLTE/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="/manager/css/style.css">
+    <script src="/manager/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="/manager/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+</head>
+
+<body class="hold-transition skin-red sidebar-mini">
+
+<!-- 正文区域 -->
+<section class="content">
+
+    <div class="box-body">
+        <form action="/manager/userMaster/insUserDetail" method="post" enctype="multipart/form-data" id="myForm">
+            <!--表单内容-->
+            <div class="row data-type">
+                <input type="hidden" name="openId" th:value="${user.openId}" readonly>
+                <input type="hidden" name="id" id="id" th:value="${user.detailId}" readonly>
+                <div class="col-md-2 title">真实姓名</div>
+                <div class="col-md-10 data">
+                    <input type="text" name="name" id="name" readonly/>
+                </div>
+                <div class="col-md-2 title">身份证号</div>
+                <div class="col-md-10 data">
+                    <input type="text" name="card" id="card" readonly/>
+                </div>
+
+                <div class="col-md-2 title">居住地区</div>
+                <div class="col-md-10 data">
+                   <input type="text" id="placeArea" name="placeArea" readonly>
+                </div>
+
+
+                <div class="col-md-2 title" >技能</div>
+                <div class="col-md-10 data" >
+                   <input type="text" name="skills" id="skills" readonly>
+                </div>
+                <div class="col-md-2 title">工作地区</div>
+                <div class="col-md-10 data">
+                    <input type="text" id="workArea" name="workArea" readonly>
+                </div>
+
+
+                <div class="col-md-2 title">详细地址</div>
+                <div class="col-md-10 data">
+                    <input type="text" name="address" id="address"/>
+                </div>
+                <div class="col-md-2 title">工作年限</div>
+                <div class="col-md-10 data">
+                    <input type="text" id="workYear2" name="workYear2" readonly>
+                </div>
+                <div class="col-md-2 title">手机号</div>
+                <div class="col-md-10 data">
+                    <input type="text" name="phone" th:value="${user.phone}" id="phone" readonly/>
+                </div>
+                <div class="col-md-2 title" style="height:220px;">账目</div>
+                <div class="col-md-10 data" style="height:220px;">
+                    <table>
+                        <tr>
+                            <td>累计充值</td>
+                            <td>
+                                <input type="number"  th:value="${user.totalMoney}" placeholder="累计充值"  readonly>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>账户余额</td>
+                            <td>
+                                <input type="number"  th:value="${user.balanceMoney}" placeholder="账户余额"  readonly>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>总积分</td>
+                            <td>
+                              <input type="number"  th:value="${user.totalScore}" placeholder="总积分"  readonly>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>剩余积分</td>
+                            <td>
+                                <input type="number"  th:value="${user.balanceScore}" placeholder="剩余积分"  readonly>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+                <div class="col-md-2 title">总接单量</div>
+                <div class="col-md-10 data">
+                    <input type="text" name="totalOrder"  id="totalOrder" readonly/>
+                </div>
+                <div class="col-md-2 title">总拒单量</div>
+                <div class="col-md-10 data">
+                    <input type="text" name="totalRefuse"  id="totalRefuse" readonly/>
+                </div>
+                <div class="col-md-10 data" style="width:100%;"></div>
+
+            </div>
+            <input class="btn btn-primary" type="button" value="返回" id="returnUpUserMaster"/>
+        </form>
+    </div>
+
+
+</section>
+<script src="/manager/js/common/utils/area.js"></script>
+<script src="/manager/js/common/user/UserSkillById.js"></script>
+<script src="/manager/js/common/user/userMasterShow.js"></script>
+</body>
+
+</html>

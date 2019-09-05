@@ -35,32 +35,6 @@
         </where>
     </select>
 
-    <!--分页-->
-    <select id="selDistributionAll" resultType="cn.hsf.hsfmanager.pojo.user.Distribution"  parameterType="int">
-     SELECT d.`id`,d.`releaseId`,d.`statusId`,d.`refusedMessage`,d.`createTime`,d.`updateTime`,d.`sfId`,d.`orderId` ,r.`title` AS realTitle,r.`nickName` AS realName,de.`name` AS sfName,s.`statusName` AS statusName ,r.`id` as resId
-     FROM `tb_distribution` AS d
-     INNER JOIN `tb_user_release` AS r ON d.releaseId = r.id
-     INNER JOIN `tb_user_detail` AS de ON d.sfId = de.`id`
-     INNER JOIN `tb_distribution_status` AS s ON d.`statusId` = s.id
-    <where>
-            <if test="statusId != null and statusId &gt; 0">
-                and  statusId = #{statusId}
-            </if>
-     </where>
-     limit #{pageCurrentNo},#{pageSize}
-
-    </select>
-
-    <select id="selDistributionTotal" resultType="int" >
-        SELECT count(*) FROM `tb_distribution`
-        <where>
-            <if test="statusId != null and statusId &gt; 0">
-              and  statusId = #{statusId}
-            </if>
-        </where>
-
-    </select>
-
     <update id="updDistribution" parameterType="cn.hsf.hsfmanager.pojo.user.Distribution">
         update `tb_distribution`
         <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
@@ -86,13 +60,9 @@
     </update>
 
 
-    <select id="selDistributionById" resultType="cn.hsf.hsfmanager.pojo.user.Distribution" parameterType="int">
-     SELECT d.`id`,d.`releaseId`,d.`statusId`,d.`refusedMessage`,d.`createTime`,d.`updateTime`,d.`sfId`,d.`orderId` ,r.`title` AS realTitle,r.`nickName` AS realName,de.`name` AS sfName,s.`statusName` AS statusName ,r.`id` as resId
-     FROM `tb_distribution` AS d
-     INNER JOIN `tb_user_release` AS r ON d.releaseId = r.id
-     INNER JOIN `tb_user_detail` AS de ON d.sfId = de.`id`
-     INNER JOIN `tb_distribution_status` AS s ON d.`statusId` = s.id
-     where d.`id` = #{id}
+    <select id="selDistributionById" resultMap="selAssociation">
+       SELECT `id`,`releaseId`,`statusId`,`refusedMessage`,`createTime`,`updateTime`,`sfId`,`orderId` FROM `tb_distribution`
+       where `id` = #{id}
     </select>
 
     <select id="selByDistribution" resultType="cn.hsf.hsfmanager.pojo.user.Distribution" parameterType="cn.hsf.hsfmanager.pojo.user.Distribution">
@@ -125,4 +95,41 @@
     <delete id="delDetailById" parameterType="int">
         delete FROM `tb_distribution` where id = #{id}
     </delete>
+
+
+    <!--派单记录-->
+    <resultMap id="selAssociation" type="cn.hsf.hsfmanager.pojo.user.Distribution">
+        <id property="id" column="id"/>
+        <result property="statusId" column="statusId"/>
+        <result property="releaseId" column="releaseId"/>
+        <result property="sfId" column="sfId"/>
+        <association property="distributionStatus" column="statusId" select="cn.hsf.hsfmanager.mapper.DistributionStatusMapper.selByDisId"/>
+        <association property="userRelease" column="releaseId" select="cn.hsf.hsfmanager.mapper.UserReleaseMapper.selUserReleaseById"/>
+        <association property="userDetail" column="sfId" select="cn.hsf.hsfmanager.mapper.UserDetailMapper.selUserDetailById"/>
+    </resultMap>
+
+    <select id="selDisList" resultMap="selAssociation" >
+          SELECT `id`,`releaseId`,`statusId`,`refusedMessage`,`createTime`,`updateTime`,`sfId`,`orderId` FROM `tb_distribution`
+        <where>
+            <if test="statusId != null and statusId &gt; 0 ">
+                and statusId = #{statusId}
+            </if>
+            <if test="sfId != null and sfId &gt; 0  ">
+                and sfId = #{sfId}
+            </if>
+        </where>
+        limit #{pageCurrentNo},#{pageSize}
+    </select>
+
+    <select id="selDisTotal" resultType="int" >
+            SELECT count(*) FROM `tb_distribution`
+        <where>
+            <if test="statusId != null and statusId &gt; 0 ">
+                and statusId = #{statusId}
+            </if>
+            <if test="sfId != null and sfId &gt; 0  ">
+                and sfId = #{sfId}
+            </if>
+        </where>
+    </select>
 </mapper>

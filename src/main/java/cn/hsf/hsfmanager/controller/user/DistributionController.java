@@ -41,36 +41,40 @@ public class DistributionController {
     private UserOrderService userOrderService;
 
     /**
-     * 进入派单页面
+     * 进入派单页面  接单记录
      * @return
      */
-    @RequestMapping("/goDistribution")
-    public String goDistribution(Model model){
+    @RequestMapping("/goDistributionIndex")
+    public String goDistributionIndex(@RequestParam(value = "sfId",required = false,defaultValue = "-1") Integer sfId,Model model){
         List<DistributionStatus> distributionStatuses = distributionService.selAllDisName();
         model.addAttribute("distributionStatuses",distributionStatuses);
-        return "user/distributionAll";
+        model.addAttribute("sfId",sfId);
+        return "user/distributionIndex";
     }
 
-
     /**
-     * 分页显示派单详情
+     * 分页显示派单详情   单个师傅接单记录
      * @param pageCurrentNo
      * @return
      */
-    @RequestMapping("/userAll")
+    @RequestMapping("/userAllIndex")
     @ResponseBody
-    public Page userAll(@RequestParam(value = "pageCurrentNo",required = false,defaultValue = "1") Integer pageCurrentNo,
-                        @RequestParam(value = "statusId",required = false,defaultValue = "-1") Integer statusId){
-        int total = distributionService.selDistributionTotal(statusId);
+    public Page userAllIndex(@RequestParam(value = "pageCurrentNo",required = false,defaultValue = "1") Integer pageCurrentNo,
+                        @RequestParam(value = "statusId",required = false,defaultValue = "-1") Integer statusId,
+                             @RequestParam(value = "sfId",required = false,defaultValue = "-1") Integer sfId){
+        int total = distributionService.selDisTotal(statusId,sfId);
         Page page = new Page();
         page.setPageSize( Contents.PAGENO);
         page.setPageCurrentNo(pageCurrentNo);
         page.setTotalCount(total);
         page.setTotalPages(page.getTotalPages());
-        List<Distribution> userDetails =distributionService.selDistributionAll(pageCurrentNo, Contents.PAGENO,statusId);
+        List<Distribution> userDetails =distributionService.selDisList(pageCurrentNo, Contents.PAGENO,statusId,sfId);
         page.setList(userDetails);
         return page;
     }
+
+
+
 
     /**
      * 确认完工

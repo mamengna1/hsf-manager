@@ -54,8 +54,17 @@ function selUserDetail(id) {
 function selAudit(id) {
     $.getJSON("/manager/userMaster/selRealMessage",{"id":id},function (data) {
         $("#realNames,#card").html("");
-        $("#idss").val("")
-
+        $("#idss,#stateType,#statusMessage").val("")
+        var stateType;
+        if( data.userDetail.status == 1){
+            stateType = 1
+        }else if(data.userDetail.status == 2 || data.userDetail.status == 3){
+            stateType = 2
+        }else if(data.userDetail.status == 0 || data.userDetail.status == ''){
+            stateType = -1
+        }
+        $("#stateType").val(stateType)
+        $("#statusMessage").val(data.userDetail.statusMessage)
         $("#realNames").html(data.userDetail.name)
         $("#idss").val(data.userDetail.id)
         $("#card").html(data.userDetail.card)
@@ -65,16 +74,25 @@ function selAudit(id) {
  * 审核
  * @param status
  */
-function updateAudit(status) {
+function updateAudit() {
+    var stateType = $("#stateType").val();
     var id = $("#idss").val();
-    var statusMessage =  status == 1 ? '' : $("#statusMessage").val();
-    $.getJSON("/manager/userMaster/updateUserDetail",{"id":id,"status":status,"statusMessage":statusMessage},function (data) {
-        if(data ==true){
-            alert("修改审核结果成功！")
-            location.href="/manager/userMaster/goUserMasterAudit";
-        }else{
+    var statusMessage =  stateType == 1 ? '' : $("#statusMessage").val();
+    var flag= true;
+    if(stateType == -1){
+        alert("您没有选择改变审核状态，此次审核取消")
+        flag = false;
+    }
+    if(flag == true){
+        $.getJSON("/manager/userMaster/updateUserDetail",{"id":id,"status":stateType,"statusMessage":statusMessage},function (data) {
+            if(data ==true){
+                alert("修改审核结果成功！")
+                window.location.reload();
+            }else{
+                alert("审核失败成功！")
+                window.location.reload();
+            }
+        })
+    }
 
-            alert("审核失败成功！")
-        }
-    })
 }

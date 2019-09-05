@@ -25,6 +25,7 @@ public class Distribution {
     private Integer tag;  //标记
 
     private ScoreSourceType scoreSourceType;
+    private DistributionStatus distributionStatus;
     private UserRelease userRelease;
     private UserDetail userDetail;
     public Distribution() {
@@ -39,6 +40,14 @@ public class Distribution {
         this.id = id;
         this.statusId = statusId;
         this.refusedMessage = refusedMessage;
+    }
+
+    public DistributionStatus getDistributionStatus() {
+        return distributionStatus;
+    }
+
+    public void setDistributionStatus(DistributionStatus distributionStatus) {
+        this.distributionStatus = distributionStatus;
     }
 
     public Integer getTag() {

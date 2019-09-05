@@ -10,14 +10,7 @@ public interface DistributionService {
 
     Distribution selByResId(Distribution distribution);
 
-    //分页
-    List<Distribution> selDistributionAll( Integer pageCurrentNo,  Integer pageSize,Integer statusId);
 
-    /**
-     * 总记录数
-     * @return
-     */
-    int selDistributionTotal(Integer statusId);
 
     int updDistribution(Distribution distribution);
     Distribution selDistributionById(Integer id);
@@ -26,4 +19,8 @@ public interface DistributionService {
     int delDetailById( Integer id);
     DistributionStatus selByDisId(Integer id);
     List<Distribution> selByDistribution(Distribution distribution);
+
+    //接单记录分页
+    List<Distribution> selDisList( Integer pageCurrentNo,  Integer pageSize,Integer statusId,Integer sfId);
+    int selDisTotal(Integer statusId,Integer sfId);
 }

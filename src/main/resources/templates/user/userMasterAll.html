@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<!-- 页面meta -->
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>已审核详情页面</title>
+	<title>师傅信息界面</title>
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
 	<link rel="stylesheet" href="/manager/plugins/bootstrap/css/bootstrap.min.css">
@@ -29,7 +29,7 @@
 <!-- .box-body -->
 
 <div class="box-header with-border">
-	<h3 class="box-title">已审核详情页面</h3>
+	<h3 class="box-title">师傅信息界面</h3>
 </div>
 
 <div class="box-body">
@@ -53,7 +53,7 @@
 			</div>
 		</div>
 		<!--工具栏/-->
-
+		<input type="hidden" id="statusId" name="statusId" th:value="${statusId}">
 		<!--数据列表-->
 		<table id="dataList" class="table table-bordered table-striped table-hover dataTable">
 			<thead>
@@ -67,6 +67,7 @@
 				<th class="imageUrl">身份证正面</th>
 				<th class="sorting">身份证反面</th>
 				<th class="sorting">工作地点</th>
+				<th class="sorting">审核信息</th>
 				<th class="text-center">操作</th>
 			</tr>
 			</thead>
@@ -227,6 +228,16 @@
 						<td id="card"></td>
 					</tr>
 					<tr>
+						<td>状态</td>
+						<td >
+							<select id="stateType" name="stateType">
+								<option value="-1">待审核</option>
+								<option value="1">审核通过</option>
+								<option value="2">审核不通过</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
 						<td>备注</td>
 						<td >
 							<textarea name="statusMessage" id="statusMessage" placeholder="审核不通过的原因（审核通过可不填）" style="margin:0px; height: 170px;width: 463px;resize: none;"></textarea>
@@ -237,8 +248,8 @@
 
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-success" data-dismiss="modal" aria-hidden="true" onclick="updateAudit(1)">审核通过</button>
-				<button class="btn btn-default" data-dismiss="modal" aria-hidden="true" onclick="updateAudit(2)">审核不通过</button>
+				<button class="btn btn-success" data-dismiss="modal" aria-hidden="true" onclick="updateAudit()">保存</button>
+				<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
 			</div>
 		</div>
 	</div>

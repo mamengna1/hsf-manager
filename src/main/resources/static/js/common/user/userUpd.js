@@ -48,3 +48,10 @@ $(function () {
 function changeSou(btn) {
     $("#source").val(btn);
 }
+
+/**
+ * 修改中的 返回
+ */
+$("#returnUpUserMaster").click(function () {
+    location.href="/manager/userMaster/selMaster"
+})

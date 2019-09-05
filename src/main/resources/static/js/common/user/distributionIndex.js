@@ -3,12 +3,20 @@
 //初始化数据
 var currentPage = 1;  //当前页码
 var statusId = -1;
+var sfId;
 //过滤查询
 function searchDistribution(currentPage,statusId) {
-    $.getJSON("/manager/distribution/userAll",{"pageCurrentNo":currentPage,"statusId":statusId},callback)
+    sfId = $("#sfId").val();
+    if(sfId !=-1){
+        $("#jiedan").show();
+    }else if(sfId == -1){
+        $("#jiedan").hide();
+    }
+    $.getJSON("/manager/distribution/userAllIndex",{"pageCurrentNo":currentPage,"statusId":statusId,"sfId":sfId},callback)
     //回调
     function callback(data) {
         $("#theBody").html("");
+      
         for (var i = 0; i < data.list.length; i++) {
             var createTime = toDate(new Date(data.list[i].createTime).toJSON())
             var updateTime = data.list[i].updateTime == null ? '' : toDate(new Date(data.list[i].updateTime).toJSON());
@@ -22,13 +30,13 @@ function searchDistribution(currentPage,statusId) {
                 "<td><input type=\"checkbox\" class='userCheck'/></td>" +
                 "<td>" + data.list[i].id + "</td>" +
                 "<td>" +
-                "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#guYongModal\"  onclick='selResById(\""+data.list[i].resId+"\")'>"+ data.list[i].realName+"</a>" +
+                "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#guYongModal\"  onclick='selResById(\""+data.list[i].userRelease.id+"\")'>"+ data.list[i].userRelease.nickName+"</a>" +
                 "</td>" +
-                "<td>" + data.list[i].realTitle + "</td>" +
+                "<td>" + data.list[i].userRelease.title + "</td>" +
                 "<td>" +
-                "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#shifuModal\"  onclick='selShifuById(\""+data.list[i].sfId+"\")'>"+ data.list[i].sfName+"</a>" +
+                "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#shifuModal\"  onclick='selShifuById(\""+data.list[i].sfId+"\")'>"+ data.list[i].userDetail.name+"</a>" +
                 "</td>" +
-                "<td>" + data.list[i].statusName + "</td>" +
+                "<td>" + data.list[i].distributionStatus.statusName + "</td>" +
                 "<td style='" + ((statusId == 3|| statusId ==5) ? '' : 'display:none;') + "'>" + message + "</td>" +
                 "<td>" + createTime + "</td>" +
                 "<td>" + updateTime+ "</td>" +
@@ -50,7 +58,7 @@ function searchDistribution(currentPage,statusId) {
 
 //初始化加载数据
 $(function () {
-
+   sfId = $("#sfId").val();
     searchDistribution(currentPage,statusId);
     //首页
     $("#begin").click(function () {
@@ -237,8 +245,8 @@ function delDetailById(id) {
         $.getJSON("/manager/distribution/updDelById",{"id" :id},function (data) {
             $("#id,#distName,#sfName,#statusId,#refusedMessage").val("")
             $("#id").val(data.id)
-            $("#distName").val(data.realName)
-            $("#sfName").val(data.sfName)
+            $("#distName").val(data.userRelease.nickName)
+            $("#sfName").val(data.userDetail.name)
             $("#statusId").val(data.statusId)
             $("#refusedMessage").val(data.refusedMessage)
         })
@@ -294,4 +302,12 @@ function selShifuById(id) {
         $("#workYear2").html(yearWork);
     })
     $.ajaxSettings.async = true;
+}
+
+/**
+ * 从接单中心返回全部师傅界面
+ */
+
+function returnDis() {
+    location.href="/manager/userMaster/selMaster?statusId=-1";
 }

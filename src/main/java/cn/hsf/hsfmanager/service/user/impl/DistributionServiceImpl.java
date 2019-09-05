@@ -29,16 +29,6 @@ public class DistributionServiceImpl implements DistributionService {
     }
 
     @Override
-    public List<Distribution> selDistributionAll(Integer pageCurrentNo, Integer pageSize,Integer statusId) {
-        return distributionMapper.selDistributionAll((pageCurrentNo-1)*pageSize, pageSize,statusId);
-    }
-
-    @Override
-    public int selDistributionTotal(Integer statusId) {
-        return distributionMapper.selDistributionTotal(statusId);
-    }
-
-    @Override
     public int updDistribution(Distribution distribution) {
         return distributionMapper.updDistribution(distribution);
     }
@@ -66,5 +56,15 @@ public class DistributionServiceImpl implements DistributionService {
     @Override
     public List<Distribution> selByDistribution(Distribution distribution) {
         return distributionMapper.selByDistribution(distribution);
+    }
+
+    @Override
+    public List<Distribution> selDisList(Integer pageCurrentNo, Integer pageSize, Integer statusId, Integer sfId) {
+        return distributionMapper.selDisList((pageCurrentNo-1)*pageSize,pageSize,statusId,sfId);
+    }
+
+    @Override
+    public int selDisTotal(Integer statusId, Integer sfId) {
+        return distributionMapper.selDisTotal(statusId, sfId);
     }
 }

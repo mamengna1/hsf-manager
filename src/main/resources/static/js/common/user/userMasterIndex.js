@@ -3,15 +3,18 @@
 //初始化数据
 var currentPage = 1;  //当前页码
 var names = $("#names").val();
-var statusId = -1;  //全部信息
+var statusId;  //全部信息
 //过滤查询
 function searchCustomer(currentPage,names,statusId) {
     $.getJSON("/manager/userMaster/userAll",{"pageCurrentNo":currentPage,"names":names,"statusId":statusId},callback)
     //回调
     function callback(data) {
         $("#theBody").html("");
+
         for (var i = 0; i < data.list.length; i++) {
+            var a = data.list[i].status;
             var workArea = showProvince(data.list[i].workProvince,data.list[i].workCity,data.list[i].workArea);
+            var message = a == 0 ? "待审核" :a == 1 ? "审核成功" :"审核失败 ："+data.list[i].statusMessage;
             $("#theBody").append("<tr>" +
                 "<td><input type=\"checkbox\" class='userCheck'/></td>" +
                 "<td>" +
@@ -24,12 +27,18 @@ function searchCustomer(currentPage,names,statusId) {
                 "<td><img src='"+  data.list[i].cardOne +"' width='50px' height='50px'/></td>" +
                 "<td><img src='"+  data.list[i].cardTwo +"' width='50px' height='50px'/></td>" +
                 "<td>" + workArea+"</td>" +
+                "<td>" +message+"</td>" +
                 "<td>" +
-                "<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\"  onclick='updDetail("+data.list[i].id+")'>修改</a>" +
+                "<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\"  onclick='goUserMasterShow("+data.list[i].id+")'>查看</a>" +
+                "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\"  onclick='updDetail("+data.list[i].id+")'>修改</a>" +
+                "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" data-toggle=\"modal\" data-target=\"#auditModal\"  onclick='selAudit("+data.list[i].id+")' style=\"" + ((a != 0) ? '' : 'display:none;') + "\" >已审核</a>" +
+                "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" data-toggle=\"modal\" data-target=\"#auditModal\"  onclick='selAudit("+data.list[i].id+")' style=\"" + ((a == 0) ? '' : 'display:none;') + "\" >未审核</a>" +
+                "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\"  onclick='goDistributionIndex("+data.list[i].id+")'>接单记录</a>" +
                 "</td>" +
                 "</tr>")
 
         }
+
 
         $("#total").html(data.totalCount);
         $("#totalPages").html(data.totalPages);
@@ -39,7 +48,7 @@ function searchCustomer(currentPage,names,statusId) {
 
 //初始化加载数据
 $(function () {
-
+    statusId = $("#statusId").val();
     searchCustomer(currentPage,names,statusId);
     //首页
     $("#begin").click(function () {
@@ -127,4 +136,20 @@ function searchNames() {
  */
 function updDetail(id) {
     location.href="/manager/userMaster/goUserUpd?id="+id;
+}
+
+/**
+ * 进入查看信息界面
+ * @param id
+ */
+function goUserMasterShow(id) {
+    location.href="/manager/userMaster/goUserMasterShow?id="+id;
+}
+
+/**
+ * 接单记录
+ * @param id
+ */
+function goDistributionIndex(id) {
+    location.href="/manager/distribution/goDistributionIndex?sfId="+id;
 }

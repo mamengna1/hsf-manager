@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<!-- 页面meta -->
@@ -21,7 +21,7 @@
 	<script type="text/javascript" src="/manager/js/common/utils/area.js"></script>  <!--引入省市区三级的js-->
 	<script type="text/javascript" src="/manager/js/common/user/UserSkillById.js"></script>  <!--引入查询技能名称 工作年限 的js-->
 	<script type="text/javascript" src="/manager/js/common/user/selUserByOpenId.js"></script>  <!--引入根基openId查询的js-->
-	<script type="text/javascript" src="/manager/js/common/user/distributionAll.js"></script>  <!--引入查询的js-->
+	<script type="text/javascript" src="/manager/js/common/user/distributionIndex.js"></script>  <!--引入查询的js-->
 </head>
 
 <body class="hold-transition skin-red sidebar-mini" >
@@ -51,7 +51,12 @@
 			</div>
 		</div>
 		<!--工具栏/-->
-
+		<div class="box-tools pull-right" id="jiedan">
+			<div class="has-feedback">
+				<button class="btn btn-default"  onclick="returnDis()">返回</button>
+			</div>
+		</div>
+		<input type="hidden" id="sfId" name="sfId" th:value="${sfId}">
 		<!--数据列表-->
 		<table id="dataList" class="table table-bordered table-striped table-hover dataTable">
 			<thead>
