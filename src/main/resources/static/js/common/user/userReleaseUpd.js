@@ -23,3 +23,7 @@ $("#gengGai").click(function () {
     var ids = $("#id").val();
     location.href="/manager/userDetail/goPaiDan?id="+ids;
 })
+
+$("#returnUp").click(function () {
+    location.href="/manager/userRelease/goUserReleaseAll";
+})

@@ -147,7 +147,7 @@ public class UserDetailController {
             String sfPhone = userService.selUserByDetailId(userDetailId).getPhone();
 
             Integer pdId = distributionService.selByResId(distribution).getId();
-            System.out.println("============================派单id  ： "  + pdId );
+            System.out.println("============================派单id  ： "  + pdId +"传给用户的："+id);
 
 
             //给用户发送推荐师傅的模板信息

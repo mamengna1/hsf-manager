@@ -145,7 +145,7 @@ public class UserMasterController {
                     if(userParent !=null && !userParent.equals("")){
                         User parent = new User(userParent,pre[i],pre[i]);
                         userService.updateUserByOpenId(parent);
-                        UserScoreSource ScoreSource = new UserScoreSource(userParent,pre[i],2,o);
+                        UserScoreSource ScoreSource = new UserScoreSource(userParent,pre[i],4,o);
                         scoreSourceService.insScoreSource(ScoreSource);   //记录分红的积分来源记录
                         Map map2 = new HashMap();
                         map2.put("openId",userParent);

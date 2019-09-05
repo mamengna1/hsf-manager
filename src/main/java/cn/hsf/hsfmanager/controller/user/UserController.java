@@ -6,6 +6,7 @@ import cn.hsf.hsfmanager.service.user.UserService;
 import cn.hsf.hsfmanager.util.Contents;
 import cn.hsf.hsfmanager.util.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,28 +26,12 @@ public class UserController {
      * @return
      */
     @RequestMapping("/goUserIndex")
-    public String goUserIndex(){
+    public String goUserIndex(Integer isSub,Integer detailId ,Model model){
+        model.addAttribute("isSub",isSub);
+        model.addAttribute("detailId",detailId);
         return "user/userAll";
     }
 
-    /**
-     * 进入取消关注页面
-     * @return
-     */
-    @RequestMapping("/goUserCancle")
-    public String goUserCancle(){
-        return "user/userCancle";
-    }
-
-
-    /**
-     * 进入关注页面
-     * @return
-     */
-    @RequestMapping("/goUserFouce")
-    public String goUserFouce(){
-        return "user/userFouce";
-    }
 
     /**
      * 进入关注页面
@@ -56,6 +41,7 @@ public class UserController {
     public String goUserNew(){
         return "user/userNew";
     }
+
 
     /**
      * 分页显示数据

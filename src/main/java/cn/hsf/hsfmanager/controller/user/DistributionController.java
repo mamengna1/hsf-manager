@@ -168,4 +168,16 @@ public class DistributionController {
         Distribution distribution = new Distribution(id,statusId,refusedMessage);
         return  distributionService.updDistribution(distribution) > 0 ? true : false;
     }
+
+    /**
+     * 删除
+     * 删除
+     * @param id
+     * @return
+     */
+    @RequestMapping("/delDetailById")
+    @ResponseBody
+    public boolean delDetailById(Integer id){
+        return distributionService.delDetailById(id) > 0 ? true : false;
+    }
 }

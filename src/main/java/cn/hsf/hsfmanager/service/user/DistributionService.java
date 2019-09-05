@@ -23,7 +23,7 @@ public interface DistributionService {
     Distribution selDistributionById(Integer id);
 
     List<DistributionStatus> selAllDisName();
-
+    int delDetailById( Integer id);
     DistributionStatus selByDisId(Integer id);
     List<Distribution> selByDistribution(Distribution distribution);
 }

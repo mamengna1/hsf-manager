@@ -18,7 +18,7 @@
                 and  detailId >= 0
             </if>
             <if test="detailId &gt; 0 ">
-                and  detailId >= 0
+                and  detailId > 0
             </if>
         </where>
         order by createDate desc
@@ -35,7 +35,7 @@
                 and  detailId >= 0
             </if>
             <if test="detailId &gt; 0 ">
-                and  detailId >= 0
+                and  detailId > 0
             </if>
         </where>
         order by createDate desc

@@ -2,8 +2,8 @@
 
 //初始化数据
 var currentPage = 1;  //当前页码
-var isSub = -1;
-var detailId = 0;
+var isSub ;
+var detailId ;
 //过滤查询
 function searchCustomer(currentPage,isSub,detailId) {
     $.getJSON("/manager/user/userAll",{"pageCurrentNo":currentPage,"isSub":isSub,"detailId":detailId},callback)
@@ -42,7 +42,8 @@ function searchCustomer(currentPage,isSub,detailId) {
 
 //初始化加载数据
 $(function () {
-
+    isSub = $("#isSub").val();
+    detailId = $("#detailId").val();
     searchCustomer(currentPage,isSub,detailId);
     //首页
     $("#begin").click(function () {

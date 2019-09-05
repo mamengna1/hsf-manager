@@ -379,28 +379,32 @@
                     <ul class="treeview-menu">
 
                         <li id="admin-login">
-                            <a href="/manager/user/goUserIndex" target="iframe">
-                                <i class="fa fa-circle-o"></i>用户信息
+                            <a href="/manager/user/goUserIndex?isSub=-1&detailId=0" target="iframe">
+                                <i class="fa fa-circle-o"></i>全部用户
                             </a>
                         </li>
                         <li id="admin-login">
-                            <a href="/manager/user/goUserFouce" target="iframe">
+                            <a href="/manager/user/goUserIndex?isSub=1&detailId=0" target="iframe">
                                 <i class="fa fa-circle-o"></i>已关注用户
                             </a>
                         </li>
                         <li id="admin-login">
-                            <a href="/manager/user/goUserCancle" target="iframe">
-                                <i class="fa fa-circle-o"></i>取消关注用户
+                            <a href="/manager/user/goUserIndex?isSub=0&detailId=0" target="iframe">
+                                <i class="fa fa-circle-o"></i>已取消关注
                             </a>
                         </li>
-
+                        <li id="admin-login">
+                            <a href="/manager/user/goUserIndex?isSub=1&detailId=1" target="iframe">
+                                <i class="fa fa-circle-o"></i>师傅
+                            </a>
+                        </li>
                     </ul>
                 </li>
 
                 <li class="treeview" th:if="${admins.level le 4}">
                     <a href="#">
                         <i class="fa fa-folder"></i>
-                        <span>找师傅</span>
+                        <span>订单管理</span>
                         <span class="pull-right-container">
 				       			<i class="fa fa-angle-left pull-right"></i>
                         </span>
@@ -408,12 +412,12 @@
                     <ul class="treeview-menu">
                         <li id="admin-login">
                             <a href="/manager/userRelease/goUserReleaseAll?mark=1" target="iframe">
-                                <i class="fa fa-circle-o"></i>发布信息
+                                <i class="fa fa-circle-o"></i>全部订单
                             </a>
                         </li>
                         <li id="admin-login">
                             <a href="/manager/distribution/goDistribution" target="iframe">
-                                <i class="fa fa-circle-o"></i>派单详情
+                                <i class="fa fa-circle-o"></i>派发记录
                             </a>
                         </li>
                     </ul>
@@ -422,7 +426,7 @@
 
                     <a href="#">
                         <i class="fa fa-folder"></i>
-                        <span>师傅信息管理</span>
+                        <span>师傅管理</span>
                         <span class="pull-right-container">
 				       			<i class="fa fa-angle-left pull-right"></i>
 				   		 	</span>
@@ -436,7 +440,7 @@
                         </li>
                         <li id="admin-login">
                             <a href="/manager/userMaster/goUserMasterAudit" target="iframe">
-                                <i class="fa fa-circle-o"></i>审核通过
+                                <i class="fa fa-circle-o"></i>已审核
                             </a>
                         </li>
                         <li id="admin-login">
@@ -463,7 +467,7 @@
 
                         <li id="admin-login">
                             <a href="/manager/goUserInfo" target="iframe">
-                                <i class="fa fa-circle-o"></i>所有动态
+                                <i class="fa fa-circle-o"></i>全部动态
                             </a>
                         </li>
                         <li id="admin-login">
@@ -485,6 +489,33 @@
                         <li id="admin-login">
                             <a href="/manager/userSkill/goAllSkills" target="iframe">
                                 <i class="fa fa-circle-o"></i>技能信息
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview" th:if="${admins.level le 4}">
+                    <a href="#">
+                        <i class="fa fa-folder"></i>
+                        <span>账目管理</span>
+                        <span class="pull-right-container">
+				       			<i class="fa fa-angle-left pull-right"></i>
+				   		 	</span>
+                    </a>
+                    <ul class="treeview-menu">
+
+                        <li id="admin-login">
+                            <a href="/manager/goUserInfo" target="iframe">
+                                <i class="fa fa-circle-o"></i>积分记录
+                            </a>
+                        </li>
+                        <li id="admin-login">
+                            <a href="/manager/userOrder/goUserOrder" target="iframe">
+                                <i class="fa fa-circle-o"></i>提现记录
+                            </a>
+                        </li>
+                        <li id="admin-login">
+                            <a href="/manager/userOrder/goUserOrder" target="iframe">
+                                <i class="fa fa-circle-o"></i>审核提现
                             </a>
                         </li>
                     </ul>

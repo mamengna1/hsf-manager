@@ -37,7 +37,7 @@
 
     <!--分页-->
     <select id="selDistributionAll" resultType="cn.hsf.hsfmanager.pojo.user.Distribution"  parameterType="int">
-      SELECT d.`id`,d.`releaseId`,d.`statusId`,d.`refusedMessage`,d.`createTime`,d.`updateTime`,d.`sfId`,d.`orderId` ,r.`title` AS realTitle,r.`nickName` AS realName,de.`name` AS sfName,s.`statusName` AS statusName ,r.`id` as resId
+     SELECT d.`id`,d.`releaseId`,d.`statusId`,d.`refusedMessage`,d.`createTime`,d.`updateTime`,d.`sfId`,d.`orderId` ,r.`title` AS realTitle,r.`nickName` AS realName,de.`name` AS sfName,s.`statusName` AS statusName ,r.`id` as resId
      FROM `tb_distribution` AS d
      INNER JOIN `tb_user_release` AS r ON d.releaseId = r.id
      INNER JOIN `tb_user_detail` AS de ON d.sfId = de.`id`
@@ -121,4 +121,8 @@
             </if>
         </where>
     </select>
+
+    <delete id="delDetailById" parameterType="int">
+        delete FROM `tb_distribution` where id = #{id}
+    </delete>
 </mapper>

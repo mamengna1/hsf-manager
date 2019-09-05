@@ -39,7 +39,8 @@ function searchRelease(currentPage,state,mark) {
                 "<td>" +
                 "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#shifuModal\"  onclick='selShifuById(\""+data.list[i].receiveId+"\")'>"+ receiveId+"</a>" +
                 "<td>" +
-                "<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" onclick='goUpdUserRelease("+data.list[i].id+")'>修改</a>" +
+                "<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" onclick='goShowUserRelease("+data.list[i].id+")'>查看</a>" +
+                "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" onclick='goUpdUserRelease("+data.list[i].id+")'>修改</a>" +
                 "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" data-toggle=\"modal\" data-target=\"#updateModal\" onclick='gopaidan("+data.list[i].id+")' style=\"" + ((a ==0  || a ==1) ? '' : 'display:none;')+"\">派单</a>" +
                 "</td>" +
                 "</tr>")
@@ -192,4 +193,13 @@ function gopaidan(id) {
 function goUpdUserRelease(id) {
     location.href="/manager/userDetail/goUpdUserRelease?id="+id+"&mark="+mark;
     //   location.href="/manager/userRelease/goUserReleaseAll?mark="+mark;
+}
+
+/**
+ * 去到查看信息界面
+ * @param id
+ */
+function goShowUserRelease(id) {
+    location.href="/manager/userRelease/goShowUserRelease?id="+id;
+
 }

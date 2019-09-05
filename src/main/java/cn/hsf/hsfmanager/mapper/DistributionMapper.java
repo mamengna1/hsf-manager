@@ -24,6 +24,8 @@ public interface DistributionMapper {
     int selDistributionTotal(@Param("statusId") Integer statusId);
 
     int updDistribution(Distribution distribution);
+    int delDetailById(@Param("id") Integer id);
+
 
     Distribution selDistributionById(Integer id);
     List<Distribution> selByDistribution(Distribution distribution);

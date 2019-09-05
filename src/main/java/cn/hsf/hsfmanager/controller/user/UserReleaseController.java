@@ -1,7 +1,9 @@
 package cn.hsf.hsfmanager.controller.user;
 
+import cn.hsf.hsfmanager.pojo.user.User;
 import cn.hsf.hsfmanager.pojo.user.UserRelease;
 import cn.hsf.hsfmanager.service.user.UserReleaseService;
+import cn.hsf.hsfmanager.service.user.UserService;
 import cn.hsf.hsfmanager.util.Contents;
 import cn.hsf.hsfmanager.util.Page;
 import org.springframework.stereotype.Controller;
@@ -18,20 +20,22 @@ import java.util.List;
 public class UserReleaseController {
     @Resource
     private UserReleaseService userReleaseService;
+    @Resource
+    private UserService userService;
 
     /**
      * 进入雇佣信息列表
      * @return
      */
     @RequestMapping("/goUserReleaseAll")
-    public String goUserReleaseAll(Integer mark,Model model){
+    public String goUserReleaseAll(@RequestParam(value = "mark",required = false,defaultValue = "1") Integer mark,Model model){
         model.addAttribute("mark",mark);
         return "user/userReleaseAll";
     }
 
 
     /**
-     * 分页显示数据   雇佣列表数据
+     * 分页显示数据   雇佣列表数据  全部订单
      * @param pageCurrentNo
      * @return
      */
@@ -51,5 +55,17 @@ public class UserReleaseController {
         return page;
     }
 
-
+    /**
+     * 去到查看信息界面
+     * @param id
+     * @return
+     */
+    @RequestMapping("/goShowUserRelease")
+    public String goUpdUserRelease(@RequestParam("id") Integer id,Model model){
+        UserRelease userRelease = userReleaseService.selUserReleaseById(id);
+        model.addAttribute("userRelease",userRelease);
+        User user = userService.selUserById(userRelease.getUserId());
+        model.addAttribute("user",user);
+        return "user/userReleaseShow";
+    }
 }

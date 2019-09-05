@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<!-- 页面meta -->
@@ -31,7 +31,8 @@
 </div>
 
 <div class="box-body">
-
+	<input type="hidden" id="isSub" name="isSub" th:value="${isSub}">
+	<input type="hidden" id="detailId" name="detailId" th:value="${detailId}">
 	<!-- 数据表格 -->
 	<div class="table-box">
 		<!--工具栏-->

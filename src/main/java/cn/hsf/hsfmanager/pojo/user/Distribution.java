@@ -23,6 +23,10 @@ public class Distribution {
     private Integer resId;  // 雇佣id
 
     private Integer tag;  //标记
+
+    private ScoreSourceType scoreSourceType;
+    private UserRelease userRelease;
+    private UserDetail userDetail;
     public Distribution() {
     }
 
@@ -43,6 +47,30 @@ public class Distribution {
 
     public void setTag(Integer tag) {
         this.tag = tag;
+    }
+
+    public ScoreSourceType getScoreSourceType() {
+        return scoreSourceType;
+    }
+
+    public void setScoreSourceType(ScoreSourceType scoreSourceType) {
+        this.scoreSourceType = scoreSourceType;
+    }
+
+    public UserRelease getUserRelease() {
+        return userRelease;
+    }
+
+    public void setUserRelease(UserRelease userRelease) {
+        this.userRelease = userRelease;
+    }
+
+    public UserDetail getUserDetail() {
+        return userDetail;
+    }
+
+    public void setUserDetail(UserDetail userDetail) {
+        this.userDetail = userDetail;
     }
 
     public Distribution(Integer id) {
