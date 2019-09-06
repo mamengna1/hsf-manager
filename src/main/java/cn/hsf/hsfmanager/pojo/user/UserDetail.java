@@ -48,15 +48,16 @@ public class UserDetail {
     private String skillName;   //技能名称
     private String areas;   //地区
     private String isExist;   //是否存在
-
+    private Integer shijian;
     public UserDetail() {
     }
 
-    public UserDetail(Integer id, Integer status, String statusMessage,Integer lineStatus) {
+    public UserDetail(Integer id, Integer status, String statusMessage,Integer lineStatus,Integer shijian) {
         this.id = id;
         this.status = status;
         this.statusMessage = statusMessage;
         this.lineStatus = lineStatus;
+        this.shijian = shijian;
     }
 
     @Override
@@ -86,6 +87,14 @@ public class UserDetail {
 
     //get set 方法
 
+
+    public Integer getShijian() {
+        return shijian;
+    }
+
+    public void setShijian(Integer shijian) {
+        this.shijian = shijian;
+    }
 
     public Date getUpdTime() {
         return updTime;

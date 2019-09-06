@@ -111,7 +111,12 @@
             <if test="yearWorkId != null and yearWorkId!=''">
                 yearWorkId=#{yearWorkId},
             </if>
+            <if test="shijian != null and shijian == 1">
+                passTime = now(),
+            </if>
             statusMessage=#{statusMessage}
+
+
         </trim>
     </update>
 

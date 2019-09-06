@@ -98,7 +98,7 @@ function updateAudit() {
                 alert("修改审核结果成功！")
                 window.location.reload();
             }else{
-                alert("审核失败成功！")
+                alert("修改审核结果成功！状态为【审核不通过】")
                 window.location.reload();
             }
         })

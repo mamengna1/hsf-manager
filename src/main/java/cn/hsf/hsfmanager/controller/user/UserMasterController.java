@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -132,7 +133,7 @@ public class UserMasterController {
                 }
             }
             lineStatus = 1;
-            UserDetail detail = new UserDetail(id,status,null,lineStatus);
+            UserDetail detail = new UserDetail(id,status,null,lineStatus,1);
             userDetailService.updateUserDetail(detail);
 
             //给管理员发送模板信息
@@ -156,7 +157,7 @@ public class UserMasterController {
             map.put("message",statusMessage);
             map.put("url","http://java.86blue.cn/_api/goRegister");
             templateService.sendAuditFail(map);
-            UserDetail detail = new UserDetail(id,status,statusMessage,lineStatus);
+            UserDetail detail = new UserDetail(id,status,statusMessage,lineStatus,1);
             userDetailService.updateUserDetail(detail);
             return false;
         }
@@ -215,6 +216,7 @@ public class UserMasterController {
         Integer status = userDetailService.selUserDetailById(userDetail.getId()).getStatus();
         userScoreSourceService.insScoreSource(userScoreSource);
         userService.updateUserByOpenId(new User(userScoreSource.getOpenId(), phone,Double.valueOf(score),Double.valueOf(score)));
+        userDetail.setShijian(1);
         userDetailService.updateUserDetail(userDetail);
         ScoreSourceType scoreSourceType = userScoreSourceService.selById(userScoreSource.getScoreSourceId());
         if (source == 1) {   // 发送模板
@@ -234,7 +236,7 @@ public class UserMasterController {
         }else{
             System.out.println("状态值没变，不调用审核方法");
         }
-        return "user/userMasterAudit";
+        return "user/userMasterAll";
     }
 
     @RequestMapping("/selYearWorkById")
