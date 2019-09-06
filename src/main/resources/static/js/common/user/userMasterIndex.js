@@ -14,7 +14,10 @@ function searchCustomer(currentPage,names,statusId) {
         for (var i = 0; i < data.list.length; i++) {
             var a = data.list[i].status;
             var workArea = showProvince(data.list[i].workProvince,data.list[i].workCity,data.list[i].workArea);
-            var message = a == 0 ? "待审核" :a == 1 ? "审核成功" :"审核失败 ："+data.list[i].statusMessage;
+            var updTime = data.list[i].updTime == null ? '' : toDate(new Date(data.list[i].updTime).toJSON())
+            var passTime = data.list[i].passTime == null ? '' : toDate(new Date(data.list[i].passTime).toJSON())
+
+            var message = a == 0 ? "待审核" :a == 1 ? "审核成功" : a == 2 ? "审核失败 ："+data.list[i].statusMessage : "再次提交信息，上次审核失败原因是 ："+data.list[i].statusMessage;
             $("#theBody").append("<tr>" +
                 "<td><input type=\"checkbox\" class='userCheck'/></td>" +
                 "<td>" +
@@ -28,11 +31,13 @@ function searchCustomer(currentPage,names,statusId) {
                 "<td><img src='"+  data.list[i].cardTwo +"' width='50px' height='50px'/></td>" +
                 "<td>" + workArea+"</td>" +
                 "<td>" +message+"</td>" +
+                "<td>" + updTime+"</td>" +
+                "<td>" +passTime+"</td>" +
                 "<td>" +
                 "<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\"  onclick='goUserMasterShow("+data.list[i].id+")'>查看</a>" +
                 "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\"  onclick='updDetail("+data.list[i].id+")'>修改</a>" +
-                "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" data-toggle=\"modal\" data-target=\"#auditModal\"  onclick='selAudit("+data.list[i].id+")' style=\"" + ((a != 0) ? '' : 'display:none;') + "\" >已审核</a>" +
-                "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" data-toggle=\"modal\" data-target=\"#auditModal\"  onclick='selAudit("+data.list[i].id+")' style=\"" + ((a == 0) ? '' : 'display:none;') + "\" >未审核</a>" +
+                "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn btn-xs btn-info\" data-toggle=\"modal\" data-target=\"#auditModal\"  onclick='selAudit("+data.list[i].id+")' style=\"" + ((a ==1 || a == 2) ? '' : 'display:none;') + "\" >已审核</a>" +
+                "<a href='javascript:void(0)'  class=\"btn btn-xs bg-gray\" data-toggle=\"modal\" data-target=\"#auditModal\"  onclick='selAudit("+data.list[i].id+")' style=\"" + ((a == 0 || a == 3) ? '' : 'display:none;') + "\" >未审核</a>" +
                 "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\"  onclick='goDistributionIndex("+data.list[i].id+")'>接单记录</a>" +
                 "</td>" +
                 "</tr>")
@@ -152,4 +157,19 @@ function goUserMasterShow(id) {
  */
 function goDistributionIndex(id) {
     location.href="/manager/distribution/goDistributionIndex?sfId="+id;
+}
+
+/**
+ * 审核下拉改变触发事件
+ */
+function func(){
+    //获取被选中的option标签
+    var vs = $('#stateType  option:selected').val();
+    if(vs == 1){
+        $("#statusMessage").val("")
+        $("#statusMessage").attr("disabled","disabled")
+    }else if(vs == 2){
+        $('#statusMessage').removeAttr("disabled");//去除textarea元素的disabled属性
+
+    }
 }

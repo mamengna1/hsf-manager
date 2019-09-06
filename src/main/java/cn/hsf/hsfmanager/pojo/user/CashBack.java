@@ -14,6 +14,55 @@ public class CashBack {
     private Integer backStatusId;  // 返现状态
     private String comment;  //错误码
 
+
+    private BackStatus backStatus;
+    private User user;
+    private UserDetail userDetail;
+
+    public CashBack() {
+    }
+
+    public CashBack(Integer id, Integer backStatusId, String comment) {
+        this.id = id;
+        this.backStatusId = backStatusId;
+        this.comment = comment;
+    }
+
+    public CashBack(Integer id, String comment) {
+        this.id = id;
+        this.comment = comment;
+    }
+
+    public CashBack(Integer id, Integer backStatusId) {
+        this.id = id;
+        this.backStatusId = backStatusId;
+    }
+
+    //get set
+    public BackStatus getBackStatus() {
+        return backStatus;
+    }
+
+    public void setBackStatus(BackStatus backStatus) {
+        this.backStatus = backStatus;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public UserDetail getUserDetail() {
+        return userDetail;
+    }
+
+    public void setUserDetail(UserDetail userDetail) {
+        this.userDetail = userDetail;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -71,6 +120,9 @@ public class CashBack {
                 ", createDate=" + createDate +
                 ", backStatusId=" + backStatusId +
                 ", comment='" + comment + '\'' +
+                ", backStatus=" + backStatus +
+                ", user=" + user +
+                ", userDetail=" + userDetail +
                 '}';
     }
 }

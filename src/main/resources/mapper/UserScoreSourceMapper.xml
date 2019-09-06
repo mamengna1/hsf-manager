@@ -24,9 +24,9 @@
         <result property="openId" column="openId"/>
         <association property="scoreSourceType" column="scoreSourceId" select="cn.hsf.hsfmanager.mapper.UserScoreSourceMapper.selById"/>
         <association property="user" column="openId" select="cn.hsf.hsfmanager.mapper.UserMapper.selUserByOpenId">
-            <id property="id" column="id"/>
+           <!-- <id property="id" column="id"/>
             <result property="detailId" column="detailId"/>
-            <association property="userDetail" column="detailId" select="cn.hsf.hsfmanager.mapper.UserDetailMapper.selUserDetailById"/>
+            <association property="userDetail" column="detailId" select="cn.hsf.hsfmanager.mapper.UserDetailMapper.selUserDetailById"/>-->
         </association>
     </resultMap>
 

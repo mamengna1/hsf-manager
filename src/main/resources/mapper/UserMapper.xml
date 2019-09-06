@@ -38,7 +38,7 @@
                 and  detailId > 0
             </if>
         </where>
-        order by createDate desc
+
     </select>
 
 <!--   根据条件查询-->

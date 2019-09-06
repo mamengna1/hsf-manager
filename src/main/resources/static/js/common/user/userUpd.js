@@ -21,9 +21,27 @@ $(function () {
         var skills = (res.skills).split(",");
         var tags = document.getElementsByClassName("skills");
         for (var i = 0; i < skills.length; i++) {
-            $(tags[skills[i] - 1]).prop("checked", "checked");
+            $("[sid="+skills[i]+"]").prop("checked", "checked");
         }
         $("#skills").val(res.skills);
+        $("#statusMessage").val(res.statusMessage)
+        var stateType;
+        if( res.status == 1){   //审核通过
+            stateType = 1
+            $("#statusMessage").attr("disabled","disabled")
+
+        }else if(res.status == 2 || res.status == 3){   //审核不通过及再次提交的信息
+            stateType = 2
+            if($('#statusMessage').attr("disabled")==true){//判断input元素是否已经设置了disabled属性
+                $('#statusMessage').removeAttr("disabled");//去除textarea元素的disabled属性
+            }
+
+        }else if(res.status == 0 || res.status == ''){   //审核中
+            stateType = -1
+            $("#statusMessage").attr("disabled","disabled")
+        }
+        $("#status").val(stateType)
+
     })
     $.ajaxSettings.async = true;
     var skills = $("#skills").val().split(",");
@@ -55,3 +73,18 @@ function changeSou(btn) {
 $("#returnUpUserMaster").click(function () {
     location.href="/manager/userMaster/selMaster"
 })
+
+/**
+ * 审核下拉改变触发事件
+ */
+function func(){
+    //获取被选中的option标签
+    var vs = $('#status  option:selected').val();
+    if(vs == 1){
+        $("#statusMessage").val("")
+        $("#statusMessage").attr("disabled","disabled")
+    }else if(vs == 2){
+        $('#statusMessage').removeAttr("disabled");//去除textarea元素的disabled属性
+
+    }
+}

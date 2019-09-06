@@ -132,7 +132,7 @@ public class UserMasterController {
                 }
             }
             lineStatus = 1;
-            UserDetail detail = new UserDetail(id,status,statusMessage,lineStatus);
+            UserDetail detail = new UserDetail(id,status,null,lineStatus);
             userDetailService.updateUserDetail(detail);
 
             //给管理员发送模板信息
@@ -212,9 +212,9 @@ public class UserMasterController {
      */
     @RequestMapping("/insUserDetail")
     public String insUserDetail(UserScoreSource userScoreSource, UserDetail userDetail, String phone, Integer source,Integer score){
+        Integer status = userDetailService.selUserDetailById(userDetail.getId()).getStatus();
         userScoreSourceService.insScoreSource(userScoreSource);
-        userService.updateUserByOpenId(new User(userScoreSource.getOpenId(), phone,Double.valueOf(score),Double.valueOf(score) ));
-        System.out.println(userDetail);
+        userService.updateUserByOpenId(new User(userScoreSource.getOpenId(), phone,Double.valueOf(score),Double.valueOf(score)));
         userDetailService.updateUserDetail(userDetail);
         ScoreSourceType scoreSourceType = userScoreSourceService.selById(userScoreSource.getScoreSourceId());
         if (source == 1) {   // 发送模板
@@ -227,6 +227,12 @@ public class UserMasterController {
             templateService.sendTongYong(map);
         } else {
 
+        }
+        if(status != userDetail.getStatus()){
+            System.out.println("状态值改变了，调用审核方法");
+           // updateUserDetail(userDetail.getId(),userDetail.getStatus(),userDetail.getStatusMessage());
+        }else{
+            System.out.println("状态值没变，不调用审核方法");
         }
         return "user/userMasterAudit";
     }

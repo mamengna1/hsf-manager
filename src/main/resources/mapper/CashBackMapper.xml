@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace:映射命名空间-->
+<mapper namespace="cn.hsf.hsfmanager.mapper.CashBackMapper">
+
+    <!--关联查询-->
+    <resultMap id="selCash" type="cn.hsf.hsfmanager.pojo.user.CashBack">
+        <id property="id" column="id"/>
+        <result property="backStatusId" column="backStatusId"/>
+        <result property="openId" column="openId"/>
+        <association property="backStatus" column="backStatusId" select="cn.hsf.hsfmanager.mapper.BackStatusMapper.selById"/>
+        <association property="user" column="openId" select="cn.hsf.hsfmanager.mapper.UserMapper.selUserByOpenId"/>
+    </resultMap>
+
+
+    <select id="selAllByOpenId" parameterType="string" resultMap="selCash">
+        select `id`,`openId`,`money`,`createDate`,`backStatusId`,`comment` from  `tb_cash_back`
+        where  openId = #{openId}
+    </select>
+
+    <select id="selAllById" resultMap="selCash" parameterType="int">
+         select `id`,`openId`,`money`,`createDate`,`backStatusId`,`comment` from  `tb_cash_back`
+          where id  = #{id}
+    </select>
+
+
+    <select id="selAll" resultMap="selCash">
+        select `id`,`openId`,`money`,`createDate`,`backStatusId`,`comment` from  `tb_cash_back`
+        <where>
+            <if test="openId !=null and openId !='' ">
+                and openId = #{openId}
+            </if>
+            <if test="backStatusId !=null and backStatusId &gt; 0 ">
+                and backStatusId = #{backStatusId}
+            </if>
+        </where>
+      /*  order by `createDate` desc*/
+        limit #{pageCurrentNo},#{pageSize}
+    </select>
+
+    <select id="selTotalCount" resultType="int" >
+        SELECT count(*) FROM `tb_cash_back`
+        <where>
+            <if test="openId !=null and openId !='' ">
+                and openId = #{openId}
+            </if>
+            <if test="backStatusId !=null and backStatusId &gt; 0 ">
+                and backStatusId = #{backStatusId}
+            </if>
+        </where>
+    </select>
+
+
+    <!--修改-->
+    <update id="updateCashBack" parameterType="cn.hsf.hsfmanager.pojo.user.CashBack">
+        update `tb_cash_back`
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+            <if test="id != null and id!=''">
+                id=#{id},
+            </if>
+            <if test="openId != null and openId!=''">
+                openId=#{openId},
+            </if>
+            <if test="money != null and money!=''">
+                money=#{money},
+            </if>
+            <if test="backStatusId != null and backStatusId &gt; 0">
+                backStatusId=#{backStatusId},
+            </if>
+            comment=#{comment}
+        </trim>
+    </update>
+
+</mapper>

@@ -586,5 +586,11 @@ function showProvince(index1, index2, index3) {
     var cityName = cityList[index2].name;
     var areaList = cityList[index2].areaList;
     var areaName = areaList[index3];
-    return provinceName +  " / " + cityName + " / " + areaName;
+    var a ;
+    if(areaName == undefined || areaName ==null || areaName == '' || areaName == 0 ){
+        a = "全部区"
+    }else{
+        a = areaName;
+    }
+    return provinceName +  " / " + cityName + " / " + a;
 }

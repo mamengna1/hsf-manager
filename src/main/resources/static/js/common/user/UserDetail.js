@@ -5,7 +5,7 @@
 function selUserDetailById(id) {
     $.ajaxSettings.async = false;
     $.getJSON("/manager/userMaster/selRealMessage",{"id":id},function (data) {
-        $("#realName,#birthArea,#phones,#nickName,#skills").html("");
+        $("#realName,#birthArea,#phones,#nickName,#skills,#totalOrder,#totalRefuse").html("");
         $("#realName").html(data.userDetail.name)
         var birthArea = showProvince(data.userDetail.placeProvince,data.userDetail.placeCity,data.userDetail.placeArea)
         $("#birthArea").html(birthArea)
@@ -22,7 +22,10 @@ function selUserDetailById(id) {
             a = a.substr(1)
         }
         $("#skills").html(a);
-
+        var totalOrder  = (data.userDetail.totalOrder == null || data.userDetail.totalOrder ==0 ||data.userDetail.totalOrder ==undefined || data.userDetail.totalOrder =='' ) ? 0 :data.userDetail.totalOrder
+        var totalRefuse  = (data.userDetail.totalRefuse == null || data.userDetail.totalRefuse ==0 ||data.userDetail.totalRefuse ==undefined || data.userDetail.totalRefuse =='' ) ? 0 :data.userDetail.totalRefuse
+        $("#totalOrder").html(totalOrder)
+        $("#totalRefuse").html(totalRefuse)
     })
 
     $.ajaxSettings.async = true;
@@ -55,16 +58,22 @@ function selAudit(id) {
     $.getJSON("/manager/userMaster/selRealMessage",{"id":id},function (data) {
         $("#realNames,#card").html("");
         $("#idss,#stateType,#statusMessage").val("")
+        $("#statusMessage").val(data.userDetail.statusMessage)
         var stateType;
         if( data.userDetail.status == 1){
             stateType = 1
+            $("#statusMessage").attr("disabled","disabled")
+
         }else if(data.userDetail.status == 2 || data.userDetail.status == 3){
             stateType = 2
+            if($('#statusMessage').attr("disabled")==true){//判断input元素是否已经设置了disabled属性
+                $('#statusMessage').removeAttr("disabled");//去除textarea元素的disabled属性
+            }
         }else if(data.userDetail.status == 0 || data.userDetail.status == ''){
             stateType = -1
+            $("#statusMessage").attr("disabled","disabled")
         }
         $("#stateType").val(stateType)
-        $("#statusMessage").val(data.userDetail.statusMessage)
         $("#realNames").html(data.userDetail.name)
         $("#idss").val(data.userDetail.id)
         $("#card").html(data.userDetail.card)

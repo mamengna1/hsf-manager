@@ -8,7 +8,7 @@
 
     <!--分页-->
     <select id="selUserDetailAll" resultType="cn.hsf.hsfmanager.pojo.user.UserDetail" >
-        SELECT `id`,`name`,`card`,`placeProvince`,`placeCity`,`placeArea`,`address`,`cardOne`,`cardTwo`,`skills`,`workProvince`,`workCity`,`workArea`,`status`,`statusMessage`,`lineStatus`,`yearWorkId`
+        SELECT `id`,`name`,`card`,`placeProvince`,`placeCity`,`placeArea`,`address`,`cardOne`,`cardTwo`,`skills`,`workProvince`,`workCity`,`workArea`,`status`,`statusMessage`,`lineStatus`,`yearWorkId`,`totalOrder`,`totalRefuse`,`updTime`,`passTime`
         FROM `tb_user_detail`
         <where>
             <if test="name !=null and name  !='' ">
@@ -27,6 +27,7 @@
                 and  `status` >=0
             </if>
         </where>
+        order by `updTime` desc
         limit #{pageCurrentNo},#{pageSize}
     </select>
 
@@ -53,7 +54,7 @@
 
 
     <select id="selUserDetailById" parameterType="int" resultType="cn.hsf.hsfmanager.pojo.user.UserDetail">
-         SELECT `id`,`name`,`card`,`placeProvince`,`placeCity`,`placeArea`,`address`,`cardOne`,`cardTwo`,`skills`,`workProvince`,`workCity`,`workArea`,`status`,`statusMessage`,`lineStatus`,`yearWorkId`
+         SELECT `id`,`name`,`card`,`placeProvince`,`placeCity`,`placeArea`,`address`,`cardOne`,`cardTwo`,`skills`,`workProvince`,`workCity`,`workArea`,`status`,`statusMessage`,`lineStatus`,`yearWorkId`,`totalOrder`,`totalRefuse`,`updTime`,`passTime`
         FROM `tb_user_detail`
         where id = #{id}
     </select>
@@ -138,7 +139,7 @@
                 </foreach>
     -->
     <select id="selPaiDanAll" resultType="cn.hsf.hsfmanager.pojo.user.UserDetail">
-        SELECT `id`,`name`,`card`,`placeProvince`,`placeCity`,`placeArea`,`address`,`cardOne`,`cardTwo`,`skills`,`workProvince`,`workCity`,`workArea`,`status`,`statusMessage`,`lineStatus`,`yearWorkId`
+        SELECT `id`,`name`,`card`,`placeProvince`,`placeCity`,`placeArea`,`address`,`cardOne`,`cardTwo`,`skills`,`workProvince`,`workCity`,`workArea`,`status`,`statusMessage`,`lineStatus`,`yearWorkId`,`totalOrder`,`totalRefuse`,`updTime`,`passTime`
         FROM `tb_user_detail`
         <where>
             <if test="skillId != null  and  skillId !='' " >
@@ -159,6 +160,7 @@
             </if>
             AND `status`=1
         </where>
+        order by `updTime` desc
         limit #{pageCurrentNo},#{pageSize}
     </select>
 

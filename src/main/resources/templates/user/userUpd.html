@@ -64,18 +64,18 @@
                 </div>
 
 
-                <div class="col-md-2 title" style="height:230px;">技能</div>
-                <div class="col-md-10 data" style="height:230px;">
+                <div class="col-md-2 title" style="height:120px;">技能</div>
+                <div class="col-md-10 data" style="height:120px;">
                     <table>
                         <input type="hidden" name="skills" id="skills">
-                            <tr th:each="parentSkill : ${parentSkills}">
-                                <td>
-                                    <label style="margin-right: 50px"><input type="hidden" th:attr="sid=${parentSkill.id}" class="skills"/><span>[[${parentSkill.skillName}]]</span></label>
-                                </td>
-                                <td th:each="skill : ${userSkills}"  th:if="${skill.parentId} == ${parentSkill.id}">
-                                    <label style="margin-right: 20px"><input type="checkbox" th:attr="sid=${skill.id}" class="skills"/><span>[[${skill.skillName}]]</span></label>
-                                </td>
-                            </tr>
+                        <tr th:each="parentSkill : ${parentSkills}">
+                            <td>
+                                <label style="margin-right: 50px"><input type="hidden" th:attr="sid=${parentSkill.id}" class="skills"/><span>[[${parentSkill.skillName}]]</span></label>
+                            </td>
+                            <td th:each="skill : ${userSkills}"  th:if="${skill.parentId} == ${parentSkill.id}">
+                                <label style="margin-right: 20px"><input type="checkbox" th:attr="sid=${skill.id}" class="skills"/><span>[[${skill.skillName}]]</span></label>
+                            </td>
+                        </tr>
                     </table>
                 </div>
                 <div class="col-md-2 title">工作地区</div>
@@ -123,7 +123,7 @@
                 <div class="col-md-2 title" style="height:220px;">积分</div>
                 <div class="col-md-10 data" style="height:220px;">
                     <div class="input-group">
-                        <p>总积分 </p>  <input type="number" class="form-control" th:value="${user.totalScore}" placeholder="总积分"  readonly>
+                        <div style="display:inline;">总积分  <input type="number" class="form-control" th:value="${user.totalScore}" placeholder="总积分"  readonly> </div>
                         <p>奖励积分</p>  <input type="number" class="form-control"  placeholder="积分" name="score" id="totalScore" value="0" >
                         <p> 积分来源 </p><select  id="sources" name="scoreSourceId" class="priceinput" style=" background:#fff;">
                         <option th:each="source : ${sources}" th:value="${source.id}" th:text="${source.sourceName}"></option>
@@ -132,6 +132,20 @@
                         <input type="radio" name="checkbox1" value="发送模板"  onclick="changeSou(1)" />发送模板
                         <input type="radio" name="checkbox1" value="不发送模板" onclick="changeSou(2)" checked="checked" />不发送模板
                     </div>
+                </div>
+                <div class="col-md-2 title"  style="height:120px;">审核</div>
+                <div class="col-md-10 data"  style="height:120px;">
+                    <div class="input-group">
+                        状态
+                        <select name="status" id="status" class="priceinput" style=" background:#fff;"  th:onchange="func()" >
+                            <option value="-1">待审核</option>
+                            <option value="1">审核通过</option>
+                            <option value="2">审核不通过</option>
+                        </select>
+                        备注
+                        <textarea name="statusMessage" id="statusMessage" placeholder="审核不通过的原因（审核通过不填）" style="margin:0px; height: 80px;width: 463px;resize: none;"></textarea>
+                    </div>
+
                 </div>
                 <div class="col-md-10 data" style="width:100%;"></div>
 

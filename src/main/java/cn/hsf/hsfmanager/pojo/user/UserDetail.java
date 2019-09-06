@@ -1,5 +1,7 @@
 package cn.hsf.hsfmanager.pojo.user;
 
+import java.util.Date;
+
 /**
  * 师父详细信息
  */
@@ -38,6 +40,8 @@ public class UserDetail {
     private Integer lineStatus;
 
     private Integer yearWorkId;
+    private Date updTime;  //提交时间
+    private Date passTime;  //审核时间
 
     private Integer totalCount;  // 总结单数量
     private Integer countDay;  // 当天已接几单
@@ -82,6 +86,22 @@ public class UserDetail {
 
     //get set 方法
 
+
+    public Date getUpdTime() {
+        return updTime;
+    }
+
+    public void setUpdTime(Date updTime) {
+        this.updTime = updTime;
+    }
+
+    public Date getPassTime() {
+        return passTime;
+    }
+
+    public void setPassTime(Date passTime) {
+        this.passTime = passTime;
+    }
 
     public String getIsExist() {
         return isExist;
