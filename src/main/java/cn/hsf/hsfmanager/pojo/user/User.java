@@ -47,7 +47,7 @@ public class User {
     //师傅的详细信息
     private Integer detailId;
 
-
+    private UserDetail userDetail;
     public User(Integer id, Integer memberType, Double balanceMoney, Double totalScore, Double balanceScore) {
         this.id = id;
         this.memberType = memberType;
@@ -70,6 +70,14 @@ public class User {
         this.phone = phone;
         this.totalScore = totalScore;
         this.balanceScore = balanceScore;
+    }
+
+    public UserDetail getUserDetail() {
+        return userDetail;
+    }
+
+    public void setUserDetail(UserDetail userDetail) {
+        this.userDetail = userDetail;
     }
 
     //get set 方法

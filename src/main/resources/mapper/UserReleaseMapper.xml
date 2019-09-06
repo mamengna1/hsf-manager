@@ -18,7 +18,7 @@
                 and  DATE_FORMAT(`createDate`, '%Y-%m-%d') =  DATE_FORMAT(NOW(), '%Y-%m-%d')
             </if>
         </where>
-        order by  createDate
+        order by  createDate desc
         limit #{pageCurrentNo},#{pageSize}
     </select>
 

@@ -14,4 +14,75 @@
         select `id`,`sourceName`  from `tb_score_source_type` where id = #{id}
    </select>
 
+    <select id="selScoreType" resultType="cn.hsf.hsfmanager.pojo.user.ScoreSourceType">
+           select `id`,`sourceName`  from `tb_score_source_type`
+    </select>
+    <!--关联查询-->
+    <resultMap id="selScoreType" type="cn.hsf.hsfmanager.pojo.user.UserScoreSource">
+        <id property="id" column="id"/>
+        <result property="scoreSourceId" column="scoreSourceId"/>
+        <result property="openId" column="openId"/>
+        <association property="scoreSourceType" column="scoreSourceId" select="cn.hsf.hsfmanager.mapper.UserScoreSourceMapper.selById"/>
+        <association property="user" column="openId" select="cn.hsf.hsfmanager.mapper.UserMapper.selUserByOpenId">
+            <id property="id" column="id"/>
+            <result property="detailId" column="detailId"/>
+            <association property="userDetail" column="detailId" select="cn.hsf.hsfmanager.mapper.UserDetailMapper.selUserDetailById"/>
+        </association>
+    </resultMap>
+
+    <select id="selAllScore" resultMap="selScoreType">
+        select  `id`,`openId`,`score`,`scoreSourceId`,`sourceOpenId`,`createDate` from  `tb_user_score_source`
+        <where>
+            <if test="openId !=null and openId !='' ">
+               and openId= #{openId}
+            </if>
+            <if test="scoreSourceId !=null and scoreSourceId &gt; 0 ">
+                and scoreSourceId= #{scoreSourceId}
+            </if>
+        </where>
+        order by  createDate desc
+        limit #{pageCurrentNo},#{pageSize}
+    </select>
+
+    <select id="scoreTotal" resultType="int" >
+        select count(*) from `tb_user_score_source`
+        <where>
+            <if test="openId !=null and openId !='' ">
+                and openId= #{openId}
+            </if>
+            <if test="scoreSourceId !=null and scoreSourceId &gt; 0 ">
+                and scoreSourceId= #{scoreSourceId}
+            </if>
+        </where>
+    </select>
+
+    <select id="selScoreById" resultMap="selScoreType" parameterType="int">
+       select  `id`,`openId`,`score`,`scoreSourceId`,`sourceOpenId`,`createDate` from  `tb_user_score_source` where id = #{id}
+   </select>
+
+    <update id="updScore" parameterType="cn.hsf.hsfmanager.pojo.user.UserScoreSource">
+        update `tb_user_score_source`
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+            <if test="id != null and id!=''">
+                id=#{id},
+            </if>
+            <if test="openId != null and openId!=''">
+                openId=#{openId},
+            </if>
+            <if test="score != null and score!=''">
+                score=#{score},
+            </if>
+            <if test="scoreSourceId != null and scoreSourceId!=''">
+                scoreSourceId=#{scoreSourceId},
+            </if>
+            <if test="sourceOpenId != null and sourceOpenId!=''">
+                sourceOpenId=#{sourceOpenId},
+            </if>
+
+        </trim>
+    </update>
+
+    <delete id="delScoreById" parameterType="int">
+        delete from `tb_user_score_source` where id = #{id}
+    </delete>
 </mapper>

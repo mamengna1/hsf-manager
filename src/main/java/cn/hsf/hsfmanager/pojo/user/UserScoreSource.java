@@ -12,6 +12,8 @@ public class UserScoreSource {
     private String sourceOpenId;   //来自分红的openId
     private Date createDate;
 
+    private ScoreSourceType scoreSourceType;  //积分来源
+    private User user;  //用户表
     public UserScoreSource() {
     }
 
@@ -26,6 +28,28 @@ public class UserScoreSource {
         this.score = score;
         this.scoreSourceId = scoreSourceId;
         this.sourceOpenId = sourceOpenId;
+    }
+
+    public UserScoreSource(Integer id, double score, Integer scoreSourceId) {
+        this.id = id;
+        this.score = score;
+        this.scoreSourceId = scoreSourceId;
+    }
+
+    public ScoreSourceType getScoreSourceType() {
+        return scoreSourceType;
+    }
+
+    public void setScoreSourceType(ScoreSourceType scoreSourceType) {
+        this.scoreSourceType = scoreSourceType;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
