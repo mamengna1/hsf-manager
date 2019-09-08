@@ -28,6 +28,7 @@ function searchCustomer(currentPage,isSub,detailId) {
                 "</td>" +
                 "<td>" +
                 "<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" data-toggle=\"modal\" data-target=\"#updateModal\" onclick='selUserById("+data.list[i].id+")'>修改</a>" +
+                "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\"  onclick='goScore(\""+data.list[i].openId+"\")'>积分来源</a>" +
                 "</td>" +
                 "</tr>")
         }
@@ -116,3 +117,12 @@ function saveUser() {
         }
     })
 }
+
+/**
+ * 查看级分来源
+ * @param openIds
+ */
+function goScore(openIds) {
+    location.href="/manager/userScore/goUserScoreAll?openId="+openIds;
+}
+

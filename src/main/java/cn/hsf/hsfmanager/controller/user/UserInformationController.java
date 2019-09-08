@@ -45,6 +45,7 @@ public class UserInformationController {
         page.setTotalPages(page.getTotalPages());
         List<UserInformation> userInformations = userInformationService.selAll(pageCurrentNo, page.getPageSize(),isDelete);
         for (UserInformation user : userInformations) {
+            System.out.println("111"+user);
             user.setName(userDetailService.selUserDetailById(userService.selUserByOpenId(user.getOpenId()).getDetailId()).getName());
         }
         page.setList(userInformations);

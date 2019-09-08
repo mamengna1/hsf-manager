@@ -134,4 +134,8 @@
         </trim>
     </update>
 
+
+    <update id="updStatus" parameterType="cn.hsf.hsfmanager.pojo.user.UserRelease">
+       update `tb_user_release` set  state=#{state}, receiveId = null  where id = #{id}
+    </update>
 </mapper>

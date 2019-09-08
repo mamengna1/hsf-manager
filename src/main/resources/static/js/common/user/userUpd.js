@@ -16,6 +16,11 @@ $(function () {
         chooseCity2(res.workCity);
         $("#workCity").val(res.workCity);
         $("#workArea").val(res.workArea);
+       var totalRefuse = res.totalRefuse == null ? 0 : res.totalRefuse
+        var totalOrder = res.totalOrder == null ? 0 : res.totalOrder
+        $("#totalRefuse").val(totalRefuse);
+        $("#totalOrder").val(totalOrder);
+
 
         $("#yearWorkId").val(res.yearWorkId);
         var skills = (res.skills).split(",");

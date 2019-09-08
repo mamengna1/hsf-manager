@@ -249,6 +249,7 @@ function delDetailById(id) {
             $("#sfName").val(data.userDetail.name)
             $("#statusId").val(data.statusId)
             $("#refusedMessage").val(data.refusedMessage)
+
         })
     }
 

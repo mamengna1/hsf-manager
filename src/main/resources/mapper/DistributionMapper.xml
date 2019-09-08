@@ -56,6 +56,10 @@
             <if test="orderId != null and orderId != '' ">
                  orderId = #{orderId},
             </if>
+
+            <if test="updDate != null and updDate ==1 ">
+                updateTime = now(),
+            </if>
         </trim>
     </update>
 
@@ -132,4 +136,9 @@
             </if>
         </where>
     </select>
+
+    <update id="updStatus" parameterType="cn.hsf.hsfmanager.pojo.user.Distribution">
+        update `tb_distribution` set statusId = #{statusId}, `refusedMessage` =null ,`updateTime` = null,`orderId` = null
+        where id = #{id}
+    </update>
 </mapper>

@@ -41,7 +41,7 @@ public class DistributionController {
     private UserOrderService userOrderService;
 
     /**
-     * 进入派单页面  接单记录
+     * 进入派发记录页面  接单记录
      * @return
      */
     @RequestMapping("/goDistributionIndex")
@@ -169,8 +169,8 @@ public class DistributionController {
     @RequestMapping("/saveDis")
     @ResponseBody
     public boolean saveDis(Integer id,Integer statusId,String refusedMessage){
-        Distribution distribution = new Distribution(id,statusId,refusedMessage);
-        return  distributionService.updDistribution(distribution) > 0 ? true : false;
+        distributionService.updStatus(id,statusId,refusedMessage);
+        return  true;
     }
 
     /**

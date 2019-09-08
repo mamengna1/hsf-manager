@@ -27,9 +27,10 @@ public class UserScoreController {
      * @return
      */
     @RequestMapping("/goUserScoreAll")
-    public String goUserReleaseAll(Model model){
+    public String goUserReleaseAll(@RequestParam(value = "openId",required = false,defaultValue = "-1") String openId ,Model model){
         List<ScoreSourceType> scoreSourceTypes = userScoreSourceService.selScoreType();
         model.addAttribute("scoreSourceTypes",scoreSourceTypes);
+        model.addAttribute("openId",openId);
         return "user/userScore";
     }
 

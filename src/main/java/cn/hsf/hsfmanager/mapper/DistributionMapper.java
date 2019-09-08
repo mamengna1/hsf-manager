@@ -24,4 +24,7 @@ public interface DistributionMapper {
     //接单记录分页
     List<Distribution> selDisList(@Param("pageCurrentNo") Integer pageCurrentNo, @Param("pageSize") Integer pageSize,@Param("statusId") Integer statusId,@Param("sfId") Integer sfId);
     int selDisTotal(@Param("statusId") Integer statusId,@Param("sfId") Integer sfId);
+
+    //状态修改
+    int updStatus(Distribution distribution);
 }

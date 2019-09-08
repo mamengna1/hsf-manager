@@ -9,6 +9,7 @@ public interface UserOrderMapper {
     int insUserOrder(UserOrder userOrder);
     int updUserOrder(UserOrder userOrder);
     int delUserOrderById(@Param("id") Integer id);
+    int insUserOrder2(UserOrder userOrder);
 
     //分页
     List<UserOrder> selAllUserOrder(@Param("pageCurrentNo") Integer pageCurrentNo, @Param("pageSize") Integer pageSize, @Param("commentTypeId") Integer commentTypeId);

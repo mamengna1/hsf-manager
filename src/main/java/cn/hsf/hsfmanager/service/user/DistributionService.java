@@ -23,4 +23,6 @@ public interface DistributionService {
     //接单记录分页
     List<Distribution> selDisList( Integer pageCurrentNo,  Integer pageSize,Integer statusId,Integer sfId);
     int selDisTotal(Integer statusId,Integer sfId);
+
+    void updStatus(Integer id, Integer statusId, String refusedMessage);
 }

@@ -2,10 +2,11 @@
 
 //初始化数据
 var currentPage = 1;  //当前页码
-var openId =-1;
+var openId ;
 var scoreSourceId = -1   //积分来源
 //过滤查询
 function searchUserScore(currentPage,scoreSourceId) {
+    openId = $("#openId1").val();
     $.getJSON("/manager/userScore/userAll",{"pageCurrentNo":currentPage,"openId":openId,"scoreSourceId":scoreSourceId},callback)
     //回调
     function callback(data) {
@@ -55,7 +56,7 @@ function searchUserScore(currentPage,scoreSourceId) {
 
 //初始化加载数据
 $(function () {
-
+    openId = $("#openId1").val();
   searchUserScore(currentPage,scoreSourceId);
     //首页
     $("#begin").click(function () {
@@ -117,9 +118,9 @@ function delScoreById(id) {
  */
 function goUpdScore(id) {
     $.getJSON("/manager/userScore/selScoreById",{"id":id},function (data) {
-        $("#ids,#nickName2,#score,#scoreSourceId,#openId").val("")
+        $("#ids,#nickName2,#score,#scoreSourceId,#openId3").val("")
         $("#ids").val(data.id)
-        $("#openId").val(data.openId)
+        $("#openId3").val(data.openId)
         $("#nickName2").val(data.user.nickName)
         $("#score").val(data.score)
         $("#scoreSourceId").val(data.scoreSourceId)

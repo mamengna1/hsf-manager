@@ -1,6 +1,7 @@
 var currentPage = 1;  //当前页码
 var isDelete = 0;
 $(function () {
+    $("#bigImg").hide();
     search(currentPage, 0);
     //首页
     $("#begin").click(function () {
@@ -67,6 +68,7 @@ function search(currentPage, isDelete) {
 }
 
 function selDetail(id) {
+    $("#bigImg").hide();
     $.getJSON("/manager/selByOpenId", {"id": id}, function (res) {
         $("#id").val(res.information.id);
         $("#name").html(res.user.name);
@@ -74,9 +76,18 @@ function selDetail(id) {
         var images = res.information.images.split(',');
         $("#images").html("");
         for (var i = 0; i < images.length; i++) {
-            $("#images").append("<img width='50px' height='50px' src=\"" + images[i] + "\"/>")
+            $("#images").append("<img width='50px' height='50px' src='"+images[i]+"' onclick='showBigImg(this)'/>");
         }
     })
+}
+
+function showBigImg(btn){
+    $("#bigImg").show();
+    var url = $(btn).attr("src");
+    $("#big").attr("src", url);
+}
+function hideImg() {
+    $("#bigImg").hide();
 }
 
 function del() {

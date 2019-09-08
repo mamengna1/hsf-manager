@@ -38,7 +38,8 @@ public class UserDetail {
     private String statusMessage;
     //在线状态0不在线 1 在线
     private Integer lineStatus;
-
+    private Integer totalOrder;  // 总接单数量
+    private Integer totalRefuse ;  //总拒单数量
     private Integer yearWorkId;
     private Date updTime;  //提交时间
     private Date passTime;  //审核时间
@@ -87,6 +88,22 @@ public class UserDetail {
 
     //get set 方法
 
+
+    public Integer getTotalOrder() {
+        return totalOrder;
+    }
+
+    public void setTotalOrder(Integer totalOrder) {
+        this.totalOrder = totalOrder;
+    }
+
+    public Integer getTotalRefuse() {
+        return totalRefuse;
+    }
+
+    public void setTotalRefuse(Integer totalRefuse) {
+        this.totalRefuse = totalRefuse;
+    }
 
     public Integer getShijian() {
         return shijian;

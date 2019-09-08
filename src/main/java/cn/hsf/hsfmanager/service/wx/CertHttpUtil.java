@@ -22,12 +22,16 @@ import javax.net.ssl.SSLContext;
 import java.io.File;
 import java.io.FileInputStream;
 import java.security.KeyStore;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class CertHttpUtil {
 
     @Resource
     private CashBackService cashBackService;
+    @Resource
+    private TemplateService templateService;
     /**
      * 通过Https往API post xml数据
      *
@@ -79,6 +83,16 @@ public class CertHttpUtil {
                         //保存红包信息到数据库 ,把错误信息在数据库中清空
                         CashBack cashBack = new CashBack(id,2,null);
                         cashBackService.updateCashBack(cashBack);
+                       ;
+                      /*  Map map2 = new HashMap();
+                        map2.put("openId", cashBackService.selAllById(id).getOpenId()) ;
+                        map2.put("template_id","TF2-OgTgYB6EYKzmno0NjbZobdCadK7U0d0E9O9ZogA") ;
+                        map2.put("title","您的提现到账啦") ;
+                        map2.put("serviceType","提现到账通知") ;
+                        map2.put("orderNo","无") ;
+                        map2.put("orderState","提现成功") ;
+                        map2.put("end","提现【"+cashBackService.selAllById(id).getMoney()+"元】，已到账，请注意查收") ;
+                        templateService.serviceStatus(map2);*/
                         flage = true;
                     }else{
                         String error = rootElt.elementText("err_code");

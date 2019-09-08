@@ -114,6 +114,12 @@
             <if test="shijian != null and shijian == 1">
                 passTime = now(),
             </if>
+            <if test="totalOrder != null and totalOrder !='' ">
+                totalOrder =#{totalOrder},
+            </if>
+            <if test="totalRefuse != null and totalRefuse !=''">
+                totalRefuse = #{totalRefuse},
+            </if>
             statusMessage=#{statusMessage}
 
 

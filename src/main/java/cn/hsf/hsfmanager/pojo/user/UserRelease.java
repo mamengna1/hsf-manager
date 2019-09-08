@@ -28,6 +28,12 @@ public class UserRelease {
         this.state = state;
     }
 
+    public UserRelease(Integer id, Integer state, Integer receiveId) {
+        this.id = id;
+        this.state = state;
+        this.receiveId = receiveId;
+    }
+
     public UserRelease() {
     }
 

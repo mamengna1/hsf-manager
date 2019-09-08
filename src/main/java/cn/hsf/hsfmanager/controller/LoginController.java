@@ -42,10 +42,7 @@ public class LoginController {
         Admin checkLogin = adminService.checkLogin(admin);
         if(checkLogin !=null ){
             request.getSession().setAttribute("admin",checkLogin);
-            request.getSession().setAttribute("waitTotal",userDetailService.selUserDetailTotal(null,3));
-            request.getSession().setAttribute("userTotal",userService.userTotal());
-            request.getSession().setAttribute("releaseTotal",userReleaseService.selUserReleaseTotal(-1,2));
-            System.out.println("releaseTotal :" + userReleaseService.selUserReleaseTotal(-1,2));
+
             return "redirect:/index";
         }else{
             return "login";
@@ -70,6 +67,9 @@ public class LoginController {
     public String goIndex(HttpServletRequest request, Model model){
        Admin admin = (Admin) request.getSession().getAttribute("admin");
        model.addAttribute("admins",admin);
+        request.getSession().setAttribute("waitTotal",userDetailService.selUserDetailTotal(null,3));
+        request.getSession().setAttribute("userTotal",userService.userTotal());
+        request.getSession().setAttribute("releaseTotal",userReleaseService.selUserReleaseTotal(-1,2));
         return "index";
     }
 

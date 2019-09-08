@@ -18,6 +18,9 @@ function searchPaiDan(currentPage,skillId,serviceProvince,serviceCity,serviceAre
         for (var i = 0; i < data.list.length; i++) {
             var workArea = showProvince(data.list[i].workProvince,data.list[i].workCity,data.list[i].workArea);
             var skillName = getSkillName(data.list[i].skills)
+            var yearWork = userWorkYearById(data.list[i].yearWorkId);
+            var totalOrder = data.list[i].totalOrder == null ? 0 : data.list[i].totalOrder
+            var totalRefuse = data.list[i].totalRefuse == null ? 0 : data.list[i].totalRefuse
             if(data.list[i].isExist== "true"){
                 $("#theBody").append("<tr>" +
                     "<td><input type=\"checkbox\" class='userCheck'/></td>" +
@@ -25,8 +28,10 @@ function searchPaiDan(currentPage,skillId,serviceProvince,serviceCity,serviceAre
                     "<td>" + data.list[i].name + "</td>" +
                     "<td>" + data.list[i].card + "</td>" +
                     "<td>" + skillName + "</td>" +
-                    "<td>" + data.list[i].yearWorkId + "</td>" +
+                    "<td>" + yearWork + "</td>" +
                     "<td>" + workArea+"</td>" +
+                    "<td>" + totalOrder+"</td>" +
+                    "<td>" + totalRefuse+"</td>" +
                     "<td>" +
                     "<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\"  onclick='updPaiDan("+data.list[i].id+")'>确认派单</a>" +
                     "</td>" +

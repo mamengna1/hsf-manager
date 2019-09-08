@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="/manager/css/style.css">
     <script src="/manager/plugins/jQuery/jquery-2.2.3.min.js"></script>
     <script src="/manager/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/manager/js/common/utils/common.js" type="text/javascript"></script>  <!--去除弹框域名-->
 
 </head>
 
@@ -120,17 +121,28 @@
                 <div class="col-md-10 data">
                     <input type="text" name="phone" th:value="${user.phone}" id="phone"/>
                 </div>
-                <div class="col-md-2 title" style="height:220px;">积分</div>
-                <div class="col-md-10 data" style="height:220px;">
+                <div class="col-md-2 title">总接单量</div>
+                <div class="col-md-10 data">
+                    <input type="text" name="totalOrder"  id="totalOrder" />
+                </div>
+                <div class="col-md-2 title">总拒单量</div>
+                <div class="col-md-10 data">
+                    <input type="text" name="totalRefuse"  id="totalRefuse" />
+                </div>
+                <div class="col-md-2 title" style="height:50px;">积分</div>
+                <div class="col-md-10 data" style="height:50px; display:inline-block;">
                     <div class="input-group">
-                        <div style="display:inline;">总积分  <input type="number" class="form-control" th:value="${user.totalScore}" placeholder="总积分"  readonly> </div>
-                        <p>奖励积分</p>  <input type="number" class="form-control"  placeholder="积分" name="score" id="totalScore" value="0" >
-                        <p> 积分来源 </p><select  id="sources" name="scoreSourceId" class="priceinput" style=" background:#fff;">
-                        <option th:each="source : ${sources}" th:value="${source.id}" th:text="${source.sourceName}"></option>
-                    </select>
-                        <input type="hidden" name="source" id="source" value="2"/>
-                        <input type="radio" name="checkbox1" value="发送模板"  onclick="changeSou(1)" />发送模板
-                        <input type="radio" name="checkbox1" value="不发送模板" onclick="changeSou(2)" checked="checked" />不发送模板
+                        <div style="display:inline-block;">
+                            总积分  <input type="number"  th:value="${user.totalScore}" placeholder="总积分"  readonly>
+                           &nbsp; 奖励积分 <input type="number" placeholder="积分" name="score" id="totalScore" value="0" >
+                            &nbsp;    积分来源
+                            <select  id="sources" name="scoreSourceId" class="priceinput" style=" background:#fff;">
+                                  <option th:each="source : ${sources}" th:value="${source.id}" th:text="${source.sourceName}"></option>
+                            </select>
+                            <input type="hidden" name="source" id="source" value="2"/>
+                            &nbsp; <input type="radio" name="checkbox1" value="发送模板"  onclick="changeSou(1)" />发送模板
+                            <input type="radio" name="checkbox1" value="不发送模板" onclick="changeSou(2)" checked="checked" />不发送模板
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-2 title"  style="height:120px;">审核</div>

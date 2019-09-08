@@ -95,6 +95,9 @@ public class UserMasterController {
     @RequestMapping("/updateUserDetail")
     @ResponseBody
     public boolean updateUserDetail(Integer id,Integer status,@RequestParam(value = "statusMessage",required = false,defaultValue = "") String statusMessage){
+     return updUserDetail2(id, status, statusMessage);
+    }
+    public boolean updUserDetail2(Integer id,Integer status,String statusMessage ){
         Integer lineStatus = 0;
         User u =  userService.selUserByDetailId(id);
         UserDetail userDetail = userDetailService.selUserDetailById(id);
@@ -159,6 +162,20 @@ public class UserMasterController {
             templateService.sendAuditFail(map);
             UserDetail detail = new UserDetail(id,status,statusMessage,lineStatus,1);
             userDetailService.updateUserDetail(detail);
+
+            //给管理员发送模板信息
+            String[] managerOpenId = Contents.MANAGER_OPENID;
+            for (int j = 0; j <managerOpenId.length ; j++) {
+                Map map2 = new HashMap();
+                map2.put("openId",managerOpenId[j]) ;
+                map2.put("template_id","TF2-OgTgYB6EYKzmno0NjbZobdCadK7U0d0E9O9ZogA") ;
+                map2.put("title","师傅审核未通过提醒") ;
+                map2.put("serviceType","师傅审核失败通知") ;
+                map2.put("orderNo","无") ;
+                map2.put("orderState","审核未通过，无接单状态") ;
+                map2.put("end","师傅信息："+userDetail.getName()+u.getPhone()) ;
+                templateService.serviceStatus(map2);
+            }
             return false;
         }
         return false;
@@ -214,7 +231,9 @@ public class UserMasterController {
     @RequestMapping("/insUserDetail")
     public String insUserDetail(UserScoreSource userScoreSource, UserDetail userDetail, String phone, Integer source,Integer score){
         Integer status = userDetailService.selUserDetailById(userDetail.getId()).getStatus();
-        userScoreSourceService.insScoreSource(userScoreSource);
+        if(userScoreSource.getScore() !=0 ){
+            userScoreSourceService.insScoreSource(userScoreSource);
+        }
         userService.updateUserByOpenId(new User(userScoreSource.getOpenId(), phone,Double.valueOf(score),Double.valueOf(score)));
         userDetail.setShijian(1);
         userDetailService.updateUserDetail(userDetail);
@@ -233,6 +252,7 @@ public class UserMasterController {
         if(status != userDetail.getStatus()){
             System.out.println("状态值改变了，调用审核方法");
            // updateUserDetail(userDetail.getId(),userDetail.getStatus(),userDetail.getStatusMessage());
+            updUserDetail2(userDetail.getId(),userDetail.getStatus(),userDetail.getStatusMessage());
         }else{
             System.out.println("状态值没变，不调用审核方法");
         }

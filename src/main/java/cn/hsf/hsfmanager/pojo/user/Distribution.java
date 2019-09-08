@@ -23,7 +23,7 @@ public class Distribution {
     private Integer resId;  // 雇佣id
 
     private Integer tag;  //标记
-
+    private Integer updDate;
     private ScoreSourceType scoreSourceType;
     private DistributionStatus distributionStatus;
     private UserRelease userRelease;
@@ -36,10 +36,30 @@ public class Distribution {
         this.sfId = sfId;
     }
 
+    public Distribution(Integer id, Integer statusId, Integer orderId, Integer updDate) {
+        this.id = id;
+        this.statusId = statusId;
+        this.orderId = orderId;
+        this.updDate = updDate;
+    }
+
     public Distribution(Integer id, Integer statusId, String refusedMessage) {
         this.id = id;
         this.statusId = statusId;
         this.refusedMessage = refusedMessage;
+    }
+
+    public Distribution(Integer id, Integer statusId, Integer updDate) {
+        this.id = id;
+        this.statusId = statusId;
+        this.updDate = updDate;
+    }
+
+    public Distribution(Integer id, Integer statusId, String refusedMessage, Integer updDate) {
+        this.id = id;
+        this.statusId = statusId;
+        this.refusedMessage = refusedMessage;
+        this.updDate = updDate;
     }
 
     public DistributionStatus getDistributionStatus() {
@@ -48,6 +68,14 @@ public class Distribution {
 
     public void setDistributionStatus(DistributionStatus distributionStatus) {
         this.distributionStatus = distributionStatus;
+    }
+
+    public Integer getUpdDate() {
+        return updDate;
+    }
+
+    public void setUpdDate(Integer updDate) {
+        this.updDate = updDate;
     }
 
     public Integer getTag() {

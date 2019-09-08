@@ -10,6 +10,9 @@
        insert into `tb_user_order`(`comments`,`starLevel`,`commentTypeId`,`commentTime`,`userId`,`sfId`) values (#{comments},#{starLevel},#{commentTypeId},now(),#{userId},#{sfId})
     </insert>
 
+    <insert id="insUserOrder2"  useGeneratedKeys="true" keyProperty="id" parameterType="cn.hsf.hsfmanager.pojo.user.UserOrder">
+       insert into `tb_user_order`(id) values (default)
+    </insert>
 
     <update id="updUserOrder" parameterType="cn.hsf.hsfmanager.pojo.user.UserOrder">
         update `tb_user_order`
