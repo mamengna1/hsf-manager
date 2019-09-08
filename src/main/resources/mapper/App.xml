@@ -8,9 +8,12 @@
 
 
     <select id="selApp" resultType="cn.hsf.hsfmanager.pojo.App">
-        SELECT `id`,`appId`,`mchId`,`appSecret`,`token`,`key` from tb_app
+        SELECT `id`,`appId`,`mchId`,`appSecret`,`token`,`key` ,`accessToken`,`expireTime`from tb_app
     </select>
 
+    <update id="updAppToken" parameterType="cn.hsf.hsfmanager.pojo.App">
+        update tb_app set `accessToken` = #{accessToken},`expireTime` = #{expireTime}
+    </update>
 
 
 </mapper>

@@ -13,7 +13,43 @@ public class App {
     private String token;
     //支付秘钥
     private String key;
+    private String accessToken;  //token
+    private Long expireTime;  //过期时间
+
+    public App() {
+    }
+
+    public App(String accessToken,String expireIn) {
+        this.accessToken = accessToken;
+        //系统时间 + 有效期 =过期时间
+        this.expireTime = System.currentTimeMillis()+Integer.parseInt(expireIn)*1000;
+        ;
+    }
+    /**
+     * 判断token是否过期
+     * @return
+     */
+    public boolean isExpired(){
+        return System.currentTimeMillis()>expireTime;
+    }
+
     //get set 方法
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
+
+    public Long getExpireTime() {
+        return expireTime;
+    }
+
+    public void setExpireTime(Long expireTime) {
+        this.expireTime = expireTime;
+    }
+
     public void setId (Integer  id){
         this.id=id;
     }

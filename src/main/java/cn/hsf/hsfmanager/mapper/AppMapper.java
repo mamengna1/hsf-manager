@@ -5,4 +5,6 @@ import cn.hsf.hsfmanager.pojo.App;
 public interface AppMapper {
 
     App selApp();
+
+    int updAppToken(App app);
 }

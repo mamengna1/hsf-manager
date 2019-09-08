@@ -31,6 +31,7 @@ public class WxService {
     private static final String GET_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
     //用于存储token
     private static AccessTocken at;
+    private App app;
 
 
     /**
@@ -96,7 +97,9 @@ public class WxService {
         String token = jsonObject.getString("access_token");
         String expireIn = jsonObject.getString("expires_in");
         //创建token对象,并存起来。
-        at = new AccessTocken(token, expireIn);
+       // at = new AccessTocken(token, expireIn);
+        app = new App(token,expireIn);
+        appMapper.updAppToken(app);
     }
 
     /**
@@ -105,10 +108,11 @@ public class WxService {
      * @return
      */
     public  String getAccessToken() {
-        if (at == null || at.isExpired()) {   //如果为null 或过期
+        App app = appMapper.selApp();
+        if (app.getAccessToken() == null || System.currentTimeMillis()>app.getExpireTime() ) {   //如果为null 或过期
             getToken();
         }
-        return at.getAccessTockem();
+        return app.getAccessToken();
     }
     /**
      * 上传临时素材
