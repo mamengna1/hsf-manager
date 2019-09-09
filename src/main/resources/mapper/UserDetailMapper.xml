@@ -26,12 +26,15 @@
             <if test="status == -1">
                 and  `status` >=0
             </if>
+            <if test="lineStatus !=-1">
+                and  `lineStatus` = #{lineStatus}
+            </if>
         </where>
         order by `updTime` desc
         limit #{pageCurrentNo},#{pageSize}
     </select>
 
-    <select id="selUserDetailTotal" resultType="int" >
+    <select id="selUserDetailTotal"  resultType="int">
         SELECT count(*) FROM `tb_user_detail`
         <where>
             <if test="name !=null and name  !='' ">
@@ -48,6 +51,9 @@
             </if>
             <if test="status == -1">
                 and  `status` >=0
+            </if>
+            <if test="lineStatus !=-1">
+                and  `lineStatus` = #{lineStatus}
             </if>
         </where>
     </select>
@@ -121,7 +127,6 @@
                 totalRefuse = #{totalRefuse},
             </if>
             statusMessage=#{statusMessage}
-
 
         </trim>
     </update>

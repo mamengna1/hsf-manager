@@ -8,7 +8,6 @@ import cn.hsf.hsfmanager.service.user.UserSkillService;
 import cn.hsf.hsfmanager.service.wx.TemplateService;
 import cn.hsf.hsfmanager.util.Contents;
 import cn.hsf.hsfmanager.util.Page;
-import com.sun.org.apache.bcel.internal.generic.MONITORENTER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,12 +41,14 @@ public class UserMasterController {
     @RequestMapping("/selMaster")
     public String selMaster(@RequestParam(value = "statusId",required = false,defaultValue = "-1") Integer statusId,Model model){
         model.addAttribute("statusId",statusId);
+        model.addAttribute("zaixian",userDetailService.selUserDetailTotal(null,statusId,1));
+        model.addAttribute("lixian",userDetailService.selUserDetailTotal(null,statusId,0));
         return "user/userMasterAll";
     }
 
 
     /**
-     * 分页显示数据   审核
+     * 分页显示数据
      * @param pageCurrentNo
      * @param name
      * @return
@@ -56,14 +57,18 @@ public class UserMasterController {
     @ResponseBody
     public Page userAll(@RequestParam(value = "pageCurrentNo",required = false,defaultValue = "1") Integer pageCurrentNo,
                         @RequestParam(value = "names",required = false,defaultValue = "") String name,
-                        @RequestParam(value = "statusId",required = false,defaultValue = "") Integer status){
-        int total = userDetailService.selUserDetailTotal(name,status);
+                        @RequestParam(value = "statusId",required = false,defaultValue = "") Integer status,
+                        @RequestParam(value = "lineStatus",required = false,defaultValue = "") Integer lineStatus){
+        if(lineStatus == 2){
+            lineStatus =0;
+        }
+        int total = userDetailService.selUserDetailTotal(name,status,lineStatus);
         Page page = new Page();
         page.setPageSize(10);
         page.setPageCurrentNo(pageCurrentNo);
         page.setTotalCount(total);
         page.setTotalPages(page.getTotalPages());
-        List<UserDetail> userDetails = userDetailService.selUserDetailAll(pageCurrentNo,10,name,status);
+        List<UserDetail> userDetails = userDetailService.selUserDetailAll(pageCurrentNo,10,name,status,lineStatus);
         page.setList(userDetails);
         return page;
     }
@@ -160,7 +165,7 @@ public class UserMasterController {
             map.put("message",statusMessage);
             map.put("url","http://java.86blue.cn/_api/goRegister");
             templateService.sendAuditFail(map);
-            UserDetail detail = new UserDetail(id,status,statusMessage,lineStatus,1);
+            UserDetail detail = new UserDetail(id,status,statusMessage,null,1);
             userDetailService.updateUserDetail(detail);
 
             //给管理员发送模板信息

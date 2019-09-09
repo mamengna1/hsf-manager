@@ -4,9 +4,10 @@
 var currentPage = 1;  //当前页码
 var names = $("#names").val();
 var statusId;  //全部信息
+var lineStatus = -1    //在线状态
 //过滤查询
-function searchCustomer(currentPage,names,statusId) {
-    $.getJSON("/manager/userMaster/userAll",{"pageCurrentNo":currentPage,"names":names,"statusId":statusId},callback)
+function searchCustomer(currentPage,names,statusId,lineStatus) {
+    $.getJSON("/manager/userMaster/userAll",{"pageCurrentNo":currentPage,"names":names,"statusId":statusId,"lineStatus":lineStatus},callback)
     //回调
     function callback(data) {
         $("#theBody").html("");
@@ -55,11 +56,11 @@ function searchCustomer(currentPage,names,statusId) {
 //初始化加载数据
 $(function () {
     statusId = $("#statusId").val();
-    searchCustomer(currentPage,names,statusId);
+    searchCustomer(currentPage,names,statusId,lineStatus);
     //首页
     $("#begin").click(function () {
         currentPage = 1;
-        searchCustomer(currentPage,names,statusId);
+        searchCustomer(currentPage,names,statusId,lineStatus);
         $("#pageNo").html(currentPage);
     })
     //上一页
@@ -68,7 +69,7 @@ $(function () {
         if (parseInt(currentPage) <1) {
             alert("已经是第一页了")
         } else {
-            searchCustomer(currentPage,names,statusId);
+            searchCustomer(currentPage,names,statusId,lineStatus);
             $("#pageNo").html(currentPage);
         }
     })
@@ -79,14 +80,14 @@ $(function () {
             alert("已经最后一页了");
             return;
         } else {
-            searchCustomer(currentPage,names,statusId);
+            searchCustomer(currentPage,names,statusId,lineStatus);
             $("#pageNo").html(currentPage);
         }
     })
     //最后一页
     $("#end").click(function () {
         currentPage = parseInt($("#totalPages").html());
-        searchCustomer(currentPage,names,statusId);
+        searchCustomer(currentPage,names,statusId,lineStatus);
         $("#pageNo").html(currentPage);
     })
 
@@ -184,4 +185,18 @@ function func(){
         $('#statusMessage').removeAttr("disabled");//去除textarea元素的disabled属性
 
     }
+}
+
+/**
+ * 在线
+ */
+function zaiXian() {
+    searchCustomer(currentPage,names,statusId,1)
+}
+
+/**
+ * 离线
+ */
+function liXian() {
+    searchCustomer(currentPage,names,statusId,2)
 }

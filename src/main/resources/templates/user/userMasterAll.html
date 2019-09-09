@@ -30,7 +30,7 @@
 <!-- .box-body -->
 
 <div class="box-header with-border">
-	<h3 class="box-title">师傅信息界面</h3>
+	<h3 class="box-title">总在线人数 ：<span th:text="${zaixian}"></span> &nbsp;总离线人数：<span th:text="${lixian}"></span></h3>
 </div>
 
 <div class="box-body">
@@ -41,8 +41,8 @@
 		<div class="pull-left">
 			<div class="form-group form-inline">
 				<div class="btn-group">
-					<button type="button" class="btn btn-default" title="删除" onclick="delMasterById()"><i class="fa fa-trash-o"></i> 在线</button>
-					<button type="button" class="btn btn-default" title="删除" onclick="delMasterById()"><i class="fa fa-trash-o"></i> 离线</button>
+					<button type="button" class="btn btn-default" title="删除" onclick="zaiXian()"><i class="fa fa-trash-o"></i> 在线</button>
+					<button type="button" class="btn btn-default" title="删除" onclick="liXian()"><i class="fa fa-trash-o"></i> 离线</button>
 
 					<button type="button" class="btn btn-default" title="删除" onclick="delMasterById()"><i class="fa fa-trash-o"></i> 删除</button>
 					<button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>

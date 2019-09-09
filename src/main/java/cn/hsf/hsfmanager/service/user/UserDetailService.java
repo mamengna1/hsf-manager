@@ -15,14 +15,14 @@ public interface UserDetailService {
      * @param name       真实姓名
      * @return
      */
-    List<UserDetail> selUserDetailAll( Integer pageCurrentNo, Integer pageSize,  String name,Integer status);
+    List<UserDetail> selUserDetailAll( Integer pageCurrentNo, Integer pageSize,  String name,Integer status,Integer lineStatus);
 
     /**
      * 总记录数
      * @param name       真实姓名
      * @return
      */
-    int selUserDetailTotal(  String name,Integer status);
+    int selUserDetailTotal(  String name,Integer status,Integer lineStatus);
 
 
     UserDetail selUserDetailById( Integer id);

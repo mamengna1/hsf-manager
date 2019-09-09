@@ -68,7 +68,7 @@ public class LoginController {
         System.out.println("==============登录成功================"+new Date());
        Admin admin = (Admin) request.getSession().getAttribute("admin");
        model.addAttribute("admins",admin);
-        request.getSession().setAttribute("waitTotal",userDetailService.selUserDetailTotal(null,3));
+        request.getSession().setAttribute("waitTotal",userDetailService.selUserDetailTotal(null,3,-1));
         request.getSession().setAttribute("userTotal",userService.userTotal());
         request.getSession().setAttribute("releaseTotal",userReleaseService.selUserReleaseTotal(-1,2));
         return "index";

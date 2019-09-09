@@ -16,14 +16,14 @@ public interface UserDetailMapper {
      * @param name       真实姓名
      * @return
      */
-    List<UserDetail> selUserDetailAll(@Param("pageCurrentNo") Integer pageCurrentNo, @Param("pageSize") Integer pageSize, @Param("name") String name, @Param("status") Integer status);
+    List<UserDetail> selUserDetailAll(@Param("pageCurrentNo") Integer pageCurrentNo, @Param("pageSize") Integer pageSize, @Param("name") String name, @Param("status") Integer status,@Param("lineStatus") Integer lineStatus);
 
     /**
      * 总记录数
      * @param name       真实姓名
      * @return
      */
-    int selUserDetailTotal( @Param("name") String name, @Param("status") Integer status);
+    int selUserDetailTotal( @Param("name") String name, @Param("status") Integer status,@Param("lineStatus") Integer lineStatus);
 
     UserDetail selUserDetailById(@Param("id") Integer id);
 
@@ -34,6 +34,7 @@ public interface UserDetailMapper {
     List<ScoreSourceType> selSourceType();
 
     UserYearWork selYearById(@Param("id") Integer id);
+
 
 
     // 派单显示信息
@@ -50,5 +51,7 @@ public interface UserDetailMapper {
     int selPaiDanTotal(@Param("skillId") String skillId, @Param("workProvince") Integer workProvince,@Param("workCity") Integer workCity,@Param("workArea") Integer workArea);
 
     int delMasterById(Integer[] array);
+
+
 }
 

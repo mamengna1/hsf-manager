@@ -18,13 +18,13 @@ public class UserDetailServiceImpl implements UserDetailService {
 
 
     @Override
-    public List<UserDetail> selUserDetailAll(Integer pageCurrentNo, Integer pageSize, String name,Integer status) {
-        return userDetailMapper.selUserDetailAll((pageCurrentNo-1)*pageSize,pageSize,name,status);
+    public List<UserDetail> selUserDetailAll(Integer pageCurrentNo, Integer pageSize, String name,Integer status,Integer lineStatus) {
+        return userDetailMapper.selUserDetailAll((pageCurrentNo-1)*pageSize,pageSize,name,status,lineStatus);
     }
 
     @Override
-    public int selUserDetailTotal(String name,Integer status) {
-        return userDetailMapper.selUserDetailTotal(name,status);
+    public int selUserDetailTotal(String name,Integer status,Integer lineStatus) {
+        return userDetailMapper.selUserDetailTotal(name,status,lineStatus);
     }
 
     @Override
