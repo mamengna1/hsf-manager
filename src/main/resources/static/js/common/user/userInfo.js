@@ -42,8 +42,10 @@ function search(currentPage, isDelete) {
     $.getJSON("/manager/selAll", {"pageCurrentNo": currentPage,"isDelete":isDelete}, function (res) {
 
         $("#delCause").hide();
+        $("#pilaing").show();
         if (isDelete == 1){
             $("#delCause").show();
+            $("#pilaing").hide();
         }
         $("#theBody").html("");
         for (var i = 0; i < res.list.length; i++) {
@@ -53,6 +55,9 @@ function search(currentPage, isDelete) {
                 "     <input id=\"selall\" type=\"checkbox\" class=\"icheckbox_square-blue\">\n" +
                 "</td>" +
                 "<td>" + res.list[i].id + "</td>\n" +
+                "<td>" +
+                "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal2\"  onclick='selUserByOpenId(\""+res.list[i].openId+"\")'>"+ res.list[i].openId+"</a>" +
+                "</td>" +
                 "<td>" + res.list[i].name + "</td>\n" +
                 "<td>" + res.list[i].content + "</td>\n" +
                 "<td>" + res.list[i].lookTotal + "</td>\n" +
@@ -94,11 +99,12 @@ function del() {
     var delCause = prompt("输入删除原因，点击确定");
     if (delCause){
         $.getJSON("/manager/delUserInfo", {"id" : $("#id").val(), "delCause":delCause, "isDelete":1}, function (res) {
-           if (res){
-               search(1,isDelete);
-           } else {
-               alert("删除失败");
-           }
+            if (res){
+                alert("删除成功")
+                search(1,isDelete);
+            } else {
+                alert("删除失败");
+            }
         });
     } else {
         alert("取消");
@@ -119,4 +125,39 @@ function delList(btn) {
         $(btn).attr("title", "已删除列表");
     }
     search(1, isDelete);
+}
+
+/**
+ * 批量删除
+ */
+function batchDel() {
+    var ids = document.getElementsByClassName("icheckbox_square-blue");
+    var j = 0;
+    var arrayId = new Array() ;
+    for (var i = 0; i <ids.length ; i++) {
+        if (ids[i].checked) {
+            var id = $(ids[i]).parent().next().html();
+            arrayId[j] = id
+            j++;
+        }
+    }
+    if(j !=0){
+        var delCause = prompt("输入删除原因，点击确定");
+        if (delCause){
+            $.getJSON("/manager/userInformation/batchDel",{"ids":arrayId.toString(),"delCause":delCause},function (data) {
+                if(data == true){
+                    alert("批量删除成功！")
+                    window.location.reload();
+                }else {
+                    alert("批量删除失败！")
+                }
+            })
+        }
+    }else{
+        alert("您没有选择,删除失败")
+    }
+
+
+
+
 }

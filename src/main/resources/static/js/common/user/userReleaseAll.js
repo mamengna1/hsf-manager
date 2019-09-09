@@ -97,20 +97,29 @@ $(function () {
 
 
 //删除
-function delUser() {
+function delRelById() {
     var delUsers = document.getElementsByClassName("userCheck");
-    for (var i = 0; i < delUsers.length; i++) {
+    var j = 0;
+    var arrayId = new Array() ;
+
+    for (var i = 0; i <delUsers.length ; i++) {
         if (delUsers[i].checked) {
             var id = $(delUsers[i]).parent().next().html();
-            $.getJSON("/manager/user/delUserById", {"id": id}, function (data) {
-                if(data == true){
-                    alert("删除成功！")
-                    window.location.reload();
-                }else {
-                    alert("删除失败！")
-                }
-            });
+            arrayId[j] = id
+            j++;
         }
+    }
+    if(j ==0 ){
+        alert("您没有选择，删除失败")
+    }else{
+        $.getJSON("/manager/userRelease/delRelById",{"ids":arrayId.toString()},function (data) {
+            if(data == true){
+                alert("批量删除成功！")
+                window.location.reload();
+            }else {
+                alert("批量删除失败！")
+            }
+        })
     }
 }
 

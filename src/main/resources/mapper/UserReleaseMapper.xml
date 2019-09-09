@@ -138,4 +138,12 @@
     <update id="updStatus" parameterType="cn.hsf.hsfmanager.pojo.user.UserRelease">
        update `tb_user_release` set  state=#{state}, receiveId = null  where id = #{id}
     </update>
+
+    <delete id="delRelById" parameterType="int">
+        delete  from `tb_user_release`
+        where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>

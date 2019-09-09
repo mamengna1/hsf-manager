@@ -68,4 +68,16 @@ public class UserReleaseController {
         model.addAttribute("user",user);
         return "user/userReleaseShow";
     }
+
+    @RequestMapping("/delRelById")
+    @ResponseBody
+    public boolean delRelById(String ids){
+        String str[] = ids.split(",");
+        Integer array[] = new Integer[str.length];
+        for (int i = 0; i < str.length; i++) {
+            array[i] = Integer.parseInt(str[i]);
+        }
+        int res = userReleaseService.delRelById(array);
+        return res > 0 ? true : false;
+    }
 }

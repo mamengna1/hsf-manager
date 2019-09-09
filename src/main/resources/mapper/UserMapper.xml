@@ -192,8 +192,12 @@
             </if>
         </trim>
     </update>
+
     <delete id="delUser" parameterType="int">
-        delete from `tb_user` where id =#{id}
+        delete from tb_user where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
     </delete>
 
     <!--新用户-->
@@ -208,4 +212,13 @@
         FROM `tb_user`
         WHERE  DATE_FORMAT(`createDate`, '%Y-%m-%d') =  DATE_FORMAT(NOW(), '%Y-%m-%d')
     </select>
+
+    <update id="updbyDetailId" parameterType="int">
+        update tb_user
+        set detailId = 0
+        where detailId in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
 </mapper>

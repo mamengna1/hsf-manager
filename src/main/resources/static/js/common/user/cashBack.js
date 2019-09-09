@@ -15,25 +15,22 @@ function searchCommission(currentPage,backStatusId) {
             var shi = (data.list[i].money-sui).toFixed(2);
             var comment = data.list[i].comment == null ? '' : data.list[i].comment
             $("#theBody").append("<tr>" +
-                "<td><input type=\"checkbox\"/></td>" +
+                "<td><input type=\"checkbox\" class='userCheck'/></td>" +
                 "<td id='uid'>" + data.list[i].id + "</td>" +
                 "<td id='user'>" +
                 "<a id='openIds' href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\"  onclick='selUserByOpenId(\""+data.list[i].openId+"\")'>"+ data.list[i].openId+"</a>" +
                 "</td>" +
+                "<td >" + data.list[i].user.nickName+ "</td>" +
                 "<td >" + data.list[i].money +"/"+sui+ "</td>" +
                 "<td id='moneys'>" + shi + "</td>" +
                 "<td>" + createDate+ "</td>" +
                 "<td>" + data.list[i].backStatus.backStatusName + "</td>" +
                 "<td>" + comment + "</td>" +
                 "<td>" +
-                "<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" onclick='savePay(this)' id='pays'>确认支付</a>" +
-                "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" data-toggle=\"modal\" data-target=\"#editCommission\" onclick='upCommon(\""+data.list[i].id+"\")' id='up'>修改</a>" +
+                "<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" onclick='savePay(this)' id='pays'  style=\"" + ((data.list[i].backStatusId==1) ? '' : 'display:none;')+"\" >确认支付</a>" +
+                "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" data-toggle=\"modal\" data-target=\"#editCommission\" onclick='upCommon(\""+data.list[i].id+"\")' id='up'  >修改</a>" +
                 "</tr>")
 
-            if(data.list[i].backStatusId==2){
-                $("#pays").hide()
-                $("#up").hide()
-            }
         }
 
 
@@ -138,4 +135,33 @@ function savePay(btn) {
         }
     });
 
+}
+
+/**
+ * 批量删除
+ */
+function delCashBack() {
+    var delUsers = document.getElementsByClassName("userCheck");
+    var j = 0;
+    var arrayId = new Array() ;
+
+    for (var i = 0; i <delUsers.length ; i++) {
+        if (delUsers[i].checked) {
+            var id = $(delUsers[i]).parent().next().html();
+            arrayId[j] = id
+            j++;
+        }
+    }
+    if(j ==0 ){
+        alert("您没有选择，删除失败")
+    }else{
+        $.getJSON("/manager/commission/delCashBack",{"ids":arrayId.toString()},function (data) {
+            if(data == true){
+                alert("批量删除成功！")
+                window.location.reload();
+            }else {
+                alert("批量删除失败！")
+            }
+        })
+    }
 }

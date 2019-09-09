@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int delUser(Integer id) {
+    public int delUser(Integer[] id) {
         return userMapper.delUser(id);
     }
 
@@ -64,5 +64,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public int userTotal() {
         return userMapper.userTotal();
+    }
+
+    @Override
+    public int updbyDetailId(Integer[] array) {
+       return userMapper.updbyDetailId(array);
     }
 }

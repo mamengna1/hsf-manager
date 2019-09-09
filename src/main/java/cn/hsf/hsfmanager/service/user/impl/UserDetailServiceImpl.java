@@ -62,6 +62,11 @@ public class UserDetailServiceImpl implements UserDetailService {
         return userDetailMapper.selPaiDanTotal(skillId, workProvince, workCity, workArea);
     }
 
+    @Override
+    public int delMasterById(Integer[] array) {
+        return userDetailMapper.delMasterById(array);
+    }
+
 
 }
 

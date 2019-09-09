@@ -15,4 +15,5 @@ public interface UserInformationMapper {
 
     int updInfor(UserInformation userInformation);
 
+    int delUserInfoByIds(@Param("array") Integer[] ids,@Param("delCause") String delCause);
 }

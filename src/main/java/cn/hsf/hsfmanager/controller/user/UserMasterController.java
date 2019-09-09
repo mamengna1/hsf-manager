@@ -259,10 +259,32 @@ public class UserMasterController {
         return "user/userMasterAll";
     }
 
+    /**
+     * 查询工作年限
+     * @param id
+     * @return
+     */
     @RequestMapping("/selYearWorkById")
     @ResponseBody
     public UserYearWork selYearWorkById(@RequestParam("id") Integer id){
         return userDetailService.selYearById(id);
+    }
+
+    /**
+     * 批量删除
+     * @return
+     */
+    @RequestMapping("/delMasterById")
+    @ResponseBody
+    public boolean delMasterById(String ids){
+        String str[] = ids.split(",");
+        Integer array[] = new Integer[str.length];
+        for (int i = 0; i < str.length; i++) {
+            array[i] = Integer.parseInt(str[i]);
+        }
+        int res = userDetailService.delMasterById(array);   //删除师傅之后，该师傅身份变为用户
+        userService.updbyDetailId(array);  //师傅身份变为用户
+        return res > 0 ? true : false;
     }
 
 }

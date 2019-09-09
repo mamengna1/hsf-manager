@@ -13,4 +13,6 @@ public interface UserReleaseService {
     int updateUserRelease(UserRelease userRelease);
 
     int updateUserRelease2(UserRelease userRelease,String date);
+
+    int delRelById(Integer[] array);
 }

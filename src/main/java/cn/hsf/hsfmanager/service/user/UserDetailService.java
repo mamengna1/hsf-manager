@@ -47,5 +47,7 @@ public interface UserDetailService {
     List<UserDetail> selPaiDanAll(Integer pageCurrentNo,Integer pageSize,String skillId, Integer workProvince, Integer workCity, Integer workArea);
     //总数量
     int selPaiDanTotal( String skillId, Integer workProvince, Integer workCity,Integer workArea);
+
+    int delMasterById(Integer[] array);
 }
 

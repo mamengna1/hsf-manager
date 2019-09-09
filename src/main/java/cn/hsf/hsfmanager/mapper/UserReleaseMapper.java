@@ -17,4 +17,6 @@ public interface UserReleaseMapper {
     int updateUserRelease2(@Param("userRelease") UserRelease userRelease,@Param("date") String date);
 
     int updStatus(UserRelease userRelease);
+
+    int delRelById(Integer[] array);
 }

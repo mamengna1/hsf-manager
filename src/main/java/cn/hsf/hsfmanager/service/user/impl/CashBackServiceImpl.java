@@ -38,4 +38,9 @@ public class CashBackServiceImpl implements CashBackService {
     public int updateCashBack(CashBack cashBack) {
         return cashBackMapper.updateCashBack(cashBack);
     }
+
+    @Override
+    public int delCashBack(Integer[] array) {
+        return cashBackMapper.delCashBack(array);
+    }
 }

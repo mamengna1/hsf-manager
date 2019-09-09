@@ -33,4 +33,9 @@ public class UserInformationServiceImpl implements UserInformationService {
     public int updInfor(UserInformation userInformation) {
         return userInformationMapper.updInfor(userInformation);
     }
+
+    @Override
+    public int delUserInfoByIds(Integer[] array,String delCause) {
+        return userInformationMapper.delUserInfoByIds(array,delCause);
+    }
 }

@@ -31,8 +31,10 @@ public interface UserService {
     //修改
     int updateUser(User user);
     int updateUserByOpenId(User user);
-    int delUser(Integer id);
+    int delUser(Integer[] id);
 
     List<User> UserAll( Integer pageCurrentNo,Integer pageSize);
     int userTotal();
+
+    int updbyDetailId(Integer[] array);
 }

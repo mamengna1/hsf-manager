@@ -34,4 +34,13 @@
         set isDelete = #{isDelete},delCause = #{delCause}
         where id = #{id}
     </update>
+
+    <update id="delUserInfoByIds" >
+        update `tb_user_information`
+        set isDelete = 1,delCause = #{delCause}
+        where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
 </mapper>

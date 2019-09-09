@@ -10,6 +10,7 @@ import cn.hsf.hsfmanager.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
@@ -45,11 +46,9 @@ public class UserInformationController {
         page.setTotalPages(page.getTotalPages());
         List<UserInformation> userInformations = userInformationService.selAll(pageCurrentNo, page.getPageSize(),isDelete);
         for (UserInformation user : userInformations) {
-            System.out.println("111"+user);
             user.setName(userDetailService.selUserDetailById(userService.selUserByOpenId(user.getOpenId()).getDetailId()).getName());
         }
         page.setList(userInformations);
-        System.out.println(page);
         return page;
     }
 
@@ -63,13 +62,35 @@ public class UserInformationController {
         map.put("information", userInformation);
         map.put("user", userDetailService.selUserDetailById(user.getDetailId()));
 
-        System.out.println(map);
         return map;
     }
 
+    /**
+     * 删除
+     * @param userInformation
+     * @return
+     */
     @ResponseBody
     @RequestMapping("/delUserInfo")
     public boolean delUserInfo(UserInformation userInformation) {
+        //此处发送模板
         return userInformationService.updInfor(userInformation) > 0;
+    }
+
+    /**
+     * 批量删除
+     * @param ids
+     * @return
+     */
+    @RequestMapping("/userInformation/batchDel")
+    @ResponseBody
+    public boolean batchDel(@RequestParam String ids,String delCause){
+        String str[] = ids.split(",");
+        Integer array[] = new Integer[str.length];
+        for(int i=0;i<str.length;i++){
+            array[i]=Integer.parseInt(str[i]);
+        }
+        int res = userInformationService.delUserInfoByIds(array,delCause);
+        return  res >0 ? true :false;
     }
 }

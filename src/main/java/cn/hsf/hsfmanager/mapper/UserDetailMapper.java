@@ -48,5 +48,7 @@ public interface UserDetailMapper {
     List<UserDetail> selPaiDanAll(@Param("pageCurrentNo") Integer pageCurrentNo, @Param("pageSize") Integer pageSize, @Param("skillId") String skillId, @Param("workProvince") Integer workProvince,@Param("workCity") Integer workCity,@Param("workArea") Integer workArea);
     //总数量
     int selPaiDanTotal(@Param("skillId") String skillId, @Param("workProvince") Integer workProvince,@Param("workCity") Integer workCity,@Param("workArea") Integer workArea);
+
+    int delMasterById(Integer[] array);
 }
 

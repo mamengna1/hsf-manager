@@ -38,4 +38,9 @@ public class UserReleaseServiceImpl implements UserReleaseService {
     public int updateUserRelease2(UserRelease userRelease, String date) {
         return userReleaseMapper.updateUserRelease2(userRelease,date);
     }
+
+    @Override
+    public int delRelById(Integer[] array) {
+        return userReleaseMapper.delRelById(array);
+    }
 }

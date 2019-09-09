@@ -19,4 +19,5 @@ public interface CashBackMapper {
     //修改
     int updateCashBack(CashBack cashBack);
 
+    int delCashBack(Integer[] array);
 }

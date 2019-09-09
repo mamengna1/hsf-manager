@@ -13,7 +13,7 @@ public class CashBack {
     private Date createDate;  // 提现时间
     private Integer backStatusId;  // 返现状态
     private String comment;  //错误码
-
+    private String userName;  //提现人
 
     private BackStatus backStatus;
     private User user;
@@ -39,6 +39,15 @@ public class CashBack {
     }
 
     //get set
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     public BackStatus getBackStatus() {
         return backStatus;
     }

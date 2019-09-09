@@ -13,4 +13,6 @@ public interface UserInformationService {
     UserInformation selById(Integer id);
 
     int updInfor(UserInformation userInformation);
+
+    int delUserInfoByIds(Integer[] array,String delCause);
 }

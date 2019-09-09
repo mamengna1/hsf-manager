@@ -65,8 +65,10 @@ public class CashBackController {
         page.setPageCurrentNo(pageCurrentNo);
         page.setTotalCount(total);
         page.setTotalPages(page.getTotalPages());
-        System.out.println(11111);
         List<CashBack> cashBacks = cashBackService.selAll(pageCurrentNo, Contents.PAGENO,backStatusId,o);
+        for (int i = 0; i <cashBacks.size() ; i++) {
+            cashBacks.get(i).setUserName(cashBacks.get(i).getUser().getNickName());
+        }
         System.out.println("list :" + cashBacks);
         page.setList(cashBacks);
         return page;
@@ -144,5 +146,15 @@ public class CashBackController {
         return params;
     }
 
-
+    @RequestMapping("/delCashBack")
+    @ResponseBody
+    public boolean delCashBack(String ids){
+        String str[] = ids.split(",");
+        Integer array[] = new Integer[str.length];
+        for (int i = 0; i < str.length; i++) {
+            array[i] = Integer.parseInt(str[i]);
+        }
+        int res = cashBackService.delCashBack(array);
+        return res > 0 ? true : false;
+    }
 }
