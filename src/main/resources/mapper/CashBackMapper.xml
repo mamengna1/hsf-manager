@@ -17,24 +17,27 @@
 
 
     <select id="selAllByOpenId" parameterType="string" resultMap="selCash">
-        select `id`,`openId`,`money`,`createDate`,`backStatusId`,`comment` from  `tb_cash_back`
+        select `id`,`openId`,`money`,`createDate`,`backStatusId`,`comment` ,`userName`from  `tb_cash_back`
         where  openId = #{openId}
     </select>
 
     <select id="selAllById" resultMap="selCash" parameterType="int">
-         select `id`,`openId`,`money`,`createDate`,`backStatusId`,`comment` from  `tb_cash_back`
+         select `id`,`openId`,`money`,`createDate`,`backStatusId`,`comment`,`userName` from  `tb_cash_back`
           where id  = #{id}
     </select>
 
 
     <select id="selAll" resultMap="selCash">
-        select `id`,`openId`,`money`,`createDate`,`backStatusId`,`comment` from  `tb_cash_back`
+        select `id`,`openId`,`money`,`createDate`,`backStatusId`,`comment`,`userName` from  `tb_cash_back`
         <where>
             <if test="openId !=null and openId !='' ">
                 and openId = #{openId}
             </if>
             <if test="backStatusId !=null and backStatusId &gt; 0 ">
                 and backStatusId = #{backStatusId}
+            </if>
+            <if test="userName !=null and userName !='' ">
+                and userName like concat('%',#{userName},'%')
             </if>
         </where>
       /*  order by `createDate` desc*/
@@ -49,6 +52,9 @@
             </if>
             <if test="backStatusId !=null and backStatusId &gt; 0 ">
                 and backStatusId = #{backStatusId}
+            </if>
+            <if test="userName !=null and userName !='' ">
+                and userName like concat('%',#{userName},'%')
             </if>
         </where>
     </select>
@@ -69,6 +75,9 @@
             </if>
             <if test="backStatusId != null and backStatusId &gt; 0">
                 backStatusId=#{backStatusId},
+            </if>
+            <if test="userName != null and userName !=''">
+                userName=#{userName},
             </if>
             comment=#{comment}
         </trim>

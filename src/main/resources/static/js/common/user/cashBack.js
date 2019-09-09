@@ -2,10 +2,10 @@
 var currentPage = 1;  //当前页码
 var backStatusId =-1;
 var openId = -1
+var userName = $("#userName").val();
 //过滤查询
-function searchCommission(currentPage,backStatusId) {
-
-    $.getJSON("/manager/commission/show",{"pageCurrentNo":currentPage,"backStatusId":backStatusId,"openId":openId},callback)
+function searchCommission(currentPage,backStatusId,userName) {
+    $.getJSON("/manager/commission/show",{"pageCurrentNo":currentPage,"backStatusId":backStatusId,"openId":openId,"userName":userName},callback)
     //回调
     function callback(data) {
         $("#theBody").html("");
@@ -42,11 +42,11 @@ function searchCommission(currentPage,backStatusId) {
 
 //初始化加载数据
 $(function () {
-    searchCommission(currentPage,backStatusId);
+    searchCommission(currentPage,backStatusId,userName);
     //首页
     $("#begin").click(function () {
         currentPage = 1;
-        searchCommission(currentPage,backStatusId);
+        searchCommission(currentPage,backStatusId,userName);
         $("#pageNo").html(currentPage);
     })
     //上一页
@@ -55,7 +55,7 @@ $(function () {
         if (parseInt(currentPage) <1) {
             alert("已经是第一页了")
         } else {
-            searchCommission(currentPage,backStatusId);
+            searchCommission(currentPage,backStatusId,userName);
             $("#pageNo").html(currentPage);
         }
     })
@@ -66,14 +66,14 @@ $(function () {
             alert("已经最后一页了");
             return;
         } else {
-            searchCommission(currentPage,backStatusId);
+            searchCommission(currentPage,backStatusId,userName);
             $("#pageNo").html(currentPage);
         }
     })
     //最后一页
     $("#end").click(function () {
         currentPage = parseInt($("#totalPages").html());
-        searchCommission(currentPage,backStatusId);
+        searchCommission(currentPage,backStatusId,userName);
         $("#pageNo").html(currentPage);
     })
 
@@ -164,4 +164,12 @@ function delCashBack() {
             }
         })
     }
+}
+
+/**
+ * 提现人查找
+ */
+function searchCash() {
+    var name = $("#userName").val();
+    searchCommission(currentPage,backStatusId,name);
 }

@@ -50,26 +50,33 @@ public class CashBackController {
     @ResponseBody
     public Page show(@RequestParam(value = "pageCurrentNo",required = false,defaultValue = "1") Integer pageCurrentNo ,
                      @RequestParam(value = "backStatusId",required = false,defaultValue = "-1") Integer backStatusId,
-                     @RequestParam(value = "openId",required = false,defaultValue = "") String openId){
+                     @RequestParam(value = "openId",required = false,defaultValue = "") String openId,
+                     @RequestParam(value = "userName",required = false,defaultValue = "") String userName){
         String o;
         if(openId == "-1" || openId.equals("-1")|| openId == null){
             o = null;
         }else{
             o = openId;
         }
-        System.out.println("进入 ");
-        int total = cashBackService.selTotalCount(backStatusId,o);
+        int total = cashBackService.selTotalCount(backStatusId,o,userName);
         System.out.println("total :"+ total);
         Page page = new Page();
         page.setPageSize(10);
         page.setPageCurrentNo(pageCurrentNo);
         page.setTotalCount(total);
         page.setTotalPages(page.getTotalPages());
-        List<CashBack> cashBacks = cashBackService.selAll(pageCurrentNo, Contents.PAGENO,backStatusId,o);
+        List<CashBack> cashBacks = cashBackService.selAll(pageCurrentNo, Contents.PAGENO,backStatusId,o,userName);
         for (int i = 0; i <cashBacks.size() ; i++) {
-            cashBacks.get(i).setUserName(cashBacks.get(i).getUser().getNickName());
+            CashBack cashs = cashBackService.selAllById(cashBacks.get(i).getId());
+            if(cashBacks.get(i).getUserName() == null || (!cashBacks.get(i).getUser().getNickName().equals(cashs.getUserName()))){
+                cashBacks.get(i).setUserName(cashBacks.get(i).getUser().getNickName());
+                CashBack cashBack = new CashBack();
+                cashBack.setId( cashBacks.get(i).getId());
+                cashBack.setUserName(cashBacks.get(i).getUserName());
+                int i1 = cashBackService.updateCashBack(cashBack);
+            }
         }
-        System.out.println("list :" + cashBacks);
+
         page.setList(cashBacks);
         return page;
     }

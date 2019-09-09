@@ -25,13 +25,13 @@ public class CashBackServiceImpl implements CashBackService {
     }
 
     @Override
-    public List<CashBack> selAll(Integer pageCurrentNo, Integer pageSize, Integer backStatusId, String openId) {
-        return cashBackMapper.selAll((pageCurrentNo-1)*pageSize, pageSize, backStatusId, openId);
+    public List<CashBack> selAll(Integer pageCurrentNo, Integer pageSize, Integer backStatusId, String openId,String userName) {
+        return cashBackMapper.selAll((pageCurrentNo-1)*pageSize, pageSize, backStatusId, openId,userName);
     }
 
     @Override
-    public int selTotalCount(Integer backStatusId, String openId) {
-        return cashBackMapper.selTotalCount(backStatusId,openId);
+    public int selTotalCount(Integer backStatusId, String openId,String userName) {
+        return cashBackMapper.selTotalCount(backStatusId,openId,userName);
     }
 
     @Override

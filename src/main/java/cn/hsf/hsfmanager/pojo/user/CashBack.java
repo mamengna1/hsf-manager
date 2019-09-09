@@ -129,6 +129,7 @@ public class CashBack {
                 ", createDate=" + createDate +
                 ", backStatusId=" + backStatusId +
                 ", comment='" + comment + '\'' +
+                ", userName='" + userName + '\'' +
                 ", backStatus=" + backStatus +
                 ", user=" + user +
                 ", userDetail=" + userDetail +

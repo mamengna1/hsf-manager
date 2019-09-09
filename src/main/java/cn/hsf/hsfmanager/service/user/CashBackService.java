@@ -11,8 +11,8 @@ public interface CashBackService {
 
     //分页
     //查询所有提现记录并分页显示
-    List<CashBack> selAll(Integer pageCurrentNo,Integer pageSize, Integer backStatusId,String openId);
-    int selTotalCount( Integer backStatusId,String openId);
+    List<CashBack> selAll(Integer pageCurrentNo,Integer pageSize, Integer backStatusId,String openId,String userName);
+    int selTotalCount( Integer backStatusId,String openId,String userName);
 
     //修改
     int updateCashBack(CashBack cashBack);

@@ -13,8 +13,8 @@ public interface CashBackMapper {
 
     //分页
     //查询所有提现记录并分页显示
-    List<CashBack> selAll(@Param("pageCurrentNo") Integer pageCurrentNo,@Param("pageSize") Integer pageSize,@Param("backStatusId") Integer backStatusId,@Param("openId") String openId);
-    int selTotalCount(@Param("backStatusId") Integer backStatusId,@Param("openId") String openId);
+    List<CashBack> selAll(@Param("pageCurrentNo") Integer pageCurrentNo,@Param("pageSize") Integer pageSize,@Param("backStatusId") Integer backStatusId,@Param("openId") String openId,@Param("userName") String userName);
+    int selTotalCount(@Param("backStatusId") Integer backStatusId,@Param("openId") String openId,@Param("userName") String userName);
 
     //修改
     int updateCashBack(CashBack cashBack);
