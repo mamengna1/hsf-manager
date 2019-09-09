@@ -6,8 +6,14 @@
 <!--namespace:映射命名空间-->
 <mapper namespace="cn.hsf.hsfmanager.mapper.UserReleaseMapper">
 
+    <!--派单记录-->
+    <resultMap id="selAssociation" type="cn.hsf.hsfmanager.pojo.user.UserRelease">
+        <id property="id" column="id"/>
+        <result property="state" column="state"/>
+        <association property="distributionStatus" column="state" select="cn.hsf.hsfmanager.mapper.DistributionStatusMapper.selByDisId"/>
+    </resultMap>
     <!--分页-->
-    <select id="selUserReleaseAll" resultType="cn.hsf.hsfmanager.pojo.user.UserRelease" >
+    <select id="selUserReleaseAll" resultMap="selAssociation">
         SELECT `id`,`title`,`nickName`,`phone`,`serviceProvince`,`serviceCity`,`serviceArea`,`serverDetail`,`appointTime`,`demand`,`createDate`,`state`,`receiveId`,`userId`
         FROM `tb_user_release`
         <where>

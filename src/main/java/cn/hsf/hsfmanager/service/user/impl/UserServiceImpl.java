@@ -17,13 +17,13 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public List<User> selUserAll(Integer pageCurrentNo, Integer pageSize, Integer isSub, Integer detailId) {
-        return userMapper.selUserAll((pageCurrentNo-1)*pageSize,pageSize,isSub,detailId);
+    public List<User> selUserAll(Integer pageCurrentNo, Integer pageSize, Integer isSub, Integer detailId,String userName) {
+        return userMapper.selUserAll((pageCurrentNo-1)*pageSize,pageSize,isSub,detailId,userName);
     }
 
     @Override
-    public int selUserTotal(Integer isSub, Integer detailId) {
-        return userMapper.selUserTotal(isSub, detailId);
+    public int selUserTotal(Integer isSub, Integer detailId,String userName) {
+        return userMapper.selUserTotal(isSub, detailId,userName);
     }
 
     @Override

@@ -14,7 +14,7 @@ public interface UserService {
      * @param detailId    0用户  1  师父
      * @return
      */
-    List<User> selUserAll(Integer pageCurrentNo, Integer pageSize, Integer isSub ,  Integer detailId);
+    List<User> selUserAll(Integer pageCurrentNo, Integer pageSize, Integer isSub ,  Integer detailId,String userName);
 
     /**
      * 总记录数
@@ -22,7 +22,7 @@ public interface UserService {
      * @param detailId
      * @return
      */
-    int selUserTotal( Integer isSub ,Integer detailId);
+    int selUserTotal( Integer isSub ,Integer detailId,String userName);
 
     User selUserByOpenId( String openId);
     User selUserById( Integer id);

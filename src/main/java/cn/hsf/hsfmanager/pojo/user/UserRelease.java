@@ -22,7 +22,7 @@ public class UserRelease {
     private Integer state;  //0 等待中 1接单中  2 已接单 3 实施中 4  订单完成
     private Integer receiveId;  //接单师傅的id
     private Integer userId;   //发布人的id
-
+    private DistributionStatus distributionStatus;
     public UserRelease(Integer id, Integer state) {
         this.id = id;
         this.state = state;
@@ -32,6 +32,14 @@ public class UserRelease {
         this.id = id;
         this.state = state;
         this.receiveId = receiveId;
+    }
+
+    public DistributionStatus getDistributionStatus() {
+        return distributionStatus;
+    }
+
+    public void setDistributionStatus(DistributionStatus distributionStatus) {
+        this.distributionStatus = distributionStatus;
     }
 
     public UserRelease() {

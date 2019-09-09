@@ -4,9 +4,10 @@
 var currentPage = 1;  //当前页码
 var isSub ;
 var detailId ;
+var userName = $("#userName").val();
 //过滤查询
-function searchCustomer(currentPage,isSub,detailId) {
-    $.getJSON("/manager/user/userAll",{"pageCurrentNo":currentPage,"isSub":isSub,"detailId":detailId},callback)
+function searchCustomer(currentPage,isSub,detailId,userName) {
+    $.getJSON("/manager/user/userAll",{"pageCurrentNo":currentPage,"isSub":isSub,"detailId":detailId,"userName":userName},callback)
     //回调
     function callback(data) {
         $("#theBody").html("");
@@ -45,11 +46,11 @@ function searchCustomer(currentPage,isSub,detailId) {
 $(function () {
     isSub = $("#isSub").val();
     detailId = $("#detailId").val();
-    searchCustomer(currentPage,isSub,detailId);
+    searchCustomer(currentPage,isSub,detailId,userName);
     //首页
     $("#begin").click(function () {
         currentPage = 1;
-        searchCustomer(currentPage,isSub,detailId);
+        searchCustomer(currentPage,isSub,detailId,userName);
         $("#pageNo").html(currentPage);
     })
     //上一页
@@ -58,7 +59,7 @@ $(function () {
         if (parseInt(currentPage) <1) {
             alert("已经是第一页了")
         } else {
-            searchCustomer(currentPage,isSub,detailId);
+            searchCustomer(currentPage,isSub,detailId,userName);
             $("#pageNo").html(currentPage);
         }
     })
@@ -69,14 +70,14 @@ $(function () {
             alert("已经最后一页了");
             return;
         } else {
-            searchCustomer(currentPage,isSub,detailId);
+            searchCustomer(currentPage,isSub,detailId,userName);
             $("#pageNo").html(currentPage);
         }
     })
     //最后一页
     $("#end").click(function () {
         currentPage = parseInt($("#totalPages").html());
-        searchCustomer(currentPage,isSub,detailId);
+        searchCustomer(currentPage,isSub,detailId,userName);
         $("#pageNo").html(currentPage);
     })
 
@@ -96,6 +97,7 @@ function delUser() {
             j++;
         }
     }
+    alert("arrayId :"+ arrayId)
     if(j ==0 ){
         alert("您没有选择，删除失败")
     }else{
@@ -137,3 +139,24 @@ function goScore(openIds) {
     location.href="/manager/userScore/goUserScoreAll?openId="+openIds;
 }
 
+/**
+ * 根据昵称进行模糊查询
+ */
+function searchNames() {
+    var name = $("#userName").val();
+    searchCustomer(currentPage,isSub,detailId,name)
+}
+
+/*
+$("#selall").click(function () {//鼠标点击事件
+    $(".userCheck").prop("checked", $(this).prop("checked"))//所有类为check_item的属性打√
+    //选中的时候返回true，否则为false
+    //使得id为check_all的原生属性值与class为check_item的保持一致
+});
+$(document).on("click", ".userCheck", function () {//对class绑定一个点击事件
+    var flag = $(".userCheck:checked").length == $(".check_item").length;
+    //如果选中的框数等于总框数的，那么flag的结果返回true
+    $("#selall").prop("checked",flag)
+    //这时候让id为check_all，也就是全选按钮也为true，那么全选按钮也就打√了
+})
+*/

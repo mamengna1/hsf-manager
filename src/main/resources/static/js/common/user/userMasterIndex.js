@@ -16,7 +16,7 @@ function searchCustomer(currentPage,names,statusId) {
             var workArea = showProvince(data.list[i].workProvince,data.list[i].workCity,data.list[i].workArea);
             var updTime = data.list[i].updTime == null ? '' : toDate(new Date(data.list[i].updTime).toJSON())
             var passTime = data.list[i].passTime == null ? '' : toDate(new Date(data.list[i].passTime).toJSON())
-
+            var lineStatus = data.list[i].lineStatus == 1 ? "在线" : "离线"
             var message = a == 0 ? "待审核" :a == 1 ? "审核成功" : a == 2 ? "审核失败 ："+data.list[i].statusMessage : "再次提交信息，上次审核失败原因是 ："+data.list[i].statusMessage;
             $("#theBody").append("<tr>" +
                 "<td><input type=\"checkbox\" class='userCheck'/></td>" +
@@ -33,6 +33,7 @@ function searchCustomer(currentPage,names,statusId) {
                 "<td>" +message+"</td>" +
                 "<td>" + updTime+"</td>" +
                 "<td>" +passTime+"</td>" +
+                "<td>" +lineStatus+"</td>" +
                 "<td>" +
                 "<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\"  onclick='goUserMasterShow("+data.list[i].id+")'>查看</a>" +
                 "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\"  onclick='updDetail("+data.list[i].id+")'>修改</a>" +

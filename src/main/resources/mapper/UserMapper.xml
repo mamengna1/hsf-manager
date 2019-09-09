@@ -7,7 +7,7 @@
 <mapper namespace="cn.hsf.hsfmanager.mapper.UserMapper">
 
     <!--分页-->
-    <select id="selUserAll" resultType="cn.hsf.hsfmanager.pojo.user.User" parameterType="int">
+    <select id="selUserAll" resultType="cn.hsf.hsfmanager.pojo.user.User" >
         SELECT `id`,`nickName`,`openId`,`sex`,`headPic`,`country`,`province`,`city`,`phone`,`isSub`,`memberType`,`sourceType`,`totalMoney`,`balanceMoney`,`totalScore`,`balanceScore`,`userParent`,`createDate`,`lastLoginTime`,`detailId`
         FROM `tb_user`
         <where>
@@ -20,12 +20,15 @@
             <if test="detailId &gt; 0 ">
                 and  detailId > 0
             </if>
+            <if test="userName !=null and userName  !=''">
+                and  nickName like concat('%',#{userName},'%')
+            </if>
         </where>
         order by createDate desc
         limit #{pageCurrentNo},#{pageSize}
     </select>
 
-    <select id="selUserTotal" resultType="int" parameterType="int">
+    <select id="selUserTotal" resultType="int" >
         SELECT count(*) FROM `tb_user`
         <where>
             <if test="isSub !=null and isSub  &gt; -1">
@@ -36,6 +39,9 @@
             </if>
             <if test="detailId &gt; 0 ">
                 and  detailId > 0
+            </if>
+            <if test="userName !=null and userName  !=''">
+                and  nickName like concat('%',#{userName},'%')
             </if>
         </where>
 

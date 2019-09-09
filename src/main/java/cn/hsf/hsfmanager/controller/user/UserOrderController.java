@@ -44,7 +44,7 @@ public class UserOrderController {
     @ResponseBody
     public Page userAll(@RequestParam(value = "pageCurrentNo",required = false,defaultValue = "1") Integer pageCurrentNo,
                         @RequestParam(value = "commentTypeId",required = false,defaultValue = "") Integer commentTypeId){
-
+        System.out.println("================进入评论界面=====================");
         int total = userOrderService.selUserOrderTotal(commentTypeId);
         Page page = new Page();
         page.setPageSize(Contents.PAGENO);

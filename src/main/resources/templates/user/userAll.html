@@ -40,14 +40,19 @@
 		<div class="pull-left">
 			<div class="form-group form-inline">
 				<div class="btn-group">
-					<button type="button" class="btn btn-default" title="删除" onclick="delUser()"><i class="fa fa-trash-o"></i> 删除</button>
+					<button type="button" class="btn btn-default" title="删除" onclick="delUser()"><i class="fa fa-trash-o"></i> 批量删除</button>
 
 					<button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>
 				</div>
 			</div>
 		</div>
 		<!--工具栏/-->
-
+		<div class="box-tools pull-right">
+			<div class="has-feedback">
+				昵称查找：<input  type="text" name="userName" id="userName">
+				<button class="btn btn-default"  onclick="searchNames()">查询</button>
+			</div>
+		</div>
 		<!--数据列表-->
 		<table id="dataList" class="table table-bordered table-striped table-hover dataTable">
 			<thead>

@@ -56,16 +56,17 @@ public class UserController {
     @RequestMapping("/userAll")
     @ResponseBody
     public Page userAll(@RequestParam(value = "pageCurrentNo", required = false, defaultValue = "1") Integer pageCurrentNo,
-                        @RequestParam("isSub") Integer isSub, @RequestParam("detailId") Integer detailId) {
+                        @RequestParam("isSub") Integer isSub, @RequestParam("detailId") Integer detailId,
+                        @RequestParam(value = "userName",required = false,defaultValue = "") String userName) {
         Integer a = isSub == null ? 0 : isSub;
         Integer d = detailId == null ? 0 : detailId;
-        int total = userService.selUserTotal(a, d);
+        int total = userService.selUserTotal(a, d,userName);
         Page page = new Page();
         page.setPageSize(10);
         page.setPageCurrentNo(pageCurrentNo);
         page.setTotalCount(total);
         page.setTotalPages(page.getTotalPages());
-        List<User> orderList = userService.selUserAll(pageCurrentNo, 10, a, d);
+        List<User> orderList = userService.selUserAll(pageCurrentNo, 10, a, d,userName);
         page.setList(orderList);
         return page;
     }

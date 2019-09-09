@@ -52,6 +52,7 @@ public class CashBackController {
                      @RequestParam(value = "backStatusId",required = false,defaultValue = "-1") Integer backStatusId,
                      @RequestParam(value = "openId",required = false,defaultValue = "") String openId,
                      @RequestParam(value = "userName",required = false,defaultValue = "") String userName){
+        System.out.println("======================我进入了提现页面=====================");
         String o;
         if(openId == "-1" || openId.equals("-1")|| openId == null){
             o = null;

@@ -33,6 +33,7 @@ function searchRelease(currentPage,state,mark) {
                 "<td>" + data.list[i].demand + "</td>" +
                 "<td>" + appointTime+ "</td>" +
                 "<td>" + createDate+ "</td>" +
+                "<td>" + data.list[i].distributionStatus.statusName+ "</td>" +
                 "<td>" +
                 "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\"  onclick='selById(\""+data.list[i].userId+"\")'>"+ data.list[i].userId+"</a>" +
                 "</td>" +

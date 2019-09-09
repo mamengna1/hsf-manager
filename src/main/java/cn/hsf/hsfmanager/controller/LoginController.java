@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,7 +43,6 @@ public class LoginController {
         Admin checkLogin = adminService.checkLogin(admin);
         if(checkLogin !=null ){
             request.getSession().setAttribute("admin",checkLogin);
-
             return "redirect:/index";
         }else{
             return "login";
@@ -65,6 +65,7 @@ public class LoginController {
      */
     @RequestMapping("/index")
     public String goIndex(HttpServletRequest request, Model model){
+        System.out.println("==============登录成功================"+new Date());
        Admin admin = (Admin) request.getSession().getAttribute("admin");
        model.addAttribute("admins",admin);
         request.getSession().setAttribute("waitTotal",userDetailService.selUserDetailTotal(null,3));

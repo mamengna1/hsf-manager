@@ -122,6 +122,7 @@
                 and sfId = #{sfId}
             </if>
         </where>
+        order by `createTime` desc
         limit #{pageCurrentNo},#{pageSize}
     </select>
 

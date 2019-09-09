@@ -40,7 +40,7 @@
                 and userName like concat('%',#{userName},'%')
             </if>
         </where>
-      /*  order by `createDate` desc*/
+        order by `createDate` desc
         limit #{pageCurrentNo},#{pageSize}
     </select>
 

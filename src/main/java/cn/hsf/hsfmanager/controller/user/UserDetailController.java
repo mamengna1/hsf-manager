@@ -74,6 +74,7 @@ public class UserDetailController {
                         @RequestParam(value = "serviceCity",required = false,defaultValue = "")  Integer serviceCity,
                         @RequestParam(value = "serviceArea",required = false,defaultValue = "")  Integer serviceArea,
                         @RequestParam(value = "recId",required = false,defaultValue = "")  Integer recId){
+        System.out.println("======================我进入了去给用户找派单师傅====================");
 
         int total;
         List<UserDetail> userDetails = null;

@@ -15,7 +15,7 @@ public interface UserMapper {
      * @param detailId    0用户  1  师父
      * @return
      */
-    List<User> selUserAll(@Param("pageCurrentNo") Integer pageCurrentNo, @Param("pageSize") Integer pageSize, @Param("isSub") Integer isSub , @Param("detailId") Integer detailId);
+    List<User> selUserAll(@Param("pageCurrentNo") Integer pageCurrentNo, @Param("pageSize") Integer pageSize, @Param("isSub") Integer isSub , @Param("detailId") Integer detailId,@Param("userName") String userName);
 
     /**
      * 总记录数
@@ -23,7 +23,7 @@ public interface UserMapper {
      * @param detailId
      * @return
      */
-    int selUserTotal(@Param("isSub") Integer isSub ,@Param("detailId") Integer detailId);
+    int selUserTotal(@Param("isSub") Integer isSub ,@Param("detailId") Integer detailId,@Param("userName") String userName);
 
     User selUserByOpenId(@Param("openId") String openId);
     User selUserById(@Param("id") Integer id);

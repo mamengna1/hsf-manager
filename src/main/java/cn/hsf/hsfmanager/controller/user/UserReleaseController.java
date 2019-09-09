@@ -44,6 +44,7 @@ public class UserReleaseController {
     public Page userAll(@RequestParam(value = "pageCurrentNo",required = false,defaultValue = "1") Integer pageCurrentNo,
                         @RequestParam(value = "state",required = false,defaultValue = "") Integer state,
                         @RequestParam(value = "mark",required = false,defaultValue = "") Integer mark){
+        System.out.println("===================进入雇佣界面========================");
         int total = userReleaseService.selUserReleaseTotal(state,mark);
         Page page = new Page();
         page.setPageSize(Contents.PAGENO);

@@ -62,6 +62,7 @@ public class DistributionController {
     public Page userAllIndex(@RequestParam(value = "pageCurrentNo",required = false,defaultValue = "1") Integer pageCurrentNo,
                         @RequestParam(value = "statusId",required = false,defaultValue = "-1") Integer statusId,
                              @RequestParam(value = "sfId",required = false,defaultValue = "-1") Integer sfId){
+        System.out.println("====================我进入了派单界面===================");
         int total = distributionService.selDisTotal(statusId,sfId);
         Page page = new Page();
         page.setPageSize( Contents.PAGENO);

@@ -45,6 +45,7 @@ public class UserScoreController {
     public Page userAll(@RequestParam(value = "pageCurrentNo",required = false,defaultValue = "1") Integer pageCurrentNo,
                         @RequestParam(value = "openId",required = false,defaultValue = "") String openId,
                         @RequestParam(value = "scoreSourceId",required = false,defaultValue = "") Integer scoreSourceId){
+        System.out.println("================进入积分界面===================");
         String openid;
         if(openId == "-1" || openId.equals("-1") || openId == null){
             openid = null;
