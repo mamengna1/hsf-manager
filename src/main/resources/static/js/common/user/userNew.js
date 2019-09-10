@@ -33,7 +33,8 @@ function searchNewUser(currentPage) {
 
         $("#total").html(data.totalCount);
         $("#totalPages").html(data.totalPages);
-        $("#pageNo").html(currentPage);
+        var curr = data.totalPages == 0 ? 0 : currentPage
+        $("#pageNo").html(curr);
     }
 }
 

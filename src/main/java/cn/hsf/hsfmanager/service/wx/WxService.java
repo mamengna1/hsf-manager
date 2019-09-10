@@ -111,6 +111,8 @@ public class WxService {
         App app = appMapper.selApp();
         if (app.getAccessToken() == null || System.currentTimeMillis()>app.getExpireTime() ) {   //如果为null 或过期
             getToken();
+            App app2 = appMapper.selApp();
+            return app2.getAccessToken();
         }
         return app.getAccessToken();
     }

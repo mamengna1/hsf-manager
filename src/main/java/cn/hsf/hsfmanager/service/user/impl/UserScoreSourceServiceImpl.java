@@ -55,4 +55,9 @@ public class UserScoreSourceServiceImpl implements UserScoreSourceService {
     public int delScoreById(Integer id) {
         return scoreSourceMapper.delScoreById(id);
     }
+
+    @Override
+    public UserScoreSource selUserScore(UserScoreSource userScoreSource) {
+        return scoreSourceMapper.selUserScore(userScoreSource);
+    }
 }

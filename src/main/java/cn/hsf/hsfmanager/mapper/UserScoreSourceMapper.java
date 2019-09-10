@@ -20,4 +20,6 @@ public interface UserScoreSourceMapper {
     UserScoreSource selScoreById(@Param("id") Integer id);
     int updScore(UserScoreSource userScoreSource);
     int delScoreById(Integer id);
+
+    UserScoreSource selUserScore(UserScoreSource userScoreSource);
 }

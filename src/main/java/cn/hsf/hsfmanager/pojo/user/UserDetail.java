@@ -61,6 +61,13 @@ public class UserDetail {
         this.shijian = shijian;
     }
 
+    public UserDetail(Integer id, Integer status, String statusMessage, Integer shijian) {
+        this.id = id;
+        this.status = status;
+        this.statusMessage = statusMessage;
+        this.shijian = shijian;
+    }
+
     @Override
     public String toString() {
         return "UserDetail{" +

@@ -70,6 +70,8 @@ public class UserMasterController {
         page.setTotalPages(page.getTotalPages());
         List<UserDetail> userDetails = userDetailService.selUserDetailAll(pageCurrentNo,10,name,status,lineStatus);
         page.setList(userDetails);
+        page.setZaiXian(userDetailService.selUserDetailTotal(null,status,1));
+        page.setLiXian(userDetailService.selUserDetailTotal(null,status,0));
         return page;
     }
 
@@ -108,41 +110,46 @@ public class UserMasterController {
         UserDetail userDetail = userDetailService.selUserDetailById(id);
         String o = u.getOpenId();;
         if(status ==1 ){
+
             String openId =u.getOpenId();
             double[] pre = new double[]{5,2};
-            userService.updateUserByOpenId(new User(openId,pre[0],pre[0]));    //修改提交审核人的积分
-            UserScoreSource userScoreSource = new UserScoreSource(openId,pre[0],5);
-            scoreSourceService.insScoreSource(userScoreSource);   //记录成为师父的积分来源记录
+            UserScoreSource userScoreSource1 = scoreSourceService.selUserScore(new UserScoreSource(openId, 5));
+            if(userScoreSource1 ==null ){   //之前没有审核过的，没有为这位师傅增加过积分的
+                userService.updateUserByOpenId(new User(openId,pre[0],pre[0]));    //修改提交审核人的积分
+                UserScoreSource userScoreSource = new UserScoreSource(openId,pre[0],5);
+                scoreSourceService.insScoreSource(userScoreSource);   //记录成为师父的积分来源记录
+
+                //修改推广人的积分
+                for (int i = 0; i < 2; i++) {
+                    User user = userService.selUserByOpenId(openId);
+                    if(user !=null){
+                        String userParent = user.getUserParent();
+                        if(userParent !=null && !userParent.equals("")){
+                            User parent = new User(userParent,pre[i],pre[i]);
+                            userService.updateUserByOpenId(parent);
+                            UserScoreSource ScoreSource = new UserScoreSource(userParent,pre[i],4,o);
+                            scoreSourceService.insScoreSource(ScoreSource);   //记录分红的积分来源记录
+                            Map map2 = new HashMap();
+                            map2.put("openId",userParent);
+                            map2.put("title","恭喜，您获得了一笔新的分销积分啦。来自："+user.getNickName());
+                            map2.put("fenHong",String.valueOf(pre[i]));
+                            map2.put("total",String.valueOf(pre[0]));
+                            templateService.sendScore(map2);
+                            openId = userParent;
+                        }
+                    }
+                }
+                lineStatus = 1;
+
+            }
+            UserDetail detail = new UserDetail(id,status,null,1,1);
+            userDetailService.updateUserDetail(detail);
 
             // 发送审核成功的模板
             Map map = new HashMap();
             map.put("openId",o);
             map.put("name",userDetail.getName());
             templateService.sendAuditSuccess(map);
-
-            //修改推广人的积分
-            for (int i = 0; i < 2; i++) {
-                User user = userService.selUserByOpenId(openId);
-                if(user !=null){
-                    String userParent = user.getUserParent();
-                    if(userParent !=null && !userParent.equals("")){
-                        User parent = new User(userParent,pre[i],pre[i]);
-                        userService.updateUserByOpenId(parent);
-                        UserScoreSource ScoreSource = new UserScoreSource(userParent,pre[i],4,o);
-                        scoreSourceService.insScoreSource(ScoreSource);   //记录分红的积分来源记录
-                        Map map2 = new HashMap();
-                        map2.put("openId",userParent);
-                        map2.put("title","恭喜，您获得了一笔新的分销积分啦。来自："+user.getNickName());
-                        map2.put("fenHong",String.valueOf(pre[i]));
-                        map2.put("total",String.valueOf(pre[0]));
-                        templateService.sendScore(map2);
-                        openId = userParent;
-                    }
-                }
-            }
-            lineStatus = 1;
-            UserDetail detail = new UserDetail(id,status,null,lineStatus,1);
-            userDetailService.updateUserDetail(detail);
 
             //给管理员发送模板信息
             String[] managerOpenId = Contents.MANAGER_OPENID;
@@ -165,7 +172,7 @@ public class UserMasterController {
             map.put("message",statusMessage);
             map.put("url","http://java.86blue.cn/_api/goRegister");
             templateService.sendAuditFail(map);
-            UserDetail detail = new UserDetail(id,status,statusMessage,null,1);
+            UserDetail detail = new UserDetail(id,status,statusMessage,2,1);
             userDetailService.updateUserDetail(detail);
 
             //给管理员发送模板信息

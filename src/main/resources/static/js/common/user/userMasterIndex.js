@@ -11,13 +11,14 @@ function searchCustomer(currentPage,names,statusId,lineStatus) {
     //回调
     function callback(data) {
         $("#theBody").html("");
-
+        $("#zaiXian").html(data.zaiXian);
+        $("#liXian").html(data.liXian);
         for (var i = 0; i < data.list.length; i++) {
             var a = data.list[i].status;
             var workArea = showProvince(data.list[i].workProvince,data.list[i].workCity,data.list[i].workArea);
             var updTime = data.list[i].updTime == null ? '' : toDate(new Date(data.list[i].updTime).toJSON())
             var passTime = data.list[i].passTime == null ? '' : toDate(new Date(data.list[i].passTime).toJSON())
-            var lineStatus = data.list[i].lineStatus == 1 ? "在线" : "离线"
+            var lineStatus = data.list[i].lineStatus == 1 ? "在线" : data.list[i].lineStatus == null ? "无状态(未审核成功)" : "离线"
             var message = a == 0 ? "待审核" :a == 1 ? "审核成功" : a == 2 ? "审核失败 ："+data.list[i].statusMessage : "再次提交信息，上次审核失败原因是 ："+data.list[i].statusMessage;
             $("#theBody").append("<tr>" +
                 "<td><input type=\"checkbox\" class='userCheck'/></td>" +
@@ -49,7 +50,9 @@ function searchCustomer(currentPage,names,statusId,lineStatus) {
 
         $("#total").html(data.totalCount);
         $("#totalPages").html(data.totalPages);
-        $("#pageNo").html(currentPage);
+        var curr = data.totalPages == 0 ? 0 : currentPage
+        $("#pageNo").html(curr);
+
     }
 }
 

@@ -10,8 +10,27 @@ public class Page {
     private Integer pageCurrentNo =1 ;  //当前页码
     private Integer totalCount;   //总数量
     private Integer totalPages;   //总页数
-
     private List<?> list;
+
+
+    private Integer zaiXian;  //在线
+    private Integer liXian;   //离线
+
+    public Integer getZaiXian() {
+        return zaiXian;
+    }
+
+    public void setZaiXian(Integer zaiXian) {
+        this.zaiXian = zaiXian;
+    }
+
+    public Integer getLiXian() {
+        return liXian;
+    }
+
+    public void setLiXian(Integer liXian) {
+        this.liXian = liXian;
+    }
 
     public Integer getPageSize() {
         return pageSize;

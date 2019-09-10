@@ -93,8 +93,12 @@
                 workArea=#{workArea},
             </if>
 
-            <if test="lineStatus != null and lineStatus!=''">
-                lineStatus=#{lineStatus},
+            <if test="lineStatus != null and lineStatus ==1">
+                lineStatus= 1,
+            </if>
+
+            <if test="lineStatus != null and lineStatus ==2 ">
+                lineStatus= null ,
             </if>
             <if test="cardOne != null and cardOne!=''">
                 cardOne=#{cardOne},

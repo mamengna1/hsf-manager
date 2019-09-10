@@ -30,6 +30,11 @@ public class UserScoreSource {
         this.sourceOpenId = sourceOpenId;
     }
 
+    public UserScoreSource(String openId, Integer scoreSourceId) {
+        this.openId = openId;
+        this.scoreSourceId = scoreSourceId;
+    }
+
     public UserScoreSource(Integer id, double score, Integer scoreSourceId) {
         this.id = id;
         this.score = score;
