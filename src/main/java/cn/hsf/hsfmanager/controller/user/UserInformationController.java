@@ -6,6 +6,7 @@ import cn.hsf.hsfmanager.pojo.user.UserInformation;
 import cn.hsf.hsfmanager.service.user.UserDetailService;
 import cn.hsf.hsfmanager.service.user.UserInformationService;
 import cn.hsf.hsfmanager.service.user.UserService;
+import cn.hsf.hsfmanager.util.Contents;
 import cn.hsf.hsfmanager.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,7 +42,7 @@ public class UserInformationController {
     public Page selAll(Integer pageCurrentNo, Integer isDelete) {
         System.out.println("===============我进入了动态界面===================");
         Page page = new Page();
-        page.setPageSize(50);
+        page.setPageSize(Contents.PAGENO);
         page.setPageCurrentNo(pageCurrentNo);
         page.setTotalCount(userInformationService.selTotal(isDelete));
         page.setTotalPages(page.getTotalPages());

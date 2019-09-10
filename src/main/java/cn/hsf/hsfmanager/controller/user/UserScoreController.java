@@ -67,7 +67,7 @@ public class UserScoreController {
                 UserScoreSource user1 = new UserScoreSource();
                 user1.setId( userScoreSources.get(i).getId());
                 user1.setUserName(userScoreSources.get(i).getUserName());
-                userScoreSourceService.updScore(user1);
+                int i1 = userScoreSourceService.updScore(user1);
             }
         }
         page.setList(userScoreSources);
