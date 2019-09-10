@@ -52,7 +52,6 @@ public class UserOrderController {
         page.setTotalCount(total);
         page.setTotalPages(page.getTotalPages());
         List<UserOrder> userOrders =userOrderService.selAllUserOrder(pageCurrentNo,Contents.PAGENO,commentTypeId);
-        System.out.println("评论信息 ： "+userOrders);
         page.setList(userOrders);
         return page;
     }

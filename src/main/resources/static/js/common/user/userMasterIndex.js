@@ -21,7 +21,7 @@ function searchCustomer(currentPage,names,statusId,lineStatus) {
             var lineStatus = data.list[i].lineStatus == 1 ? "在线" : data.list[i].lineStatus == null ? "无状态(未审核成功)" : "离线"
             var message = a == 0 ? "待审核" :a == 1 ? "审核成功" : a == 2 ? "审核失败 ："+data.list[i].statusMessage : "再次提交信息，上次审核失败原因是 ："+data.list[i].statusMessage;
             $("#theBody").append("<tr>" +
-                "<td><input type=\"checkbox\" class='userCheck'/></td>" +
+                "<td><input type=\"checkbox\" class='userCheck' name='checkbox'/></td>" +
                 "<td>" +
                 "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\"  onclick='selUserDetail(\""+data.list[i].id+"\")'>"+ data.list[i].id+"</a>" +
                 "</td>" +

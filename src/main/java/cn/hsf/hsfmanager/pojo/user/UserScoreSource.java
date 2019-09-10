@@ -14,6 +14,7 @@ public class UserScoreSource {
 
     private ScoreSourceType scoreSourceType;  //积分来源
     private User user;  //用户表
+    private String userName;   //用户昵称
     public UserScoreSource() {
     }
 
@@ -41,6 +42,14 @@ public class UserScoreSource {
         this.scoreSourceId = scoreSourceId;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     public ScoreSourceType getScoreSourceType() {
         return scoreSourceType;
     }
@@ -57,17 +66,7 @@ public class UserScoreSource {
         this.user = user;
     }
 
-    @Override
-    public String toString() {
-        return "UserScoreSourceMapper{" +
-                "id=" + id +
-                ", openId='" + openId + '\'' +
-                ", score=" + score +
-                ", scoreSourceId=" + scoreSourceId +
-                ", sourceOpenId='" + sourceOpenId + '\'' +
-                ", createDate=" + createDate +
-                '}';
-    }
+
 
     public Integer getId() {
         return id;
@@ -87,6 +86,21 @@ public class UserScoreSource {
 
     public double getScore() {
         return score;
+    }
+
+    @Override
+    public String toString() {
+        return "UserScoreSource{" +
+                "id=" + id +
+                ", openId='" + openId + '\'' +
+                ", score=" + score +
+                ", scoreSourceId=" + scoreSourceId +
+                ", sourceOpenId='" + sourceOpenId + '\'' +
+                ", createDate=" + createDate +
+                ", scoreSourceType=" + scoreSourceType +
+                ", user=" + user +
+                ", userName='" + userName + '\'' +
+                '}';
     }
 
     public void setScore(double score) {

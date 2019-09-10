@@ -63,7 +63,6 @@ $(function () {
             skills.splice(jQuery.inArray($(this).attr("sid"), skills), 1);
         }
         $("#skills").val(skills.join());
-        alert($("#skills").val());
     })
 
 });

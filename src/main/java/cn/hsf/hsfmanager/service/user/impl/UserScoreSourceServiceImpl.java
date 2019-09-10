@@ -32,13 +32,13 @@ public class UserScoreSourceServiceImpl implements UserScoreSourceService {
     }
 
     @Override
-    public List<UserScoreSource> selAllScore(Integer pageCurrentNo, Integer pageSize, String openId,Integer scoreSourceId) {
-        return scoreSourceMapper.selAllScore((pageCurrentNo-1)*pageSize, pageSize, openId,scoreSourceId);
+    public List<UserScoreSource> selAllScore(Integer pageCurrentNo, Integer pageSize, String openId,Integer scoreSourceId,String userName) {
+        return scoreSourceMapper.selAllScore((pageCurrentNo-1)*pageSize, pageSize, openId,scoreSourceId,userName);
     }
 
     @Override
-    public int scoreTotal(String openId,Integer scoreSourceId) {
-        return scoreSourceMapper.scoreTotal(openId,scoreSourceId);
+    public int scoreTotal(String openId,Integer scoreSourceId,String userName) {
+        return scoreSourceMapper.scoreTotal(openId,scoreSourceId,userName);
     }
 
     @Override

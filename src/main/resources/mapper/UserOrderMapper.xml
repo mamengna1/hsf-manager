@@ -48,6 +48,8 @@
             <if test="commentTypeId !=null and commentTypeId &gt; -1 ">
                 and  commentTypeId = #{commentTypeId}
             </if>
+            and  sfId !=''
+            AND `commentTypeId` !=''
         </where>
         limit #{pageCurrentNo},#{pageSize}
     </select>
@@ -58,6 +60,8 @@
             <if test="commentTypeId !=null and commentTypeId &gt; -1 ">
                 and  commentTypeId = #{commentTypeId}
             </if>
+            and  sfId !=''
+            AND `commentTypeId` !=''
         </where>
     </select>
 

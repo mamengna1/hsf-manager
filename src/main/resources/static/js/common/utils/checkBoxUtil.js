@@ -1,0 +1,11 @@
+$('input[name="checkall"]').on("click",function(){
+    if($(this).is(':checked')){
+        $('input[name="checkbox"]').each(function(){
+            $(this).prop("checked",true);
+        });
+    }else{
+        $('input[name="checkbox"]').each(function(){
+            $(this).prop("checked",false);
+        });
+    }
+});

@@ -48,6 +48,8 @@ public class User {
     private Integer detailId;
 
     private UserDetail userDetail;
+
+
     public User(Integer id, Integer memberType, Double balanceMoney, Double totalScore, Double balanceScore) {
         this.id = id;
         this.memberType = memberType;
@@ -70,6 +72,14 @@ public class User {
         this.phone = phone;
         this.totalScore = totalScore;
         this.balanceScore = balanceScore;
+    }
+
+    public User(String openId, Integer memberType, String phone,Double totalScore, Double balanceScore) {
+        this.openId = openId;
+        this.memberType = memberType;
+        this.totalScore = totalScore;
+        this.balanceScore = balanceScore;
+        this.phone = phone;
     }
 
     public UserDetail getUserDetail() {

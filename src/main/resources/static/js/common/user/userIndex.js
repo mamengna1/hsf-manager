@@ -15,7 +15,7 @@ function searchCustomer(currentPage,isSub,detailId,userName) {
             var createDate = toDate(new Date(data.list[i].createDate).toJSON())
             var userParent = data.list[i].userParent == null ? '' : data.list[i].userParent;
             $("#theBody").append("<tr>" +
-                "<td><input type=\"checkbox\" class='userCheck'/></td>" +
+                "<td><input type=\"checkbox\" class='userCheck' name='checkbox'/></td>" +
                 "<td>" + data.list[i].id + "</td>" +
                 "<td>" +
                 "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\"  onclick='selUserByOpenId(\""+data.list[i].openId+"\")'>"+ data.list[i].openId+"</a>" +
@@ -98,7 +98,6 @@ function delUser() {
             j++;
         }
     }
-    alert("arrayId :"+ arrayId)
     if(j ==0 ){
         alert("您没有选择，删除失败")
     }else{
@@ -121,11 +120,14 @@ function delUser() {
 function saveUser() {
     var id = $("#ids").val();
     var userType = $("#userType2").val()
-
-    $.getJSON("/manager/user/updateUser",{"id":id,"userType":userType},function (data) {
+    var phone = $("#phone2").val();
+    var totalS = $("#totalS").val();   //奖励积分
+    var sources = $("#sources").val();   //积分来源
+    var source = $("#source").val();   //是否发送模板
+    $.getJSON("/manager/user/updateUser",{"id":id,"userType":userType,"phone":phone,"score":totalS,"sources":sources,"source":source},function (data) {
         if(data == true){
             alert("修改成功")
-            location.href="/manager/user/goUserIndex";
+            window.location.reload();
         }else{
             alert("修改失败")
         }
@@ -148,16 +150,8 @@ function searchNames() {
     searchCustomer(currentPage,isSub,detailId,name)
 }
 
-/*
-$("#selall").click(function () {//鼠标点击事件
-    $(".userCheck").prop("checked", $(this).prop("checked"))//所有类为check_item的属性打√
-    //选中的时候返回true，否则为false
-    //使得id为check_all的原生属性值与class为check_item的保持一致
-});
-$(document).on("click", ".userCheck", function () {//对class绑定一个点击事件
-    var flag = $(".userCheck:checked").length == $(".check_item").length;
-    //如果选中的框数等于总框数的，那么flag的结果返回true
-    $("#selall").prop("checked",flag)
-    //这时候让id为check_all，也就是全选按钮也为true，那么全选按钮也就打√了
-})
-*/
+
+
+function changeSou(btn) {
+    $("#source").val(btn);
+}

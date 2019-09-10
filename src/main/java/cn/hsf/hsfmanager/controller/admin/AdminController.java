@@ -38,6 +38,7 @@ public class AdminController {
         model.addAttribute("adminList",adminList);
         List<AdminType> adminTypes = adminTypeService.selAdminTypeList();
         model.addAttribute("adminTypes",adminTypes);
+        model.addAttribute("admin1",admin);
         return "admin/AdminIndex";
     }
 

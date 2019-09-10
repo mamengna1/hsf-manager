@@ -24,7 +24,7 @@ function searchRelease(currentPage,state,mark) {
             var receiveId = data.list[i].receiveId == null ? '' :data.list[i].receiveId;
             var a = data.list[i].state;
             $("#theBody").append("<tr>" +
-                "<td><input type=\"checkbox\" class='userCheck'/></td>" +
+                "<td><input type=\"checkbox\" class='userCheck' name='checkbox'/></td>" +
                 "<td>" + data.list[i].id + "</td>" +
                 "<td>" + data.list[i].title + "</td>" +
                 "<td>" + data.list[i].nickName + "</td>" +

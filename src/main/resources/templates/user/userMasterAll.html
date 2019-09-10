@@ -44,7 +44,7 @@
 					<button type="button" class="btn btn-default" title="删除" onclick="zaiXian()"><i class="fa fa-trash-o"></i> 在线</button>
 					<button type="button" class="btn btn-default" title="删除" onclick="liXian()"><i class="fa fa-trash-o"></i> 离线</button>
 
-					<button type="button" class="btn btn-default" title="删除" onclick="delMasterById()"><i class="fa fa-trash-o"></i> 删除</button>
+					<button type="button" class="btn btn-default" title="删除" onclick="delMasterById()"><i class="fa fa-trash-o"></i> 批量删除</button>
 					<button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>
 				</div>
 			</div>
@@ -62,7 +62,7 @@
 			<thead>
 			<tr>
 				<th class="" style="padding-right:0px">
-					<input id="selall" type="checkbox" class="icheckbox_square-blue">
+					<input id="selall" type="checkbox" class="icheckbox_square-blue" name="checkall">
 				</th>
 				<th class="sorting_asc">id</th>
 				<th class="sorting">真实姓名</th>
@@ -273,5 +273,5 @@
 </div>
 </body>
 
-
+<script type="text/javascript" src="/manager/js/common/utils/checkBoxUtil.js"></script>  <!--全选与全不选-->
 </html>

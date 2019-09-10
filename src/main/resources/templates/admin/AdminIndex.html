@@ -37,7 +37,7 @@
 			<div class="form-group form-inline">
 				<div class="btn-group">
 					<button type="button" class="btn btn-default" title="新建" onclick="goCreateAdmin()"><i class="fa fa-file-o"></i> 新建</button>
-					<button type="button" class="btn btn-default" title="删除" onclick="delAdmin()"><i class="fa fa-trash-o"></i> 删除</button>
+					<!--	<button type="button" class="btn btn-default" title="删除" onclick="delAdmin()"><i class="fa fa-trash-o"></i> 删除</button>-->
 					<button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>
 				</div>
 			</div>
@@ -47,9 +47,7 @@
 		<table id="dataList" class="table table-bordered table-striped table-hover dataTable">
 			<thead>
 			<tr>
-				<th class="" style="padding-right:0px">
-					<input id="selall" type="checkbox" class="icheckbox_square-blue">
-				</th>
+
 				<th class="sorting_asc">管理员id</th>
 				<th class="sorting">管理员账号</th>
 				<th class="sorting">管理员级别</th>
@@ -59,7 +57,6 @@
 			</thead>
 			<tbody id="theBody">
 			<tr th:each="list: ${adminList}">
-				<td><input type="checkbox" class="usercheck"/></td>
 				<td th:text="${list.id}"></td>
 				<td>
 					<span th:text="${list.account}" ></span>
@@ -69,6 +66,7 @@
 				<!--<td th:text="${list.typeId}"></td>-->
 				<td class="text-center">
 					<button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal" th:onclick="selAdminById([[${list.id}]])">修改</button>
+					&nbsp;<button type="button" class="btn bg-olive btn-xs"  th:onclick="delAdmin([[${list.id}]])">删除</button>
 				</td>
 			</tr>
 			</tbody>
@@ -107,7 +105,8 @@
 					<tr>
 						<td>管理员级别</td>
 						<td >
-							<input type="text" class="form-control" id="level"/>
+							<input type="hidden" id="leavel1" th:value="${admin1.level}" />
+							<input type="number" class="form-control" id="level"  required th:onchange="leavelChange()" />
 						</td>
 					</tr>
 					<tr>
@@ -154,32 +153,45 @@
 		var level = $("#level").val();
 		var typeId = $("#typeId").val();
 		var id = $("#ids").val();
-		$.getJSON("/manager/adminController/updAdmin",{"id":id,"account":account,"level":level,"typeId":typeId},function (data) {
-			if(data == true){
-				alert("修改成功！")
-				window.location.reload();
-			}else{
-				alert("修改失败！")
-			}
-		})
+		var flag = true;
+		if(level == null || level == undefined || level ==''){
+			alert("级别不能为空")
+			flag = false;
+		}
+		if(flag){
+			$.getJSON("/manager/adminController/updAdmin",{"id":id,"account":account,"level":level,"typeId":typeId},function (data) {
+				if(data == true){
+					alert("修改成功！")
+					window.location.reload();
+				}else{
+					alert("修改失败！")
+				}
+			})
+		}
+
 	}
 
 	//删除
-	function delAdmin() {
-		var delUsers = document.getElementsByClassName("usercheck");
-		for (var i = 0; i < delUsers.length; i++) {
-			if (delUsers[i].checked) {
-				var id = $(delUsers[i]).parent().next().html();
-				$.getJSON("/manager/adminController/delAdminById", {"id": id}, function (data) {
-					if(data == true){
-						alert("删除成功！")
-						window.location.reload();
-					}else {
-						alert("删除失败！")
-					}
-				});
+	function delAdmin(id) {
+		$.getJSON("/manager/adminController/delAdminById", {"id": id}, function (data) {
+			if(data == true){
+				alert("删除成功！")
+				window.location.reload();
+			}else {
+				alert("删除失败！")
 			}
+		});
+
+
+	}
+	function leavelChange() {
+		var leavel1 = $("#leavel1").val();
+		var level = $("#level").val();
+		if(level <leavel1 || level > 6){
+			alert("请输入小于6大于或等于自身等级（"+leavel1+"）的数字")
+			$("#level").val("");
 		}
 	}
+
 </script>
 </html>

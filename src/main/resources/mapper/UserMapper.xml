@@ -163,11 +163,17 @@
             <if test="phone != null and phone!=''">
                 phone=#{phone},
             </if>
+            <if test="phone == null || phone ==''">
+                phone=null ,
+            </if>
             <if test="isSub != null and isSub!=''">
                 isSub=#{isSub},
             </if>
-            <if test="memberType != null and memberType!=''">
-                memberType=#{memberType},
+            <if test="memberType != null and memberType == 1">
+                memberType=1 ,
+            </if>
+            <if test="memberType != null and memberType == 2">
+                memberType=0 ,
             </if>
             <if test="sourceType != null and sourceType!=''">
                 sourceType=#{sourceType},

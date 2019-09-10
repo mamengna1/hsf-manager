@@ -31,13 +31,16 @@
     </resultMap>
 
     <select id="selAllScore" resultMap="selScoreType">
-        select  `id`,`openId`,`score`,`scoreSourceId`,`sourceOpenId`,`createDate` from  `tb_user_score_source`
+        select  `id`,`openId`,`score`,`scoreSourceId`,`sourceOpenId`,`createDate`,`userName` from  `tb_user_score_source`
         <where>
             <if test="openId !=null and openId !='' ">
                and openId= #{openId}
             </if>
             <if test="scoreSourceId !=null and scoreSourceId &gt; 0 ">
                 and scoreSourceId= #{scoreSourceId}
+            </if>
+            <if test="userName !=null and userName != ''">
+                and userName like concat('%',#{userName},'%')
             </if>
         </where>
         order by  createDate desc
@@ -53,11 +56,14 @@
             <if test="scoreSourceId !=null and scoreSourceId &gt; 0 ">
                 and scoreSourceId= #{scoreSourceId}
             </if>
+            <if test="userName !=null and userName != ''">
+                and userName like concat('%',#{userName},'%')
+            </if>
         </where>
     </select>
 
     <select id="selScoreById" resultMap="selScoreType" parameterType="int">
-       select  `id`,`openId`,`score`,`scoreSourceId`,`sourceOpenId`,`createDate` from  `tb_user_score_source` where id = #{id}
+       select  `id`,`openId`,`score`,`scoreSourceId`,`sourceOpenId`,`createDate`,`userName` from  `tb_user_score_source` where id = #{id}
    </select>
 
     <update id="updScore" parameterType="cn.hsf.hsfmanager.pojo.user.UserScoreSource">
@@ -78,7 +84,9 @@
             <if test="sourceOpenId != null and sourceOpenId!=''">
                 sourceOpenId=#{sourceOpenId},
             </if>
-
+            <if test="userName != null and userName!=''">
+                userName=#{userName},
+            </if>
         </trim>
     </update>
 
@@ -87,7 +95,7 @@
     </delete>
 
     <select id="selUserScore" parameterType="cn.hsf.hsfmanager.pojo.user.UserScoreSource" resultType="cn.hsf.hsfmanager.pojo.user.UserScoreSource">
-          select  `id`,`openId`,`score`,`scoreSourceId`,`sourceOpenId`,`createDate` from  `tb_user_score_source`
+          select  `id`,`openId`,`score`,`scoreSourceId`,`sourceOpenId`,`createDate`,`userName` from  `tb_user_score_source`
         <where>
             <if test="id != null and id!=''">
                 id=#{id},
@@ -103,6 +111,9 @@
             </if>
             <if test="sourceOpenId != null and sourceOpenId!=''">
                 sourceOpenId=#{sourceOpenId},
+            </if>
+            <if test="userName != null and userName!=''">
+                userName=#{userName},
             </if>
         </where>
     </select>

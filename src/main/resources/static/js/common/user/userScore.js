@@ -4,10 +4,11 @@
 var currentPage = 1;  //当前页码
 var openId ;
 var scoreSourceId = -1   //积分来源
+var userName = $("#userName").val();
 //过滤查询
-function searchUserScore(currentPage,scoreSourceId) {
+function searchUserScore(currentPage,scoreSourceId,userName) {
     openId = $("#openId1").val();
-    $.getJSON("/manager/userScore/userAll",{"pageCurrentNo":currentPage,"openId":openId,"scoreSourceId":scoreSourceId},callback)
+    $.getJSON("/manager/userScore/userAll",{"pageCurrentNo":currentPage,"openId":openId,"scoreSourceId":scoreSourceId,"userName":userName},callback)
     //回调
     function callback(data) {
         $("#theBody").html("");
@@ -27,7 +28,7 @@ function searchUserScore(currentPage,scoreSourceId) {
                $("#fenhong").hide();
             }
             $("#theBody").append("<tr>" +
-                "<td><input type=\"checkbox\" class='userCheck'/></td>" +
+                "<td><input type=\"checkbox\" class='userCheck' name='checkbox' /></td>" +
                 "<td>" + data.list[i].id + "</td>" +
                 "<td>" +
                 "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\"  onclick='selUserByOpenId(\""+data.list[i].openId+"\")'>"+ data.list[i].user.nickName+"</a>" +
@@ -57,11 +58,11 @@ function searchUserScore(currentPage,scoreSourceId) {
 //初始化加载数据
 $(function () {
     openId = $("#openId1").val();
-  searchUserScore(currentPage,scoreSourceId);
+  searchUserScore(currentPage,scoreSourceId,userName);
     //首页
     $("#begin").click(function () {
         currentPage = 1;
-      searchUserScore(currentPage,scoreSourceId);
+      searchUserScore(currentPage,scoreSourceId,userName);
         $("#pageNo").html(currentPage);
     })
     //上一页
@@ -70,7 +71,7 @@ $(function () {
         if (parseInt(currentPage) <1) {
             alert("已经是第一页了")
         } else {
-          searchUserScore(currentPage,scoreSourceId);
+          searchUserScore(currentPage,scoreSourceId,userName);
             $("#pageNo").html(currentPage);
         }
     })
@@ -81,14 +82,14 @@ $(function () {
             alert("已经最后一页了");
             return;
         } else {
-          searchUserScore(currentPage,scoreSourceId);
+          searchUserScore(currentPage,scoreSourceId,userName);
             $("#pageNo").html(currentPage);
         }
     })
     //最后一页
     $("#end").click(function () {
         currentPage = parseInt($("#totalPages").html());
-      searchUserScore(currentPage,scoreSourceId);
+      searchUserScore(currentPage,scoreSourceId,userName);
         $("#pageNo").html(currentPage);
     })
 
@@ -142,4 +143,12 @@ function saveScore() {
             alert("修改失败")
         }
     })
+}
+
+/**
+ * 根据用户昵称进行查找
+ */
+function searchCash() {
+    var name = $("#userName").val();
+    searchUserScore(currentPage,scoreSourceId,name)
 }

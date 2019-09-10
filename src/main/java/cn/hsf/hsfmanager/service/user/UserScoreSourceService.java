@@ -14,8 +14,8 @@ public interface UserScoreSourceService {
     ScoreSourceType selById(Integer id);
     List<ScoreSourceType> selScoreType();
     /*分页查询积分记录信息*/
-    List<UserScoreSource> selAllScore(Integer pageCurrentNo,  Integer pageSize,  String openId,Integer scoreSourceId);
-    int scoreTotal( String openId,Integer scoreSourceId);
+    List<UserScoreSource> selAllScore(Integer pageCurrentNo,  Integer pageSize,  String openId,Integer scoreSourceId,String userName);
+    int scoreTotal( String openId,Integer scoreSourceId,String userName);
 
     UserScoreSource selScoreById( Integer id);
     int updScore(UserScoreSource userScoreSource);

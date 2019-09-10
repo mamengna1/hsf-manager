@@ -14,8 +14,8 @@ public interface UserScoreSourceMapper {
     ScoreSourceType selById(@Param("id") Integer id);
     List<ScoreSourceType> selScoreType();
     /*分页查询积分记录信息*/
-    List<UserScoreSource> selAllScore(@Param("pageCurrentNo") Integer pageCurrentNo, @Param("pageSize") Integer pageSize,@Param("openId") String openId,@Param("scoreSourceId") Integer scoreSourceId);
-    int scoreTotal(@Param("openId") String openId,@Param("scoreSourceId") Integer scoreSourceId);
+    List<UserScoreSource> selAllScore(@Param("pageCurrentNo") Integer pageCurrentNo, @Param("pageSize") Integer pageSize,@Param("openId") String openId,@Param("scoreSourceId") Integer scoreSourceId,@Param("userName") String userName);
+    int scoreTotal(@Param("openId") String openId,@Param("scoreSourceId") Integer scoreSourceId,@Param("userName") String userName);
 
     UserScoreSource selScoreById(@Param("id") Integer id);
     int updScore(UserScoreSource userScoreSource);

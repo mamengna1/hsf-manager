@@ -11,7 +11,7 @@ function searchNewUser(currentPage) {
         for (var i = 0; i < data.list.length; i++) {
             var createDate = toDate(new Date(data.list[i].createDate).toJSON())
             $("#theBody").append("<tr>" +
-                "<td><input type=\"checkbox\" class='userCheck'/></td>" +
+                "<td><input type=\"checkbox\" class='userCheck' name='checkbox'/></td>" +
                 "<td>" + data.list[i].id + "</td>" +
                 "<td>" +
                 "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\"  onclick='selUserByOpenId(\""+data.list[i].openId+"\")'>"+ data.list[i].openId+"</a>" +
@@ -103,12 +103,19 @@ function delUser() {
 function saveUser() {
     var id = $("#ids").val();
     var userType = $("#userType2").val()
-    $.getJSON("/manager/user/updateUser",{"id":id,"userType":userType},function (data) {
+    var phone = $("#phone2").val();
+    var totalS = $("#totalS").val();   //奖励积分
+    var sources = $("#sources").val();   //积分来源
+    var source = $("#source").val();   //是否发送模板
+    $.getJSON("/manager/user/updateUser",{"id":id,"userType":userType,"phone":phone,"score":totalS,"sources":sources,"source":source},function (data) {
         if(data == true){
             alert("修改成功")
-            location.href="/manager/user/goUserIndex";
+            window.location.reload();
         }else{
             alert("修改失败")
         }
     })
+}
+function changeSou(btn) {
+    $("#source").val(btn);
 }

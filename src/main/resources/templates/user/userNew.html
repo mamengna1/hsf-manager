@@ -53,7 +53,7 @@
 			<thead>
 			<tr>
 				<th class="" style="padding-right:0px">
-					<input id="selall" type="checkbox" class="icheckbox_square-blue">
+					<input id="selall" type="checkbox" class="icheckbox_square-blue"  name="checkall" >
 				</th>
 				<th class="sorting_asc">会员号</th>
 				<th class="sorting">openId</th>
@@ -168,7 +168,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				<h3 id="myModalLabel">修改会员类型</h3>
+				<h3 id="myModalLabel">修改用户信息</h3>
 			</div>
 			<div class="modal-body">
 
@@ -202,8 +202,26 @@
 							</select>
 						</td>
 					</tr>
-
-
+					<tr>
+						<td>手机号</td>
+						<td >
+							<input type="text"  class="form-control"  id="phone2" >
+						</td>
+					</tr>
+					<tr>
+						<td>积分</td>
+						<td >
+							总积分  <input type="number"   placeholder="总积分" id="totalScore2"  readonly>
+							奖惩积分 <input type="number" placeholder="积分" name="score" id="totalS" value="0" ><br/>
+							积分来源
+							<select  id="sources" name="scoreSourceId" class="priceinput" style=" background:#fff;">
+								<option th:each="source : ${scoreType}" th:value="${source.id}" th:text="${source.sourceName}"></option>
+							</select>
+							<input type="hidden" name="source" id="source" value="2"/>
+							&nbsp; <input type="radio" name="checkbox1" value="发送模板"  onclick="changeSou(1)" />发送模板
+							<input type="radio" name="checkbox1" value="不发送模板" onclick="changeSou(2)" checked="checked" />不发送模板
+						</td>
+					</tr>
 				</table>
 
 			</div>
@@ -215,6 +233,6 @@
 	</div>
 </div>
 </body>
-
+<script type="text/javascript" src="/manager/js/common/utils/checkBoxUtil.js"></script>  <!--全选与全不选-->
 
 </html>

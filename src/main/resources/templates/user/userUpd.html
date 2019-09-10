@@ -65,7 +65,7 @@
                 </div>
 
 
-                <div class="col-md-2 title" style="height:120px;">技能</div>
+                <div class="col-md-2 title" style="height:120px;">技能(只可选择3个)</div>
                 <div class="col-md-10 data" style="height:120px;">
                     <table>
                         <input type="hidden" name="skills" id="skills">
@@ -134,7 +134,7 @@
                     <div class="input-group">
                         <div style="display:inline-block;">
                             总积分  <input type="number"  th:value="${user.totalScore}" placeholder="总积分"  readonly>
-                           &nbsp; 奖励积分 <input type="number" placeholder="积分" name="score" id="totalScore" value="0" >
+                           &nbsp; 奖惩积分 <input type="number" placeholder="积分" name="score" id="totalScore" value="0" >
                             &nbsp;    积分来源
                             <select  id="sources" name="scoreSourceId" class="priceinput" style=" background:#fff;">
                                   <option th:each="source : ${sources}" th:value="${source.id}" th:text="${source.sourceName}"></option>

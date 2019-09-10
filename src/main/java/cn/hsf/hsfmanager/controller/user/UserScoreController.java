@@ -44,7 +44,8 @@ public class UserScoreController {
     @ResponseBody
     public Page userAll(@RequestParam(value = "pageCurrentNo",required = false,defaultValue = "1") Integer pageCurrentNo,
                         @RequestParam(value = "openId",required = false,defaultValue = "") String openId,
-                        @RequestParam(value = "scoreSourceId",required = false,defaultValue = "") Integer scoreSourceId){
+                        @RequestParam(value = "scoreSourceId",required = false,defaultValue = "") Integer scoreSourceId,
+                        @RequestParam(value = "userName",required = false,defaultValue = "") String userName){
         System.out.println("================进入积分界面===================");
         String openid;
         if(openId == "-1" || openId.equals("-1") || openId == null){
@@ -52,13 +53,23 @@ public class UserScoreController {
         }else{
             openid = openId;
         }
-        int total = userScoreSourceService.scoreTotal(openid,scoreSourceId);
+        int total = userScoreSourceService.scoreTotal(openid,scoreSourceId,userName);
         Page page = new Page();
         page.setPageSize(Contents.PAGENO);
         page.setPageCurrentNo(pageCurrentNo);
         page.setTotalCount(total);
         page.setTotalPages(page.getTotalPages());
-        List<UserScoreSource> userScoreSources =userScoreSourceService.selAllScore(pageCurrentNo,Contents.PAGENO,openid,scoreSourceId);
+        List<UserScoreSource> userScoreSources =userScoreSourceService.selAllScore(pageCurrentNo,Contents.PAGENO,openid,scoreSourceId,userName);
+        for (int i = 0; i <userScoreSources.size() ; i++) {
+            UserScoreSource userScore = userScoreSourceService.selScoreById(userScoreSources.get(i).getId());
+            if(userScoreSources.get(i).getUserName() == null || (!userScoreSources.get(i).getUser().getNickName().equals(userScore.getUserName()))){
+                userScoreSources.get(i).setUserName(userScoreSources.get(i).getUser().getNickName());
+                UserScoreSource user1 = new UserScoreSource();
+                user1.setId( userScoreSources.get(i).getId());
+                user1.setUserName(userScoreSources.get(i).getUserName());
+                userScoreSourceService.updScore(user1);
+            }
+        }
         page.setList(userScoreSources);
         return page;
     }

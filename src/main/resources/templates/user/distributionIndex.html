@@ -62,9 +62,9 @@
 		<table id="dataList" class="table table-bordered table-striped table-hover dataTable">
 			<thead>
 			<tr>
-				<th class="" style="padding-right:0px">
+				<!--<th class="" style="padding-right:0px">
 					<input id="selall" type="checkbox" class="icheckbox_square-blue">
-				</th>
+				</th>-->
 				<th class="sorting_asc">id</th>
 				<th class="sorting">雇佣人</th>
 				<th class="sorting">雇佣标题</th>
@@ -170,7 +170,8 @@
 					<tr>
 						<td>派单状态</td>
 						<td >
-							<select id="statusId"  class="form-control" >
+							<input type="hidden" id="statuHidde" />
+							<select id="statusId"  class="form-control" th:onchange="changeStatus()"  >
 								<option th:each="dis : ${distributionStatuses}" th:value="${dis.id}" th:text="${dis.statusName}"></option>
 							</select>
 						</td>

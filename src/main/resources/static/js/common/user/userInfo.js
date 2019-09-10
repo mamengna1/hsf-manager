@@ -52,7 +52,7 @@ function search(currentPage, isDelete) {
             $("#theBody").append("<tr>\n" +
                 "<input type='hidden' name='openId' value='" + res.list[i].openId + "'/>" +
                 "<td class=\"\" style=\"padding-right:0px\">\n" +
-                "     <input id=\"selall\" type=\"checkbox\" class=\"icheckbox_square-blue\">\n" +
+                "     <input id=\"selall\" type=\"checkbox\" class=\"icheckbox_square-blue\" name='checkbox'>\n" +
                 "</td>" +
                 "<td>" + res.list[i].id + "</td>\n" +
                 "<td>" +

@@ -15,7 +15,7 @@ function searchCommission(currentPage,backStatusId,userName) {
             var shi = (data.list[i].money-sui).toFixed(2);
             var comment = data.list[i].comment == null ? '' : data.list[i].comment
             $("#theBody").append("<tr>" +
-                "<td><input type=\"checkbox\" class='userCheck'/></td>" +
+                "<td><input type=\"checkbox\" class='userCheck'  name='checkbox' /></td>" +
                 "<td id='uid'>" + data.list[i].id + "</td>" +
                 "<td id='user'>" +
                 "<a id='openIds' href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\"  onclick='selUserByOpenId(\""+data.list[i].openId+"\")'>"+ data.list[i].openId+"</a>" +

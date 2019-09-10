@@ -60,7 +60,6 @@ public class CashBackController {
             o = openId;
         }
         int total = cashBackService.selTotalCount(backStatusId,o,userName);
-        System.out.println("total :"+ total);
         Page page = new Page();
         page.setPageSize(10);
         page.setPageCurrentNo(pageCurrentNo);
@@ -74,7 +73,7 @@ public class CashBackController {
                 CashBack cashBack = new CashBack();
                 cashBack.setId( cashBacks.get(i).getId());
                 cashBack.setUserName(cashBacks.get(i).getUserName());
-                int i1 = cashBackService.updateCashBack(cashBack);
+                cashBackService.updateCashBack(cashBack);
             }
         }
 

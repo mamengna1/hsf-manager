@@ -50,6 +50,12 @@
 				</div>
 			</div>
 		</div>
+		<div class="box-tools pull-right">
+			<div class="has-feedback">
+				用户昵称：<input  type="text" name="userName" id="userName">
+				<button class="btn btn-default"  onclick="searchCash()">查询</button>
+			</div>
+		</div>
 		<!--工具栏/-->
 		<input type="hidden" th:value="${openId}" id="openId1">
 		<!--数据列表-->
@@ -57,7 +63,7 @@
 			<thead>
 			<tr>
 				<th class="" style="padding-right:0px">
-					<input id="selall" type="checkbox" class="icheckbox_square-blue">
+					<input id="selall" type="checkbox" class="icheckbox_square-blue"  name="checkall">
 				</th>
 				<th class="sorting_asc">id</th>
 				<th class="sorting">昵称</th>
@@ -225,4 +231,5 @@
 </body>
 
 
+<script type="text/javascript" src="/manager/js/common/utils/checkBoxUtil.js"></script>  <!--全选与全不选-->
 </html>

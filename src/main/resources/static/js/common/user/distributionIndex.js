@@ -27,7 +27,7 @@ function searchDistribution(currentPage,statusId) {
                 $("#reason").show()
             }
             $("#theBody").append("<tr>" +
-                "<td><input type=\"checkbox\" class='userCheck'/></td>" +
+               /* "<td><input type=\"checkbox\" class='userCheck'/></td>" +*/
                 "<td>" + data.list[i].id + "</td>" +
                 "<td>" +
                 "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#guYongModal\"  onclick='selResById(\""+data.list[i].userRelease.id+"\")'>"+ data.list[i].userRelease.nickName+"</a>" +
@@ -244,13 +244,13 @@ function delDetailById(id) {
      */
     function updDelById(id) {
         $.getJSON("/manager/distribution/updDelById",{"id" :id},function (data) {
-            $("#id,#distName,#sfName,#statusId,#refusedMessage").val("")
+            $("#id,#distName,#sfName,#statusId,#refusedMessage,#statuHidde").val("")
             $("#id").val(data.id)
             $("#distName").val(data.userRelease.nickName)
             $("#sfName").val(data.userDetail.name)
             $("#statusId").val(data.statusId)
             $("#refusedMessage").val(data.refusedMessage)
-
+            $("#statuHidde").val(data.statusId)
         })
     }
 
@@ -313,3 +313,21 @@ function selShifuById(id) {
 function returnDis() {
     location.href="/manager/userMaster/selMaster?statusId=-1";
 }
+
+/**
+ * 状态下拉改变触发事件
+ */
+/*
+function changeStatus(){
+    //获取被选中的option标签
+    var vs = $('#statusId  option:selected').val();
+    var statusId = $("#statuHidde").val();
+    if(statusId == 1){   //当数据库中的状态为1 时
+        if(vs !=1 || vs != 2){
+            alert("您只能选择新订单 或接单")
+        }
+    }else if(statusId == 2){  //已接单
+
+    }
+
+}*/
