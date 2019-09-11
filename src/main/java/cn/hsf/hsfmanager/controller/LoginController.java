@@ -47,6 +47,7 @@ public class LoginController {
             request.getSession().setAttribute("admin",checkLogin);
             return "redirect:/index";
         }else{
+            request.getSession().setAttribute("message","用户名或密码不正确");
             return "login";
         }
     }
@@ -76,26 +77,6 @@ public class LoginController {
         return "index";
     }
 
-    /**
-     * 执行登陆
-     * @param session
-     * @param request
-     * @return
-     */
-    @RequestMapping("/backDoLogin")
-    public String doLogin(@RequestParam("userCode") String userName, @RequestParam("userPassword") String password,
-                          HttpSession session, HttpServletRequest request){
-        Admin admin = new Admin(userName,password);
-        Admin checkLogin = adminService.checkLogin(admin);
-        if(checkLogin !=null ){
-            request.getSession().setAttribute("admin",checkLogin);
-            return "redirect:/index";
-        }else{
-            request.setAttribute("message","用户名或密码不正确");
-            return "login";
-        }
-
-    }
 
     /**
      * 用户注销

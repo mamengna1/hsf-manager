@@ -1,121 +1,68 @@
+
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE">
-	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
-	<title>后台管理系统登录页面</title>
-	 <link rel="icon" href="/manager/assets/img/favicon.ico">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<!-- Meta, title, CSS, favicons, etc. -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
+	<title>后台管理系统</title>
 
-    <link rel="stylesheet" type="text/css" href="/manager/css/webbase.css" />
-    <link rel="stylesheet" type="text/css" href="/manager/css/pages-login-manage.css" />
+	<!-- Bootstrap -->
+	<link rel="stylesheet" type="text/css" href="/manager/loginCss/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="/manager/loginCss/font-awesome.min.css" />
+	<link rel="stylesheet" type="text/css" href="/manager/loginCss/nprogress.css" />
+	<!-- Animate.css -->
+	<link href="https://colorlib.com/polygon/gentelella/css/animate.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="/manager/loginCss/custom.min.css" />
+	<link rel="stylesheet" href="/manager/plugins/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/manager/plugins/adminLTE/css/AdminLTE.css">
+	<link rel="stylesheet" href="/manager/plugins/adminLTE/css/skins/_all-skins.min.css">
+	<link rel="stylesheet" href="/manager/css/style.css">
+
+	<script src="/manager/plugins/jQuery/jquery-2.2.3.min.js"></script>
+	<script src="/manager/plugins/jQueryUI/jquery-ui.min.js"></script>
+	<script src="/manager/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+	<script src="/manager/plugins/adminLTE/js/app.min.js"></script>
+	<!-- Custom Theme Style -->
 </head>
 
-<body>
+<body class="login">
+<div>
+	<a class="hiddenanchor" id="signup"></a>
+	<a class="hiddenanchor" id="signin"></a>
 
-
-	<div class="loginmanage">
-		<div class="py-container">
-			<h4 class="manage-title">好师傅后台管理平台</h4>
-			<div class="loginform">
-
-				<ul class="sui-nav nav-tabs tab-wraped">
-					<li>
-						<a href="#index" data-toggle="tab">
-							<h3>扫描登录</h3>
-						</a>
-					</li>
-					<li class="active">
-						<a href="#profile" data-toggle="tab">
-							<h3>账户登录</h3>
-						</a>
-					</li>
-				</ul>
-				<div class="tab-content tab-wraped">
-					<div id="index" class="tab-pane">
-						<p>二维码登录，暂为中蓝公众号二维码</p>
-						<img src="http://java.86blue.cn/images/manager/qrCode.jpg" />
+	<div class="login_wrapper">
+		<div class="animate form login_form">
+			<section class="login_content">
+				<form action="/manager/checkAdmin" method="post">
+					<h1>后台管理系统</h1>
+					<div>
+						<input type="text" class="form-control" name="userName" placeholder="请输入用户名" required="" />
 					</div>
-					<div id="profile" class="tab-pane  active">
-						<form class="sui-form">
-							<div class="input-prepend"><span class="add-on loginname"></span>
-								<input id="prependedInput"  name ="userName" type="text" placeholder="邮箱/用户名/手机号" class="span2 input-xfat">
-							</div>
-							<div class="input-prepend"><span class="add-on loginpwd"></span>
-								<input id="prependedInput"  name ="password" type="password" placeholder="请输入密码" class="span2 input-xfat">
-							</div>
-							<!--<div class="setting">
-								 <div id="slider">
-									<div id="slider_bg"></div>
-									<span id="label">>></span> <span id="labelTip">拖动滑块验证</span>
-									</div>
-							</div>-->
-							<div class="logined">
-							<!--	<a class="sui-btn btn-block btn-xlarge btn-danger"target="_blank" >登&nbsp;&nbsp;录</a>-->
-								<input class="sui-btn btn-block btn-xlarge btn-danger"target="_blank" id="btn" type="button" value="登&nbsp;&nbsp;录"/>
-							</div>
-						</form>
-
+					<div>
+						<input type="password" class="form-control" name="password" placeholder="请输入密码" required="" />
 					</div>
-				</div>
-			</div>
-			<div class="clearfix"></div>
+					<span> [[${message}]]</span>
+					<div>
+						<button type="submit" class="btn btn-success">登     录</button>
+						<button type="reset" class="btn btn-default">重　填</button>
+					</div>
+
+					<div class="clearfix"></div>
+
+					<div class="separator">
+						<div>
+							<p>©2019 All Rights Reserved. </p>
+						</div>
+					</div>
+				</form>
+			</section>
 		</div>
 	</div>
-
-
-	<!--foot-->
-	<div class="py-container copyright">
-		<ul>
-			<li>关于我们</li>
-			<li>联系我们</li>
-			<li>联系客服</li>
-			<li>商家入驻</li>
-			<li>营销中心</li>
-			<li>手机品优购</li>
-			<li>销售联盟</li>
-			<li>好师傅社区</li>
-		</ul>
-		<div class="address">地址：浙江省宁波市鄞州区诚信路955号九五九电商园B幢202室</div>
-		<div class="beian">aaaaaaaaaaaaaaaaa
-		</div>
-	</div>
-
-
-<script type="text/javascript" src="/manager/js/plugins/jquery/jquery.min.js"></script>
-<script type="text/javascript" src="/manager/js/plugins/sui/sui.min.js"></script>
-<script type="text/javascript" src="/manager/js/plugins/jquery-placeholder/jquery.placeholder.min.js"></script>
-<script src="/manager/js/pages/jquery.slideunlock.js"></script>
-<script>
-	/*$(function(){
-		var slider = new SliderUnlock("#slider",{
-				successLabelTip : "欢迎访问后台界面"	
-			},function(){
-				// alert("验证成功,即将跳转至首页");
-			window.location.href="/user/index"
-        	});
-        slider.init();
-	})*/
-	/*function checkLogin() {
-		var userName = $("[name=userName]").val();
-		var password = $("[name=password]").val();
-		$.getJSON("/checkAdmin",{"userName":userName,"password":password},function (data) {
-			if(data ==true){
-				window.location.href="/user/index"
-			}else{
-				window.location.href="/loginCss"
-			}
-		})
-	}*/
-
-	$("#btn").click(function () {
-		var userName = $("[name=userName]").val();
-		var password = $("[name=password]").val();
-		window.location.href="/manager/checkAdmin?userName="+userName+"&password="+password;
-	})
-	</script>
+</div>
 </body>
-
 </html>
