@@ -9,11 +9,13 @@ import cn.hsf.hsfmanager.service.user.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -75,6 +77,27 @@ public class LoginController {
     }
 
     /**
+     * 执行登陆
+     * @param session
+     * @param request
+     * @return
+     */
+    @RequestMapping("/backDoLogin")
+    public String doLogin(@RequestParam("userCode") String userName, @RequestParam("userPassword") String password,
+                          HttpSession session, HttpServletRequest request){
+        Admin admin = new Admin(userName,password);
+        Admin checkLogin = adminService.checkLogin(admin);
+        if(checkLogin !=null ){
+            request.getSession().setAttribute("admin",checkLogin);
+            return "redirect:/index";
+        }else{
+            request.setAttribute("message","用户名或密码不正确");
+            return "login";
+        }
+
+    }
+
+    /**
      * 用户注销
      */
     @RequestMapping("/loginOut")
@@ -109,4 +132,9 @@ public class LoginController {
         }
         return  map;
     }
+
+   /* @RequestMapping("/a")
+    public String goA(){
+        return "a";
+    }*/
 }

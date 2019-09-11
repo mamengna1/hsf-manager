@@ -28,8 +28,8 @@ function searchCustomer(currentPage,isSub,detailId,userName) {
                 "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\"  onclick='selUserByOpenId(\""+data.list[i].userParent+"\")'>"+ userParent+"</a>" +
                 "</td>" +
                 "<td>" +
-                "<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" data-toggle=\"modal\" data-target=\"#updateModal\" onclick='selUserById("+data.list[i].id+")'>修改</a>" +
-                "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\"  onclick='goScore(\""+data.list[i].openId+"\")'>积分来源</a>" +
+                "<a href='javascript:void(0)'  class=\"btn btn-xs btn-warning\" data-toggle=\"modal\" data-target=\"#updateModal\" onclick='selUserById("+data.list[i].id+")'>修改</a>" +
+                "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn btn-xs btn-info \"  onclick='goScore(\""+data.list[i].openId+"\")'>积分来源</a>" +
                 "</td>" +
                 "</tr>")
         }

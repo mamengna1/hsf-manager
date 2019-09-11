@@ -29,8 +29,8 @@ function searchCustomer(currentPage,names,statusId,lineStatus) {
                 "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#detailModal\"  onclick='selUserDetailById(\""+data.list[i].id+"\")'>"+ data.list[i].name+"</a>" +
                 "</td>" +
                 "<td>" + data.list[i].card + "</td>" +
-                "<td><img src='"+  data.list[i].cardOne +"' width='50px' height='50px'/></td>" +
-                "<td><img src='"+  data.list[i].cardTwo +"' width='50px' height='50px'/></td>" +
+                "<td><img src='"+  data.list[i].cardOne +"' width='50px' height='50px' onclick='showBig(this)'/></td>" +
+                "<td><img src='"+  data.list[i].cardTwo +"' width='50px' height='50px' onclick='showBig(this)'/></td>" +
                 "<td>" + workArea+"</td>" +
                 "<td>" +message+"</td>" +
                 "<td>" + updTime+"</td>" +
@@ -38,7 +38,7 @@ function searchCustomer(currentPage,names,statusId,lineStatus) {
                 "<td>" +lineStatus+"</td>" +
                 "<td>" +
                 "<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\"  onclick='goUserMasterShow("+data.list[i].id+")'>查看</a>" +
-                "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\"  onclick='updDetail("+data.list[i].id+")'>修改</a>" +
+                "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn btn-xs btn-warning\"  onclick='updDetail("+data.list[i].id+")'>修改</a>" +
                 "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn btn-xs btn-info\" data-toggle=\"modal\" data-target=\"#auditModal\"  onclick='selAudit("+data.list[i].id+")' style=\"" + ((a ==1 || a == 2) ? '' : 'display:none;') + "\" >已审核</a>" +
                 "<a href='javascript:void(0)'  class=\"btn btn-xs bg-gray\" data-toggle=\"modal\" data-target=\"#auditModal\"  onclick='selAudit("+data.list[i].id+")' style=\"" + ((a == 0 || a == 3) ? '' : 'display:none;') + "\" >未审核</a>" +
                 "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\"  onclick='goDistributionIndex("+data.list[i].id+")'>接单记录</a>" +
@@ -46,7 +46,6 @@ function searchCustomer(currentPage,names,statusId,lineStatus) {
                 "</tr>")
 
         }
-
 
         $("#total").html(data.totalCount);
         $("#totalPages").html(data.totalPages);
@@ -56,8 +55,17 @@ function searchCustomer(currentPage,names,statusId,lineStatus) {
     }
 }
 
+function showBig(btn){
+    $("#showBig img").attr("src", $(btn).attr("src"));
+    $("#showBig").show();
+}
+function myhide(){
+    $("#showBig").hide();
+}
+
 //初始化加载数据
 $(function () {
+    $("#showBig").hide();
     statusId = $("#statusId").val();
     searchCustomer(currentPage,names,statusId,lineStatus);
     //首页

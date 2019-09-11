@@ -41,8 +41,8 @@ function searchRelease(currentPage,state,mark) {
                 "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#shifuModal\"  onclick='selShifuById(\""+data.list[i].receiveId+"\")'>"+ receiveId+"</a>" +
                 "<td>" +
                 "<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" onclick='goShowUserRelease("+data.list[i].id+")'>查看</a>" +
-                "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" onclick='goUpdUserRelease("+data.list[i].id+")'>修改</a>" +
-                "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" data-toggle=\"modal\" data-target=\"#updateModal\" onclick='gopaidan("+data.list[i].id+")' style=\"" + ((a ==0  || a ==1) ? '' : 'display:none;')+"\">派单</a>" +
+                "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn btn-xs btn-warning\" onclick='goUpdUserRelease("+data.list[i].id+")'>修改</a>" +
+                "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn btn-xs btn-info\" data-toggle=\"modal\" data-target=\"#updateModal\" onclick='gopaidan("+data.list[i].id+")' style=\"" + ((a ==0  || a ==1) ? '' : 'display:none;')+"\">派单</a>" +
                 "</td>" +
                 "</tr>")
         }

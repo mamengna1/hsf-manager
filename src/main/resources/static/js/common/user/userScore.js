@@ -43,8 +43,8 @@ function searchUserScore(currentPage,scoreSourceId,userName) {
                 "<td>" + createDate+ "</td>" +
                 "<td>" + data.list[i].note+ "</td>" +
                 "<td>" +
-                "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#updateModal\" class=\"btn bg-olive btn-xs\" onclick='goUpdScore("+data.list[i].id+")'>修改</a>" +
-                "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" onclick='delScoreById("+data.list[i].id+")'>删除</a>" +
+                "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#updateModal\" class=\"btn btn-xs btn-warning\" onclick='goUpdScore("+data.list[i].id+")'>修改</a>" +
+                "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn btn-xs btn-danger\" onclick='delScoreById("+data.list[i].id+")'>删除</a>" +
                 "</td>" +
                 "</tr>")
 

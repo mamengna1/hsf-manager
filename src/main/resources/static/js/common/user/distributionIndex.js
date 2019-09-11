@@ -42,8 +42,8 @@ function searchDistribution(currentPage,statusId) {
                 "<td>" + updateTime+ "</td>" +
                 "<td>" +
                 "<a href='javascript:void(0)' data-toggle=\"modal\" data-target=\"#updateModal\"  class=\"btn bg-olive btn-xs\" onclick='updDelById("+data.list[i].id+")'>修改</a>" +
-                "&nbsp; &nbsp;  <a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" onclick='delDetailById("+data.list[i].id+")'>删除</a>" +
-                "&nbsp; &nbsp;  <a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" onclick='confirmAll("+data.list[i].id+")' style=\"" + ((a ==7 ) ? '' : 'display:none;')+"\" >确认完工</a>" +
+                "&nbsp; &nbsp;  <a href='javascript:void(0)'  class=\"btn btn-xs btn-danger\" onclick='delDetailById("+data.list[i].id+")'>删除</a>" +
+                "&nbsp; &nbsp;  <a href='javascript:void(0)'  class=\"btn btn-xs btn-success\" onclick='confirmAll("+data.list[i].id+")' style=\"" + ((a ==7 ) ? '' : 'display:none;')+"\" >确认完工</a>" +
                 "</td>" +
                 "</tr>")
         }

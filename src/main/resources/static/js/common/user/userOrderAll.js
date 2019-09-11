@@ -26,8 +26,8 @@ function searchUserOrder(currentPage,commentTypeId) {
                 "</td>" +
                 "<td>" + commentTime+ "</td>" +
                 "<td>" +
-                "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#updOrderModal\" class=\"btn bg-olive btn-xs\" onclick='goUpdOrder("+data.list[i].id+")'>修改</a>" +
-                "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" onclick='delUserOrder("+data.list[i].id+")'>删除</a>" +
+                "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#updOrderModal\" class=\"btn btn-xs btn-warning\" onclick='goUpdOrder("+data.list[i].id+")'>修改</a>" +
+                "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn btn-xs btn-danger\" onclick='delUserOrder("+data.list[i].id+")'>删除</a>" +
                 "</td>" +
                 "</tr>")
 
