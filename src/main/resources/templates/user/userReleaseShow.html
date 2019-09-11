@@ -25,73 +25,70 @@
 
     <div class="box-body">
         <form action="/manager/userDetail/updUserRelease" method="post" enctype="multipart/form-data" id="myForm">
-            <input type="hidden" name="id" id="id" th:value="${userRelease.id}" readonly>
+            <input type="hidden" name="id" id="id" th:value="${userRelease.id}"  readonly>
             <!--表单内容-->
             <div class="row data-type">
                 <div class="col-md-2 title">昵称</div>
                 <div class="col-md-10 data">
-                    <input type="text" name="nickName" id="nickName" th:value="${userRelease.nickName}" readonly/>
+                    <input type="text" name="nickName" id="nickName" th:value="${userRelease.nickName}" class="form-control" readonly/>
                 </div>
                 <div class="col-md-2 title">雇佣标题</div>
                 <div class="col-md-10 data">
-                    <input type="text" name="title" id="title" th:value="${userRelease.title}" readonly/>
+                    <input type="text" name="title" id="title" th:value="${userRelease.title}"class="form-control" readonly/>
                 </div>
                 <div class="col-md-2 title">手机号</div>
                 <div class="col-md-10 data">
-                    <input type="text" name="phone" id="phone" th:value="${userRelease.phone}" readonly/>
+                    <input type="text" name="phone" id="phone" th:value="${userRelease.phone}" class="form-control" readonly/>
                 </div>
                 <div class="col-md-2 title">居住地区</div>
                 <div class="col-md-10 data">
-                    <table>
+                   <!-- <table>
                         <tr>
                             <td>
-                                <select name="serviceProvince" id="placeProvince" class="select1" onchange="chooseProvince(this)" disabled="true">
+                                <select name="serviceProvince" id="placeProvince" class="select1" onchange="chooseProvince(this)"  disabled="true">
                                         <option value="-1">选择省</option>
                                 </select>
 
                             </td>
                             <td>
-                                <select  name="serviceCity" id="placeCity" class="select1" onChange="chooseCity(this)" disabled="true">
+                                <select  name="serviceCity" id="placeCity" class="select1" onChange="chooseCity(this)"  disabled="true">
                                         <option value="-1">选择市</option>
                                 </select>
 
                             </td>
                             <td>
-                                <select  name="serviceArea" id="placeArea" class="select1" disabled="true">
+                                <select  name="serviceArea" id="placeArea" class="select1" disabled="true" >
                                         <option value="-1">选择区县</option>
                                 </select>
                             </td>
                         </tr>
-                    </table>
-
+                    </table>-->
+                    <input type="text" id="worksArea" name="workArea" class="form-control" readonly>
                 </div>
                 <div class="col-md-2 title">详细地址</div>
                 <div class="col-md-10 data">
-                    <input type="text" name="serverDetail" id="serverDetail" th:value="${userRelease.serverDetail}" readonly />
+                    <input type="text" name="serverDetail" id="serverDetail" th:value="${userRelease.serverDetail}" class="form-control" readonly />
                 </div>
-                <div class="col-md-2 title">需求</div>
-                <div class="col-md-10 data">
-                    <input type="text" name="demand" id="demand" th:value="${userRelease.demand}" readonly />
+                <div class="col-md-2 title" style=" height: 200px;">需求</div>
+                <div class="col-md-10 data" style=" height: 200px;">
+                  <!--  <input type="text" name="demand" id="demand" th:value="${userRelease.demand}" class="form-control"  readonly />-->
+                    <textarea name="demand" id="demand" style=" height: 170px;width: 463px; resize: none"   class="form-control" readonly></textarea>
                 </div>
 
                 <div class="col-md-2 title">预约时间</div>
                 <div class="col-md-10 data">
-                    <input type="date" name="appointTimes" id="appointTime" readonly />
+                    <input type="date" name="appointTimes" id="appointTime" class="form-control" readonly />
                 </div>
 
                 <div class="col-md-2 title" >接单师傅</div>
                 <div class="col-md-10 data" >
-                    <div class="input-group">
-
-                        <input type="text" name="receiveId" id="userDetailId"  th:value="${userRelease.receiveId}" readonly/>
-                        <!--<input type="button" value="更改"  id="gengGai"/>-->
-                    </div>
+                    <input type="text" name="receiveId" id="userDetailId"  th:value="${userRelease.receiveId}" class="form-control" readonly/>
                 </div>
                 <div  style="display: none">
                     <table>
                         <tr>
                             <td>
-                                <select name="workProvince" id="workProvince" class="select1" onchange="chooseProvince2(this)">
+                                <select name="workProvince" id="workProvince" class="select1" onchange="chooseProvince2(this)" >
                                         <option value="-1">选择省</option>
                                 </select>
 
@@ -113,24 +110,24 @@
                 </div>
                 <div class="col-md-2 title">会员类型</div>
                 <div class="col-md-10 data">
-                    <input type="text" th:if="${user.memberType == 0 }" value="普通会员" readonly />
-                    <input type="text"  th:if="${user.memberType == 1 }" value="vip会员" readonly />
+                    <input type="text" th:if="${user.memberType == 0 }" value="普通会员" class="form-control" readonly />
+                    <input type="text"  th:if="${user.memberType == 1 }" value="vip会员" class="form-control" readonly />
                 </div>
                 <div class="col-md-2 title">累计充值</div>
                 <div class="col-md-10 data">
-                    <input type="text" th:value="${user.totalMoney}" readonly />
+                    <input type="text" th:value="${user.totalMoney}" class="form-control" readonly />
                 </div>
                 <div class="col-md-2 title">账户余额</div>
                 <div class="col-md-10 data">
-                    <input type="text" th:value="${user.balanceMoney}" readonly />
+                    <input type="text" th:value="${user.balanceMoney}" class="form-control" readonly />
                 </div>
                 <div class="col-md-2 title">总积分</div>
                 <div class="col-md-10 data">
-                    <input type="text" th:value="${user.totalScore}" readonly />
+                    <input type="text" th:value="${user.totalScore}" class="form-control" readonly />
                 </div>
                 <div class="col-md-2 title">剩余积分</div>
                 <div class="col-md-10 data">
-                    <input type="text" th:value="${user.balanceScore}" readonly />
+                    <input type="text" th:value="${user.balanceScore}" class="form-control" readonly />
                 </div>
                 <div class="col-md-10 data" style="width:100%;"></div>
 
@@ -143,6 +140,8 @@
 </section>
 <script src="/manager/js/common/utils/area.js"></script>
 <script src="/manager/js/common/user/userReleaseUpd.js"></script>
+<script src="/manager/js/common/user/userReleaseShow.js"></script>
+
 </body>
 
 </html>

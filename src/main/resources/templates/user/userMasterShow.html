@@ -27,82 +27,98 @@
         <form action="/manager/userMaster/insUserDetail" method="post" enctype="multipart/form-data" id="myForm">
             <!--表单内容-->
             <div class="row data-type">
-                <input type="hidden" name="openId" th:value="${user.openId}" readonly>
-                <input type="hidden" name="id" id="id" th:value="${user.detailId}" readonly>
+                <input type="hidden" name="openId" th:value="${user.openId}" class="form-control" readonly>
+                <input type="hidden" name="id" id="id" th:value="${user.detailId}" class="form-control" readonly>
                 <div class="col-md-2 title">真实姓名</div>
                 <div class="col-md-10 data">
-                    <input type="text" name="name" id="name" readonly/>
+                    <input type="text" name="name" id="name" class="form-control" readonly/>
                 </div>
                 <div class="col-md-2 title">身份证号</div>
                 <div class="col-md-10 data">
-                    <input type="text" name="card" id="card" readonly/>
+                    <input type="text" name="card" id="card" class="form-control" readonly/>
                 </div>
 
                 <div class="col-md-2 title">居住地区</div>
                 <div class="col-md-10 data">
-                   <input type="text" id="placeArea" name="placeArea" readonly>
+                   <input type="text" id="placeArea" name="placeArea" class="form-control" readonly>
                 </div>
 
 
                 <div class="col-md-2 title" >技能</div>
                 <div class="col-md-10 data" >
-                   <input type="text" name="skills" id="skills" readonly>
+                   <input type="text" name="skills" id="skills"class="form-control" readonly>
                 </div>
                 <div class="col-md-2 title">工作地区</div>
                 <div class="col-md-10 data">
-                    <input type="text" id="workArea" name="workArea" readonly>
+                    <input type="text" id="workArea" name="workArea" class="form-control" readonly>
                 </div>
 
 
                 <div class="col-md-2 title">详细地址</div>
                 <div class="col-md-10 data">
-                    <input type="text" name="address" id="address"/>
+                    <input type="text" name="address" id="address" class="form-control" readonly/>
                 </div>
                 <div class="col-md-2 title">工作年限</div>
                 <div class="col-md-10 data">
-                    <input type="text" id="workYear2" name="workYear2" readonly>
+                    <input type="text" id="workYear2" name="workYear2" class="form-control" readonly>
                 </div>
                 <div class="col-md-2 title">手机号</div>
                 <div class="col-md-10 data">
-                    <input type="text" name="phone" th:value="${user.phone}" id="phone" readonly/>
+                    <input type="text" name="phone" th:value="${user.phone}" class="form-control"  id="phone" readonly/>
                 </div>
-                <div class="col-md-2 title" style="height:180px;">账目</div>
+                <div class="col-md-2 title">累计充值</div>
+                <div class="col-md-10 data">
+                    <input type="text" name="phone" th:value="${user.totalMoney}" class="form-control" readonly/>
+                </div>
+                <div class="col-md-2 title">账户余额</div>
+                <div class="col-md-10 data">
+                    <input type="text" name="phone" th:value="${user.balanceMoney}"  class="form-control" readonly/>
+                </div>
+                <div class="col-md-2 title">总积分</div>
+                <div class="col-md-10 data">
+                    <input type="text" name="phone" th:value="${user.totalScore}"  class="form-control" readonly/>
+                </div>
+                <div class="col-md-2 title">剩余积分</div>
+                <div class="col-md-10 data">
+                    <input type="text" name="phone" th:value="${user.balanceScore}" class="form-control" readonly/>
+                </div>
+               <!-- <div class="col-md-2 title" style="height:180px;">账目</div>
                 <div class="col-md-10 data" style="height:180px;">
                     <table>
                         <tr>
                             <td>累计充值</td>
                             <td>
-                                <input type="number"  th:value="${user.totalMoney}" placeholder="累计充值"  readonly>
+                                <input type="text"  th:value="${user.totalMoney}" placeholder="累计充值" class="form-control" readonly>
                             </td>
                         </tr>
                         <tr>
                             <td>账户余额</td>
                             <td>
-                                <input type="number"  th:value="${user.balanceMoney}" placeholder="账户余额"  readonly>
+                                <input type="text"  th:value="${user.balanceMoney}" placeholder="账户余额" class="form-control" readonly>
                             </td>
                         </tr>
                         <tr>
                             <td>总积分</td>
                             <td>
-                              <input type="number"  th:value="${user.totalScore}" placeholder="总积分"  readonly>
+                              <input type="text"  th:value="${user.totalScore}" placeholder="总积分"  class="form-control" readonly>
                             </td>
                         </tr>
                         <tr>
                             <td>剩余积分</td>
                             <td>
-                                <input type="number"  th:value="${user.balanceScore}" placeholder="剩余积分"  readonly>
+                                <input type="text"  th:value="${user.balanceScore}" placeholder="剩余积分" class="form-control" readonly>
                             </td>
                         </tr>
 
                     </table>
-                </div>
+                </div>-->
                 <div class="col-md-2 title">总接单量</div>
                 <div class="col-md-10 data">
-                    <input type="text" name="totalOrder"  id="totalOrder" readonly/>
+                    <input type="text" name="totalOrder"  id="totalOrder" class="form-control" readonly/>
                 </div>
                 <div class="col-md-2 title">总拒单量</div>
                 <div class="col-md-10 data">
-                    <input type="text" name="totalRefuse"  id="totalRefuse" readonly/>
+                    <input type="text" name="totalRefuse"  id="totalRefuse" class="form-control" readonly/>
                 </div>
                 <div class="col-md-10 data" style="width:100%;"></div>
 

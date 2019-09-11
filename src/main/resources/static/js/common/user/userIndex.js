@@ -124,7 +124,8 @@ function saveUser() {
     var totalS = $("#totalS").val();   //奖励积分
     var sources = $("#sources").val();   //积分来源
     var source = $("#source").val();   //是否发送模板
-    $.getJSON("/manager/user/updateUser",{"id":id,"userType":userType,"phone":phone,"score":totalS,"sources":sources,"source":source},function (data) {
+    var note = $("#note").val();   //备注
+    $.getJSON("/manager/user/updateUser",{"id":id,"userType":userType,"phone":phone,"score":totalS,"sources":sources,"source":source,"note":note},function (data) {
         if(data == true){
             alert("修改成功")
             window.location.reload();

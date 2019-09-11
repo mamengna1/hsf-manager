@@ -58,7 +58,7 @@ public class UserController {
 
 
     /**
-     * 分页显示数据
+     * 分页显示数据 全部用户
      *
      * @param pageCurrentNo
      * @param isSub
@@ -84,7 +84,7 @@ public class UserController {
     }
 
     /**
-     * 分页显示数据
+     * 分页显示数据  新用户
      *
      * @param pageCurrentNo
      * @return
@@ -138,17 +138,19 @@ public class UserController {
     @ResponseBody
     public boolean updateUser(Integer id, Integer userType,@RequestParam(value = "phone",required = false,defaultValue = "") String phone,
                               @RequestParam(value = "score",required = false,defaultValue = "") Integer score,  @RequestParam(value = "sources",required = false,defaultValue = "")Integer sources,
-                              @RequestParam(value = "source",required = false,defaultValue = "")Integer source) {
+                              @RequestParam(value = "source",required = false,defaultValue = "")Integer source,@RequestParam(value = "note",required = false,defaultValue = "")String note) {
         User user1 = userService.selUserById(id);
-      ;
+
         if(score != 0){  //奖励积分不为0时插入积分记录表
-            userScoreSourceService.insScoreSource(new UserScoreSource(user1.getOpenId(),score,sources));
+            UserScoreSource userScoreSource = new UserScoreSource(user1.getOpenId(),score,sources);
+            userScoreSource.setNote(note);
+            userScoreSourceService.insScoreSource(userScoreSource);
         }
         if(userType == null || userType == 0){
             userType = 2;
         }
         //更新user表中的总积分剩余积分
-        int n =  userService.updateUserByOpenId(new User(user1.getOpenId(), userType,phone,Double.valueOf(score),Double.valueOf(score)));
+        int n =  userService.updateUser(new User(user1.getId(),phone,userType,Double.valueOf(score),Double.valueOf(score)));
         ScoreSourceType scoreSourceType = userScoreSourceService.selById(sources);
         if(source == 1){  //发送模板
             if(score >0){

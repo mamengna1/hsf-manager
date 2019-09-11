@@ -114,9 +114,8 @@ function searchPaiDanSkill() {
         skill = skills2;
     }
 
-    alert("最终skill : "+ skill)
 
-    searchPaiDan(currentPage,skill,serviceProvince,serviceCity,serviceArea)
+    searchPaiDan(currentPage,skill,serviceProvince,serviceCity,serviceArea,userReleaseId)
 }
 
 /**

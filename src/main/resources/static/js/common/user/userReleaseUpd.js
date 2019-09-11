@@ -5,6 +5,7 @@ $(function () {
         var newDate=/\d{4}-\d{1,2}-\d{1,2}/g.exec(appointTime)
         $("#appointTime").val(newDate)
 
+        $("#demand").val(res.demand);
         chooseProvince(res.serviceProvince);
         $("#placeProvince").val(res.serviceProvince);
         chooseCity(res.serviceCity);

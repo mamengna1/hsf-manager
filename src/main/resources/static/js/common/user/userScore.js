@@ -41,6 +41,7 @@ function searchUserScore(currentPage,scoreSourceId,userName) {
                 "</td>" +
                 "<td>" + biaoshi + "</td>" +
                 "<td>" + createDate+ "</td>" +
+                "<td>" + data.list[i].note+ "</td>" +
                 "<td>" +
                 "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#updateModal\" class=\"btn bg-olive btn-xs\" onclick='goUpdScore("+data.list[i].id+")'>修改</a>" +
                 "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" onclick='delScoreById("+data.list[i].id+")'>删除</a>" +
@@ -125,6 +126,7 @@ function goUpdScore(id) {
         $("#nickName2").val(data.user.nickName)
         $("#score").val(data.score)
         $("#scoreSourceId").val(data.scoreSourceId)
+        $("#note").val(data.note)
     })
 }
 
@@ -135,7 +137,8 @@ function saveScore() {
     var id = $("#ids").val();
     var score = $("#score").val();
     var scoreSourceId = $("#scoreSourceId").val();
-    $.getJSON("/manager/userScore/updScore",{"id":id,"score":score,"scoreSourceId":scoreSourceId},function (data) {
+    var note = $("#note").val();
+    $.getJSON("/manager/userScore/updScore",{"id":id,"score":score,"scoreSourceId":scoreSourceId,"note":note},function (data) {
         if(data == true){
             alert("修改成功")
             window.location.reload();
@@ -151,4 +154,33 @@ function saveScore() {
 function searchCash() {
     var name = $("#userName").val();
     searchUserScore(currentPage,scoreSourceId,name)
+}
+
+/**
+ * 批量删除
+ */
+function delUserScoreAll() {
+    var delUsers = document.getElementsByClassName("userCheck");
+    var j = 0;
+    var arrayId = new Array() ;
+
+    for (var i = 0; i <delUsers.length ; i++) {
+        if (delUsers[i].checked) {
+            var id = $(delUsers[i]).parent().next().html();
+            arrayId[j] = id
+            j++;
+        }
+    }
+    if(j ==0 ){
+        alert("您没有选择，删除失败")
+    }else{
+        $.getJSON("/manager/userScore/delUserScoreAll",{"ids":arrayId.toString()},function (data) {
+            if(data == true){
+                alert("批量删除成功！")
+                window.location.reload();
+            }else {
+                alert("批量删除失败！")
+            }
+        })
+    }
 }

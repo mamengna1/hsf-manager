@@ -11,6 +11,7 @@ public class UserScoreSource {
     private Integer scoreSourceId;   //积分来源
     private String sourceOpenId;   //来自分红的openId
     private Date createDate;
+    private String note;  //备注
 
     private ScoreSourceType scoreSourceType;  //积分来源
     private User user;  //用户表
@@ -48,6 +49,14 @@ public class UserScoreSource {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public ScoreSourceType getScoreSourceType() {

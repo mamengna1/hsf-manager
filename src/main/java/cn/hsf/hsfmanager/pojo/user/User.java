@@ -58,6 +58,14 @@ public class User {
         this.balanceScore = balanceScore;
     }
 
+    public User(Integer id, String phone, Integer memberType, Double totalScore, Double balanceScore) {
+        this.id = id;
+        this.phone = phone;
+        this.memberType = memberType;
+        this.totalScore = totalScore;
+        this.balanceScore = balanceScore;
+    }
+
     public User(String openId, Double totalScore, Double balanceScore) {
         this.openId = openId;
         this.totalScore = totalScore;

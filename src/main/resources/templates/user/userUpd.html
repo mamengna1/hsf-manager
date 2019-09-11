@@ -27,15 +27,15 @@
         <form action="/manager/userMaster/insUserDetail" method="post" enctype="multipart/form-data" id="myForm">
             <!--表单内容-->
             <div class="row data-type">
-                <input type="hidden" name="openId" th:value="${user.openId}">
-                <input type="hidden" name="id" id="id" th:value="${user.detailId}">
+                <input type="hidden" name="openId" th:value="${user.openId}" >
+                <input type="hidden" name="id" id="id" th:value="${user.detailId}" >
                 <div class="col-md-2 title">真实姓名</div>
                 <div class="col-md-10 data">
-                    <input type="text" name="name" id="name"/>
+                    <input type="text" name="name" id="name" class="form-control"/>
                 </div>
                 <div class="col-md-2 title">身份证号</div>
                 <div class="col-md-10 data">
-                    <input type="text" name="card" id="card" readonly/>
+                    <input type="text" name="card" id="card" class="form-control" readonly/>
                 </div>
 
                 <div class="col-md-2 title">居住地区</div>
@@ -43,19 +43,19 @@
                     <table>
                         <tr>
                             <td>
-                                <select name="placeProvince" id="placeProvince" class="select1" onchange="chooseProvince(this)">
+                                <select name="placeProvince" id="placeProvince" class="select1 form-control" onchange="chooseProvince(this)" >
                                         <option value="-1">选择省</option>
                                 </select>
 
                             </td>
                             <td>
-                                <select  name="placeCity" id="placeCity" class="select1" onChange="chooseCity(this)">
+                                <select  name="placeCity" id="placeCity" class="select1 form-control" onChange="chooseCity(this)" >
                                         <option value="-1">选择市</option>
                                 </select>
 
                             </td>
                             <td>
-                                <select  name="placeArea" id="placeArea" class="select1">
+                                <select  name="placeArea" id="placeArea" class="select1 form-control" >
                                         <option value="-1">选择区县</option>
                                 </select>
                             </td>
@@ -84,19 +84,19 @@
                     <table>
                         <tr>
                             <td>
-                                <select name="workProvince" id="workProvince" class="select1" onchange="chooseProvince2(this)">
+                                <select name="workProvince" id="workProvince" class="select1 form-control" onchange="chooseProvince2(this)" >
                                         <option value="-1">选择省</option>
                                 </select>
 
                             </td>
                             <td>
-                                <select  name="workCity" id="workCity" class="select1" onChange="chooseCity2(this)">
+                                <select  name="workCity" id="workCity" class="select1 form-control" onChange="chooseCity2(this)" >
                                         <option value="-1">选择市</option>
                                 </select>
 
                             </td>
                             <td>
-                                <select  name="workArea" id="workArea" class="select1">
+                                <select  name="workArea" id="workArea" class="select1 form-control" >
                                         <option value="-1">所有区县</option>
                                 </select>
                             </td>
@@ -108,26 +108,26 @@
 
                 <div class="col-md-2 title">详细地址</div>
                 <div class="col-md-10 data">
-                    <input type="text" name="address" id="address"/>
+                    <input type="text" name="address" id="address" class="form-control"/>
                 </div>
                 <div class="col-md-2 title">工作年限</div>
                 <div class="col-md-10 data">
-                    <select name="yearWorkId" id="yearWorkId" class="priceinput" style=" background:#fff;">
+                    <select name="yearWorkId" id="yearWorkId" class="priceinput form-control" style=" background:#fff;" >
                         <option value="-1">选择您的从业年限</option>
                         <option th:each="year : ${yearWorks}" th:value="${year.id}" th:text="${year.yearName}"></option>
                     </select>
                 </div>
                 <div class="col-md-2 title">手机号</div>
                 <div class="col-md-10 data">
-                    <input type="text" name="phone" th:value="${user.phone}" id="phone"/>
+                    <input type="text" name="phone" th:value="${user.phone}" id="phone" class="form-control"/>
                 </div>
                 <div class="col-md-2 title">总接单量</div>
                 <div class="col-md-10 data">
-                    <input type="text" name="totalOrder"  id="totalOrder" />
+                    <input type="text" name="totalOrder"  id="totalOrder" class="form-control" />
                 </div>
                 <div class="col-md-2 title">总拒单量</div>
                 <div class="col-md-10 data">
-                    <input type="text" name="totalRefuse"  id="totalRefuse" />
+                    <input type="text" name="totalRefuse"  id="totalRefuse" class="form-control" />
                 </div>
                 <div class="col-md-2 title" style="height:50px;">积分</div>
                 <div class="col-md-10 data" style="height:50px; display:inline-block;">

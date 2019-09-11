@@ -22,4 +22,7 @@ public interface UserScoreSourceMapper {
     int delScoreById(Integer id);
 
     UserScoreSource selUserScore(UserScoreSource userScoreSource);
+
+    int delUserScoreAll(Integer[] array);
+    List<UserScoreSource> selScoreByArray(Integer[] array);
 }

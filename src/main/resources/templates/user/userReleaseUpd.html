@@ -31,34 +31,34 @@
             <div class="row data-type">
                 <div class="col-md-2 title">昵称</div>
                 <div class="col-md-10 data">
-                    <input type="text" name="nickName" id="nickName" th:value="${userRelease.nickName}"/>
+                    <input type="text" name="nickName" id="nickName" th:value="${userRelease.nickName}" class="form-control"/>
                 </div>
                 <div class="col-md-2 title">雇佣标题</div>
                 <div class="col-md-10 data">
-                    <input type="text" name="title" id="title" th:value="${userRelease.title}"/>
+                    <input type="text" name="title" id="title" th:value="${userRelease.title}" class="form-control"/>
                 </div>
                 <div class="col-md-2 title">手机号</div>
                 <div class="col-md-10 data">
-                    <input type="text" name="phone" id="phone" th:value="${userRelease.phone}" />
+                    <input type="text" name="phone" id="phone" th:value="${userRelease.phone}"class="form-control" />
                 </div>
                 <div class="col-md-2 title">居住地区</div>
                 <div class="col-md-10 data">
                     <table>
                         <tr>
                             <td>
-                                <select name="serviceProvince" id="placeProvince" class="select1" onchange="chooseProvince(this)">
+                                <select name="serviceProvince" id="placeProvince" class="select1 form-control" onchange="chooseProvince(this)">
                                         <option value="-1">选择省</option>
                                 </select>
 
                             </td>
                             <td>
-                                <select  name="serviceCity" id="placeCity" class="select1" onChange="chooseCity(this)">
+                                <select  name="serviceCity" id="placeCity" class="select1 form-control" onChange="chooseCity(this)">
                                         <option value="-1">选择市</option>
                                 </select>
 
                             </td>
                             <td>
-                                <select  name="serviceArea" id="placeArea" class="select1">
+                                <select  name="serviceArea" id="placeArea" class="select1 form-control">
                                         <option value="-1">选择区县</option>
                                 </select>
                             </td>
@@ -68,23 +68,24 @@
                 </div>
                 <div class="col-md-2 title">详细地址</div>
                 <div class="col-md-10 data">
-                    <input type="text" name="serverDetail" id="serverDetail" th:value="${userRelease.serverDetail}" />
+                    <input type="text" name="serverDetail" id="serverDetail" th:value="${userRelease.serverDetail}" class="form-control" />
                 </div>
-                <div class="col-md-2 title">需求</div>
-                <div class="col-md-10 data">
-                    <input type="text" name="demand" id="demand" th:value="${userRelease.demand}" />
+                <div class="col-md-2 title" style=" height: 200px;">需求</div>
+                <div class="col-md-10 data" style=" height: 200px;">
+                <!--    <input type="text" name="demand" id="demand" th:value="${userRelease.demand}" />-->
+                    <textarea name="demand" id="demand" style=" height: 170px;width: 463px; resize: none"   class="form-control" ></textarea>
                 </div>
 
                 <div class="col-md-2 title">预约时间</div>
                 <div class="col-md-10 data">
-                    <input type="date" name="appointTimes" id="appointTime" />
+                    <input type="date" name="appointTimes" id="appointTime" class="form-control"/>
                 </div>
 
                 <div class="col-md-2 title" style="height:100px;">接单师傅</div>
                 <div class="col-md-10 data" style="height:100px;">
                     <div class="input-group">
 
-                        <input type="text" name="receiveId" id="userDetailId"  th:value="${userRelease.receiveId}" readonly/>
+                        <input type="text" name="receiveId" id="userDetailId"  th:value="${userRelease.receiveId}" class="form-control" readonly/>
                         <!--<input type="button" value="更改"  id="gengGai"/>-->
                     </div>
                 </div>

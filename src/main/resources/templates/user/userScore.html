@@ -46,7 +46,9 @@
 					<button type="button" class="btn btn-default" title="删除" onclick="searchUserScore(1,4)" ><i class="fa fa-trash-o"></i> 推广</button>
 					<button type="button" class="btn btn-default" title="新建"  onclick="searchUserScore(1,5)"  ><i class="fa fa-file-o"></i> 升级为师傅</button>
 					<button type="button" class="btn btn-default" title="新建"  onclick="searchUserScore(1,6)"  ><i class="fa fa-file-o"></i> 商家活动</button>
-					<button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"  ><i class="fa fa-refresh"></i> 刷新</button>
+					&nbsp;&nbsp;
+					<button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"  style="margin-left: 10px"><i class="fa fa-refresh"></i> 刷新</button>
+					<button type="button" class="btn btn-default" title="刷新" onclick="delUserScoreAll()"  ><i class="fa fa-refresh"></i> 批量删除</button>
 				</div>
 			</div>
 		</div>
@@ -73,6 +75,7 @@
 				<th class="sorting" id="fenhong">分红来源</th>
 				<th class="sorting">标识</th>
 				<th class="sorting">创建时间</th>
+				<th class="sorting">备注</th>
 				<th class="text-center">操作</th>
 			</tr>
 			</thead>
@@ -214,7 +217,12 @@
 							</select>
 						</td>
 					</tr>
-
+					<tr>
+						<td>备注</td>
+						<td >
+							<textarea name="note" id="note" placeholder="取消订单以及拒单填写（其他状态可不填）" style="margin:0px; height: 170px;width: 463px;resize: none;"></textarea>
+						</td>
+					</tr>
 
 				</table>
 

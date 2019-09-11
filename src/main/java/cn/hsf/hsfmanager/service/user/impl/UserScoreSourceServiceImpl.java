@@ -60,4 +60,14 @@ public class UserScoreSourceServiceImpl implements UserScoreSourceService {
     public UserScoreSource selUserScore(UserScoreSource userScoreSource) {
         return scoreSourceMapper.selUserScore(userScoreSource);
     }
+
+    @Override
+    public int delUserScoreAll(Integer[] array) {
+        return scoreSourceMapper.delUserScoreAll(array);
+    }
+
+    @Override
+    public List<UserScoreSource> selScoreByArray(Integer[] array) {
+        return scoreSourceMapper.selScoreByArray(array);
+    }
 }

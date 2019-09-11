@@ -7,7 +7,7 @@
 <mapper namespace="cn.hsf.hsfmanager.mapper.UserScoreSourceMapper">
 
     <insert id="insScoreSource" parameterType="cn.hsf.hsfmanager.pojo.user.UserScoreSource">
-        insert into `tb_user_score_source`(`openId`,`score`,`scoreSourceId`,`sourceOpenId`,`createDate`) values(#{openId},#{score},#{scoreSourceId},#{sourceOpenId},now())
+        insert into `tb_user_score_source`(`openId`,`score`,`scoreSourceId`,`sourceOpenId`,`createDate`,`note`) values(#{openId},#{score},#{scoreSourceId},#{sourceOpenId},now(),#{note})
     </insert>
 
    <select id="selById" resultType="cn.hsf.hsfmanager.pojo.user.ScoreSourceType" parameterType="int">
@@ -31,7 +31,7 @@
     </resultMap>
 
     <select id="selAllScore" resultMap="selScoreType">
-        select  `id`,`openId`,`score`,`scoreSourceId`,`sourceOpenId`,`createDate`,`userName` from  `tb_user_score_source`
+        select  `id`,`openId`,`score`,`scoreSourceId`,`sourceOpenId`,`createDate`,`userName` ,`note` from  `tb_user_score_source`
         <where>
             <if test="openId !=null and openId !='' ">
                and openId= #{openId}
@@ -59,11 +59,12 @@
             <if test="userName !=null and userName != ''">
                 and userName like concat('%',#{userName},'%')
             </if>
+
         </where>
     </select>
 
     <select id="selScoreById" resultMap="selScoreType" parameterType="int">
-       select  `id`,`openId`,`score`,`scoreSourceId`,`sourceOpenId`,`createDate`,`userName` from  `tb_user_score_source` where id = #{id}
+       select  `id`,`openId`,`score`,`scoreSourceId`,`sourceOpenId`,`createDate`,`userName` ,`note`from  `tb_user_score_source` where id = #{id}
    </select>
 
     <update id="updScore" parameterType="cn.hsf.hsfmanager.pojo.user.UserScoreSource">
@@ -78,6 +79,9 @@
             <if test="score != null and score!=''">
                 score=#{score},
             </if>
+            <if test="score == 0">
+                score= 0 ,
+            </if>
             <if test="scoreSourceId != null and scoreSourceId!=''">
                 scoreSourceId=#{scoreSourceId},
             </if>
@@ -86,6 +90,9 @@
             </if>
             <if test="userName != null and userName!=''">
                 userName=#{userName},
+            </if>
+            <if test="note != null and note!=''">
+                note=#{note},
             </if>
         </trim>
     </update>
@@ -116,5 +123,22 @@
                 userName=#{userName},
             </if>
         </where>
+    </select>
+
+    <delete id="delUserScoreAll"  parameterType="int">
+        delete  from `tb_user_score_source`
+        where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="selScoreByArray"  parameterType="int">
+         select  `id`,`openId`,`score`,`scoreSourceId`,`sourceOpenId`,`createDate`,`userName`,`note` from  `tb_user_score_source`
+        where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+     and `score` &gt; 0
     </select>
 </mapper>

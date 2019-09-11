@@ -91,7 +91,7 @@
 
 
 <!-- 编辑窗口 -->
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="top:-20%">
 	<div class="modal-dialog" >
 		<div class="modal-content">
 			<div class="modal-header">
@@ -163,9 +163,9 @@
 
 
 <!-- 编辑窗口 -->
-<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog" >
-		<div class="modal-content">
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="top:-20%">
+	<div class="modal-dialog"  >
+		<div class="modal-content"  >
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 				<h3 id="myModalLabel">修改用户信息</h3>
@@ -219,7 +219,9 @@
 							</select>
 							<input type="hidden" name="source" id="source" value="2"/>
 							&nbsp; <input type="radio" name="checkbox1" value="发送模板"  onclick="changeSou(1)" />发送模板
-							<input type="radio" name="checkbox1" value="不发送模板" onclick="changeSou(2)" checked="checked" />不发送模板
+							<input type="radio" name="checkbox1" value="不发送模板" onclick="changeSou(2)" checked="checked" />不发送模板<br/>
+							备注：
+							<textarea name="note" id="note" placeholder="违规操作原因（其他可选填）" style="margin:0px; height: 170px;width: 463px;resize: none;"></textarea>
 						</td>
 					</tr>
 				</table>

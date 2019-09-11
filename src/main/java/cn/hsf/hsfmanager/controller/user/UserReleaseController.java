@@ -81,4 +81,10 @@ public class UserReleaseController {
         int res = userReleaseService.delRelById(array);
         return res > 0 ? true : false;
     }
+
+    @RequestMapping("/selReleaseById")
+    @ResponseBody
+    public UserRelease selReleaseById(Integer id){
+        return  userReleaseService.selUserReleaseById(id);
+    }
 }

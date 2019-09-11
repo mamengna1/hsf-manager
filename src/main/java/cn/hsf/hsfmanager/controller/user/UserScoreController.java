@@ -1,8 +1,10 @@
 package cn.hsf.hsfmanager.controller.user;
 
 import cn.hsf.hsfmanager.pojo.user.ScoreSourceType;
+import cn.hsf.hsfmanager.pojo.user.User;
 import cn.hsf.hsfmanager.pojo.user.UserScoreSource;
 import cn.hsf.hsfmanager.service.user.UserScoreSourceService;
+import cn.hsf.hsfmanager.service.user.UserService;
 import cn.hsf.hsfmanager.util.Contents;
 import cn.hsf.hsfmanager.util.Page;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,8 @@ public class UserScoreController {
 
     @Resource
     private UserScoreSourceService userScoreSourceService;
+    @Resource
+    private UserService userService;
 
     /**
      * 进入积分信息列表
@@ -94,14 +98,58 @@ public class UserScoreController {
      */
     @RequestMapping("/updScore")
     @ResponseBody
-    public boolean updScore(Integer id,Integer score,Integer scoreSourceId){
+    public boolean updScore(Integer id,Integer score,Integer scoreSourceId,String note){
+        //修改积分表中的记录
         UserScoreSource userScoreSource = new UserScoreSource(id,Double.valueOf(score),scoreSourceId);
+        userScoreSource.setNote(note);
+        //修改用户表中的总积分和剩余积分
+        Double scoreOld = userScoreSourceService.selScoreById(id).getScore();   //原本的积分
+        Double scoreInput = Double.valueOf(score);   //用户输入的积分
+        Double scoreNew = 0.00;   // 最终的积分
+
+        if(scoreOld == Double.valueOf(score) && scoreOld.equals(Double.valueOf(score))){
+        }else{
+            scoreNew = scoreInput - scoreOld;
+            UserScoreSource userScore= userScoreSourceService.selScoreById(id);
+            userService.updateUserByOpenId(new User(userScore.getOpenId(),Double.valueOf(scoreNew),Double.valueOf(scoreNew)));
+        }
+
+
         return  userScoreSourceService.updScore(userScoreSource) > 0 ? true : false;
     }
 
+    /**
+     * 单个删除
+     * @param id
+     * @return
+     */
     @RequestMapping("/delScoreById")
     @ResponseBody
     public boolean delScoreById(Integer id){
         return  userScoreSourceService.delScoreById(id) > 0 ? true : false;
+    }
+
+    /**
+     * 批量删除
+     * @return
+     */
+    @RequestMapping("/delUserScoreAll")
+    @ResponseBody
+    public boolean delUserScoreAll(String ids){
+        String str[] = ids.split(",");
+        Integer array[] = new Integer[str.length];
+        for (int i = 0; i < str.length; i++) {
+            array[i] = Integer.parseInt(str[i]);
+        }
+        //如果删除的这条记录属于违规操作的，那么就把积分归还到原有的用户中
+       /* List<UserScoreSource> userScoreSources = userScoreSourceService.selScoreByArray(array);
+        if(userScoreSources.size() >0){
+            for (int i = 0; i < userScoreSources.size(); i++) {
+                System.out.println("userScoreSources : "+userScoreSources);
+            }
+        }
+*/
+        int res = userScoreSourceService.delUserScoreAll(array);
+        return res > 0 ? true : false;
     }
 }
