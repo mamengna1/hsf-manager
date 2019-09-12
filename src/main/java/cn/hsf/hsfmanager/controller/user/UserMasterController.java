@@ -59,7 +59,7 @@ public class UserMasterController {
                         @RequestParam(value = "names",required = false,defaultValue = "") String name,
                         @RequestParam(value = "statusId",required = false,defaultValue = "") Integer status,
                         @RequestParam(value = "lineStatus",required = false,defaultValue = "") Integer lineStatus){
-        if(lineStatus == 2){
+        if(lineStatus == 2 || lineStatus == null){
             lineStatus =0;
         }
         int total = userDetailService.selUserDetailTotal(name,status,lineStatus);

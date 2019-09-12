@@ -1,6 +1,6 @@
 function selUserByOpenId(openId) {
     $.getJSON("/manager/user/selUserByOpenId",{"openId":openId},function (data) {
-        $("#imageUrl,#openId,#nickName,#sex,#address,#userType,#phone,#totalMoney,#balanceMoney,#totalScore,#balanceScore,#lastLoginTime").html("");
+        $("#imageUrl,#openId,#nickName,#sex,#address,#userType,#phone,#totalMoney,#balanceMoney,#totalScore,#balanceScore,#lastLoginTime,#openId").html("");
         $("#imageUrl").attr("src",data.headPic);
         $("#nickName").append(data.nickName)
         var sex= data.sex == 1 ? "男" : "女";
@@ -13,6 +13,7 @@ function selUserByOpenId(openId) {
         $("#balanceMoney").append(data.balanceMoney)
         $("#totalScore").append(data.totalScore);
         $("#balanceScore").append(data.balanceScore);
+        $("#openId").append(data.openId)
         var date
         if(data.lastLoginTime == null ){
             data = '';

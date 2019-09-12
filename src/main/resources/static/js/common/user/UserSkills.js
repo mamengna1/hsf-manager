@@ -16,25 +16,28 @@ function skillAll(currentPage,parentId,flag) {
         for (var i = 0; i < data.list.length; i++) {
             $("#reflushFu").hide();
             $("#returnFu").hide();
-
+            var describes ;
             if(flag == true){
                 B[data.list[i].id] = data.list[i].skillName;
                 $("#reflushFu").show();
+                describes = "父类"
             }else{
                 $("#returnFu").show();
+                describes = data.list[i].describes == null ? "暂无详情":data.list[i].describes;
             }
             var name = B[parentId]+"/"+data.list[i].skillName
             $("#theBody").append("<tr>" +
-                "<td><input type=\"checkbox\" class='userCheck'/></td>" +
+               /* "<td><input type=\"checkbox\" class='userCheck'/></td>" +*/
                 "<td>" + data.list[i].id + "</td>" +
                 "<td>" +
                 "<a href='javascript:void(0)' onclick='selById(\""+data.list[i].id+"\")' style=\"" + ((flag ==true) ? '' : 'display:none;')+"\">"+ B[data.list[i].id]+"</a>" +
                 "<span  style=\"" + ((flag ==false) ? '' : 'display:none;')+"\">"+ name+"</span>" +
                 "</td>" +
-                "<td>" + data.list[i].describes + "</td>" +
+                "<td>" + describes+ "</td>" +
                 "<td>" +
                 "<a href='javascript:void(0)'  class=\"btn btn-xs btn-warning\" data-toggle=\"modal\" data-target=\"#updateSkills\" onclick='updateSkills("+data.list[i].id+")'>修改</a>" +
                 "&nbsp;&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn btn-xs btn-danger\" onclick='delSkills("+data.list[i].id+")'>删除</a>" +
+                "&nbsp;&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn btn-xs btn-info\"  data-toggle=\"modal\" data-target=\"#childModal\"  onclick='selSkillChild("+data.list[i].id+")'>新增子类</a>" +
                 "</td>" +
                 "</tr>")
         }
@@ -52,39 +55,7 @@ $(function () {
     $("#fuSkills").hide();
     $("#ziSkills").hide();
     skillAll(currentPage,parentId,flag);
-    //首页
-    $("#begin").click(function () {
-        currentPage = 1;
-        skillAll(currentPage,parentId,flag);
-        $("#pageNo").html(currentPage);
-    })
-    //上一页
-    $("#prev").click(function () {
-        currentPage = parseInt(currentPage )-1;
-        if (parseInt(currentPage) <1) {
-            alert("已经是第一页了")
-        } else {
-            skillAll(currentPage,parentId,flag);
-            $("#pageNo").html(currentPage);
-        }
-    })
-    //下一页
-    $("#next").click(function () {
-        currentPage = parseInt(currentPage)+1;
-        if (parseInt(currentPage) > parseInt($("#totalPages").html())) {
-            alert("已经最后一页了");
-            return;
-        } else {
-            skillAll(currentPage,parentId,flag);
-            $("#pageNo").html(currentPage);
-        }
-    })
-    //最后一页
-    $("#end").click(function () {
-        currentPage = parseInt($("#totalPages").html());
-        skillAll(currentPage,parentId,flag);
-        $("#pageNo").html(currentPage);
-    })
+
 
 })
 
@@ -167,7 +138,7 @@ function updateSkills(id) {
 }
 
 /**
- * 保存修改结果
+ * 保存子类修改结果
  */
 function saveUpdSkills() {
     $.ajaxSettings.async = false;
@@ -238,4 +209,11 @@ function delSkills(id) {
         }
 
     }
+}
+
+function selSkillChild(id) {
+    $.getJSON("/manager/userSkill/selSkillsById",{"id":id},function (data) {
+        $("#parentId").val("");
+       $("#parentId").val(data.id);
+    })
 }

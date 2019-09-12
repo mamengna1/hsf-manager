@@ -79,9 +79,6 @@
             <if test="score != null and score!=''">
                 score=#{score},
             </if>
-            <if test="score == 0">
-                score= 0 ,
-            </if>
             <if test="scoreSourceId != null and scoreSourceId!=''">
                 scoreSourceId=#{scoreSourceId},
             </if>

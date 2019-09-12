@@ -85,24 +85,40 @@ public class UserDetailController {
             total  = userDetailService.selPaiDanTotal(skillId, serviceProvince, serviceCity, -1);
             userDetails = userDetailService.selPaiDanAll(pageCurrentNo, Contents.PAGENO,skillId,serviceProvince,serviceCity,-1);
         }
+        UserRelease userRelease = userReleaseService.selUserReleaseById(recId);
+       Integer detailId =  userService.selUserById( userRelease.getUserId()).getDetailId();
         //判断是否存在
         String isExist = null;
+        String isOneSelf = null;
+        int j = 0;
         for (int i = 0; i <userDetails.size() ; i++) {
             //判断派单表是否已经存在
             Distribution distribution =  distributionService.selByResId(new Distribution(recId,userDetails.get(i).getId()));
             if(distribution == null){   //不存在
-                isExist = "true";
+                if(detailId == userDetails.get(i).getId()){
+                    isExist = "false";
+                    j++;
+                }else{
+                    isExist = "true";
+                }
             }else{
-                isExist = "false";
+              //isExist = distribution.getStatusId() == 8 ? "true" :"false";
+              if(distribution.getStatusId() == 8){
+                  isExist ="true";
+              }else{
+                  isExist = "false";
+                  j++;
+              }
             }
             userDetails.get(i).setIsExist(isExist);
+
         }
 
-        System.out.println("total :" +total);
+        System.out.println("total :" +(total-j));
         Page page = new Page();
         page.setPageSize( Contents.PAGENO);
         page.setPageCurrentNo(pageCurrentNo);
-        page.setTotalCount(total);
+        page.setTotalCount((total-j));
         page.setTotalPages(page.getTotalPages());
         page.setList(userDetails);
         return page;

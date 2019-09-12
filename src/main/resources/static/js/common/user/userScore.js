@@ -5,8 +5,18 @@ var currentPage = 1;  //当前页码
 var openId ;
 var scoreSourceId = -1   //积分来源
 var userName = $("#userName").val();
+
+function getUserId(userParent) {
+    var userParentId
+    $.getJSON("/manager/user/selUserByOpenId",{"openId":userParent},function (data) {
+        userParentId = data.id;
+    })
+    return userParentId;
+}
+
 //过滤查询
 function searchUserScore(currentPage,scoreSourceId,userName) {
+    $.ajaxSettings.async = false;
     openId = $("#openId1").val();
     $.getJSON("/manager/userScore/userAll",{"pageCurrentNo":currentPage,"openId":openId,"scoreSourceId":scoreSourceId,"userName":userName},callback)
     //回调
@@ -27,13 +37,14 @@ function searchUserScore(currentPage,scoreSourceId,userName) {
             }else{
                $("#fenhong").hide();
             }
+            var userId = getUserId(data.list[i].openId)
             $("#theBody").append("<tr>" +
                 "<td><input type=\"checkbox\" class='userCheck' name='checkbox' /></td>" +
                 "<td>" + data.list[i].id + "</td>" +
                 "<td>" +
                 "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\"  onclick='selUserByOpenId(\""+data.list[i].openId+"\")'>"+ data.list[i].user.nickName+"</a>" +
                 "</td>" +
-                "<td>" + data.list[i].openId + "</td>" +
+                "<td>" + userId + "</td>" +
                 "<td>" + data.list[i].score + "</td>" +
                 "<td>" + data.list[i].scoreSourceType.sourceName + "</td>" +
                 "<td style='" + ((sourceOpenId == 2|| sourceOpenId ==4) ? '' : 'display:none;') + "'>" +
@@ -43,13 +54,13 @@ function searchUserScore(currentPage,scoreSourceId,userName) {
                 "<td>" + createDate+ "</td>" +
                 "<td>" + data.list[i].note+ "</td>" +
                 "<td>" +
-                "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#updateModal\" class=\"btn btn-xs btn-warning\" onclick='goUpdScore("+data.list[i].id+")'>修改</a>" +
+                "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#updateModal\" class=\"btn btn-xs btn-warning\" onclick='goUpdScore("+data.list[i].id+")'>积分回馈</a>" +
                 "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn btn-xs btn-danger\" onclick='delScoreById("+data.list[i].id+")'>删除</a>" +
                 "</td>" +
                 "</tr>")
 
         }
-
+        $.ajaxSettings.async = true;
         $("#total").html(data.totalCount);
         $("#totalPages").html(data.totalPages);
         $("#pageNo").html(currentPage);
@@ -121,12 +132,10 @@ function delScoreById(id) {
 function goUpdScore(id) {
     $.getJSON("/manager/userScore/selScoreById",{"id":id},function (data) {
         $("#ids,#nickName2,#score,#scoreSourceId,#openId3").val("")
-        $("#ids").val(data.id)
+        $("#ids").val(data.user.id)
         $("#openId3").val(data.openId)
         $("#nickName2").val(data.user.nickName)
-        $("#score").val(data.score)
-        $("#scoreSourceId").val(data.scoreSourceId)
-        $("#note").val(data.note)
+        $("#totalScore2").val(data.user.totalScore)
     })
 }
 
@@ -134,11 +143,13 @@ function goUpdScore(id) {
  * 保存修改结果
  */
 function saveScore() {
-    var id = $("#ids").val();
-    var score = $("#score").val();
-    var scoreSourceId = $("#scoreSourceId").val();
-    var note = $("#note").val();
-    $.getJSON("/manager/userScore/updScore",{"id":id,"score":score,"scoreSourceId":scoreSourceId,"note":note},function (data) {
+    var id = $("#ids").val();   //用户id
+    var totalS = $("#totalS").val();   //奖励积分
+    var sources = $("#sources").val();   //积分来源
+    alert("xxxx :"+sources)
+    var source = $("#source").val();   //是否发送模板
+    var note = $("#note").val();   //备注
+    $.getJSON("/manager/userScore/updUserScore",{"id":id,"score":totalS,"sources":sources,"source":source,"note":note},function (data) {
         if(data == true){
             alert("修改成功")
             window.location.reload();

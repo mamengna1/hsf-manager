@@ -68,7 +68,10 @@ public class CashBackController {
         List<CashBack> cashBacks = cashBackService.selAll(pageCurrentNo, Contents.PAGENO,backStatusId,o,userName);
         for (int i = 0; i <cashBacks.size() ; i++) {
             CashBack cashs = cashBackService.selAllById(cashBacks.get(i).getId());
-            if(cashBacks.get(i).getUserName() == null || (!cashBacks.get(i).getUser().getNickName().equals(cashs.getUserName()))){
+            if(cashs.getUserName() == null || cashs.getUserName().equals("")){
+                cashs.setUserName("未知");
+            }
+            if(cashBacks.get(i).getUserName() == null || (!cashs.getUserName().equals(cashBacks.get(i).getUser().getNickName()))){
                 cashBacks.get(i).setUserName(cashBacks.get(i).getUser().getNickName());
                 CashBack cashBack = new CashBack();
                 cashBack.setId( cashBacks.get(i).getId());

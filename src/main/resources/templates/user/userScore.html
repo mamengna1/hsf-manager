@@ -68,7 +68,7 @@
 				</th>
 				<th class="sorting_asc">id</th>
 				<th class="sorting">昵称</th>
-				<th class="sorting">openId</th>
+				<th class="sorting">会员号</th>
 				<th class="imageUrl">积分</th>
 				<th class="sorting">积分来源</th>
 				<th class="sorting" id="fenhong">分红来源</th>
@@ -113,7 +113,6 @@
 			</div>
 			<div class="modal-body">
 				<table class="table table-bordered table-striped"  width="800px">
-					<input type="hidden" id="openId" name="openId">
 					<tr>
 						<td>头像</td>
 						<td >
@@ -123,6 +122,10 @@
 					<tr>
 						<td>昵称</td>
 						<td id="nickName" ></td>
+					</tr>
+					<tr>
+						<td>openId</td>
+						<td id="openId"> </td>
 					</tr>
 					<tr>
 						<td>性别</td>
@@ -202,24 +205,21 @@
 						</td>
 					</tr>
 					<tr>
-						<td>积分</td>
-						<td >
-							<input type="number"  class="form-control"  id="score" name="score">
-						</td>
-					</tr>
 					<tr>
-						<td>积分来源</td>
+						<td >积分</td>
 						<td >
-							<select id="scoreSourceId"  class="form-control" >
+							总积分  <input type="text"   placeholder="总积分" id="totalScore2"  style="border: 0px;" readonly>
+							奖惩积分 <input type="number" placeholder="积分" name="score" id="totalS" value="0" ><br/>
+							积分来源
+							<select  id="sources" name="scoreSourceId" class="priceinput" style=" background:#fff;">
 								<option th:each="dis : ${scoreSourceTypes}" th:value="${dis.id}" th:text="${dis.sourceName}">
 								</option>
 							</select>
-						</td>
-					</tr>
-					<tr>
-						<td>备注</td>
-						<td >
-							<textarea name="note" id="note" placeholder="取消订单以及拒单填写（其他状态可不填）" style="margin:0px; height: 170px;width: 463px;resize: none;"></textarea>
+							<input type="hidden" name="source" id="source" value="2"/>
+							&nbsp; <input type="radio" name="checkbox1" value="发送模板"  onclick="changeSou(1)" />发送模板
+							<input type="radio" name="checkbox1" value="不发送模板" onclick="changeSou(2)" checked="checked" />不发送模板<br/>
+							备注：
+							<textarea name="note" id="note" placeholder="违规操作原因（其他可选填）" style="margin:0px; height: 170px;width: 463px;resize: none;"></textarea>
 						</td>
 					</tr>
 

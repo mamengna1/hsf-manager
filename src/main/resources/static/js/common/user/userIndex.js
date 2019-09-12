@@ -1,5 +1,11 @@
 
-
+function getUserId(userParent) {
+    var userParentId
+    $.getJSON("/manager/user/selUserByOpenId",{"openId":userParent},function (data) {
+        userParentId = data.id;
+    })
+    return userParentId;
+}
 //初始化数据
 var currentPage = 1;  //当前页码
 var isSub ;
@@ -7,25 +13,34 @@ var detailId ;
 var userName = $("#userName").val();
 //过滤查询
 function searchCustomer(currentPage,isSub,detailId,userName) {
+    $.ajaxSettings.async = false;
     $.getJSON("/manager/user/userAll",{"pageCurrentNo":currentPage,"isSub":isSub,"detailId":detailId,"userName":userName},callback)
     //回调
     function callback(data) {
         $("#theBody").html("");
         for (var i = 0; i < data.list.length; i++) {
             var createDate = toDate(new Date(data.list[i].createDate).toJSON())
-            var userParent = data.list[i].userParent == null ? '' : data.list[i].userParent;
+            var userParentId;
+            var userParent = (data.list[i].userParent == null || data.list[i].userParent == '' || data.list[i].userParent == undefined) ? '' : data.list[i].userParent;
+            if(data.list[i].userParent == null || data.list[i].userParent == '' || data.list[i].userParent == undefined){
+                userParentId = '';
+            }else{
+                userParentId =  getUserId(userParent)
+            }
+
             $("#theBody").append("<tr>" +
-                "<td><input type=\"checkbox\" class='userCheck' name='checkbox'/></td>" +
-                "<td>" + data.list[i].id + "</td>" +
+                "<td><input type=\"checkbox\" class='userCheck'    name='checkbox'/></td>" +
+                "<td style='display: none'>" + data.list[i].id + "</td>" +
                 "<td>" +
-                "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\"  onclick='selUserByOpenId(\""+data.list[i].openId+"\")'>"+ data.list[i].openId+"</a>" +
+                "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\"  onclick='selUserByOpenId(\""+data.list[i].openId+"\")'>"+ data.list[i].id+"</a>" +
                 "</td>" +
                 "<td>" + data.list[i].nickName + "</td>" +
                 "<td><img src='"+  data.list[i].headPic +"' width='50px' height='50px'/></td>" +
                 "<td>" + data.list[i].city+ "</td>" +
                 "<td>" + createDate+ "</td>" +
+                "<td>" + data.list[i].totalScore+ "</td>" +
                 "<td>" +
-                "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\"  onclick='selUserByOpenId(\""+data.list[i].userParent+"\")'>"+ userParent+"</a>" +
+                "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\"  onclick='selUserByOpenId(\""+data.list[i].userParent+"\")'>"+ userParentId+"</a>" +
                 "</td>" +
                 "<td>" +
                 "<a href='javascript:void(0)'  class=\"btn btn-xs btn-warning\" data-toggle=\"modal\" data-target=\"#updateModal\" onclick='selUserById("+data.list[i].id+")'>修改</a>" +
@@ -34,7 +49,7 @@ function searchCustomer(currentPage,isSub,detailId,userName) {
                 "</tr>")
         }
 
-
+        $.ajaxSettings.async = true;
 
         $("#total").html(data.totalCount);
         $("#totalPages").html(data.totalPages);
@@ -156,3 +171,4 @@ function searchNames() {
 function changeSou(btn) {
     $("#source").val(btn);
 }
+

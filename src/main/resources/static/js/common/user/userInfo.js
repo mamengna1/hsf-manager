@@ -37,8 +37,15 @@ $(function () {
         $("#pageNo").html(currentPage);
     })
 })
-
+function getUserId(userParent) {
+    var userParentId
+    $.getJSON("/manager/user/selUserByOpenId",{"openId":userParent},function (data) {
+        userParentId = data.id;
+    })
+    return userParentId;
+}
 function search(currentPage, isDelete) {
+    $.ajaxSettings.async = false;
     $.getJSON("/manager/selAll", {"pageCurrentNo": currentPage,"isDelete":isDelete}, function (res) {
 
         $("#delCause").hide();
@@ -49,6 +56,8 @@ function search(currentPage, isDelete) {
         }
         $("#theBody").html("");
         for (var i = 0; i < res.list.length; i++) {
+            var userId = getUserId(res.list[i].openId);
+
             $("#theBody").append("<tr>\n" +
                 "<input type='hidden' name='openId' value='" + res.list[i].openId + "'/>" +
                 "<td class=\"\" style=\"padding-right:0px\">\n" +
@@ -56,7 +65,7 @@ function search(currentPage, isDelete) {
                 "</td>" +
                 "<td>" + res.list[i].id + "</td>\n" +
                 "<td>" +
-                "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal2\"  onclick='selUserByOpenId(\""+res.list[i].openId+"\")'>"+ res.list[i].openId+"</a>" +
+                "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal2\"  onclick='selUserByOpenId(\""+res.list[i].openId+"\")'>"+ userId+"</a>" +
                 "</td>" +
                 "<td>" + res.list[i].name + "</td>\n" +
                 "<td>" + res.list[i].content + "</td>\n" +
@@ -66,6 +75,7 @@ function search(currentPage, isDelete) {
                 "<td><a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\"  onclick='selDetail(" + res.list[i].id + ")'>详情</a></td>" +
                 "</tr>")
         }
+        $.ajaxSettings.async = true;
         $("#total").html(res.totalCount);
         $("#totalPages").html(res.totalPages);
         $("#pageNo").html(currentPage);

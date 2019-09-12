@@ -3,8 +3,19 @@ var currentPage = 1;  //当前页码
 var backStatusId =-1;
 var openId = -1
 var userName = $("#userName").val();
+
+function getUserId(userParent) {
+    var userParentId
+    $.getJSON("/manager/user/selUserByOpenId",{"openId":userParent},function (data) {
+        userParentId = data.id;
+    })
+    return userParentId;
+}
+
+
 //过滤查询
 function searchCommission(currentPage,backStatusId,userName) {
+    $.ajaxSettings.async = false;
     $.getJSON("/manager/commission/show",{"pageCurrentNo":currentPage,"backStatusId":backStatusId,"openId":openId,"userName":userName},callback)
     //回调
     function callback(data) {
@@ -14,11 +25,12 @@ function searchCommission(currentPage,backStatusId,userName) {
             var sui =(data.list[i].money*0.1).toFixed(2);
             var shi = (data.list[i].money-sui).toFixed(2);
             var comment = data.list[i].comment == null ? '' : data.list[i].comment
+            var userId = getUserId(data.list[i].openId)
             $("#theBody").append("<tr>" +
                 "<td><input type=\"checkbox\" class='userCheck'  name='checkbox' /></td>" +
                 "<td id='uid'>" + data.list[i].id + "</td>" +
                 "<td id='user'>" +
-                "<a id='openIds' href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\"  onclick='selUserByOpenId(\""+data.list[i].openId+"\")'>"+ data.list[i].openId+"</a>" +
+                "<a id='openIds' href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\"  onclick='selUserByOpenId(\""+data.list[i].openId+"\")'>"+ userId+"</a>" +
                 "</td>" +
                 "<td >" + data.list[i].user.nickName+ "</td>" +
                 "<td >" + data.list[i].money +"/"+sui+ "</td>" +
@@ -33,7 +45,7 @@ function searchCommission(currentPage,backStatusId,userName) {
 
         }
 
-
+        $.ajaxSettings.async = true;
         $("#total").html(data.totalCount);
         $("#totalPages").html(data.totalPages);
         var curr = data.totalPages == 0 ? 0 : currentPage

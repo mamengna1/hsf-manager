@@ -156,7 +156,7 @@ function saveUser() {
 
 function searchNames() {
     var na = $("#names").val();
-    searchCustomer(1,na,statusId)
+    searchCustomer(1,na,statusId,lineStatus)
 }
 
 /**

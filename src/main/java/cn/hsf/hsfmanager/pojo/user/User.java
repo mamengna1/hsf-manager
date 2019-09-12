@@ -72,6 +72,12 @@ public class User {
         this.balanceScore = balanceScore;
     }
 
+    public User(Integer id, Double totalScore, Double balanceScore) {
+        this.id = id;
+        this.totalScore = totalScore;
+        this.balanceScore = balanceScore;
+    }
+
     public User() {
     }
 

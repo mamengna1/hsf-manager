@@ -152,6 +152,12 @@ public class UserController {
         //更新user表中的总积分剩余积分
         int n =  userService.updateUser(new User(user1.getId(),phone,userType,Double.valueOf(score),Double.valueOf(score)));
         ScoreSourceType scoreSourceType = userScoreSourceService.selById(sources);
+        sendTemp(sources,source,score,user1,scoreSourceType);
+        return n > 0 ? true : false;
+    }
+
+    public void  sendTemp(Integer sources,Integer source ,Integer score,User user1,ScoreSourceType scoreSourceType){
+
         if(source == 1){  //发送模板
             if(score >0){
                 Map map = new HashMap();
@@ -175,9 +181,7 @@ public class UserController {
             }
         }
 
-        return n > 0 ? true : false;
     }
-
 
     /**
      * 删除

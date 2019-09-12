@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +26,7 @@ public class UserScoreController {
     private UserScoreSourceService userScoreSourceService;
     @Resource
     private UserService userService;
+    public UserController userController = new UserController();
 
     /**
      * 进入积分信息列表
@@ -66,7 +68,10 @@ public class UserScoreController {
         List<UserScoreSource> userScoreSources =userScoreSourceService.selAllScore(pageCurrentNo,Contents.PAGENO,openid,scoreSourceId,userName);
         for (int i = 0; i <userScoreSources.size() ; i++) {
             UserScoreSource userScore = userScoreSourceService.selScoreById(userScoreSources.get(i).getId());
-            if(userScoreSources.get(i).getUserName() == null || (!userScoreSources.get(i).getUser().getNickName().equals(userScore.getUserName()))){
+            if(userScore.getUserName() == null || userScore.getUserName().equals("")){
+                userScore.setUserName("未知");
+            }
+            if(userScoreSources.get(i).getUserName() == null || (!userScore.getUserName().equals(userScoreSources.get(i).getUser().getNickName()))){
                 userScoreSources.get(i).setUserName(userScoreSources.get(i).getUser().getNickName());
                 UserScoreSource user1 = new UserScoreSource();
                 user1.setId( userScoreSources.get(i).getId());
@@ -90,7 +95,22 @@ public class UserScoreController {
     }
 
     /**
-     * 保存修改结果
+     * 修改数据的渲染
+     * @param id
+     * @return
+     */
+    @RequestMapping("/selScoreByIdMap")
+    @ResponseBody
+    public Map selScoreByIdMap(Integer id){
+        Map map = new HashMap();
+        UserScoreSource userScoreSource = userScoreSourceService.selScoreById(id);
+        User users = userService.selUserByOpenId(userScoreSource.getOpenId());
+        map.put("userScore",userScoreSource);
+        map.put("users",users);
+        return map;
+    }
+    /**
+     * 保存修改结果  原始版(已经抛弃未使用了)
      * @param id
      * @param score
      * @param scoreSourceId
@@ -118,6 +138,27 @@ public class UserScoreController {
         return  userScoreSourceService.updScore(userScoreSource) > 0 ? true : false;
     }
 
+    /**
+     * 保存修改结果   最新版
+     * @return
+     */
+    @RequestMapping("/updUserScore")
+    @ResponseBody
+    public boolean updUserScore(Integer id,@RequestParam(value = "score",required = false,defaultValue = "") Integer score,  @RequestParam(value = "sources",required = false,defaultValue = "")Integer sources,
+                                @RequestParam(value = "source",required = false,defaultValue = "")Integer source,@RequestParam(value = "note",required = false,defaultValue = "")String note){
+        User user1 = userService.selUserById(id);
+
+        if(score != 0){  //奖励积分不为0时插入积分记录表
+            UserScoreSource userScoreSource = new UserScoreSource(user1.getOpenId(),score,sources);
+            userScoreSource.setNote(note);
+            userScoreSourceService.insScoreSource(userScoreSource);
+        }
+        //更新user表中的总积分剩余积分
+        int n =  userService.updateUser(new User(user1.getId(),Double.valueOf(score),Double.valueOf(score)));
+        ScoreSourceType  scoreSourceType = userScoreSourceService.selById(sources);
+        userController.sendTemp(sources,source,score,user1,scoreSourceType);
+        return n > 0 ? true : false;
+    }
     /**
      * 单个删除
      * @param id

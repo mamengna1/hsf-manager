@@ -51,6 +51,7 @@
             and  sfId !=''
             AND `commentTypeId` !=''
         </where>
+        order by `commentTime` desc
         limit #{pageCurrentNo},#{pageSize}
     </select>
 
