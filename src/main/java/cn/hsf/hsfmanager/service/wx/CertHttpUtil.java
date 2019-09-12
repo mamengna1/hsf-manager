@@ -39,9 +39,10 @@ public class CertHttpUtil {
      * @param xmlObj 要提交的XML数据对象
      * @param mchId 商户ID
      * @param certPath 证书位置
-     * @return
+     *                    public ResultData postData(String url, String xmlObj, String mchId, String certPath, Integer id) {
+     * @return      public ResultData postData(String url, String xmlObj, String mchId, String certPath, Integer id,Double suiMoney,Double moneys) {
      */
-    public ResultData postData(String url, String xmlObj, String mchId, String certPath, Integer id) {
+    public ResultData postData(String url, String xmlObj, String mchId, String certPath, Integer id,Double suiMoney,Double moneys) {
         boolean flage = false;
         try {
             //指定读取证书格式为PKCS12
@@ -83,16 +84,18 @@ public class CertHttpUtil {
                         //保存红包信息到数据库 ,把错误信息在数据库中清空
                         CashBack cashBack = new CashBack(id,2,null);
                         cashBackService.updateCashBack(cashBack);
-                       ;
-                      /*  Map map2 = new HashMap();
+                          String moneyAll = cashBackService.selAllById(id).getMoney() +"";
+                        String suiMoney1 = suiMoney +"";
+                        String moneys1 = moneys +"";
+                      System.out.println(" moneyAll :"+moneyAll +"--suiMoney1 :"+ suiMoney1 +"-- moneys1 :"+ moneys1);
+                        Map map2 = new HashMap();
                         map2.put("openId", cashBackService.selAllById(id).getOpenId()) ;
-                        map2.put("template_id","TF2-OgTgYB6EYKzmno0NjbZobdCadK7U0d0E9O9ZogA") ;
-                        map2.put("title","您的提现到账啦") ;
-                        map2.put("serviceType","提现到账通知") ;
-                        map2.put("orderNo","无") ;
-                        map2.put("orderState","提现成功") ;
-                        map2.put("end","提现【"+cashBackService.selAllById(id).getMoney()+"元】，已到账，请注意查收") ;
-                        templateService.serviceStatus(map2);*/
+                        map2.put("way","微信转账到零钱") ;
+                        map2.put("money",moneyAll) ;
+                        map2.put("poundage",suiMoney1) ;
+                        map2.put("daoZhang",moneys1) ;
+                      //  map2.put("end","提现【"+cashBackService.selAllById(id).getMoney()+"元】，已到账，请注意查收") ;
+                        templateService.sendTiXianMessage(map2);
                         flage = true;
                     }else{
                         String error = rootElt.elementText("err_code");

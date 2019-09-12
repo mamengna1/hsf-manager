@@ -353,4 +353,50 @@ public class TemplateService {
         String result = WxSend.post(url,data);
         System.out.println(result);
     }
+
+    /**
+     * 提现到账通知
+     * I-5tJSfKERAB40nZDOZfH9uX2OVfhFRo2BLJaOEgnqw
+     * @param map
+     */
+    public   void sendTiXianMessage(Map<String,String> map){
+        String at = wxService.getAccessToken();
+        String url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+at;
+        String data = "{\n" +
+                "           \"touser\":\""+map.get("openId")+"\",\n" +
+                "           \"template_id\":\"I-5tJSfKERAB40nZDOZfH9uX2OVfhFRo2BLJaOEgnqw\",\n" +
+                "           \"data\":{\n" +
+                "                   \"first\": {\n" +
+                "                       \"value\":\"您申请的提现金额已到帐\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   },\n" +
+                "                   \"keyword1\": {\n" +
+                "                       \"value\":\""+ DateUtil.tranfDate(System.currentTimeMillis())+"\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   },\n" +
+                "                   \"keyword2\":{\n" +
+                "                       \"value\":\""+map.get("way")+"\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   },\n" +
+                "                   \"keyword3\": {\n" +
+                "                       \"value\":\""+map.get("money")+"\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   },\n" +
+                "                   \"keyword4\": {\n" +
+                "                       \"value\":\""+map.get("poundage")+"\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   },\n" +
+                "                   \"keyword5\": {\n" +
+                "                       \"value\":\""+map.get("daoZhang")+"\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   },\n" +
+                "                   \"remark\":{\n" +
+                "                       \"value\":\"感谢您的使用，如有疑问请咨询【师傅速达】客服！\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   }\n" +
+                "           }\n" +
+                "       }";
+        String result = WxSend.post(url,data);
+        System.out.println(result);
+    }
 }

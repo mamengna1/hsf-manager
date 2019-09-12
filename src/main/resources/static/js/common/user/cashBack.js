@@ -32,8 +32,12 @@ function searchCommission(currentPage,backStatusId,userName) {
                 "<td id='user'>" +
                 "<a id='openIds' href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\"  onclick='selUserByOpenId(\""+data.list[i].openId+"\")'>"+ userId+"</a>" +
                 "</td>" +
+                "<td id='user2' style='display: none'>" +
+                "<a id='openIds2' href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\" >"+ data.list[i].openId+"</a>" +
+                "</td>" +
                 "<td >" + data.list[i].user.nickName+ "</td>" +
                 "<td >" + data.list[i].money +"/"+sui+ "</td>" +
+                "<td style='display: none' id='suiMoney'>" +sui+ "</td>" +
                 "<td id='moneys'>" + shi + "</td>" +
                 "<td>" + createDate+ "</td>" +
                 "<td>" + data.list[i].backStatus.backStatusName + "</td>" +
@@ -136,17 +140,25 @@ function saveCommission() {
 //确认支付
 function savePay(btn) {
     var id = $(btn).parent().siblings("#uid").html()
-    var openIds = $(btn).parent().siblings("#user").children("#openIds").html();
+    var openIds = $(btn).parent().siblings("#user2").children("#openIds2").html();
     var moneys = $(btn).parent().siblings("#moneys").html();
-    $.getJSON("/manager/commission/payCommission", {"openId":openIds,"id":id,"money":moneys}, function (data) {
-        if(data.flag ==true){
-            alert("支付成功")
-            window.location.reload();
-        }else{
-            alert("支付失败: "+data.errorMsg)
-            window.location.reload();
-        }
-    });
+   var suiMoney = $(btn).parent().siblings("#suiMoney").html();
+    var mymessage=confirm("您将要支付【"+moneys+"元】，您确认支付吗？");
+    if(mymessage==true) {
+        $.getJSON("/manager/commission/payCommission", {"openId":openIds,"id":id,"money":moneys,"suiMoney":suiMoney}, function (data) {
+            if(data.flag ==true){
+                alert("支付成功")
+                window.location.reload();
+            }else{
+                alert("支付失败: "+data.errorMsg)
+                window.location.reload();
+            }
+        });
+    } else{
+        alert("您取消了支付")
+    }
+
+
 
 }
 

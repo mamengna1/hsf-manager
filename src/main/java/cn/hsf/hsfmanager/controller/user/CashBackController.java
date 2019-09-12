@@ -120,14 +120,16 @@ public class CashBackController {
      */
     @RequestMapping("/payCommission")
     @ResponseBody
-    public ResultData payCashBack(String openId, Integer id, String money) throws Exception {
+    public ResultData payCashBack(String openId, Integer id, String money,String suiMoney) throws Exception {
         double moneys = Double.valueOf(money);
+        double suiMoney1 = Double.valueOf(suiMoney);
         Map map = createMap(openId,moneys*100);
         String xml = WXPayUtil.mapToXml(map);
         System.out.println("发送前的xml为 ："+ xml);
         // ,向微信发送请求转账请求
         App app = appService.selApp();
-        ResultData resultData = certHttpUtil.postData(URLS.COMPANY_PAY_URL, xml, app.getMchId(), URLS.CERT_PATH, id);
+       ResultData resultData = certHttpUtil.postData(URLS.COMPANY_PAY_URL, xml, app.getMchId(), URLS.CERT_PATH, id,suiMoney1,moneys);
+       // ResultData resultData = certHttpUtil.postData(URLS.COMPANY_PAY_URL, xml, app.getMchId(), URLS.CERT_PATH, id);
         return resultData;
     }
 
