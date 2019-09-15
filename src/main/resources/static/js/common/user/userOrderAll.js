@@ -30,7 +30,6 @@ function searchUserOrder(currentPage,commentTypeId) {
                 "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn btn-xs btn-danger\" onclick='delUserOrder("+data.list[i].id+")'>删除</a>" +
                 "</td>" +
                 "</tr>")
-
         }
 
         $("#total").html(data.totalCount);

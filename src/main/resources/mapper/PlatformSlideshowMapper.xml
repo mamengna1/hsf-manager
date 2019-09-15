@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace:映射命名空间-->
+<mapper namespace="cn.hsf.hsfmanager.mapper.PlatformSlideshowMapper">
+
+    <resultMap id="selImgType" type="cn.hsf.hsfmanager.pojo.platform.PlatformSlideshow">
+        <id property="id" column="id"/>
+        <result property="imgType" column="imgType"/>
+        <association property="type" column="imgType" select="cn.hsf.hsfmanager.mapper.ImgTypeMapper.selById"/>
+    </resultMap>
+
+    <insert id="insSlideshow">
+        INSERT INTO `tb_platform_slideshow`(`id`, `url`, `imgType`, `priority`) VALUES(DEFAULT, #{url}, #{imgType}, #{priority})
+    </insert>
+    <select id="selAll" resultMap="selImgType">
+        SELECT `id`, `url`, `imgType`, `priority` FROM tb_platform_slideshow WHERE imgType = #{imgType}
+    </select>
+
+
+</mapper>
