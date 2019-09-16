@@ -206,8 +206,6 @@ public class SlideShowController {
 
             if (multipartFile !=null &&(!multipartFile.isEmpty()) ) {
                 delFile(plat.getId());
-                //  StateMessage stateMessage = showImageUrl(URLS.SLIDE_SHOW,multipartFile);;//保存到服务器
-                //   String url =   urlHidden.replace("slideshowTemp","slideshow");
                 plat.setUrl(urlHidden);
             }else if(plat.getUrl() !=null && plat.getUrl() !=""){
                 plat.setUrl(plat.getUrl());
@@ -249,15 +247,21 @@ public class SlideShowController {
      * @param path
      */
     @RequestMapping("/delServerFile")
-    public void delServerFile(@RequestParam(value = "path",required = false,defaultValue = "") String path){
+    @ResponseBody
+    public int delServerFile(@RequestParam(value = "path",required = false,defaultValue = "") String path){
+        int n = 1;
+        System.out.println("要删除的图片的路径是 ："+path);
         if(path !=null){
             String path2 = "D:\\software\\Tomcat\\imageTomcat\\webapps\\images\\"+path.substring(29,path.length());
+            System.out.println("实际的路径为 ："+path2);
             File file = new File(path2);
 
             if(file.exists()){
                 file.delete();// 删除LOGO图片的服务器存储路径
+                n = 2;
             }
         }
+        return  n;
     }
 
 
@@ -269,6 +273,6 @@ public class SlideShowController {
     @RequestMapping("/updImageUrl")
     @ResponseBody
     public StateMessage updImageUrl(@RequestParam("attach") MultipartFile multipartFile){
-        return showImageUrl(URLS.SLIDE_SHOW_TEMP,multipartFile);
+        return showImageUrl(URLS.SLIDE_SHOW,multipartFile);
     }
 }

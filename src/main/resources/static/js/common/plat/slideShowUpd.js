@@ -73,6 +73,7 @@ function updateSlide() {
  * 修改时上传临时图片到服务器
  */
 function showPicUpd() {
+    var usrHidden1 = $("#urlHidden").val();
     $.ajaxSettings.async = false;
     var data = new FormData();
     data.append("attach",$('#attach')[0].files[0]);
@@ -92,11 +93,21 @@ function showPicUpd() {
             //delServerFile(data.message)  此时传入的应该是上次的图片路径不应该放在这
         }
     });
+
+    var usrHidden2 = $("#urlHidden").val();
+    if(usrHidden1 !=null && usrHidden1 !=undefined && usrHidden1 !='' && usrHidden1 != usrHidden2){
+        delServerFile(usrHidden1) ;
+    }
     $.ajaxSettings.async = true;
 }
 
 function delServerFile(path) {
     $.getJSON("/manager/slideshow/delServerFile",{"path":path},function (data) {
+        if(data == 1){
 
+        }else{
+
+        }
     })
+    //location.href="/manager/slideshow/delServerFile?path="+path
 }

@@ -36,7 +36,6 @@ $(function () {
 function showPic() {
     var data = new FormData();
     data.append("attach",$('#attach')[0].files[0]);
-
     $.ajax({
         url: '/manager/slideshow/saveImageUrl',
         type: 'POST',
