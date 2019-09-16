@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<!-- 页面meta -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>新增幻灯片</title>
+	<!-- Tell the browser to be responsive to screen width -->
+	<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+	<link rel="stylesheet" href="/manager/plugins/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/manager/plugins/adminLTE/css/AdminLTE.css">
+	<link rel="stylesheet" href="/manager/plugins/adminLTE/css/skins/_all-skins.min.css">
+	<link rel="stylesheet" href="/manager/css/style.css">
+	<script src="/manager/plugins/jQuery/jquery-2.2.3.min.js"></script>
+	<script src="/manager/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+</head>
+
+<body class="hold-transition skin-red sidebar-mini">
+<div style="margin:0 auto; width: 60%;">
+	<!-- .box-body -->
+	<form action="/manager/slideshow/insSlideShow" method="post" enctype="multipart/form-data" id="myForm">
+
+		<div class="box-header with-border">
+			<h3 class="box-title">新增幻灯片</h3>
+		</div>
+
+		<div class="box-body">
+
+			<!-- 数据表格 -->
+			<div class="table-box">
+				<table id="dataList"  class="table table-bordered table-striped table-hover dataTable">
+					<tr>
+						标题：<input type="text" name="title" class="form-control" id="title"/><br/>
+					</tr>
+					<tr>
+						类别：
+						<select id="imgType" name="imgType"  class="form-control" >
+							<option th:each="mt :${imgTypes}" th:value="${mt.id}" th:text="${mt.imgType}" />
+						</select><br/>
+					</tr>
+					<tr>
+						<input type="hidden" name ="url" id="url">
+						缩略图：  <input id="attach"  type="file"  name="attach" accept="image/jpg,image/png,image/jpeg,image/pneg" /><br/>
+						<img id="pic" src="" width="106" alt=""><br/>
+
+					</tr>
+					<tr>
+						链接地址：<input type="text" name="linkUrl" class="form-control" id="linkUrl"/><br/>
+
+					</tr>
+					<tr>
+						状态：<input type="hidden" name="state" id="state" value="2"/>
+						&nbsp; <input type="radio" name="checkbox1" value="未审"  onclick="changeSou(1)" />未审
+						<input type="radio" name="checkbox1" value="已审" onclick="changeSou(2)" checked="checked" />已审<br/><br/>
+					</tr>
+					<tr>
+						级别：<input type="number" name="priority"   class="form-control"  id="priority" /><br/>
+					</tr>
+				</table>
+				<!--数据列表/-->
+			</div>
+			<!-- 数据表格 /-->
+			<input type="button" value="提交" id="btn" class="btn btn-success" onclick="sub()">
+			<input type="reset" value="重置" class="btn btn-primary">
+		</div>
+	</form>
+</div>
+</body>
+<script type="text/javascript" src="/manager/js/common/plat/createSlideShow.js"></script>    <!--引入添加-->
+
+</html>

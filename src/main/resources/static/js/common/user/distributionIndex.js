@@ -100,14 +100,19 @@ $(function () {
 
 //删除
 function delDetailById(id) {
-    $.getJSON("/manager/distribution/delDetailById",{"id":id},function (data) {
-        if(data == true){
-            alert("删除成功")
-            window.location.reload();
-        }else{
-            alert("删除失败")
-        }
-    })
+    var resMessage=confirm("您确认删除此条记录吗？");
+    if(resMessage == true) {
+        $.getJSON("/manager/distribution/delDetailById", {"id": id}, function (data) {
+            if (data == true) {
+                alert("删除成功")
+                window.location.reload();
+            } else {
+                alert("删除失败")
+            }
+        })
+    }else{
+        alert("您取消了删除")
+    }
 }
 
     /**

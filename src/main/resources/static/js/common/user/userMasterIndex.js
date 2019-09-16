@@ -123,14 +123,19 @@ function delMasterById() {
     if(j ==0 ){
         alert("您没有选择，删除失败")
     }else{
-        $.getJSON("/manager/userMaster/delMasterById",{"ids":arrayId.toString()},function (data) {
-            if(data == true){
-                alert("批量删除成功！")
-                window.location.reload();
-            }else {
-                alert("批量删除失败！")
-            }
-        })
+        var resMessage=confirm("您确认删除这些数据吗？");
+        if(resMessage == true) {
+            $.getJSON("/manager/userMaster/delMasterById", {"ids": arrayId.toString()}, function (data) {
+                if (data == true) {
+                    alert("批量删除成功！")
+                    window.location.reload();
+                } else {
+                    alert("批量删除失败！")
+                }
+            })
+        }else{
+            alert("您取消了删除")
+        }
     }
 }
 

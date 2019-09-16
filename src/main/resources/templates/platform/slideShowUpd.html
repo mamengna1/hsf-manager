@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- 页面meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>幻灯片修改</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+
+    <link rel="stylesheet" href="/manager/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/manager/plugins/adminLTE/css/AdminLTE.css">
+    <link rel="stylesheet" href="/manager/plugins/adminLTE/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="/manager/css/style.css">
+    <script src="/manager/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="/manager/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/manager/js/common/utils/common.js" type="text/javascript"></script>  <!--去除弹框域名-->
+
+</head>
+
+<body class="hold-transition skin-red sidebar-mini">
+
+<!-- 正文区域 -->
+<section class="content">
+
+    <div class="box-body">
+        <form action="" method="post" enctype="multipart/form-data" id="myForm">
+            <!--表单内容-->
+            <div class="row data-type">
+                <input type="hidden" name="id" id="id" th:value="${slideShow.id}" >
+                <div class="col-md-2 title">标题</div>
+                <div class="col-md-10 data">
+                    <input type="text" name="title" id="title" class="form-control" th:value="${slideShow.title}" />
+                </div>
+                <div class="col-md-2 title">类别</div>
+                <div class="col-md-10 data">
+                    <select id="imgType" name="imgType"  class="form-control" th:value="${slideShow.imgType}">
+                        <option th:each="mt :${imgTypes}" th:value="${mt.id}" th:text="${mt.imgType}" />
+                    </select>
+                </div>
+
+                <div class="col-md-2 title" style="height:130px;" >缩略图</div>
+                <div class="col-md-10 data"style="height:130px;" >
+                    <input type="hidden" id="logoPicPath" name="logoPicPath" th:value="${slideShow.url}"/>
+                    <div id="uploadfile" style="display: none">
+                        <input id="attach"  type="file" class="form-control col-md-7 col-xs-12" name="attach" accept="image/jpg,image/png,image/jpeg,image/pneg" />
+                    </div>
+                    <div id="logoFile"></div>
+                    <img id="pic" src="" width="106" height="70" alt=""><br/>
+                </div>
+
+                <div class="col-md-2 title">链接地址</div>
+                <div class="col-md-10 data">
+                    <input type="text" name="linkUrl" th:value="${slideShow.linkUrl}" id="linkUrl" class="form-control"/>
+                </div>
+                <div class="col-md-2 title">级别</div>
+                <div class="col-md-10 data">
+                    <input type="text" name="priority" th:value="${slideShow.priority}" id="priority" class="form-control"/>
+                </div>
+
+                <div class="col-md-2 title">状态</div>
+                <div class="col-md-10 data">
+                    <input type="hidden" name="state" id="state" value="2"/>
+                   <input type="radio" name="checkbox1" value="未审"  onclick="changeSou(1)" th:checked="${slideShow.state == 1}"/>未审
+                    <input type="radio" name="checkbox1" value="已审" onclick="changeSou(2)" th:checked="${slideShow.state == 2}" />已审<br/>
+                </div>
+
+                <div class="col-md-10 data" style="width:100%;"></div>
+
+            </div>
+            <input class="btn btn-primary" type="button" value="保存修改" onclick="updateSlide()"/>
+            <input class="btn btn-primary" type="button" value="返回" id="returnUpUserMaster"/>
+        </form>
+    </div>
+
+
+</section>
+<script src="/manager/js/common/plat/slideShowUpd.js"></script>
+</body>
+
+</html>

@@ -13,11 +13,77 @@
     </resultMap>
 
     <insert id="insSlideshow">
-        INSERT INTO `tb_platform_slideshow`(`id`, `url`, `imgType`, `priority`) VALUES(DEFAULT, #{url}, #{imgType}, #{priority})
+        INSERT INTO `tb_platform_slideshow`(`id`, `url`, `imgType`, `priority`,`linkUrl`,`title`,`state`,`createDate`) VALUES(DEFAULT, #{url}, #{imgType}, #{priority},#{linkUrl},#{title},#{state},now())
     </insert>
     <select id="selAll" resultMap="selImgType">
-        SELECT `id`, `url`, `imgType`, `priority` FROM tb_platform_slideshow WHERE imgType = #{imgType}
+        SELECT `id`, `url`, `imgType`, `priority`,`linkUrl`,`title`,`state`,`createDate` FROM tb_platform_slideshow WHERE imgType = #{imgType}
+    </select>
+
+    <select id="selSlideShowAll" resultMap="selImgType">
+          SELECT `id`, `url`, `imgType`, `priority`,`linkUrl`,`title`,`state`,`createDate` FROM tb_platform_slideshow
+          <where>
+              <if test="imgType !=null and imgType &gt; 0">
+               and   imgType = #{imgType}
+              </if>
+          </where>
+          order by `createDate` desc
+        limit #{pageCurrentNo},#{pageSize}
     </select>
 
 
+    <select id="selSlideShowTotal" resultType="int">
+        SELECT count(*) FROM `tb_platform_slideshow`
+        <where>
+            <if test="imgType !=null and imgType &gt; 0">
+                and   imgType = #{imgType}
+            </if>
+        </where>
+    </select>
+
+    <delete id="delSlideById">
+        delete from tb_platform_slideshow where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="updSlide" parameterType="cn.hsf.hsfmanager.pojo.platform.PlatformSlideshow">
+        update  `tb_platform_slideshow`
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+            <if test="id != null and id!=''">
+                id=#{id},
+            </if>
+            <if test="url != null and url!=''">
+                url=#{url},
+            </if>
+            <if test="imgType != null and imgType!=''">
+                imgType=#{imgType},
+            </if>
+            <if test="priority != null and priority!=''">
+                priority=#{priority},
+            </if>
+            <if test="linkUrl != null and linkUrl!=''">
+                linkUrl=#{linkUrl},
+            </if>
+            <if test="title != null and title!=''">
+                title=#{title},
+            </if>
+            <if test="state != null and state!=''">
+                state=#{state},
+            </if>
+        </trim>
+    </update>
+    <select id="selSlideById" resultMap="selImgType" parameterType="int">
+        SELECT `id`, `url`, `imgType`, `priority`,`linkUrl`,`title`,`state`,`createDate` FROM tb_platform_slideshow WHERE id = #{id}
+    </select>
+
+    <delete id="delSlideSingleById" parameterType="int">
+         delete from tb_platform_slideshow where id =#{id}
+    </delete>
+
+    <update id="delFile" parameterType="int">
+          update  `tb_platform_slideshow`
+          set url = null
+          where id = #{id}
+    </update>
 </mapper>

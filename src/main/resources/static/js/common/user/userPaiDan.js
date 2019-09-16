@@ -124,16 +124,21 @@ function searchPaiDanSkill() {
  */
 function updPaiDan(id) {
     var userReId  = userReleaseId;   // 发布信息id
-    $.getJSON("/manager/userDetail/updPaiDan",{"id":userReId,"userDetailId":id},function (data) {
-        if(data == true){
-            alert("派单请求发送成功")
-          /*location.href="/manager/userRelease/goUserReleaseAll";*/
-            window.location.reload()
+    var resMessage=confirm("您确认发送派单请求吗？");
+    if(resMessage == true) {
+        $.getJSON("/manager/userDetail/updPaiDan", {"id": userReId, "userDetailId": id}, function (data) {
+            if (data == true) {
+                alert("派单请求发送成功")
+                /*location.href="/manager/userRelease/goUserReleaseAll";*/
+                window.location.reload()
 
-        }else{
-            alert("该条雇佣信息已经为这名师傅派过单了，请勿重复派单！")
-        }
-    })
+            } else {
+                alert("该条雇佣信息已经为这名师傅派过单了，请勿重复派单！")
+            }
+        })
+    }else{
+        alert("您取消了发送")
+    }
 }
 
 function getSkillName(s) {

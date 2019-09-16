@@ -9,4 +9,8 @@
     <select id="selById" resultType="cn.hsf.hsfmanager.pojo.platform.ImgType">
         SELECT `id`, `imgType` FROM tb_img_type WHERE id = #{id}
     </select>
+
+    <select id="selImgTypeAll" resultType="cn.hsf.hsfmanager.pojo.platform.ImgType">
+          SELECT `id`, `imgType` FROM tb_img_type
+    </select>
 </mapper>

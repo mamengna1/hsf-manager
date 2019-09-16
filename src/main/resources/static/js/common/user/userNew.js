@@ -1,35 +1,52 @@
 
+function getUserId(userParent) {
+    var userParentId
+    $.getJSON("/manager/user/selUserByOpenId",{"openId":userParent},function (data) {
+        userParentId = data.id;
+    })
+    return userParentId;
+}
 
 //初始化数据
 var currentPage = 1;  //当前页码
 //过滤查询
 function searchNewUser(currentPage) {
+    $.ajaxSettings.async = false;
     $.getJSON("/manager/user/userAllNew",{"pageCurrentNo":currentPage},callback)
     //回调
     function callback(data) {
         $("#theBody").html("");
         for (var i = 0; i < data.list.length; i++) {
             var createDate = toDate(new Date(data.list[i].createDate).toJSON())
+            var userParentId;
+            var userParent = (data.list[i].userParent == null || data.list[i].userParent == '' || data.list[i].userParent == undefined) ? '' : data.list[i].userParent;
+            if(data.list[i].userParent == null || data.list[i].userParent == '' || data.list[i].userParent == undefined){
+                userParentId = '';
+            }else{
+                userParentId =  getUserId(userParent)
+            }
+
             $("#theBody").append("<tr>" +
-                "<td><input type=\"checkbox\" class='userCheck' name='checkbox'/></td>" +
-                "<td>" + data.list[i].id + "</td>" +
+                "<td><input type=\"checkbox\" class='userCheck'    name='checkbox'/></td>" +
+                "<td style='display: none'>" + data.list[i].id + "</td>" +
                 "<td>" +
-                "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\"  onclick='selUserByOpenId(\""+data.list[i].openId+"\")'>"+ data.list[i].openId+"</a>" +
+                "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\"  onclick='selUserByOpenId(\""+data.list[i].openId+"\")'>"+ data.list[i].id+"</a>" +
                 "</td>" +
                 "<td>" + data.list[i].nickName + "</td>" +
                 "<td><img src='"+  data.list[i].headPic +"' width='50px' height='50px'/></td>" +
                 "<td>" + data.list[i].city+ "</td>" +
                 "<td>" + createDate+ "</td>" +
+                "<td>" + data.list[i].totalScore+ "</td>" +
                 "<td>" +
-                "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\"  onclick='selUserByOpenId(\""+data.list[i].userParent+"\")'>"+ data.list[i].userParent+"</a>" +
+                "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\"  onclick='selUserByOpenId(\""+data.list[i].userParent+"\")'>"+ userParentId+"</a>" +
                 "</td>" +
                 "<td>" +
-                "<a href='javascript:void(0)'  class=\"btn bg-olive btn-xs\" data-toggle=\"modal\" data-target=\"#updateModal\" onclick='selUserById("+data.list[i].id+")'>修改</a>" +
+                "<a href='javascript:void(0)'  class=\"btn btn-xs btn-warning\" data-toggle=\"modal\" data-target=\"#updateModal\" onclick='selUserById("+data.list[i].id+")'>修改</a>" +
+                "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn btn-xs btn-info \"  onclick='goScore(\""+data.list[i].openId+"\")'>积分来源</a>" +
                 "</td>" +
                 "</tr>")
         }
-
-
+        $.ajaxSettings.async = true;
 
         $("#total").html(data.totalCount);
         $("#totalPages").html(data.totalPages);
@@ -79,23 +96,41 @@ $(function () {
 })
 
 
+
 //删除
 function delUser() {
     var delUsers = document.getElementsByClassName("userCheck");
-    for (var i = 0; i < delUsers.length; i++) {
+    var j = 0;
+    var arrayId = new Array() ;
+
+    for (var i = 0; i <delUsers.length ; i++) {
         if (delUsers[i].checked) {
             var id = $(delUsers[i]).parent().next().html();
-            $.getJSON("/manager/user/delUserById", {"id": id}, function (data) {
-                if(data == true){
-                    alert("删除成功！")
-                    window.location.reload();
-                }else {
-                    alert("删除失败！")
-                }
-            });
+            arrayId[j] = id
+            j++;
         }
     }
+    if(j ==0 ){
+        alert("您没有选择，删除失败")
+    }else{
+        var resMessage=confirm("您确认删除这些数据吗？");
+        if(resMessage == true){
+            $.getJSON("/manager/user/delUserById",{"ids":arrayId.toString()},function (data) {
+                if(data == true){
+                    alert("批量删除成功！")
+                    window.location.reload();
+                }else {
+                    alert("批量删除失败！")
+                }
+            })
+        }else{
+            alert("您取消了删除")
+        }
+
+    }
+
 }
+
 
 
 /**
@@ -118,6 +153,25 @@ function saveUser() {
         }
     })
 }
+
+/**
+ * 查看级分来源
+ * @param openIds
+ */
+function goScore(openIds) {
+    location.href="/manager/userScore/goUserScoreAll?openId="+openIds;
+}
+
+/**
+ * 根据昵称进行模糊查询
+ */
+function searchNames() {
+    var name = $("#userName").val();
+    searchCustomer(currentPage,isSub,detailId,name)
+}
+
+
+
 function changeSou(btn) {
     $("#source").val(btn);
 }

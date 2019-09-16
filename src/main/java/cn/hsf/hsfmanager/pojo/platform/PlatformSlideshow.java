@@ -1,11 +1,17 @@
 package cn.hsf.hsfmanager.pojo.platform;
 
+import java.util.Date;
+
 public class PlatformSlideshow {
 
     private Integer id;
-    private String url;
-    private Integer imgType;
-    private Integer priority;
+    private String url;   //图片地址
+    private Integer imgType;    //图片类型
+    private Integer priority;   //优先级
+    private String linkUrl;   // 路径
+    private String title;  //标题
+    private Integer state ;   //状态
+    private Date createDate;  //创建时间
 
     private ImgType type;
 
@@ -16,8 +22,44 @@ public class PlatformSlideshow {
                 ", url='" + url + '\'' +
                 ", imgType=" + imgType +
                 ", priority=" + priority +
+                ", linkUrl='" + linkUrl + '\'' +
+                ", title='" + title + '\'' +
+                ", state=" + state +
+                ", createDate=" + createDate +
                 ", type=" + type +
                 '}';
+    }
+
+    public String getLinkUrl() {
+        return linkUrl;
+    }
+
+    public void setLinkUrl(String linkUrl) {
+        this.linkUrl = linkUrl;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
     public Integer getId() {

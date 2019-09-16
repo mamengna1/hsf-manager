@@ -37,7 +37,7 @@ function skillAll(currentPage,parentId,flag) {
                 "<td>" +
                 "<a href='javascript:void(0)'  class=\"btn btn-xs btn-warning\" data-toggle=\"modal\" data-target=\"#updateSkills\" onclick='updateSkills("+data.list[i].id+")'>修改</a>" +
                 "&nbsp;&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn btn-xs btn-danger\" onclick='delSkills("+data.list[i].id+")'>删除</a>" +
-                "&nbsp;&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn btn-xs btn-info\"  data-toggle=\"modal\" data-target=\"#childModal\"  onclick='selSkillChild("+data.list[i].id+")'>新增子类</a>" +
+                "&nbsp;&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn btn-xs btn-success\"  data-toggle=\"modal\" data-target=\"#childModal\"  onclick='selSkillChild("+data.list[i].id+")'>新增子类</a>" +
                 "</td>" +
                 "</tr>")
         }
