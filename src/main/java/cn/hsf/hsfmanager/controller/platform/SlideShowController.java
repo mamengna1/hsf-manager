@@ -31,7 +31,7 @@ public class SlideShowController {
     @Autowired
     private PlatformService platformService;
 
-   // private static final String filePath = "images/sfsd/";
+    // private static final String filePath = "images/sfsd/";
 
     /**
      * 进入幻灯片界面
@@ -199,14 +199,16 @@ public class SlideShowController {
      */
     @RequestMapping("/updateSlide")
     @ResponseBody
-    public boolean updateSlide(PlatformSlideshow plat,@RequestParam(value = "attach",required = false) MultipartFile multipartFile) {
+    public boolean updateSlide(PlatformSlideshow plat,@RequestParam(value = "attach",required = false) MultipartFile multipartFile,
+                               @RequestParam(value = "urlHidden",required = false,defaultValue = "") String urlHidden) {
         try {
             System.out.println("multipartFile : "+multipartFile);
 
             if (multipartFile !=null &&(!multipartFile.isEmpty()) ) {
                 delFile(plat.getId());
-                StateMessage stateMessage = showImageUrl(URLS.SLIDE_SHOW,multipartFile);;//保存到服务器
-                plat.setUrl(stateMessage.getMessage());
+                //  StateMessage stateMessage = showImageUrl(URLS.SLIDE_SHOW,multipartFile);;//保存到服务器
+                //   String url =   urlHidden.replace("slideshowTemp","slideshow");
+                plat.setUrl(urlHidden);
             }else if(plat.getUrl() !=null && plat.getUrl() !=""){
                 plat.setUrl(plat.getUrl());
             }else{
@@ -227,13 +229,11 @@ public class SlideShowController {
         System.out.println("进入删除图片 "+ id);
         String path1 = platformService.selSlideById(id).getUrl();
         if(path1 !=null){
-            System.out.println("xxxxx : "+path1.substring(29,path1.length()));
             String path = "D:\\software\\Tomcat\\imageTomcat\\webapps\\images\\"+path1.substring(29,path1.length());
             System.out.println("path : "+path);
             File file = new File(path);
 
             if(file.exists()){
-                System.out.println(111);
                 if(file.delete()){ // 删除LOGO图片的服务器存储路径
                     int n = platformService.delFile(id);  //更新表
                     System.out.println("n : "+ n);
@@ -243,6 +243,23 @@ public class SlideShowController {
         }
 
     }
+
+    /**
+     * 删除服务器图片
+     * @param path
+     */
+    @RequestMapping("/delServerFile")
+    public void delServerFile(@RequestParam(value = "path",required = false,defaultValue = "") String path){
+        if(path !=null){
+            String path2 = "D:\\software\\Tomcat\\imageTomcat\\webapps\\images\\"+path.substring(29,path.length());
+            File file = new File(path2);
+
+            if(file.exists()){
+                file.delete();// 删除LOGO图片的服务器存储路径
+            }
+        }
+    }
+
 
     /**
      * 上传图片  （修改时）

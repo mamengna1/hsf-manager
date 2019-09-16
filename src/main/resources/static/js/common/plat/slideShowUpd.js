@@ -49,6 +49,7 @@ function updateSlide() {
     data.append("linkUrl",  $("#linkUrl").val());
     data.append("state",  $("#state").val());
     data.append("attach",$('#attach')[0].files[0]);
+    data.append("urlHidden",  $("#urlHidden").val());
     $.ajax({
         url: '/manager/slideshow/updateSlide',
         type: 'POST',
@@ -72,6 +73,7 @@ function updateSlide() {
  * 修改时上传临时图片到服务器
  */
 function showPicUpd() {
+    $.ajaxSettings.async = false;
     var data = new FormData();
     data.append("attach",$('#attach')[0].files[0]);
 
@@ -85,6 +87,16 @@ function showPicUpd() {
         contentType: false,
         success:function (data) {
             $("#pic").attr("src", data.message);
+            $("#urlHidden").val("")
+            $("#urlHidden").val(data.message)
+            //delServerFile(data.message)  此时传入的应该是上次的图片路径不应该放在这
         }
     });
+    $.ajaxSettings.async = true;
+}
+
+function delServerFile(path) {
+    $.getJSON("/manager/slideshow/delServerFile",{"path":path},function (data) {
+
+    })
 }
