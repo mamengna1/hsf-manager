@@ -199,6 +199,11 @@ public class TemplateService {
     }
     /**
      * 审核失败发送的模板
+     *  亲爱的战友，你提交的金句：“失败是陈功之母”没有通过审核！
+     * 审核结果：不通过
+     * 审核时间：2017-11-01 12:12:12
+     * 失败原因：文字错误
+     * 请修改后重新提交申请。   MdZiGpJQZgPn28z-e1GplNbiN8_Z0FFsiW3-7jGE7O8
      * @param map
      */
     public  void sendAuditFail(Map<String,String> map){
@@ -206,7 +211,7 @@ public class TemplateService {
         String url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+at;
         String data = "{\n" +
                 "           \"touser\":\""+map.get("openId")+"\",\n" +
-                "           \"template_id\":\"nH6k8Kl01S1gTsc15MUpV5e3gNuq6ZvIFggy3hdFCbE\",\n" +
+                "           \"template_id\":\"MdZiGpJQZgPn28z-e1GplNbiN8_Z0FFsiW3-7jGE7O8\",\n" +
                 "           \"url\":\""+map.get("url")+"\",\n" +
                 "           \"data\":{\n" +
                 "                   \"first\": {\n" +
@@ -214,15 +219,15 @@ public class TemplateService {
                 "                       \"color\":\"#173177\"\n" +
                 "                   },\n" +
                 "                   \"keyword1\":{\n" +
-                "                       \"value\":\""+map.get("name")+"\",\n" +
+                "                       \"value\":\""+map.get("result")+"\",\n" +
                 "                       \"color\":\"#173177\"\n" +
                 "                   },\n" +
                 "                   \"keyword2\": {\n" +
-                "                       \"value\":\"您审核失败的原因："+map.get("message")+"\",\n" +
+                "                       \"value\":\""+DateUtil.tranfDate(System.currentTimeMillis())+"\",\n" +
                 "                       \"color\":\"#173177\"\n" +
                 "                   },\n" +
                 "                   \"keyword3\": {\n" +
-                "                       \"value\":\""+DateUtil.tranfDate(System.currentTimeMillis())+"\",\n" +
+                "                       \"value\":\""+map.get("message")+"\",\n" +
                 "                       \"color\":\"#173177\"\n" +
                 "                   },\n" +
                 "                   \"remark\":{\n" +
@@ -388,6 +393,142 @@ public class TemplateService {
                 "                   },\n" +
                 "                   \"keyword5\": {\n" +
                 "                       \"value\":\""+map.get("daoZhang")+"\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   },\n" +
+                "                   \"remark\":{\n" +
+                "                       \"value\":\"感谢您的使用，如有疑问请咨询【师傅速达】客服！\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   }\n" +
+                "           }\n" +
+                "       }";
+        String result = WxSend.post(url,data);
+        System.out.println(result);
+    }
+
+
+    /**
+     * 新订单通知  lsr4nM05CZxi8pumptyNfcmbHPkaWK7iTUqD7r7fr7A
+     * 您收到了一条新的订单
+     * 提交时间：2018年2月29日
+     * 订单类型：微信订单
+     * 客户信息：张三
+     * 订单信息：一盒新鲜空气
+     * 截止当前，您有X条订单未处理
+     * @param map
+     */
+    public   void sendNewMessage(Map<String,String> map){
+        String at = wxService.getAccessToken();
+        String url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+at;
+        String data = "{\n" +
+                "           \"touser\":\""+map.get("openId")+"\",\n" +
+                "           \"template_id\":\"lsr4nM05CZxi8pumptyNfcmbHPkaWK7iTUqD7r7fr7A\",\n" +
+                "           \"data\":{\n" +
+                "                   \"first\": {\n" +
+                "                       \"value\":\"您收到了一条新的订单\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   },\n" +
+                "                   \"keyword1\": {\n" +
+                "                       \"value\":\""+ DateUtil.tranfDate(System.currentTimeMillis())+"\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   },\n" +
+                "                   \"keyword2\":{\n" +
+                "                       \"value\":\""+map.get("orderType")+"\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   },\n" +
+                "                   \"keyword3\": {\n" +
+                "                       \"value\":\""+map.get("userMessage")+"\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   },\n" +
+                "                   \"keyword4\": {\n" +
+                "                       \"value\":\""+map.get("orderMessage")+"\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   },\n" +
+                "                   \"remark\":{\n" +
+                "                       \"value\":\"感谢您的使用，如有疑问请咨询【师傅速达】客服！\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   }\n" +
+                "           }\n" +
+                "       }";
+        String result = WxSend.post(url,data);
+        System.out.println(result);
+    }
+
+    /**
+     * 反馈结果通知 eAWSsvo6Ag-POVzoI2JXHUmZb0JjsQNHnO_mRrLvYsM
+     *
+     * 您的反馈已经由管理人员处理！
+     * 回复状态：已回复
+     * 反馈内容：好啊
+     * 回复内容：你好啊
+     * 感谢您的反馈，希望我们的回复能解决您的问题！
+     * @param map
+     */
+    public  void sendGuYong(Map<String,String> map){
+        String at = wxService.getAccessToken();
+        String url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+at;
+        String data = "{\n" +
+                "           \"touser\":\""+map.get("openId")+"\",\n" +
+                "           \"template_id\":\"eAWSsvo6Ag-POVzoI2JXHUmZb0JjsQNHnO_mRrLvYsM\",\n" +
+                "           \"data\":{\n" +
+                "                   \"first\": {\n" +
+                "                       \"value\":\""+map.get("stateMessage")+"\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   },\n" +
+                "                   \"keyword1\":{\n" +
+                "                       \"value\":\""+map.get("fanKui")+"\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   },\n" +
+                "                   \"keyword2\":{\n" +
+                "                       \"value\":\""+map.get("replayMessage")+"\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   },\n" +
+                "                   \"remark\":{\n" +
+                "                       \"value\":\""+map.get("end")+"\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   }\n" +
+                "           }\n" +
+                "       }";
+        String result = WxSend.post(url,data);
+        System.out.println(result);
+    }
+
+
+    /**
+     * 余额变动提示 WMwHNoAhtDf6y-f2bdGsQ1y8RMrUp30PVeP_waTTcq8
+     *
+     * 尊敬的用户,你的账户发生变动
+     * 变动时间：2016-03-25 09:36
+     * 变动类型：消费扣减
+     * 变动金额：111元
+     * 当前余额：500元
+     * 详情请点击此消息进入会员中心-余额变更记录进行查询!
+     * @param map
+     */
+    public   void sendScoreChange(Map<String,String> map){
+        String at = wxService.getAccessToken();
+        String url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+at;
+        String data = "{\n" +
+                "           \"touser\":\""+map.get("openId")+"\",\n" +
+                "           \"template_id\":\"WMwHNoAhtDf6y-f2bdGsQ1y8RMrUp30PVeP_waTTcq8\",\n" +
+                "           \"data\":{\n" +
+                "                   \"first\": {\n" +
+                "                       \"value\":\""+map.get("title")+"\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   },\n" +
+                "                   \"keyword1\": {\n" +
+                "                       \"value\":\""+ DateUtil.tranfDate(System.currentTimeMillis())+"\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   },\n" +
+                "                   \"keyword2\":{\n" +
+                "                       \"value\":\""+map.get("changeType")+"\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   },\n" +
+                "                   \"keyword3\": {\n" +
+                "                       \"value\":\""+map.get("changeScore")+"\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   },\n" +
+                "                   \"keyword4\": {\n" +
+                "                       \"value\":\""+map.get("totalScore")+"\",\n" +
                 "                       \"color\":\"#173177\"\n" +
                 "                   },\n" +
                 "                   \"remark\":{\n" +

@@ -31,7 +31,6 @@ public class SlideShowController {
     @Autowired
     private PlatformService platformService;
 
-    // private static final String filePath = "images/sfsd/";
 
     /**
      * 进入幻灯片界面
@@ -42,37 +41,6 @@ public class SlideShowController {
         return "platform/slideShowAll";
     }
 
-   /* @ResponseBody
-    @RequestMapping("/insHomePageImg")
-    public int insHomePageImg(PlatformSlideshow plat, @RequestParam("file") MultipartFile file) throws IOException {
-
-        if (!file.isEmpty()) {
-            // 获取文件名
-            String fileName = file.getOriginalFilename();
-            System.out.println("上传的文件名为：" + fileName);
-
-            // 获取文件的后缀名,比如图片的jpeg,png
-            String suffixName = fileName.substring(fileName.lastIndexOf("."));
-            System.out.println("上传的后缀名为：" + suffixName);
-
-            // 文件上传后的路径
-            fileName = UUID.randomUUID() + suffixName;
-            System.out.println("转换后的名称:" + fileName);
-
-            File dest = new File(fileName);
-
-            file.transferTo(dest);
-            plat.setUrl(URLS.SLIDE_SHOW + dest.getPath());
-            platformService.insSlideshow(plat);
-        }
-        return 1;
-    }
-
-    @ResponseBody
-    @RequestMapping("/selAll")
-    public List<PlatformSlideshow> selALl(Integer imgType){
-        return platformService.selAll(imgType);
-    }*/
 
     /**
      * 分页显示幻灯片管理

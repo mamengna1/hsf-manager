@@ -127,9 +127,9 @@ public class CashBackController {
         String xml = WXPayUtil.mapToXml(map);
         System.out.println("发送前的xml为 ："+ xml);
         // ,向微信发送请求转账请求
-        App app = appService.selApp();
-       ResultData resultData = certHttpUtil.postData(URLS.COMPANY_PAY_URL, xml, app.getMchId(), URLS.CERT_PATH, id,suiMoney1,moneys);
-       // ResultData resultData = certHttpUtil.postData(URLS.COMPANY_PAY_URL, xml, app.getMchId(), URLS.CERT_PATH, id);
+/*        App app = appService.selApp();
+        ResultData resultData = certHttpUtil.postData(URLS.COMPANY_PAY_URL, xml, app.getMchId(), URLS.CERT_PATH, id,suiMoney1,moneys);*/
+        ResultData resultData = certHttpUtil.postData(URLS.COMPANY_PAY_URL, xml, URLS.MCHID, URLS.CERT_PATH, id,suiMoney1,moneys);
         return resultData;
     }
 
@@ -143,9 +143,11 @@ public class CashBackController {
     public Map createMap(String openId,double money) throws Exception {
         String m = String.valueOf((int) money);
         Map params = new HashMap<>();
-        App app = appService.selApp();
+       /* App app = appService.selApp();
         params.put("mch_appid", app.getAppId());
-        params.put("mchid", app.getMchId());
+        params.put("mchid", app.getMchId());*/
+        params.put("mch_appid", URLS.APPID);
+        params.put("mchid", URLS.MCHID);
         params.put("nonce_str", WXPayUtil.generateNonceStr());
         params.put("partner_trade_no", System.currentTimeMillis() + "");
         params.put("openid", openId);
@@ -154,7 +156,8 @@ public class CashBackController {
         params.put("desc", "企业付款到零钱");
         params.put("spbill_create_ip", "112.124.200.41");
         params.put("re_user_name", "kolo");// 收款用户姓名
-        params.put("sign", WXPayUtil.generateSignature(params, app.getKey()));
+   /*     params.put("sign", WXPayUtil.generateSignature(params, app.getKey()));*/
+        params.put("sign", WXPayUtil.generateSignature(params, URLS.KEY));
         return params;
     }
 

@@ -162,22 +162,22 @@ public class UserController {
             if(score >0){
                 Map map = new HashMap();
                 map.put("openId",user1.getOpenId());
-                map.put("template_id","vIE5CFOjUbodaOaa4nHaz36cAJJWeesRTqTkugKX7nc");
-                map.put("title",user1.getNickName()+"您好，恭喜您获得【"+scoreSourceType.getSourceName()+"】积分，本次奖励积分："+score+"分");
-                map.put("messageType","积分增加提醒");
-                map.put("end","感谢您的使用，如有疑问请联系客服");
-                templateService.sendTongYong(map);
+                map.put("title","积分增加提醒");
+                map.put("changeType",user1.getNickName()+"您好，恭喜您获得【"+scoreSourceType.getSourceName()+"】积分");
+                map.put("changeScore",score);
+                map.put("totalScore",user1.getBalanceScore());
+                templateService.sendScoreChange(map);
             }else if(score==0){
 
             }else{
                 Integer score2 = Math.abs(score);
                 Map map = new HashMap();
                 map.put("openId",user1.getOpenId());
-                map.put("template_id","vIE5CFOjUbodaOaa4nHaz36cAJJWeesRTqTkugKX7nc");
-                map.put("title",user1.getNickName()+"您好，由于您违规操作，本次扣除积分："+score2+"分");
-                map.put("messageType","积分扣除提醒");
-                map.put("end","感谢您的使用，如有疑问请联系客服");
-                templateService.sendTongYong(map);
+                map.put("title","积分扣除提醒");
+                map.put("changeScore",score2);
+                map.put("totalScore",user1.getBalanceScore());
+                map.put("changeType",user1.getNickName()+"您好，由于您违规操作，本次扣除积分："+score2+"分");
+                templateService.sendScoreChange(map);
             }
         }
 

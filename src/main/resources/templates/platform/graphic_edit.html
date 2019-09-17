@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="UTF-8" xmlns:th="http://www.springframework.org/schema/jdbc">
+<head>
+    <!-- 页面meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>图文新增</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+
+    <link rel="stylesheet" href="/manager/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/manager/plugins/adminLTE/css/AdminLTE.css">
+    <link rel="stylesheet" href="/manager/plugins/adminLTE/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="/manager/css/style.css">
+    <script src="/manager/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="/manager/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+    <style>
+        div {
+            width: 100%;
+        }
+    </style>
+    <script th:src="@{/manager/ueditor/ueditor.config.js}"></script>
+    <script th:src="@{/manager/ueditor/ueditor.all.min.js}"></script>
+    <script th:src="@{/manager/ueditor/lang/zh-cn/zh-cn.js}"></script>
+    <script src="/manager/plugins/jQuery/jquery-2.2.3.min.js"></script>
+</head>
+
+<body class="hold-transition skin-red sidebar-mini">
+
+<!-- 正文区域 -->
+<section class="content">
+
+    <div class="box-body">
+        <form action="/manager/Saveue" method="post" enctype="multipart/form-data" id="myForm">
+            <!--表单内容-->
+            <div class="row data-type">
+
+                <div class="col-md-2 title">标题</div>
+                <div class="col-md-10 data">
+                    <input type="text" name="title" id="title"/>
+                </div>
+
+                <div class="col-md-2 title">压缩图</div>
+                <div class="col-md-10 data">
+                    <input id="attach"  type="file"  name="attach" accept="image/jpg,image/png,image/jpeg,image/pneg"/>
+                </div>
+
+                <div class="col-md-2 title">副标题</div>
+                <div class="col-md-10 data">
+                    <input type="text" name="subtitle" id="subtitle"  placeholder="副标题" >
+                </div>
+
+                <div class="col-md-2 title">浏览量</div>
+                <div class="col-md-10 data">
+                    <div class="input-group">
+                        <input type="number" class="form-control" placeholder="浏览量" name="viewCount" id="viewCount">
+                    </div>
+                </div>
+
+                <div class="col-md-2 title editer" style="height:600px;" >商品介绍</div>
+                <div class="col-md-10 data editer" style="height:600px;" >
+                    <div id="editor" type="text/plain" style="width:1024px;height:490px;" ></div>
+                    <input type="hidden" name="neirong" id="neirong">
+                </div>
+            </div>
+            <input class="btn btn-primary" type="submit" value="保存" id="btns"/>
+            <input class="btn btn-default" type="button" value="返回" id="returnGraphic"/>
+        </form>
+    </div>
+
+
+</section>
+<script>
+    UE.getEditor('editor');   //显示
+</script>
+
+<script type="text/javascript">
+
+    $(function () {
+        $("#myForm").submit(function () {
+            var ueText = UE.getEditor('editor').getContent();
+            $("#neirong").val(ueText)
+            return true;
+        })
+    })
+
+
+    $("#returnGraphic").click(function () {
+        location.href="/manager/goGraphicAllView"
+    })
+</script>
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+

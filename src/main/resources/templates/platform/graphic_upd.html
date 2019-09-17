@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="UTF-8" xmlns:th="http://www.springframework.org/schema/jdbc">
+<head>
+    <!-- 页面meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>图文编辑</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+
+    <link rel="stylesheet" href="/manager/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/manager/plugins/adminLTE/css/AdminLTE.css">
+    <link rel="stylesheet" href="/manager/plugins/adminLTE/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="/manager/css/style.css">
+    <script src="/manager/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="/manager/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/manager/js/common/plat/graphic_upd.js"></script>  <!--引入修改-->
+    <style>
+        div {
+            width: 100%;
+        }
+    </style>
+    <script th:src="@{/manager/ueditor/ueditor.config.js}"></script>
+    <script th:src="@{/manager/ueditor/ueditor.all.min.js}"></script>
+    <script th:src="@{/manager/ueditor/lang/zh-cn/zh-cn.js}"></script>
+    <script src="/manager/plugins/jQuery/jquery-2.2.3.min.js"></script>
+</head>
+
+<body class="hold-transition skin-red sidebar-mini">
+
+<!-- 正文区域 -->
+<section class="content">
+
+    <div class="box-body">
+        <form action="/updateUe" method="post" enctype="multipart/form-data" id="myForm">
+            <!--表单内容-->
+            <div class="row data-type">
+                <input type="hidden" name="ids" id="ids" th:value="${graphic.id}">
+
+                <div class="col-md-2 title">标题</div>
+                <div class="col-md-10 data">
+                    <input type="text" name="title" id="title" th:value="${graphic.title}"/>
+                </div>
+
+                <div class="col-md-2 title" style="height:100px;" >压缩图</div>
+                <div class="col-md-10 data"style="height:100px;" >
+                    <input type="hidden" id="logoPicPath" name="logoPicPath" th:value="${graphic.imageUrl}"/>
+                    <div id="uploadfile" style="display: none">
+                        <input id="attach"  type="file" class="form-control col-md-7 col-xs-12" name="attach" accept="image/jpg,image/png,image/jpeg,image/pneg" />
+                    </div>
+                    <div id="logoFile"></div>
+                </div>
+
+                <div class="col-md-2 title">副标题</div>
+                <div class="col-md-10 data">
+                    <input type="text" class="form-control" placeholder="副标题" th:value="${graphic.subtitle}"  name="subtitle" id="subtitle" >
+                </div>
+
+                <div class="col-md-2 title">浏览量</div>
+                <div class="col-md-10 data">
+                    <div class="input-group">
+                        <input type="number" class="form-control" placeholder="浏览量" name="viewCount" th:value="${graphic.viewCount}">
+                    </div>
+                </div>
+
+                <div class="col-md-2 title editer" style="height:600px;" >商品介绍</div>
+                <div class="col-md-10 data editer" style="height:600px;" >
+                    <div id="editor" type="text/plain" style="width:1024px;height:490px;"  ></div>
+                    <input type="hidden" name="neirong" id="neirong" th:value="${graphic.content}" >
+                </div>
+            </div>
+            <input class="btn btn-primary" type="submit" value="保存修改" id="btns"/>
+            <input class="btn btn-default" type="button" value="返回" id="returnGraphics"/>
+        </form>
+    </div>
+
+
+</section>
+<script>
+    UE.getEditor('editor');   //显示
+</script>
+
+<script type="text/javascript">
+    var content = $("#neirong").val();
+    var ue = UE.getEditor('editor');
+    //设置编辑器内容：
+    ue.ready(function() {
+        ue.setContent(content);
+
+    });
+
+
+
+
+</script>
+<script type="text/javascript" src="../js/common/Category2.js"></script>  <!--引入根据三级联查-->
+
+</body>
+
+</html>

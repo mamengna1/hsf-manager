@@ -114,8 +114,4 @@ public class LoginController {
         return  map;
     }
 
-   /* @RequestMapping("/a")
-    public String goA(){
-        return "a";
-    }*/
 }

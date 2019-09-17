@@ -170,22 +170,21 @@ public class UserDetailController {
             //给用户发送推荐师傅的模板信息
             Map map = new HashMap();
             map.put("openId",userOpenId);
-            map.put("template_id","vIE5CFOjUbodaOaa4nHaz36cAJJWeesRTqTkugKX7nc");
             map.put("url","http://java.86blue.cn/_api/goUserOrderDetail?id="+id);
-            map.put("title",name+"您好，你发布的信息我们已经接收到，并为您推荐【"+sfName+"】这位师傅为您服务");
-            map.put("messageType","雇佣消息通知");
+            map.put("fanKui",userRelease.getTitle());
+            map.put("replayMessage",name+"您好，你发布的信息我们已经接收到，并为您推荐【"+sfName+"】这位师傅为您服务");
+            map.put("stateMessage","已帮您找到师傅");
             map.put("end","师傅信息："+sfName+sfPhone);
-            templateService.sendTongYong(map);
-
+            templateService.sendGuYong(map);
             //给师傅发送用户招聘信息
             Map map2 = new HashMap();
             map2.put("openId",userDetailOpenId);
-            map2.put("template_id","vIE5CFOjUbodaOaa4nHaz36cAJJWeesRTqTkugKX7nc");
             map2.put("url","http://java.86blue.cn/_api/goOrderShow?id="+pdId);
-            map2.put("title",sfName+"您好，【"+name+"】顾客发送的雇佣信息与您符合，平台将为您接单，您可以选择 【接受或拒绝】");
-            map2.put("messageType","新订单消息通知");
-            map2.put("end","用户信息："+userRelease.getNickName()+userRelease.getPhone());
-            templateService.sendTongYong(map2);
+            map2.put("orderMessage","【"+name+"】顾客发送的雇佣信息是："+ userRelease.getTitle()+"\\n平台将为您接单，"+sfName+"您可以选择 【接受或拒绝】");
+            map2.put("orderType","新雇佣信息提醒");
+            map2.put("userMessage",userRelease.getNickName()+userRelease.getPhone());
+            templateService.sendNewMessage(map2);
+
 
             String[] managerOpenId = Contents.MANAGER_OPENID;
             //给管理员发送模板信息

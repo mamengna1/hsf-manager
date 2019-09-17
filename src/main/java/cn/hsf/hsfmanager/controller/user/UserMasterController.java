@@ -168,7 +168,7 @@ public class UserMasterController {
         }else if(status ==2){   //审核失败
             Map map = new HashMap();
             map.put("openId",o);
-            map.put("name",userDetail.getName());
+            map.put("result","未通过");
             map.put("message",statusMessage);
             map.put("url","http://java.86blue.cn/_api/goRegister");
             templateService.sendAuditFail(map);
@@ -250,26 +250,27 @@ public class UserMasterController {
         userDetail.setShijian(1);
         userDetailService.updateUserDetail(userDetail);
         ScoreSourceType scoreSourceType = userScoreSourceService.selById(userScoreSource.getScoreSourceId());
+        User user = userService.selUserByOpenId(userScoreSource.getOpenId());
         if (source == 1) {   // 发送模板
             if(score >0){
                 Map map = new HashMap();
                 map.put("openId",userScoreSource.getOpenId());
-                map.put("template_id","vIE5CFOjUbodaOaa4nHaz36cAJJWeesRTqTkugKX7nc");
-                map.put("title",userDetail.getName()+"您好，恭喜您获得【"+scoreSourceType.getSourceName()+"】积分，本次奖励积分："+score+"分");
-                map.put("messageType","积分增加提醒");
-                map.put("end","感谢您的使用，如有疑问请联系客服");
-                templateService.sendTongYong(map);
+                map.put("title","积分增加提醒");
+                map.put("changeType",userDetail.getName()+"您好，恭喜您获得【"+scoreSourceType.getSourceName()+"】积分");
+                map.put("changeScore",score);
+                map.put("totalScore",user.getBalanceScore());
+                templateService.sendScoreChange(map);
             }else if(score==0){
 
             }else{
                 Integer score2 = Math.abs(score);
                 Map map = new HashMap();
                 map.put("openId",userScoreSource.getOpenId());
-                map.put("template_id","vIE5CFOjUbodaOaa4nHaz36cAJJWeesRTqTkugKX7nc");
-                map.put("title",userDetail.getName()+"您好，由于您违规操作，本次扣除积分："+score2+"分");
-                map.put("messageType","积分扣除提醒");
-                map.put("end","感谢您的使用，如有疑问请联系客服");
-                templateService.sendTongYong(map);
+                map.put("title","积分扣除提醒");
+                map.put("changeScore",score2);
+                map.put("totalScore",user.getBalanceScore());
+                map.put("changeType",userDetail.getName()+"您好，由于您违规操作，本次扣除积分："+score2+"分");
+                templateService.sendScoreChange(map);
             }
 
         } else {
