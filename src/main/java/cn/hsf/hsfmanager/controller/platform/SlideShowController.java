@@ -157,16 +157,15 @@ public class SlideShowController {
         String fileName = null;
         String savePath =  null;
         try {
-            if (! multipartFile.isEmpty() ) {
+            if (multipartFile !=null &&(!multipartFile.isEmpty())) {
                 //取得当前上传文件的文件名称
                 String myFileName = multipartFile.getOriginalFilename();
                 //重命名上传后的文件名后缀
                 String suffixString = myFileName.substring(myFileName.indexOf("."));  //截取文件名
                 //命名规则：随机数
                 String fileName1 =System.currentTimeMillis() + suffixString;
-                fileName = "slide-"+fileName1.substring(8,fileName1.length());
+                fileName = "slide-"+fileName1.substring(8,fileName1.length());  //截取随机数的后几位
                 String path  = temPath+fileName;
-                System.out.println("上传的路径 : " + path);
                 File localFile = new File(path);
                 if (!localFile.getParentFile().exists()) {
                     localFile.mkdirs();
@@ -202,7 +201,6 @@ public class SlideShowController {
     public boolean updateSlide(PlatformSlideshow plat,@RequestParam(value = "attach",required = false) MultipartFile multipartFile,
                                @RequestParam(value = "urlHidden",required = false,defaultValue = "") String urlHidden) {
         try {
-            System.out.println("multipartFile : "+multipartFile);
 
             if (multipartFile !=null &&(!multipartFile.isEmpty()) ) {
                 delFile(plat.getId());
@@ -226,16 +224,14 @@ public class SlideShowController {
     public void delFile(Integer id){
         System.out.println("进入删除图片 "+ id);
         String path1 = platformService.selSlideById(id).getUrl();
-        if(path1 !=null){
-            String path = "D:\\software\\Tomcat\\imageTomcat\\webapps\\images\\"+path1.substring(29,path1.length());
+        if(path1 !=null && (!path1.isEmpty()) && (! path1.equals(""))){
+            String path = URLS.IMAGE_ADDRESS+path1.substring(URLS.SUB_LENGTH,path1.length());   // http://java.86blue.cn/images/
             System.out.println("path : "+path);
             File file = new File(path);
 
             if(file.exists()){
                 if(file.delete()){ // 删除LOGO图片的服务器存储路径
-                    int n = platformService.delFile(id);  //更新表
-                    System.out.println("n : "+ n);
-
+                    platformService.delFile(id);  //更新表
                 }
             }
         }
@@ -250,10 +246,8 @@ public class SlideShowController {
     @ResponseBody
     public int delServerFile(@RequestParam(value = "path",required = false,defaultValue = "") String path){
         int n = 1;
-        System.out.println("要删除的图片的路径是 ："+path);
-        if(path !=null){
-            String path2 = "D:\\software\\Tomcat\\imageTomcat\\webapps\\images\\"+path.substring(29,path.length());
-            System.out.println("实际的路径为 ："+path2);
+        if(path !=null && (!path.isEmpty()) && (! path.equals(""))){
+            String path2 = URLS.IMAGE_ADDRESS+path.substring(URLS.SUB_LENGTH,path.length());
             File file = new File(path2);
 
             if(file.exists()){

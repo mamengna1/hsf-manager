@@ -40,33 +40,43 @@ function delfile(id) {
  * 保存修改
  */
 function updateSlide() {
-    var data = new FormData();
-    data.append("id",$("#id").val())
-    data.append("title",$("#title").val())
-    data.append("imgType",  $("#imgType").val());
-    data.append("priority",  $("#priority").val());
-    data.append("url",  $("#logoPicPath").val());
-    data.append("linkUrl",  $("#linkUrl").val());
-    data.append("state",  $("#state").val());
-    data.append("attach",$('#attach')[0].files[0]);
-    data.append("urlHidden",  $("#urlHidden").val());
-    $.ajax({
-        url: '/manager/slideshow/updateSlide',
-        type: 'POST',
-        data: data,
-        dataType: 'JSON',
-        cache: false,
-        processData: false,
-        contentType: false,
-        success:function (data) {
-            if (data == true){
-                alert("修改成功")
-                location.href="/manager/slideshow/goSlide"
-            }else{
-                alert("修改失败")
+    var flag = true;
+    if($("#title").val() == undefined || $("#title").val() == null || $("#title").val()==''
+        || $("#linkUrl").val() == undefined || $("#linkUrl").val() == null || $("#linkUrl").val() == ''
+    ){
+        alert("必填选项不能为空")
+        flag = false;
+    }
+    if(flag == true ){
+        var data = new FormData();
+        data.append("id",$("#id").val())
+        data.append("title",$("#title").val())
+        data.append("imgType",  $("#imgType").val());
+        data.append("priority",  $("#priority").val());
+        data.append("url",  $("#logoPicPath").val());
+        data.append("linkUrl",  $("#linkUrl").val());
+        data.append("state",  $("#state").val());
+        data.append("attach",$('#attach')[0].files[0]);
+        data.append("urlHidden",  $("#urlHidden").val());
+        $.ajax({
+            url: '/manager/slideshow/updateSlide',
+            type: 'POST',
+            data: data,
+            dataType: 'JSON',
+            cache: false,
+            processData: false,
+            contentType: false,
+            success:function (data) {
+                if (data == true){
+                    alert("修改成功")
+                    location.href="/manager/slideshow/goSlide"
+                }else{
+                    alert("修改失败")
+                }
             }
-        }
-    });
+        });
+    }
+
 }
 
 /**
@@ -103,11 +113,5 @@ function showPicUpd() {
 
 function delServerFile(path) {
     $.getJSON("/manager/slideshow/delServerFile",{"path":path},function (data) {
-        if(data == 1){
-
-        }else{
-
-        }
     })
-    //location.href="/manager/slideshow/delServerFile?path="+path
 }

@@ -28,7 +28,7 @@
             <!--表单内容-->
             <div class="row data-type">
                 <input type="hidden" name="id" id="id" th:value="${slideShow.id}" >
-                <div class="col-md-2 title">标题</div>
+                <div class="col-md-2 title">* 标题</div>
                 <div class="col-md-10 data">
                     <input type="text" name="title" id="title" class="form-control" th:value="${slideShow.title}" />
                 </div>
@@ -50,7 +50,7 @@
                     <img id="pic" src="" width="106" height="70" alt=""><br/>
                 </div>
 
-                <div class="col-md-2 title">链接地址</div>
+                <div class="col-md-2 title">* 链接地址</div>
                 <div class="col-md-10 data">
                     <input type="text" name="linkUrl" th:value="${slideShow.linkUrl}" id="linkUrl" class="form-control"/>
                 </div>
