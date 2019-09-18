@@ -133,7 +133,7 @@ public class CashBackController {
         // ,向微信发送请求转账请求
 /*        App app = appService.selApp();
         ResultData resultData = certHttpUtil.postData(URLS.COMPANY_PAY_URL, xml, app.getMchId(), URLS.CERT_PATH, id,suiMoney1,moneys);*/
-        ResultData resultData = certHttpUtil.postData(URLS.COMPANY_PAY_URL, xml, URLS.MCHID, URLS.CERT_PATH, id,suiMoney1,moneys);
+        ResultData resultData = certHttpUtil.postData(URLS.COMPANY_PAY_URL, xml, URLS.MCHID, URLS.CERT_PATH2, id,suiMoney1,moneys);
         return resultData;
     }
 

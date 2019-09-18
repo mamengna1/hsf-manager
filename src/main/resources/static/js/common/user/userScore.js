@@ -199,3 +199,8 @@ function delUserScoreAll() {
         }
     }
 }
+
+
+function changeSou(btn) {
+    $("#source").val(btn);
+}

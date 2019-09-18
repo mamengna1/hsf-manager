@@ -46,7 +46,7 @@ public class User {
     private Date lastLoginTime;
     //师傅的详细信息
     private Integer detailId;
-
+    private String proxyOpenId;  //代理openId
     private UserDetail userDetail;
 
 
@@ -105,6 +105,15 @@ public class User {
     }
 
     //get set 方法
+
+    public String getProxyOpenId() {
+        return proxyOpenId;
+    }
+
+    public void setProxyOpenId(String proxyOpenId) {
+        this.proxyOpenId = proxyOpenId;
+    }
+
     public void setId (Integer  id){
         this.id=id;
     }

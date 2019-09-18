@@ -157,7 +157,6 @@ public class UserController {
     }
 
     public void  sendTemp(Integer sources,Integer source ,Integer score,User user1,ScoreSourceType scoreSourceType){
-
         if(source == 1){  //发送模板
             String balanceScore = "剩余"+user1.getBalanceScore()+"可用积分";
             if(score >0){

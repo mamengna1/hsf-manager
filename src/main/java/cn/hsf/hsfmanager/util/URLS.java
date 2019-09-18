@@ -9,7 +9,8 @@ public class URLS {
 
     public static final String COMPANY_PAY_URL = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";   // 支付到零钱的接口路径
 
-    public static final String  CERT_PATH = "D:\\sfsdCertificate\\apiclient_cert.p12";   //安装证书的路径  D:\sfsdCertificate
+    public static final String  CERT_PATH = "D:\\sfsdCertificate\\apiclient_cert.p12";   //安装证书的路径 (师傅速达)
+    public static final String  CERT_PATH2 = "D:\\apiclient_cert.p12";   //安装证书的路径 (中蓝)
 
     public static final String DOMAIN_NAME = "http://sfsd.cust.86blue.cn";   //域名
     public static final String IMAGE_ADDRESS="D:\\software\\Tomcat\\imageTomcat\\webapps\\images\\";   //实际存放的图片路径

@@ -38,7 +38,7 @@ function searchCommission(currentPage,backStatusId,userName) {
                 "</td>" +
                 "<td id='user2' style='display: none'>" +
                 "<a id='openIds2' href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\" >"+ data.list[i].openId+"</a>" +
-                "<a id='proxyOpenId' href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\" style='display: none' >"+ data.list[i].proxyOpenId+"</a>" +
+                "<a id='proxyOpenId' href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\" style='display: none' >"+ data.list[i].user.proxyOpenId+"</a>" +
                 "</td>" +
                 "<td >" + data.list[i].user.nickName+ "</td>" +
                 "<td >" + data.list[i].money +"/"+sui+ "</td>" +
