@@ -1,5 +1,6 @@
 package cn.hsf.hsfmanager.controller.user;
 
+import cn.hsf.hsfmanager.pojo.Admin;
 import cn.hsf.hsfmanager.pojo.App;
 import cn.hsf.hsfmanager.pojo.ResultData;
 import cn.hsf.hsfmanager.pojo.user.CashBack;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import cn.hsf.hsfmanager.util.URLS;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,7 +53,7 @@ public class CashBackController {
     public Page show(@RequestParam(value = "pageCurrentNo",required = false,defaultValue = "1") Integer pageCurrentNo ,
                      @RequestParam(value = "backStatusId",required = false,defaultValue = "-1") Integer backStatusId,
                      @RequestParam(value = "openId",required = false,defaultValue = "") String openId,
-                     @RequestParam(value = "userName",required = false,defaultValue = "") String userName){
+                     @RequestParam(value = "userName",required = false,defaultValue = "") String userName, HttpServletRequest request){
         System.out.println("======================我进入了提现页面=====================");
         String o;
         if(openId == "-1" || openId.equals("-1")|| openId == null){
@@ -81,6 +83,8 @@ public class CashBackController {
         }
 
         page.setList(cashBacks);
+       Admin admin = (Admin) request.getSession().getAttribute("admin");
+       page.setLevel(admin.getLevel());
         return page;
     }
 

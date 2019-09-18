@@ -15,6 +15,15 @@ public class Page {
 
     private Integer zaiXian;  //在线
     private Integer liXian;   //离线
+    private Integer level;    //级别
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
 
     public Integer getZaiXian() {
         return zaiXian;

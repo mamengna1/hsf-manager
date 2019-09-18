@@ -21,6 +21,10 @@ function searchCommission(currentPage,backStatusId,userName) {
     function callback(data) {
         $("#theBody").html("");
         for (var i = 0; i < data.list.length; i++) {
+            $("#caozuo").hide()
+            if(data.level == 1){
+                $("#caozuo").show()
+            }
             var createDate = toDate(new Date(data.list[i].createDate).toJSON())
             var sui =(data.list[i].money*0.1).toFixed(2);
             var shi = (data.list[i].money-sui).toFixed(2);
@@ -43,7 +47,7 @@ function searchCommission(currentPage,backStatusId,userName) {
                 "<td>" + createDate+ "</td>" +
                 "<td>" + data.list[i].backStatus.backStatusName + "</td>" +
                 "<td>" + comment + "</td>" +
-                "<td>" +
+                "<td style=\"" + ((data.level ==1) ? '' : 'display:none;')+"\"  >" +
                 "<a href='javascript:void(0)'  class=\"btn btn-xs btn-success\" onclick='savePay(this)' id='pays'  style=\"" + ((data.list[i].backStatusId==1) ? '' : 'display:none;')+"\" >确认支付</a>" +
                 "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn btn-xs btn-warning\" data-toggle=\"modal\" data-target=\"#editCommission\" onclick='upCommon(\""+data.list[i].id+"\")' id='up'  >修改</a>" +
                 "</tr>")
