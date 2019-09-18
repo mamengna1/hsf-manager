@@ -36,17 +36,20 @@
             <!--表单内容-->
             <div class="row data-type">
 
-                <div class="col-md-2 title">标题</div>
+                <div class="col-md-2 title">* 标题</div>
                 <div class="col-md-10 data">
                     <input type="text" name="title" id="title"/>
                 </div>
 
-                <div class="col-md-2 title">压缩图</div>
-                <div class="col-md-10 data">
-                    <input id="attach"  type="file"  name="attach" accept="image/jpg,image/png,image/jpeg,image/pneg"/>
+                <div class="col-md-2 title" style="height: 130px">压缩图</div>
+                <div class="col-md-10 data" style="height: 130px">
+                    <input type="hidden" name ="url" id="url">
+                    <input id="attach"  type="file"  name="attach" accept="image/jpg,image/png,image/jpeg,image/pneg" />
+                    <img id="pic" src="" width="106" alt="">
+
                 </div>
 
-                <div class="col-md-2 title">副标题</div>
+                <div class="col-md-2 title">* 副标题</div>
                 <div class="col-md-10 data">
                     <input type="text" name="subtitle" id="subtitle"  placeholder="副标题" >
                 </div>
@@ -54,7 +57,7 @@
                 <div class="col-md-2 title">浏览量</div>
                 <div class="col-md-10 data">
                     <div class="input-group">
-                        <input type="number" class="form-control" placeholder="浏览量" name="viewCount" id="viewCount">
+                        <input type="number" class="form-control" placeholder="浏览量" name="viewCount" id="viewCount" value="1">
                     </div>
                 </div>
 
@@ -63,9 +66,10 @@
                     <div id="editor" type="text/plain" style="width:1024px;height:490px;" ></div>
                     <input type="hidden" name="neirong" id="neirong">
                 </div>
+                <input class="btn btn-primary" type="button" value="保存"  id ="" onclick="subGraphic()" />
+                <input class="btn btn-default" type="button" value="返回" id="returnGraphic"/>
             </div>
-            <input class="btn btn-primary" type="submit" value="保存" id="btns"/>
-            <input class="btn btn-default" type="button" value="返回" id="returnGraphic"/>
+
         </form>
     </div>
 
@@ -74,22 +78,8 @@
 <script>
     UE.getEditor('editor');   //显示
 </script>
+<script type="text/javascript" src="/manager/js/common/plat/graphic_edit.js"></script>    <!--引入添加-->
 
-<script type="text/javascript">
-
-    $(function () {
-        $("#myForm").submit(function () {
-            var ueText = UE.getEditor('editor').getContent();
-            $("#neirong").val(ueText)
-            return true;
-        })
-    })
-
-
-    $("#returnGraphic").click(function () {
-        location.href="/manager/goGraphicAllView"
-    })
-</script>
 
 </body>
 

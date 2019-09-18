@@ -118,10 +118,10 @@ public class SlideShowController {
     @RequestMapping("/saveImageUrl")
     @ResponseBody
     public StateMessage saveImageUrl(@RequestParam("attach") MultipartFile multipartFile){
-        return showImageUrl(URLS.SLIDE_SHOW,multipartFile);
+        return showImageUrl(URLS.SLIDE_SHOW,multipartFile,"slide");
     }
 
-    public StateMessage showImageUrl(String temPath,MultipartFile multipartFile){
+    public StateMessage showImageUrl(String temPath,MultipartFile multipartFile,String preName){
         String fileName = null;
         String savePath =  null;
         try {
@@ -132,7 +132,7 @@ public class SlideShowController {
                 String suffixString = myFileName.substring(myFileName.indexOf("."));  //截取文件名
                 //命名规则：随机数
                 String fileName1 =System.currentTimeMillis() + suffixString;
-                fileName = "slide-"+fileName1.substring(8,fileName1.length());  //截取随机数的后几位
+                fileName = preName+"-"+fileName1.substring(8,fileName1.length());  //截取随机数的后几位
                 String path  = temPath+fileName;
                 File localFile = new File(path);
                 if (!localFile.getParentFile().exists()) {
@@ -235,6 +235,6 @@ public class SlideShowController {
     @RequestMapping("/updImageUrl")
     @ResponseBody
     public StateMessage updImageUrl(@RequestParam("attach") MultipartFile multipartFile){
-        return showImageUrl(URLS.SLIDE_SHOW,multipartFile);
+        return showImageUrl(URLS.SLIDE_SHOW,multipartFile,"slide");
     }
 }

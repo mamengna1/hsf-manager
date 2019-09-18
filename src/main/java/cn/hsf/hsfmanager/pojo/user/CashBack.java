@@ -14,6 +14,7 @@ public class CashBack {
     private Integer backStatusId;  // 返现状态
     private String comment;  //错误码
     private String userName;  //提现人
+    private String proxyOpenId;  //代理openId
 
     private BackStatus backStatus;
     private User user;
@@ -39,6 +40,14 @@ public class CashBack {
     }
 
     //get set
+
+    public String getProxyOpenId() {
+        return proxyOpenId;
+    }
+
+    public void setProxyOpenId(String proxyOpenId) {
+        this.proxyOpenId = proxyOpenId;
+    }
 
     public String getUserName() {
         return userName;

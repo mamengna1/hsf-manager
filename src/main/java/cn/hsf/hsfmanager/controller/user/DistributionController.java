@@ -8,6 +8,7 @@ import cn.hsf.hsfmanager.service.user.*;
 import cn.hsf.hsfmanager.service.wx.TemplateService;
 import cn.hsf.hsfmanager.util.Contents;
 import cn.hsf.hsfmanager.util.Page;
+import cn.hsf.hsfmanager.util.URLS;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -113,10 +114,11 @@ public class DistributionController {
 
         System.out.println("给用户发送的id ： "+ distribution1.getReleaseId() +"\t给师傅发送的id :"+id);
         //给用户发送模板信息
+
         Map map = new HashMap();
         map.put("openId",userOpenId) ;
-        map.put("url","http://java.86blue.cn/_api/goUserOrderDetail?id="+distribution1.getReleaseId());
-        map.put("template_id","TF2-OgTgYB6EYKzmno0NjbZobdCadK7U0d0E9O9ZogA") ;
+        map.put("url", URLS.DOMAIN_NAME+"/_api/goUserOrderDetail?id="+distribution1.getReleaseId());
+        map.put("template_id","HI9ygOFtJ_rbPK1JT3KD8ujsfIcaRBeCJrhQqgRZ0Oc") ;
         map.put("title","服务已经顺利完工") ;
         map.put("serviceType",userRelease.getTitle()) ;
         map.put("orderNo",orderNo) ;
@@ -127,8 +129,8 @@ public class DistributionController {
         //给师傅发送模板信息
         Map map1 = new HashMap();
         map1.put("openId",sfOpenId) ;
-        map1.put("url","http://java.86blue.cn/_api/goOrderShow?id="+id);
-        map1.put("template_id","TF2-OgTgYB6EYKzmno0NjbZobdCadK7U0d0E9O9ZogA") ;
+        map1.put("url",URLS.DOMAIN_NAME+"/_api/goOrderShow?id="+id);
+        map1.put("template_id","HI9ygOFtJ_rbPK1JT3KD8ujsfIcaRBeCJrhQqgRZ0Oc") ;
         map1.put("title","服务已经顺利完工") ;
         map1.put("serviceType",userRelease.getTitle()) ;
         map1.put("orderNo",orderNo) ;
@@ -141,7 +143,7 @@ public class DistributionController {
         for (int j = 0; j <managerOpenId.length ; j++) {
             Map map2 = new HashMap();
             map2.put("openId",managerOpenId[j]) ;
-            map2.put("template_id","TF2-OgTgYB6EYKzmno0NjbZobdCadK7U0d0E9O9ZogA") ;
+            map2.put("template_id","HI9ygOFtJ_rbPK1JT3KD8ujsfIcaRBeCJrhQqgRZ0Oc") ;
             map2.put("title","服务已经顺利完工") ;
             map2.put("serviceType",userRelease.getTitle()) ;
             map2.put("orderNo",orderNo) ;

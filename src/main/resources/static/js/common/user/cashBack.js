@@ -34,6 +34,7 @@ function searchCommission(currentPage,backStatusId,userName) {
                 "</td>" +
                 "<td id='user2' style='display: none'>" +
                 "<a id='openIds2' href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\" >"+ data.list[i].openId+"</a>" +
+                "<a id='proxyOpenId' href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\" style='display: none' >"+ data.list[i].proxyOpenId+"</a>" +
                 "</td>" +
                 "<td >" + data.list[i].user.nickName+ "</td>" +
                 "<td >" + data.list[i].money +"/"+sui+ "</td>" +
@@ -140,12 +141,13 @@ function saveCommission() {
 //确认支付
 function savePay(btn) {
     var id = $(btn).parent().siblings("#uid").html()
-    var openIds = $(btn).parent().siblings("#user2").children("#openIds2").html();
+    var openIds = $(btn).parent().siblings("#user2").children("#openIds2").html();   //真正的openId
+    var proxyOpenId = $(btn).parent().siblings("#user2").children("#proxyOpenId").html();  //代理openId
     var moneys = $(btn).parent().siblings("#moneys").html();
    var suiMoney = $(btn).parent().siblings("#suiMoney").html();
     var mymessage=confirm("您将要支付【"+moneys+"元】，您确认支付吗？");
     if(mymessage==true) {
-        $.getJSON("/manager/commission/payCommission", {"openId":openIds,"id":id,"money":moneys,"suiMoney":suiMoney}, function (data) {
+        $.getJSON("/manager/commission/payCommission", {"openId":proxyOpenId,"id":id,"money":moneys,"suiMoney":suiMoney}, function (data) {
             if(data.flag ==true){
                 alert("支付成功")
                 window.location.reload();

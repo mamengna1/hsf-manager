@@ -146,7 +146,6 @@ function saveScore() {
     var id = $("#ids").val();   //用户id
     var totalS = $("#totalS").val();   //奖励积分
     var sources = $("#sources").val();   //积分来源
-    alert("xxxx :"+sources)
     var source = $("#source").val();   //是否发送模板
     var note = $("#note").val();   //备注
     $.getJSON("/manager/userScore/updUserScore",{"id":id,"score":totalS,"sources":sources,"source":source,"note":note},function (data) {

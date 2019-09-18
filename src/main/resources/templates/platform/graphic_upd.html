@@ -37,7 +37,7 @@
             <div class="row data-type">
                 <input type="hidden" name="ids" id="ids" th:value="${graphic.id}">
 
-                <div class="col-md-2 title">标题</div>
+                <div class="col-md-2 title">* 标题</div>
                 <div class="col-md-10 data">
                     <input type="text" name="title" id="title" th:value="${graphic.title}"/>
                 </div>
@@ -49,9 +49,11 @@
                         <input id="attach"  type="file" class="form-control col-md-7 col-xs-12" name="attach" accept="image/jpg,image/png,image/jpeg,image/pneg" />
                     </div>
                     <div id="logoFile"></div>
+                    <input type="hidden" id="urlHidden" name="urlHidden">
+                    <img id="pic" src="" width="106" height="70" alt=""><br/>
                 </div>
 
-                <div class="col-md-2 title">副标题</div>
+                <div class="col-md-2 title">* 副标题</div>
                 <div class="col-md-10 data">
                     <input type="text" class="form-control" placeholder="副标题" th:value="${graphic.subtitle}"  name="subtitle" id="subtitle" >
                 </div>
@@ -59,7 +61,7 @@
                 <div class="col-md-2 title">浏览量</div>
                 <div class="col-md-10 data">
                     <div class="input-group">
-                        <input type="number" class="form-control" placeholder="浏览量" name="viewCount" th:value="${graphic.viewCount}">
+                        <input type="number" class="form-control" placeholder="浏览量" name="viewCount" id="viewCount" th:value="${graphic.viewCount}">
                     </div>
                 </div>
 
@@ -69,7 +71,7 @@
                     <input type="hidden" name="neirong" id="neirong" th:value="${graphic.content}" >
                 </div>
             </div>
-            <input class="btn btn-primary" type="submit" value="保存修改" id="btns"/>
+            <input class="btn btn-primary" type="button" value="保存修改" id="btns" onclick="updateGraphic()"/>
             <input class="btn btn-default" type="button" value="返回" id="returnGraphics"/>
         </form>
     </div>

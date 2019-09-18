@@ -159,23 +159,26 @@ public class UserController {
     public void  sendTemp(Integer sources,Integer source ,Integer score,User user1,ScoreSourceType scoreSourceType){
 
         if(source == 1){  //发送模板
+            String balanceScore = "剩余"+user1.getBalanceScore()+"可用积分";
             if(score >0){
+                String scoress = score+"积分";
                 Map map = new HashMap();
                 map.put("openId",user1.getOpenId());
                 map.put("title","积分增加提醒");
                 map.put("changeType",user1.getNickName()+"您好，恭喜您获得【"+scoreSourceType.getSourceName()+"】积分");
-                map.put("changeScore",score);
-                map.put("totalScore",user1.getBalanceScore());
+                map.put("changeScore",scoress);
+                map.put("totalScore",balanceScore);
                 templateService.sendScoreChange(map);
             }else if(score==0){
 
             }else{
                 Integer score2 = Math.abs(score);
+                String scoress = score2 +"积分";
                 Map map = new HashMap();
                 map.put("openId",user1.getOpenId());
                 map.put("title","积分扣除提醒");
-                map.put("changeScore",score2);
-                map.put("totalScore",user1.getBalanceScore());
+                map.put("changeScore",scoress);
+                map.put("totalScore",balanceScore);
                 map.put("changeType",user1.getNickName()+"您好，由于您违规操作，本次扣除积分："+score2+"分");
                 templateService.sendScoreChange(map);
             }

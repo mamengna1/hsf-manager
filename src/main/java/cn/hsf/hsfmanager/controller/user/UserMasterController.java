@@ -8,6 +8,7 @@ import cn.hsf.hsfmanager.service.user.UserSkillService;
 import cn.hsf.hsfmanager.service.wx.TemplateService;
 import cn.hsf.hsfmanager.util.Contents;
 import cn.hsf.hsfmanager.util.Page;
+import cn.hsf.hsfmanager.util.URLS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -102,7 +103,7 @@ public class UserMasterController {
     @RequestMapping("/updateUserDetail")
     @ResponseBody
     public boolean updateUserDetail(Integer id,Integer status,@RequestParam(value = "statusMessage",required = false,defaultValue = "") String statusMessage){
-     return updUserDetail2(id, status, statusMessage);
+        return updUserDetail2(id, status, statusMessage);
     }
     public boolean updUserDetail2(Integer id,Integer status,String statusMessage ){
         Integer lineStatus = 0;
@@ -156,7 +157,7 @@ public class UserMasterController {
             for (int j = 0; j <managerOpenId.length ; j++) {
                 Map map2 = new HashMap();
                 map2.put("openId",managerOpenId[j]) ;
-                map2.put("template_id","TF2-OgTgYB6EYKzmno0NjbZobdCadK7U0d0E9O9ZogA") ;
+                map2.put("template_id","HI9ygOFtJ_rbPK1JT3KD8ujsfIcaRBeCJrhQqgRZ0Oc") ;
                 map2.put("title","又有一位新的师傅诞生啦") ;
                 map2.put("serviceType","师傅审核成功通知") ;
                 map2.put("orderNo","无") ;
@@ -170,7 +171,7 @@ public class UserMasterController {
             map.put("openId",o);
             map.put("result","未通过");
             map.put("message",statusMessage);
-            map.put("url","http://java.86blue.cn/_api/goRegister");
+            map.put("url", URLS.DOMAIN_NAME+"/_api/goRegister");
             templateService.sendAuditFail(map);
             UserDetail detail = new UserDetail(id,status,statusMessage,2,1);
             userDetailService.updateUserDetail(detail);
@@ -180,7 +181,7 @@ public class UserMasterController {
             for (int j = 0; j <managerOpenId.length ; j++) {
                 Map map2 = new HashMap();
                 map2.put("openId",managerOpenId[j]) ;
-                map2.put("template_id","TF2-OgTgYB6EYKzmno0NjbZobdCadK7U0d0E9O9ZogA") ;
+                map2.put("template_id","HI9ygOFtJ_rbPK1JT3KD8ujsfIcaRBeCJrhQqgRZ0Oc") ;
                 map2.put("title","师傅审核未通过提醒") ;
                 map2.put("serviceType","师傅审核失败通知") ;
                 map2.put("orderNo","无") ;
@@ -252,23 +253,27 @@ public class UserMasterController {
         ScoreSourceType scoreSourceType = userScoreSourceService.selById(userScoreSource.getScoreSourceId());
         User user = userService.selUserByOpenId(userScoreSource.getOpenId());
         if (source == 1) {   // 发送模板
+            String balanceScore ="剩余"+ user.getBalanceScore() +"可用积分";
             if(score >0){
+                String scoress = score +"积分";
                 Map map = new HashMap();
                 map.put("openId",userScoreSource.getOpenId());
                 map.put("title","积分增加提醒");
                 map.put("changeType",userDetail.getName()+"您好，恭喜您获得【"+scoreSourceType.getSourceName()+"】积分");
-                map.put("changeScore",score);
-                map.put("totalScore",user.getBalanceScore());
+                map.put("changeScore",scoress);
+                map.put("totalScore",balanceScore);
                 templateService.sendScoreChange(map);
             }else if(score==0){
 
             }else{
+
                 Integer score2 = Math.abs(score);
+                String scoress =score2 +"积分";
                 Map map = new HashMap();
                 map.put("openId",userScoreSource.getOpenId());
                 map.put("title","积分扣除提醒");
                 map.put("changeScore",score2);
-                map.put("totalScore",user.getBalanceScore());
+                map.put("totalScore",balanceScore);
                 map.put("changeType",userDetail.getName()+"您好，由于您违规操作，本次扣除积分："+score2+"分");
                 templateService.sendScoreChange(map);
             }
@@ -278,7 +283,7 @@ public class UserMasterController {
         }
         if(status != userDetail.getStatus()){
             System.out.println("状态值改变了，调用审核方法");
-           // updateUserDetail(userDetail.getId(),userDetail.getStatus(),userDetail.getStatusMessage());
+            // updateUserDetail(userDetail.getId(),userDetail.getStatus(),userDetail.getStatusMessage());
             updUserDetail2(userDetail.getId(),userDetail.getStatus(),userDetail.getStatusMessage());
         }else{
             System.out.println("状态值没变，不调用审核方法");

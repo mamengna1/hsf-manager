@@ -174,7 +174,7 @@ public class TemplateService {
         String url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+at;
         String data = "{\n" +
                 "           \"touser\":\""+map.get("openId")+"\",\n" +
-                "           \"template_id\":\"xHGdCZ5_3_8-WHktcLRUuRU7sjt7WxsFkRnS8Wv-c9Y\",\n" +
+                "           \"template_id\":\"SS824RmViicEZJBdbWDbFPpKdEaDoIPneO3btpHJ-NQ\",\n" +
                 "           \"data\":{\n" +
                 "                   \"first\": {\n" +
                 "                       \"value\":\"亲爱的"+map.get("name")+"  您已经通过好师傅平台的审核"+"\",\n" +
@@ -241,7 +241,7 @@ public class TemplateService {
     }
 
     /**
-     * 给推广人发送积分 分红
+     * 给推广人发送积分 分红  分销提成
      * @param map
      */
     public  void sendScore(Map<String,String> map){
@@ -249,7 +249,7 @@ public class TemplateService {
         String url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+at;
         String data = "{\n" +
                 "           \"touser\":\""+map.get("openId")+"\",\n" +
-                "           \"template_id\":\"palZlIITZ5lB3n28qL4G_8FfUvZp4x20qFcFRG_DuBg\",\n" +
+                "           \"template_id\":\"QYTJ8zmM9HsnVS_mFHoIZpcbfNji4Inp6AWM_skZdyo\",\n" +
                 "           \"data\":{\n" +
                 "                   \"first\": {\n" +
                 "                       \"value\":\""+map.get("title")+"\",\n" +
@@ -369,7 +369,7 @@ public class TemplateService {
         String url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+at;
         String data = "{\n" +
                 "           \"touser\":\""+map.get("openId")+"\",\n" +
-                "           \"template_id\":\"I-5tJSfKERAB40nZDOZfH9uX2OVfhFRo2BLJaOEgnqw\",\n" +
+                "           \"template_id\":\"WUX4fOEkuHRHey0zD9OqUE5WvE6b1Bg-qzKPxk27rUU\",\n" +
                 "           \"data\":{\n" +
                 "                   \"first\": {\n" +
                 "                       \"value\":\"您申请的提现金额已到帐\",\n" +
@@ -471,14 +471,18 @@ public class TemplateService {
                 "           \"template_id\":\"eAWSsvo6Ag-POVzoI2JXHUmZb0JjsQNHnO_mRrLvYsM\",\n" +
                 "           \"data\":{\n" +
                 "                   \"first\": {\n" +
-                "                       \"value\":\""+map.get("stateMessage")+"\",\n" +
+                "                       \"value\":\""+map.get("title")+"\",\n" +
                 "                       \"color\":\"#173177\"\n" +
                 "                   },\n" +
                 "                   \"keyword1\":{\n" +
-                "                       \"value\":\""+map.get("fanKui")+"\",\n" +
+                "                       \"value\":\""+map.get("stateMessage")+"\",\n" +
                 "                       \"color\":\"#173177\"\n" +
                 "                   },\n" +
                 "                   \"keyword2\":{\n" +
+                "                       \"value\":\""+map.get("fanKui")+"\",\n" +
+                "                       \"color\":\"#173177\"\n" +
+                "                   },\n" +
+                "                   \"keyword3\":{\n" +
                 "                       \"value\":\""+map.get("replayMessage")+"\",\n" +
                 "                       \"color\":\"#173177\"\n" +
                 "                   },\n" +

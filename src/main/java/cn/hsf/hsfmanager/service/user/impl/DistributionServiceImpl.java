@@ -9,6 +9,7 @@ import cn.hsf.hsfmanager.service.user.DistributionService;
 import cn.hsf.hsfmanager.service.user.UserDetailService;
 import cn.hsf.hsfmanager.service.user.UserService;
 import cn.hsf.hsfmanager.service.wx.TemplateService;
+import cn.hsf.hsfmanager.util.URLS;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -131,7 +132,7 @@ public class DistributionServiceImpl implements DistributionService {
             userReleaseMapper.updateUserRelease(new UserRelease(distribution.getReleaseId(),statusId,distribution.getSfId()));
             userStatus = "已接单";
             orderNno =  userOrder.getId() +"";
-            changeMessage = "您的订单已经有师傅接单，师傅信息 ："+userDetail.getName() +":"+SfUser.getPhone();
+            changeMessage = "您的订单已经有师傅接单\\n师傅信息 ："+userDetail.getName() +":"+SfUser.getPhone();
             changeMessagesf = "接单成功，雇主信息 ："+userRelease.getNickName()+":"+userRelease.getPhone();
         }else if(statusId == 3 || statusId == 5){  //已拒单  已取消
             //修改派单表
@@ -145,7 +146,7 @@ public class DistributionServiceImpl implements DistributionService {
             String a = statusId == 3 ? "拒绝了您的雇佣" :"取消了此次订单";
             changeMessage = "抱歉师傅因为特殊原因"+a+"。请等待平台给您另外安排师傅。";
             String s = statusId == 3 ? "拒单" : "订单取消";
-            changeMessagesf = s+"成功，雇主信息 ："+userRelease.getNickName()+":"+userRelease.getPhone();
+            changeMessagesf = s+"成功\\n雇主信息 ："+userRelease.getNickName()+":"+userRelease.getPhone();
         }else if(statusId == 6 || statusId == 7){  // 已完成 申请完工
             //修改派单表
             distributionMapper.updDistribution(new Distribution(id,statusId,1));
@@ -162,12 +163,12 @@ public class DistributionServiceImpl implements DistributionService {
             String a = statusId == 6 ? "您此次的订单已完工" :"师傅申请完工，请您点击查看确认信息";
             changeMessage = "您此次的订单已完工，师傅信息 ："+userDetail.getName() +":"+SfUser.getPhone();
             String s = statusId == 6 ? "订单完成成功" : "订单已申请完工";
-            changeMessagesf = s+"。雇主信息 ："+userRelease.getNickName()+":"+userRelease.getPhone();
+            changeMessagesf = s+"\\n雇主信息 ："+userRelease.getNickName()+":"+userRelease.getPhone();
             //给用户发送的
             Map map = new HashMap();
             map.put("openId",userOpenId) ;
-            map.put("template_id","TF2-OgTgYB6EYKzmno0NjbZobdCadK7U0d0E9O9ZogA") ;
-            map.put("url", "http://java.86blue.cn/_api/goUserOrderDetail?id=" + userRelease.getId());
+            map.put("template_id","HI9ygOFtJ_rbPK1JT3KD8ujsfIcaRBeCJrhQqgRZ0Oc") ;
+            map.put("url", URLS.DOMAIN_NAME+"/_api/goUserOrderDetail?id=" + userRelease.getId());
             map.put("title","您的订单状态更新啦") ;
             map.put("serviceType","订单状态更改通知") ;
             map.put("orderNo",orderNno) ;
@@ -179,7 +180,7 @@ public class DistributionServiceImpl implements DistributionService {
             //给用户发送的
             Map map = new HashMap();
             map.put("openId",userOpenId) ;
-            map.put("template_id","TF2-OgTgYB6EYKzmno0NjbZobdCadK7U0d0E9O9ZogA") ;
+            map.put("template_id","HI9ygOFtJ_rbPK1JT3KD8ujsfIcaRBeCJrhQqgRZ0Oc") ;
             map.put("title","您的订单状态更新啦") ;
             map.put("serviceType","订单状态更改通知") ;
             map.put("orderNo",orderNno) ;
@@ -191,7 +192,7 @@ public class DistributionServiceImpl implements DistributionService {
             //给师傅发送通知
             Map map2 = new HashMap();
             map2.put("openId",SfUser.getOpenId()) ;
-            map2.put("template_id","TF2-OgTgYB6EYKzmno0NjbZobdCadK7U0d0E9O9ZogA") ;
+            map2.put("template_id","HI9ygOFtJ_rbPK1JT3KD8ujsfIcaRBeCJrhQqgRZ0Oc") ;
             map2.put("title","您的订单状态更新啦") ;
             map2.put("serviceType","订单状态更改通知") ;
             map2.put("orderNo",orderNno) ;

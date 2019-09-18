@@ -1,5 +1,7 @@
 package cn.hsf.hsfmanager;
 
+import cn.hsf.hsfmanager.controller.platform.SlideShowController;
+import cn.hsf.hsfmanager.pojo.StateMessage;
 import cn.hsf.hsfmanager.pojo.platform.Graphic;
 import cn.hsf.hsfmanager.service.platform.GraphicService;
 import cn.hsf.hsfmanager.util.Contents;
@@ -24,6 +26,7 @@ public class UeController {
 
     @Resource
     private GraphicService graphicService;
+    private SlideShowController slideShowController = new SlideShowController();
     /**
      * 进入新增编辑框页面
      * @return
@@ -74,6 +77,12 @@ public class UeController {
     }
 
 
+    @RequestMapping("/insGraphic")
+    @ResponseBody
+    public boolean insGraphic(Graphic graphic){
+        int res = graphicService.insGraphic(graphic);
+        return res > 0 ? true : false;
+    }
     /**
      * 进入查询全部图文列表页面
      * @return
@@ -144,6 +153,63 @@ public class UeController {
        model.addAttribute("graphic",graphicService.selGraphicById(id));
         return "platform/graphic_upd";
     }
+
+    /**
+     * 上传图片  保存修改缩略图时
+     * @param multipartFile
+     * @return
+     */
+    @RequestMapping("/graphicSaveImageUrl")
+    @ResponseBody
+    public StateMessage saveImageUrl(@RequestParam("attach") MultipartFile multipartFile){
+        return slideShowController.showImageUrl(URLS.GRAPHIC,multipartFile,"graphic");
+    }
+
+    /**
+     * 保存修改结果
+     */
+    @RequestMapping("/updateGraphic")
+    @ResponseBody
+    public boolean updateSlide(Graphic graphic,@RequestParam(value = "attach",required = false) MultipartFile multipartFile,
+                               @RequestParam(value = "urlHidden",required = false,defaultValue = "") String urlHidden) {
+        try {
+
+            if (multipartFile !=null &&(!multipartFile.isEmpty()) ) {
+                delFile(graphic.getId());
+                graphic.setImageUrl(urlHidden);
+            }else if(graphic.getImageUrl() !=null && graphic.getImageUrl() !=""){
+                graphic.setImageUrl(graphic.getImageUrl());
+            }else{
+                delFile(graphic.getId());
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        int res = graphicService.updGraphic(graphic);
+        return  res > 0 ? true : false;
+    }
+    /**
+     * 删除图片
+     * @param id
+     */
+    public void delFile(Integer id){
+        System.out.println("进入删除图片 "+ id);
+        String path1 = graphicService.selGraphicById(id).getImageUrl();
+        if(path1 !=null && (!path1.isEmpty()) && (! path1.equals(""))){
+            String path = URLS.IMAGE_ADDRESS+path1.substring(URLS.SUB_LENGTH,path1.length());   // http://java.86blue.cn/images/
+            System.out.println("path : "+path);
+            File file = new File(path);
+
+            if(file.exists()){
+                if(file.delete()){ // 删除LOGO图片的服务器存储路径
+                    graphicService.delFile(id);  //更新表
+                }
+            }
+        }
+
+    }
+
+
    /* *//**
      * 显示编辑信息
      * @return

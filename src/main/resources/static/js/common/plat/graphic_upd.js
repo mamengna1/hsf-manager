@@ -1,6 +1,6 @@
 
 $(function () {
-
+    $("#attach").on("change", showPicUpd );
     //LOGO图片---------------------
     var logoPicPath = $("#logoPicPath").val();
     var id = $("#ids").val();
@@ -42,27 +42,28 @@ function delfile(id) {
 /**
  * 保存修改
  */
-function updateSlide() {
+function updateGraphic() {
     var flag = true;
     if($("#title").val() == undefined || $("#title").val() == null || $("#title").val()==''
-        || $("#linkUrl").val() == undefined || $("#linkUrl").val() == null || $("#linkUrl").val() == ''
+        || $("#subtitle").val() == undefined || $("#subtitle").val() == null || $("#subtitle").val() == ''
     ){
         alert("必填选项不能为空")
         flag = false;
     }
     if(flag == true ){
+        var ueText = UE.getEditor('editor').getContent();
+        var neiRong =  $("#neirong").val(ueText)
         var data = new FormData();
-        data.append("id",$("#id").val())
+        data.append("id",$("#ids").val())
         data.append("title",$("#title").val())
-        data.append("imgType",  $("#imgType").val());
-        data.append("priority",  $("#priority").val());
-        data.append("url",  $("#logoPicPath").val());
-        data.append("linkUrl",  $("#linkUrl").val());
-        data.append("state",  $("#state").val());
+        data.append("subtitle",  $("#subtitle").val());
+        data.append("imageUrl",  $("#logoPicPath").val());
+        data.append("viewCount",  $("#viewCount").val());
+        data.append("content", neiRong);
         data.append("attach",$('#attach')[0].files[0]);
         data.append("urlHidden",  $("#urlHidden").val());
         $.ajax({
-            url: '/manager/slideshow/updateSlide',
+            url: '/manager/updateGraphic',
             type: 'POST',
             data: data,
             dataType: 'JSON',
@@ -72,7 +73,7 @@ function updateSlide() {
             success:function (data) {
                 if (data == true){
                     alert("修改成功")
-                    location.href="/manager/slideshow/goSlide"
+                    location.href="/manager/goGraphicAllView"
                 }else{
                     alert("修改失败")
                 }
@@ -93,7 +94,7 @@ function showPicUpd() {
     data.append("attach",$('#attach')[0].files[0]);
 
     $.ajax({
-        url: '/manager/slideshow/updImageUrl',
+        url: '/manager/graphicSaveImageUrl',
         type: 'POST',
         data: data,
         dataType: 'JSON',
@@ -104,7 +105,6 @@ function showPicUpd() {
             $("#pic").attr("src", data.message);
             $("#urlHidden").val("")
             $("#urlHidden").val(data.message)
-            //delServerFile(data.message)  此时传入的应该是上次的图片路径不应该放在这
         }
     });
 
@@ -114,7 +114,7 @@ function showPicUpd() {
     }
     $.ajaxSettings.async = true;
 }
-
+//删除服务器多余的图片
 function delServerFile(path) {
     $.getJSON("/manager/slideshow/delServerFile",{"path":path},function (data) {
     })
