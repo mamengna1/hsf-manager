@@ -5,6 +5,7 @@ import cn.hsf.hsfmanager.pojo.AdminType;
 import cn.hsf.hsfmanager.service.admin.AdminService;
 import cn.hsf.hsfmanager.service.admin.AdminTypeService;
 import cn.hsf.hsfmanager.service.user.UserDetailService;
+import cn.hsf.hsfmanager.util.Contents;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/adminController")
@@ -34,7 +37,7 @@ public class AdminController {
     @RequestMapping("/goAdminList")
     public String goAdminList(HttpServletRequest request, Model model){
        Admin admin = (Admin) request.getSession().getAttribute("admin");
-        List<Admin> adminList = adminService.selListAdmin(new Admin(admin.getLevel()));
+        List<Admin> adminList = adminService.selListAdmin(new Admin(admin.getTypeId()));
         model.addAttribute("adminList",adminList);
         List<AdminType> adminTypes = adminTypeService.selAdminTypeList();
         model.addAttribute("adminTypes",adminTypes);
@@ -53,6 +56,10 @@ public class AdminController {
 
         model.addAttribute("adminTypes",adminTypes);
         model.addAttribute("admins",admin);
+        Map map = getMap(Contents.COLUMN);
+        System.out.println(map);
+        model.addAttribute("column",map);
+
         return "admin/createAdmin";
     }
 
@@ -62,8 +69,8 @@ public class AdminController {
      */
     @RequestMapping("/saveAdmin")
     @ResponseBody
-    public boolean saveAdmin(String account,String password,Integer level,Integer typeId){
-        Admin admin = new Admin(account,password,level,typeId);
+    public boolean saveAdmin(String account,String password,Integer typeId,String accountOpenId,String permissions){
+        Admin admin = new Admin(account,password,typeId,accountOpenId,permissions);
         int res = adminService.saveAdmin(admin);
         return res> 0 ?true : false;
     }
@@ -83,6 +90,20 @@ public class AdminController {
     }
 
     /**
+     * 去到修改界面
+     * @return
+     */
+    @RequestMapping("/goUpdAdmin")
+    public String goUpdAdmin(Integer id,Model model) {
+        Admin admin = new Admin();
+        admin.setId(id);
+        List<AdminType> adminTypes = adminTypeService.selAdminTypeList();
+
+        model.addAttribute("admins",adminService.selAdmin(admin));
+        model.addAttribute("adminTypes",adminTypes);
+        return  "admin/updAdmin";
+    }
+    /**
      * 修改 "id":id,"account":account,"level":level,"typeId":typeId
      * @return
      */
@@ -97,5 +118,13 @@ public class AdminController {
     @ResponseBody
     public boolean delAdminById(Integer id){
         return adminService.delAdmin(id) > 0 ? true : false;
+    }
+
+    public Map getMap(String[] array){
+        Map map = new HashMap();
+        for (int i = 0; i <array.length ; i++) {
+            map.put((i+1),array[i]);
+        }
+        return map;
     }
 }

@@ -7,13 +7,13 @@
 <mapper namespace="cn.hsf.hsfmanager.mapper.AdminMapper">
 
     <select id="checkLogin"  resultMap="selAdminType" parameterType="cn.hsf.hsfmanager.pojo.Admin">
-        SELECT `id`,`account`,`password`,`level`,`typeId`
+        SELECT `id`,`account`,`password`,`level`,`typeId`,`accountOpenId`,`permissions`
         FROM `tb_admin`
         WHERE account = #{account} AND password = #{password}
     </select>
 
     <select id="selListAdmin" resultMap="selAdminType" parameterType="cn.hsf.hsfmanager.pojo.Admin">
-         SELECT `id`,`account`,`password`,`level`,`typeId`
+         SELECT `id`,`account`,`password`,`level`,`typeId`,`accountOpenId`,`permissions`
          FROM `tb_admin`
          <where>
 
@@ -27,7 +27,7 @@
                 and  `level` >= #{level}
              </if>
              <if test="typeId != null and typeId !='' ">
-                and `typeId` = #{typeId}
+                and `typeId` &lt;=  #{typeId}
              </if>
 
          </where>
@@ -41,11 +41,11 @@
 
 
     <insert id="saveAdmin" parameterType="cn.hsf.hsfmanager.pojo.Admin">
-        insert into `tb_admin` (`account`,`password`,`level`,`typeId`) values(#{account},#{password},#{level},#{typeId})
+        insert into `tb_admin` (`account`,`password`,`level`,`typeId`,`accountOpenId`,`permissions`) values(#{account},#{password},#{level},#{typeId},#{accountOpenId},#{permissions})
     </insert>
 
     <select id="selAdmin" parameterType="cn.hsf.hsfmanager.pojo.Admin" resultType="cn.hsf.hsfmanager.pojo.Admin">
-        SELECT `id`,`account`,`password`,`level`,`typeId`
+        SELECT `id`,`account`,`password`,`level`,`typeId`,`accountOpenId`,`permissions`
         FROM `tb_admin`
         <where>
 
@@ -82,6 +82,12 @@
             </if>
             <if test="typeId != null and typeId !='' ">
                  `typeId` = #{typeId},
+            </if>
+            <if test="accountOpenId != null and accountOpenId !='' ">
+                `accountOpenId` = #{accountOpenId},
+            </if>
+            <if test="permissions != null and permissions !='' ">
+                `permissions` = #{permissions},
             </if>
         </set>
         where id =#{id}

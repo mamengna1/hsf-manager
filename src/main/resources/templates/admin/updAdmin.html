@@ -22,7 +22,7 @@
 	<form action="/manager/adminController/saveAdmin">
 
 		<div class="box-header with-border">
-			<h3 class="box-title">新增管理员信息</h3>
+			<h3 class="box-title">修改管理员信息</h3>
 		</div>
 
 		<div class="box-body">
@@ -31,18 +31,8 @@
 			<div class="table-box">
 				<table id="dataList"  class="table table-bordered table-striped table-hover dataTable">
 					<tr>
-						* 管理员账号：<input type="text" name="account" class="form-control" id="account"/><br/>
+						* 管理员账号：<input type="text" name="account" class="form-control" id="account" th:value="${admins.account}"/><br/>
 					</tr>
-
-					<tr>
-						* 管理员密码：<input type="text" name="password" class="form-control" id="password"/><br/>
-					</tr>
-					<!--	<tr>
-
-                            <input type="hidden" id="leavel1" th:value="${admins.level}" />
-                            管理员级别：<input type="number" name="level" class="form-control" id="level" th:value="${admins.level}"  required th:onchange="leavelChange()"/><br/>
-
-                        </tr>-->
 					<tr>
 						* 管理员类型：
 						<select id="typeId" name="typeId"  class="form-control"  th:onchange="funType()" >
@@ -50,7 +40,7 @@
 						</select><br/>
 					</tr>
 					<tr>
-						微信openId：<input type="text" name="accountOpenId" class="form-control" id="accountOpenId"/><br/>
+						微信openId：<input type="text" name="accountOpenId" class="form-control" id="accountOpenId" th:value="${admins.accountOpenId}"/><br/>
 					</tr>
 					<tr>
 						权限：<br>
@@ -58,6 +48,7 @@
                                 <label style="margin-right: 20px"><input type="checkbox" value="${entry.key}"/><span>${entry.value}</span></label>
                             </td>-->
 
+						<input type="hidden" name="permissions" id="permissions1" th:value="${admins.permissions}">
 						<input type="hidden" name="permissions" id="permissions">
 						<label style="margin-left: 20px "><input name="checkbox" type="checkbox" value="1"  class="quanXian" />用户管理 </label>
 						<label style="margin-left: 20px" ><input name="checkbox" type="checkbox" value="2"  class="quanXian" />订单管理 </label>
@@ -82,7 +73,14 @@
 </body>
 
 <script type="text/javascript">
-	var permissions = $("#permissions").val().split(",");
+
+	$(function () {
+		var permissions1 = ("#permissions1").split(",");
+		for (var i = 0; i < permissions1.length; i++) {
+			$(".checkbox".val(permissions1[i])).prop("checked", "checked");
+		}
+	})
+	/*var permissions = $("#permissions").val().split(",");
 	$(".quanXian").click(function () {
 		var len = $(".quanXian").filter(":checked").length;
 		if ($(this).prop('checked')) {
@@ -98,7 +96,7 @@
 	$("#btn").click(function () {
 		var account = $("#account").val();
 		var password = $("#password").val();
-		/*	var level = $("#level").val();*/
+		/!*	var level = $("#level").val();*!/
 		var typeId = $("#typeId").val();
 		var permissions2;
 		if(typeId == 2){
@@ -129,6 +127,7 @@
 	})
 
 	function funType() {
+
 		var typeId = $("#typeId").val();
 		if(typeId == 2){
 			$('input[name="checkbox"]').each(function(){
@@ -140,7 +139,7 @@
 			});
 		}
 	}
-
+*/
 
 </script>
 

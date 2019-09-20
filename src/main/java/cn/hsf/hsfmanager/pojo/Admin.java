@@ -7,9 +7,18 @@ public class Admin {
     private String password;  // 密码
     private Integer level;   //级别
     private Integer typeId;   // 类别id
-
+    private String accountOpenId;  //运行商openId
+    private String permissions;  //权限
 
     private AdminType adminType;
+
+    public Admin(String account, String password, Integer typeId, String accountOpenId, String permissions) {
+        this.account = account;
+        this.password = password;
+        this.typeId = typeId;
+        this.accountOpenId = accountOpenId;
+        this.permissions = permissions;
+    }
 
     public Admin(Integer id, String account, Integer level, Integer typeId) {
         this.id = id;
@@ -38,11 +47,27 @@ public class Admin {
         this.password = password;
     }
 
-    public Admin(Integer level) {
-        this.level = level;
+    public Admin(Integer typeId) {
+        this.typeId = typeId;
     }
 
     public Admin() {
+    }
+
+    public String getAccountOpenId() {
+        return accountOpenId;
+    }
+
+    public void setAccountOpenId(String accountOpenId) {
+        this.accountOpenId = accountOpenId;
+    }
+
+    public String getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(String permissions) {
+        this.permissions = permissions;
     }
 
     public Integer getLevel() {

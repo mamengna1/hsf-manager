@@ -364,11 +364,11 @@
 
 
             <!-- sidebar menu: : style can be found in sidebar.less -->
+            <input type="hidden" id="column" th:value="${admins.permissions}">
             <ul class="sidebar-menu">
                 <li class="header">菜单</li>
                 <li id="admin-index"><a href="/manager/index"><i class="fa fa-dashboard"></i> <span>首页</span></a></li>
-
-                <li class="treeview" th:if="${admins.level le 4}">
+                <li class="treeview"  id="column1">
                     <a href="#">
                         <i class="fa fa-folder"></i>
                         <span>用户管理</span>
@@ -401,7 +401,9 @@
                     </ul>
                 </li>
 
-                <li class="treeview" th:if="${admins.level le 4}">
+
+
+                <li class="treeview"  id="column2">
                     <a href="#">
                         <i class="fa fa-folder"></i>
                         <span>订单管理</span>
@@ -422,7 +424,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="treeview" th:if="${admins.level le 4}">
+                <li class="treeview"  id="column3">
 
                     <a href="#">
                         <i class="fa fa-folder"></i>
@@ -455,7 +457,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="treeview" th:if="${admins.level le 4}">
+                <li class="treeview"  id="column4">
                     <a href="#">
                         <i class="fa fa-folder"></i>
                         <span>动态管理</span>
@@ -477,7 +479,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="treeview" th:if="${admins.level le 3}">
+                <li class="treeview"  id="column5">
                     <a href="#">
                         <i class="fa fa-folder"></i>
                         <span>技能管理</span>
@@ -493,7 +495,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="treeview" th:if="${admins.level le 4}">
+                <li class="treeview"  id="column6">
                     <a href="#">
                         <i class="fa fa-folder"></i>
                         <span>账目管理</span>
@@ -515,7 +517,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="treeview" th:if="${admins.level eq 1 }">
+                <li class="treeview"  id="column7">
                     <a href="#">
                         <i class="fa fa-folder"></i>
                         <span>菜单管理</span>
@@ -536,7 +538,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="treeview">
+                <li class="treeview" id="column8">
                     <a href="#">
                         <i class="fa fa-folder"></i>
                         <span>管理员信息</span>
@@ -558,7 +560,7 @@
 
                     </ul>
                 </li>
-                <li class="treeview">
+                <li class="treeview" id="column9">
                     <a href="#">
                         <i class="fa fa-folder"></i>
                         <span>其他管理</span>
@@ -626,5 +628,21 @@
             }
         })
     }
+
+    $(function () {
+        for (var i = 0; i < 9; i++) {
+            var c = "column"+(i+1)
+            $("#"+c).hide();
+        }
+        var  permissions = $("#column").val().split(",");
+        for (var i = 0; i <9 ; i++) {
+            for (var j = 0; j <permissions.length ; j++) {
+                if((i+1)== permissions[j]){
+                    var c = "column"+(i+1)
+                    $("#"+c).show();
+                }
+            }
+        }
+    })
 </script>
 </html>

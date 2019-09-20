@@ -214,7 +214,7 @@ public class TemplateService {
 
     /**
      * 提现到账通知
-     * I-5tJSfKERAB40nZDOZfH9uX2OVfhFRo2BLJaOEgnqw
+     * WUX4fOEkuHRHey0zD9OqUE5WvE6b1Bg-qzKPxk27rUU
      * @param map
      */
     public   void sendTiXianMessage(Map<String,String> map){
