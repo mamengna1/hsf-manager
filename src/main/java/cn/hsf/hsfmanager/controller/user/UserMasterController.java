@@ -135,6 +135,7 @@ public class UserMasterController {
                             map2.put("title","恭喜，您获得了一笔新的分销积分啦。来自："+user.getNickName());
                             map2.put("fenHong",String.valueOf(pre[i]));
                             map2.put("total",String.valueOf(pre[0]));
+                            map2.put("url",URLS.DOMAIN_NAME+"/_api/goYongJin");
                             templateService.sendScore(map2);
                             openId = userParent;
                         }
@@ -150,6 +151,7 @@ public class UserMasterController {
             Map map = new HashMap();
             map.put("openId",o);
             map.put("name",userDetail.getName());
+            map.put("url",URLS.DOMAIN_NAME+"/_api/goSFHone?id="+id);
             templateService.sendAuditSuccess(map);
 
             //给管理员发送模板信息
@@ -262,6 +264,7 @@ public class UserMasterController {
                 map.put("changeType",userDetail.getName()+"您好，恭喜您获得【"+scoreSourceType.getSourceName()+"】积分");
                 map.put("changeScore",scoress);
                 map.put("totalScore",balanceScore);
+                map.put("url", URLS.DOMAIN_NAME+"/_api/goYongJin");
                 templateService.sendScoreChange(map);
             }else if(score==0){
 
@@ -272,9 +275,10 @@ public class UserMasterController {
                 Map map = new HashMap();
                 map.put("openId",userScoreSource.getOpenId());
                 map.put("title","积分扣除提醒");
-                map.put("changeScore",score2);
+                map.put("changeScore",scoress);
                 map.put("totalScore",balanceScore);
                 map.put("changeType",userDetail.getName()+"您好，由于您违规操作，本次扣除积分："+score2+"分");
+                map.put("url", URLS.DOMAIN_NAME+"/_api/goYongJin");
                 templateService.sendScoreChange(map);
             }
 

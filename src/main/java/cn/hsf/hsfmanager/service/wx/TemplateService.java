@@ -15,157 +15,6 @@ public class TemplateService {
     private  WxService wxService;
 
     /**
-     * 给下单人的
-     * @param map
-     */
-    public   void sendTemplateMessage(Map<String,String> map){
-        String at = wxService.getAccessToken();
-        String url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+at;
-        String data = "{\n" +
-                "           \"touser\":\""+map.get("openid")+"\",\n" +
-                "           \"template_id\":\"Y3uz6my67nVn0Lj5RrbepL5ACMbzkYFtSCayjwVzWkI\",\n" +
-                "           \"data\":{\n" +
-                "                   \"first\": {\n" +
-                "                       \"value\":\"您好，您有一笔订单已经支付成功\",\n" +
-                "                       \"color\":\"#173177\"\n" +
-                "                   },\n" +
-                "                   \"keyword1\":{\n" +
-                "                       \"value\":\""+map.get("out_trade_no")+"\",\n" +
-                "                       \"color\":\"#173177\"\n" +
-                "                   },\n" +
-                "                   \"keyword2\": {\n" +
-                "                       \"value\":\""+ DateUtil.tranfDate(System.currentTimeMillis())+"\",\n" +
-                "                       \"color\":\"#173177\"\n" +
-                "                   },\n" +
-                "                   \"keyword3\": {\n" +
-                "                       \"value\":\""+map.get("money")+"\",\n" +
-                "                       \"color\":\"#173177\"\n" +
-                "                   },\n" +
-                "                   \"keyword4\": {\n" +
-                "                       \"value\":\"零钱发起通知\",\n" +
-                "                       \"color\":\"#173177\"\n" +
-                "                   },\n" +
-                "                   \"remark\":{\n" +
-                "                       \"value\":\"感谢您的惠顾！\",\n" +
-                "                       \"color\":\"#173177\"\n" +
-                "                   }\n" +
-                "           }\n" +
-                "       }";
-        String result = WxSend.post(url,data);
-        System.out.println(result);
-    }
-
-    /**
-     * 给推广人发送分红模板信息
-     * @param map
-     */
-    public   void sendPromoterId(Map<String,String> map){
-        String at = wxService.getAccessToken();
-        String url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+at;
-        String data = "{\n" +
-                "           \"touser\":\""+map.get("openid")+"\",\n" +
-                "           \"template_id\":\"YGq-noIOHzA1JQwHBETy4eB2CrPOA9SJ6vfE__at060\",\n" +
-                "           \"data\":{\n" +
-                "                   \"first\": {\n" +
-                "                       \"value\":\"亲，您又成功分销出一笔积分订单了\",\n" +
-                "                       \"color\":\"#173177\"\n" +
-                "                   },\n" +
-                "                   \"keyword1\":{\n" +
-                "                       \"value\":\""+map.get("out_trade_no")+"\",\n" +
-                "                       \"color\":\"#173177\"\n" +
-                "                   },\n" +
-                "                   \"keyword2\": {\n" +
-                "                       \"value\":\""+map.get("originMoney")+"\",\n" +
-                "                       \"color\":\"#173177\"\n" +
-                "                   },\n" +
-                "                   \"keyword3\": {\n" +
-                "                       \"value\":\""+map.get("score")+"\",\n" +
-                "                       \"color\":\"#173177\"\n" +
-                "                   },\n" +
-                "                   \"keyword4\": {\n" +
-                "                       \"value\":\""+ DateUtil.tranfDate(System.currentTimeMillis())+"\",\n" +
-                "                       \"color\":\"#173177\"\n" +
-                "                   },\n" +
-                "                   \"remark\":{\n" +
-                "                       \"value\":\"感谢您的惠顾！\",\n" +
-                "                       \"color\":\"#173177\"\n" +
-                "                   }\n" +
-                "           }\n" +
-                "       }";
-        String result = WxSend.post(url,data);
-        System.out.println(result);
-    }
-
-
-    /**
-     * 给推广人发送有下线信息 模板
-     * @param map
-     */
-    public  void sendToPromoterId(Map<String,String> map){
-        String at = wxService.getAccessToken();
-        String url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+at;
-        String data = "{\n" +
-                "           \"touser\":\""+map.get("promoterId")+"\",\n" +
-                "           \"template_id\":\"c58cj1d1Eh52NujEYv1-TrWyqu8SdujkVIFA4Act1BY\",\n" +
-                "           \"data\":{\n" +
-                "                   \"first\": {\n" +
-                "                       \"value\":\"恭喜您，有新会员加入啦1\",\n" +
-                "                       \"color\":\"#173177\"\n" +
-                "                   },\n" +
-                "                   \"keyword1\":{\n" +
-                "                       \"value\":\""+map.get("uid")+"\",\n" +
-                "                       \"color\":\"#173177\"\n" +
-                "                   },\n" +
-                "                   \"keyword2\": {\n" +
-                "                       \"value\":\""+DateUtil.tranfDate(System.currentTimeMillis())+"\",\n" +
-                "                       \"color\":\"#173177\"\n" +
-                "                   },\n" +
-                "                   \"remark\":{\n" +
-                "                       \"value\":\""+map.get("ends")+"\",\n" +
-                "                       \"color\":\"#173177\"\n" +
-                "                   }\n" +
-                "           }\n" +
-                "       }";
-        String result = WxSend.post(url,data);
-        System.out.println(result);
-    }
-
-
-    /**
-     * 给扫码人发送模板
-     * @param map
-     */
-    public  void sendToScavenger(Map<String,String> map){
-        String at = wxService.getAccessToken();
-        String url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+at;
-        String data = "{\n" +
-                "           \"touser\":\""+map.get("scavenger")+"\",\n" +
-                "           \"template_id\":\"c58cj1d1Eh52NujEYv1-TrWyqu8SdujkVIFA4Act1BY\",\n" +
-                "           \"data\":{\n" +
-                "                   \"first\": {\n" +
-                "                       \"value\":\"您的昵称是："+map.get("nickName")+"  已于："+DateUtil.tranfDate(System.currentTimeMillis())+"成为【中蓝科创】第"+map.get("uid")+"位会员，感谢您的支持。"+"\",\n" +
-                "                       \"color\":\"#173177\"\n" +
-                "                   },\n" +
-                "                   \"keyword1\":{\n" +
-                "                       \"value\":\""+map.get("uid")+"\",\n" +
-                "                       \"color\":\"#173177\"\n" +
-                "                   },\n" +
-                "                   \"keyword2\": {\n" +
-                "                       \"value\":\""+DateUtil.tranfDate(System.currentTimeMillis())+"\",\n" +
-                "                       \"color\":\"#173177\"\n" +
-                "                   },\n" +
-                "                   \"remark\":{\n" +
-                "                       \"value\":\"赠送您10积分以及2张抵用券已经到账，详情请进入会员中心查看\",\n" +
-                "                       \"color\":\"#173177\"\n" +
-                "                   }\n" +
-                "           }\n" +
-                "       }";
-        String result = WxSend.post(url,data);
-        System.out.println(result);
-    }
-
-
-    /**
      * 审核成功发送的模板
      * @param map
      */
@@ -175,6 +24,7 @@ public class TemplateService {
         String data = "{\n" +
                 "           \"touser\":\""+map.get("openId")+"\",\n" +
                 "           \"template_id\":\"SS824RmViicEZJBdbWDbFPpKdEaDoIPneO3btpHJ-NQ\",\n" +
+                "           \"url\":\""+map.get("url")+"\",\n" +
                 "           \"data\":{\n" +
                 "                   \"first\": {\n" +
                 "                       \"value\":\"亲爱的"+map.get("name")+"  您已经通过好师傅平台的审核"+"\",\n" +
@@ -197,6 +47,8 @@ public class TemplateService {
         String result = WxSend.post(url,data);
         System.out.println(result);
     }
+
+
     /**
      * 审核失败发送的模板
      *  亲爱的战友，你提交的金句：“失败是陈功之母”没有通过审核！
@@ -250,6 +102,7 @@ public class TemplateService {
         String data = "{\n" +
                 "           \"touser\":\""+map.get("openId")+"\",\n" +
                 "           \"template_id\":\"QYTJ8zmM9HsnVS_mFHoIZpcbfNji4Inp6AWM_skZdyo\",\n" +
+                "           \"url\":\""+map.get("url")+"\",\n" +
                 "           \"data\":{\n" +
                 "                   \"first\": {\n" +
                 "                       \"value\":\""+map.get("title")+"\",\n" +
@@ -422,6 +275,7 @@ public class TemplateService {
         String data = "{\n" +
                 "           \"touser\":\""+map.get("openId")+"\",\n" +
                 "           \"template_id\":\"lsr4nM05CZxi8pumptyNfcmbHPkaWK7iTUqD7r7fr7A\",\n" +
+                "           \"url\":\""+map.get("url")+"\",\n" +
                 "           \"data\":{\n" +
                 "                   \"first\": {\n" +
                 "                       \"value\":\"您收到了一条新的订单\",\n" +
@@ -469,6 +323,7 @@ public class TemplateService {
         String data = "{\n" +
                 "           \"touser\":\""+map.get("openId")+"\",\n" +
                 "           \"template_id\":\"eAWSsvo6Ag-POVzoI2JXHUmZb0JjsQNHnO_mRrLvYsM\",\n" +
+                "           \"url\":\""+map.get("url")+"\",\n" +
                 "           \"data\":{\n" +
                 "                   \"first\": {\n" +
                 "                       \"value\":\""+map.get("title")+"\",\n" +
@@ -514,6 +369,7 @@ public class TemplateService {
         String data = "{\n" +
                 "           \"touser\":\""+map.get("openId")+"\",\n" +
                 "           \"template_id\":\"WMwHNoAhtDf6y-f2bdGsQ1y8RMrUp30PVeP_waTTcq8\",\n" +
+                "           \"url\":\""+map.get("url")+"\",\n" +
                 "           \"data\":{\n" +
                 "                   \"first\": {\n" +
                 "                       \"value\":\""+map.get("title")+"\",\n" +

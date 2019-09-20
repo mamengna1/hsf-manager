@@ -87,7 +87,7 @@ public class UserDetailController {
             userDetails = userDetailService.selPaiDanAll(pageCurrentNo, Contents.PAGENO,skillId,serviceProvince,serviceCity,-1);
         }
         UserRelease userRelease = userReleaseService.selUserReleaseById(recId);
-       Integer detailId =  userService.selUserById( userRelease.getUserId()).getDetailId();
+        Integer detailId =  userService.selUserById( userRelease.getUserId()).getDetailId();
         //判断是否存在
         String isExist = null;
         String isOneSelf = null;
@@ -96,7 +96,7 @@ public class UserDetailController {
             //判断派单表是否已经存在
             Distribution distribution =  distributionService.selByResId(new Distribution(recId,userDetails.get(i).getId()));
             if(distribution == null){   //不存在
-                if(detailId == userDetails.get(i).getId()){
+                if(detailId.equals(userDetails.get(i).getId()) ){  //单不能派给自己  （两个Integer类型的比较用equals 不能 在用=）
                     isExist = "false";
                     j++;
                 }else{
@@ -115,7 +115,6 @@ public class UserDetailController {
 
         }
 
-        System.out.println("total :" +(total-j));
         Page page = new Page();
         page.setPageSize( Contents.PAGENO);
         page.setPageCurrentNo(pageCurrentNo);

@@ -133,7 +133,7 @@ public class DistributionServiceImpl implements DistributionService {
             userStatus = "已接单";
             orderNno =  userOrder.getId() +"";
             changeMessage = "您的订单已经有师傅接单\\n师傅信息 ："+userDetail.getName() +":"+SfUser.getPhone();
-            changeMessagesf = "接单成功，雇主信息 ："+userRelease.getNickName()+":"+userRelease.getPhone();
+            changeMessagesf = "接单成功\\n雇主信息 ："+userRelease.getNickName()+":"+userRelease.getPhone();
         }else if(statusId == 3 || statusId == 5){  //已拒单  已取消
             //修改派单表
             distributionMapper.updDistribution(new Distribution(id,statusId,refusedMessage,1));
@@ -161,9 +161,12 @@ public class DistributionServiceImpl implements DistributionService {
             userStatus = statusId == 6 ? "已完成" :"申请完工";
             orderNno =  distribution.getOrderId() +"";
             String a = statusId == 6 ? "您此次的订单已完工" :"师傅申请完工，请您点击查看确认信息";
-            changeMessage = "您此次的订单已完工，师傅信息 ："+userDetail.getName() +":"+SfUser.getPhone();
-            String s = statusId == 6 ? "订单完成成功" : "订单已申请完工";
-            changeMessagesf = s+"\\n雇主信息 ："+userRelease.getNickName()+":"+userRelease.getPhone();
+            changeMessage = a+ "\\n师傅信息 ："+userDetail.getName() +":"+SfUser.getPhone();
+            String s = statusId == 6 ? "订单完工成功" : "订单已申请完工";
+            String changeMessagesf1 = s+"\\n雇主信息 ："+userRelease.getNickName()+":"+userRelease.getPhone();
+            changeMessagesf = statusId == 6 ?  changeMessagesf1+"\\n感谢您的使用" :changeMessagesf1 +"\\n请您耐心等待";
+
+
             //给用户发送的
             Map map = new HashMap();
             map.put("openId",userOpenId) ;
@@ -181,6 +184,7 @@ public class DistributionServiceImpl implements DistributionService {
             Map map = new HashMap();
             map.put("openId",userOpenId) ;
             map.put("template_id","HI9ygOFtJ_rbPK1JT3KD8ujsfIcaRBeCJrhQqgRZ0Oc") ;
+            map.put("url", URLS.DOMAIN_NAME+"/_api/goUserOrderDetail?id=" + userRelease.getId());
             map.put("title","您的订单状态更新啦") ;
             map.put("serviceType","订单状态更改通知") ;
             map.put("orderNo",orderNno) ;
@@ -192,6 +196,7 @@ public class DistributionServiceImpl implements DistributionService {
             //给师傅发送通知
             Map map2 = new HashMap();
             map2.put("openId",SfUser.getOpenId()) ;
+            map2.put("url",URLS.DOMAIN_NAME+"/_api/goOrderShow?id="+id);
             map2.put("template_id","HI9ygOFtJ_rbPK1JT3KD8ujsfIcaRBeCJrhQqgRZ0Oc") ;
             map2.put("title","您的订单状态更新啦") ;
             map2.put("serviceType","订单状态更改通知") ;

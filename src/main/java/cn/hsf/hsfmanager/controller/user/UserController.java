@@ -9,6 +9,7 @@ import cn.hsf.hsfmanager.service.user.UserService;
 import cn.hsf.hsfmanager.service.wx.TemplateService;
 import cn.hsf.hsfmanager.util.Contents;
 import cn.hsf.hsfmanager.util.Page;
+import cn.hsf.hsfmanager.util.URLS;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -167,6 +168,7 @@ public class UserController {
                 map.put("changeType",user1.getNickName()+"您好，恭喜您获得【"+scoreSourceType.getSourceName()+"】积分");
                 map.put("changeScore",scoress);
                 map.put("totalScore",balanceScore);
+                map.put("url", URLS.DOMAIN_NAME+"/_api/goYongJin");
                 templateService.sendScoreChange(map);
             }else if(score==0){
 
@@ -179,6 +181,7 @@ public class UserController {
                 map.put("changeScore",scoress);
                 map.put("totalScore",balanceScore);
                 map.put("changeType",user1.getNickName()+"您好，由于您违规操作，本次扣除积分："+score2+"分");
+                map.put("url", URLS.DOMAIN_NAME+"/_api/goYongJin");
                 templateService.sendScoreChange(map);
             }
         }
