@@ -52,7 +52,6 @@ public class UserScoreController {
                         @RequestParam(value = "openId",required = false,defaultValue = "") String openId,
                         @RequestParam(value = "scoreSourceId",required = false,defaultValue = "") Integer scoreSourceId,
                         @RequestParam(value = "userName",required = false,defaultValue = "") String userName){
-        System.out.println("================进入积分界面===================");
         String openid;
         if(openId == "-1" || openId.equals("-1") || openId == null){
             openid = null;

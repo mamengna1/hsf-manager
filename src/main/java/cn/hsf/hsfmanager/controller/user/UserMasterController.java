@@ -286,11 +286,9 @@ public class UserMasterController {
 
         }
         if(status != userDetail.getStatus()){
-            System.out.println("状态值改变了，调用审核方法");
             // updateUserDetail(userDetail.getId(),userDetail.getStatus(),userDetail.getStatusMessage());
             updUserDetail2(userDetail.getId(),userDetail.getStatus(),userDetail.getStatusMessage());
         }else{
-            System.out.println("状态值没变，不调用审核方法");
         }
         return "user/userMasterAll";
     }

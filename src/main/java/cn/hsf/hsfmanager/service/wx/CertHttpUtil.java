@@ -73,21 +73,20 @@ public class CertHttpUtil {
             try {
                 HttpEntity entity = responseEntry.getEntity();
                 if (entity != null) {
-                    System.out.println("响应内容长度 : "+ entity.getContentLength());
+                 //   System.out.println("响应内容长度 : "+ entity.getContentLength());
                     SAXReader saxReader = new SAXReader();
                     Document document = saxReader.read(entity.getContent());
                     Element rootElt = document.getRootElement();
                     String resultCode = rootElt.elementText("result_code");
                     if(resultCode.equals("SUCCESS")){
-                        System.out.println("成功了！");
+                      //  System.out.println("成功了！");
 
                         //保存红包信息到数据库 ,把错误信息在数据库中清空
                         CashBack cashBack = new CashBack(id,2,null);
                         cashBackService.updateCashBack(cashBack);
-                          String moneyAll = cashBackService.selAllById(id).getMoney() +"";
+                        String moneyAll = cashBackService.selAllById(id).getMoney() +"";
                         String suiMoney1 = suiMoney +"";
                         String moneys1 = moneys +"";
-                      System.out.println(" moneyAll :"+moneyAll +"--suiMoney1 :"+ suiMoney1 +"-- moneys1 :"+ moneys1);
                         Map map2 = new HashMap();
                         map2.put("openId", cashBackService.selAllById(id).getOpenId()) ;
                         map2.put("way","微信转账到零钱") ;
@@ -100,7 +99,7 @@ public class CertHttpUtil {
                     }else{
                         String error = rootElt.elementText("err_code");
                         ResultData resultData = resData(error);
-                        System.out.println("resultData.getErrorMsg() : "+ resultData.getErrorMsg());
+                     //   System.out.println("resultData.getErrorMsg() : "+ resultData.getErrorMsg());
                         // 把错误信息存入数据库
                         CashBack cashBack = new CashBack(id,resultData.getErrorMsg());
                         cashBackService.updateCashBack(cashBack);
@@ -110,7 +109,6 @@ public class CertHttpUtil {
                 EntityUtils.consume(entity);
                 return new ResultData(flage);
             }catch(Exception e){
-                System.out.println("错误信息 ： "+e.getMessage());
                 System.out.println("请求失败");
             }
             finally {

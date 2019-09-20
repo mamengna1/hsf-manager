@@ -51,7 +51,6 @@ public class SlideShowController {
     @ResponseBody
     public Page userAllIndex(@RequestParam(value = "pageCurrentNo",required = false,defaultValue = "1") Integer pageCurrentNo,
                              @RequestParam(value = "imgType",required = false,defaultValue = "-1") Integer imgType){
-        System.out.println("====================我进入了幻灯片界面===================");
         int total = platformService.selSlideShowTotal(imgType);
         Page page = new Page();
         page.setPageSize( Contents.PAGENO);
@@ -190,11 +189,9 @@ public class SlideShowController {
      * @param id
      */
     public void delFile(Integer id){
-        System.out.println("进入删除图片 "+ id);
         String path1 = platformService.selSlideById(id).getUrl();
         if(path1 !=null && (!path1.isEmpty()) && (! path1.equals(""))){
             String path = URLS.IMAGE_ADDRESS+path1.substring(URLS.SUB_LENGTH,path1.length());   // http://java.86blue.cn/images/
-            System.out.println("path : "+path);
             File file = new File(path);
 
             if(file.exists()){

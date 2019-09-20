@@ -80,8 +80,14 @@
             <if test="skills != null and skills!=''">
                 skills=#{skills},
             </if>
-            <if test="status != null and status!=''">
-                status=#{status},
+            <if test="status != null and status ==1">
+                status=1,
+            </if>
+            <if test="status != null and status ==2">
+                status=2,
+            </if>
+            <if test="status != null and status == -1">
+                status=0,
             </if>
             <if test="workProvince != null and workProvince!=''">
                 workProvince=#{workProvince},

@@ -50,7 +50,6 @@ public class UeController {
         String fileName = null;
         Graphic graphic = new Graphic(title,subtitle,ueText,viewCount);
         try {
-            System.out.println("multipartFile : "+multipartFile);
            if (! multipartFile.isEmpty() ) {
                //取得当前上传文件的文件名称
                String myFileName = multipartFile.getOriginalFilename();
@@ -59,7 +58,6 @@ public class UeController {
                //命名规则：用户id+当前时间+随机数
                fileName = "uploads" + "-" + System.currentTimeMillis() + "-" + ((int) (Math.random() * 10000000)) + suffixString;
                String path  = URLS.GRAPHIC+fileName;
-               System.out.println("上传的路径 : " + path);
                File localFile = new File(path);
                if (!localFile.getParentFile().exists()) {
                    localFile.mkdirs();
@@ -101,7 +99,6 @@ public class UeController {
     @ResponseBody
     public Page userAllIndex(@RequestParam(value = "pageCurrentNo",required = false,defaultValue = "1") Integer pageCurrentNo,
                              @RequestParam(value = "titles",required = false,defaultValue = "") String title){
-        System.out.println("====================我进入了图文管理界面===================");
         int total = graphicService.selAllListCount(title);
         Page page = new Page();
         page.setPageSize( Contents.PAGENO);
@@ -193,11 +190,9 @@ public class UeController {
      * @param id
      */
     public void delFile(Integer id){
-        System.out.println("进入删除图片 "+ id);
         String path1 = graphicService.selGraphicById(id).getImageUrl();
         if(path1 !=null && (!path1.isEmpty()) && (! path1.equals(""))){
             String path = URLS.IMAGE_ADDRESS+path1.substring(URLS.SUB_LENGTH,path1.length());   // http://java.86blue.cn/images/
-            System.out.println("path : "+path);
             File file = new File(path);
 
             if(file.exists()){

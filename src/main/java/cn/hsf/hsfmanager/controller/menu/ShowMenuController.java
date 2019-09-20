@@ -80,7 +80,6 @@ public class ShowMenuController {
     @ResponseBody
     public boolean updateAppMenu(@RequestParam("id") Integer id,@RequestParam("menuName") String menuName,@RequestParam("menuTypeId") Integer menuTypeId,@RequestParam("message") String message,@RequestParam("key") String key){
         AppMenu appMenu = new AppMenu(id,menuName,menuTypeId,message,key);
-        System.out.println(appMenu);
         return appMenuService.updateAppMenuById(appMenu) > 0 ? true : false;
     }
 

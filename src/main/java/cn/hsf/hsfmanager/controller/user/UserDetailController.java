@@ -75,7 +75,6 @@ public class UserDetailController {
                         @RequestParam(value = "serviceCity",required = false,defaultValue = "")  Integer serviceCity,
                         @RequestParam(value = "serviceArea",required = false,defaultValue = "")  Integer serviceArea,
                         @RequestParam(value = "recId",required = false,defaultValue = "")  Integer recId){
-        System.out.println("======================我进入了去给用户找派单师傅====================");
 
         int total;
         List<UserDetail> userDetails = null;
@@ -164,7 +163,7 @@ public class UserDetailController {
             String sfPhone = userService.selUserByDetailId(userDetailId).getPhone();
 
             Integer pdId = distributionService.selByResId(distribution).getId();
-            System.out.println("============================派单id  ： "  + pdId +"传给用户的："+id);
+            //System.out.println("============================派单id  ： "  + pdId +"传给用户的："+id);
 
 
             //给用户发送推荐师傅的模板信息

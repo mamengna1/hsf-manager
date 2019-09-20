@@ -47,12 +47,12 @@ public class WxService {
         // 1）将token、timestamp、nonce三个参数进行字典序排序
         String[] strs = new String[]{app.getToken(), timestamp, nonce};
         Arrays.sort(strs);
-        System.out.println("token:"+app.getToken());
+        //System.out.println("token:"+app.getToken());
         //2）将三个参数字符串拼接成一个字符串进行sha1加密
         String str = strs[0] + strs[1] + strs[2];
         String mysig = sha1(str);
-        System.out.println(mysig);
-        System.out.println(signature);
+        //System.out.println(mysig);
+       // System.out.println(signature);
 
         //3）开发者获得加密后的字符串可与signature对比，标识该请求来源于微信
         return mysig.equalsIgnoreCase(signature);
@@ -92,7 +92,7 @@ public class WxService {
         App app = appMapper.selApp();
         String url = GET_TOKEN_URL.replace("APPID",app.getAppId()).replace("APPSECRET", app.getAppSecret());
         String tokenStr = WxSend.get(url);
-        System.out.println("tokenStr 信息 ： "+tokenStr);
+       // System.out.println("tokenStr 信息 ： "+tokenStr);
         JSONObject jsonObject = JSONObject.fromObject(tokenStr);
         String token = jsonObject.getString("access_token");
         String expireIn = jsonObject.getString("expires_in");
@@ -155,7 +155,7 @@ public class WxService {
             sb.append("Content-Disposition:form-data;name=\"media\";filename=\"" + file.getName() + "\"\r\n");
             sb.append("Content-Type:application/octet-stream\r\n\r\n");
             out.write(sb.toString().getBytes());
-            System.out.println(sb.toString());
+           // System.out.println(sb.toString());
             //第二部分：文件内容
             byte[] b = new byte[1024];
             int len;

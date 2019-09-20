@@ -68,7 +68,7 @@ public class LoginController {
      */
     @RequestMapping("/index")
     public String goIndex(HttpServletRequest request, Model model){
-        System.out.println("==============登录成功================"+new Date());
+        //System.out.println("==============登录成功================"+new Date());
        Admin admin = (Admin) request.getSession().getAttribute("admin");
        model.addAttribute("admins",admin);
         request.getSession().setAttribute("waitTotal",userDetailService.selUserDetailTotal(null,3,-1));

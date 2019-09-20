@@ -63,7 +63,6 @@ public class DistributionController {
     public Page userAllIndex(@RequestParam(value = "pageCurrentNo",required = false,defaultValue = "1") Integer pageCurrentNo,
                         @RequestParam(value = "statusId",required = false,defaultValue = "-1") Integer statusId,
                              @RequestParam(value = "sfId",required = false,defaultValue = "-1") Integer sfId){
-        System.out.println("====================我进入了派单界面===================");
         int total = distributionService.selDisTotal(statusId,sfId);
         Page page = new Page();
         page.setPageSize( Contents.PAGENO);
@@ -100,7 +99,6 @@ public class DistributionController {
         //修改默认给师父5星好评
         UserOrder userOrder = new UserOrder(distributionService.selByResId(new Distribution(id)).getOrderId(),"平台默认好评",5,2, userRelease.getUserId(),userRelease.getReceiveId());
         int i = userOrderService.updUserOrder(userOrder);
-        System.out.println("默认给师父5份好评结果 ： "+ i);
 
 
         //给用户以及师傅发送模板通知
@@ -112,7 +110,7 @@ public class DistributionController {
         String sfPhone = userService.selUserByDetailId( userRelease.getReceiveId()).getPhone();
         String orderNo = distributionService.selByResId(new Distribution(id)).getOrderId()+"";
 
-        System.out.println("给用户发送的id ： "+ distribution1.getReleaseId() +"\t给师傅发送的id :"+id);
+        //System.out.println("给用户发送的id ： "+ distribution1.getReleaseId() +"\t给师傅发送的id :"+id);
         //给用户发送模板信息
 
         Map map = new HashMap();

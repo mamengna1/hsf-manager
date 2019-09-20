@@ -40,7 +40,6 @@ public class UserInformationController {
     @ResponseBody
     @RequestMapping("/selAll")
     public Page selAll(Integer pageCurrentNo, Integer isDelete) {
-        System.out.println("===============我进入了动态界面===================");
         Page page = new Page();
         page.setPageSize(Contents.PAGENO);
         page.setPageCurrentNo(pageCurrentNo);

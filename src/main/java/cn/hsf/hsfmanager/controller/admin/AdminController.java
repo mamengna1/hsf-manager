@@ -63,9 +63,7 @@ public class AdminController {
     @RequestMapping("/saveAdmin")
     @ResponseBody
     public boolean saveAdmin(String account,String password,Integer level,Integer typeId){
-        System.out.println("-----------我进入了新增---------------");
         Admin admin = new Admin(account,password,level,typeId);
-        System.out.println(admin);
         int res = adminService.saveAdmin(admin);
         return res> 0 ?true : false;
     }
@@ -91,9 +89,7 @@ public class AdminController {
     @RequestMapping("/updAdmin")
     @ResponseBody
     public boolean updAdmin(Integer id,String account,Integer level,Integer typeId){
-        System.out.println("-----------我进入了修改---------------");
         Admin admin = new Admin(id,account,level,typeId);
-        System.out.println(admin);
         return adminService.updAdmin(admin) > 0 ? true : false;
     }
 

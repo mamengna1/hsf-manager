@@ -54,7 +54,6 @@ public class CashBackController {
                      @RequestParam(value = "backStatusId",required = false,defaultValue = "-1") Integer backStatusId,
                      @RequestParam(value = "openId",required = false,defaultValue = "") String openId,
                      @RequestParam(value = "userName",required = false,defaultValue = "") String userName, HttpServletRequest request){
-        System.out.println("======================我进入了提现页面=====================");
         String o;
         if(openId == "-1" || openId.equals("-1")|| openId == null){
             o = null;
@@ -112,7 +111,6 @@ public class CashBackController {
     @ResponseBody
     public boolean saveCashBack(@RequestParam("backStatusId") Integer backStatusId, @RequestParam("id") Integer id){
         int count = cashBackService.updateCashBack(new CashBack(id,backStatusId));
-        System.out.println("COUNT :  " + count);
         return count >0 ? true : false;
     }
 
@@ -129,7 +127,7 @@ public class CashBackController {
         double suiMoney1 = Double.valueOf(suiMoney);
         Map map = createMap(openId,moneys*100);
         String xml = WXPayUtil.mapToXml(map);
-        System.out.println("发送前的xml为 ："+ xml);
+      //  System.out.println("发送前的xml为 ："+ xml);
         // ,向微信发送请求转账请求
 /*        App app = appService.selApp();
         ResultData resultData = certHttpUtil.postData(URLS.COMPANY_PAY_URL, xml, app.getMchId(), URLS.CERT_PATH, id,suiMoney1,moneys);*/
