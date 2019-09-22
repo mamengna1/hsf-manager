@@ -54,21 +54,12 @@
 					</tr>
 					<tr>
 						权限：<br>
-						<!--	<td th:each="entry : ${column}">
-                                <label style="margin-right: 20px"><input type="checkbox" value="${entry.key}"/><span>${entry.value}</span></label>
-                            </td>-->
-
+						<td style="background-color: white">
+                                <label style="margin-right: 40px" th:each="entry ,u: ${columns}">
+									<input type="checkbox" name="checkbox" class="quanXian"  th:value="${u.index + 1}"/><span>[[${entry}]]</span>
+								</label>
+                        </td>
 						<input type="hidden" name="permissions" id="permissions">
-						<label style="margin-left: 20px "><input name="checkbox" type="checkbox" value="1"  class="quanXian" />用户管理 </label>
-						<label style="margin-left: 20px" ><input name="checkbox" type="checkbox" value="2"  class="quanXian" />订单管理 </label>
-						<label style="margin-left: 20px" ><input name="checkbox" type="checkbox" value="3"  class="quanXian" />师傅管理 </label>
-						<label style="margin-left: 20px" ><input name="checkbox" type="checkbox" value="4"  class="quanXian" />动态管理 </label>
-						<label style="margin-left: 20px" ><input name="checkbox" type="checkbox" value="5"  class="quanXian" />技能管理 </label><br>
-						<label style="margin-left: 20px" ><input name="checkbox" type="checkbox" value="6"  class="quanXian" />账目管理 </label>
-						<label style="margin-left: 20px" ><input name="checkbox" type="checkbox" value="7"  class="quanXian" />菜单管理 </label>
-						<label style="margin-left: 20px" ><input name="checkbox" type="checkbox" value="8"  class="quanXian" />管理员信息 </label>
-						<label style="margin-left: 20px" ><input name="checkbox" type="checkbox" value="9"  class="quanXian" />其他管理 </label>
-						<!--<label style="margin-left: 20px" ><input name="checkall" type="checkbox" value="-1" class="quanXian"  />全选 </label><br>-->
 
 					</tr>
 				</table>

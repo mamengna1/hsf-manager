@@ -13,7 +13,9 @@ public class Graphic {
     private String imageUrl;   //缩略图
     private Integer viewCount;  //点击量
     private Date createDate;
+    private Integer graTypeId;  //类型id
 
+    private GraphicType graphicType;
     public Graphic() {
     }
 
@@ -35,6 +37,22 @@ public class Graphic {
                 ", viewCount=" + viewCount +
                 ", createDate=" + createDate +
                 '}';
+    }
+
+    public GraphicType getGraphicType() {
+        return graphicType;
+    }
+
+    public void setGraphicType(GraphicType graphicType) {
+        this.graphicType = graphicType;
+    }
+
+    public Integer getGraTypeId() {
+        return graTypeId;
+    }
+
+    public void setGraTypeId(Integer graTypeId) {
+        this.graTypeId = graTypeId;
     }
 
     public Integer getId() {

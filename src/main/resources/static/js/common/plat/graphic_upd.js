@@ -1,5 +1,6 @@
 
 $(function () {
+    $("#graTypeId").val($("#graTypeId3").val())
     $("#attach").on("change", showPicUpd );
     //LOGO图片---------------------
     var logoPicPath = $("#logoPicPath").val();
@@ -62,6 +63,7 @@ function updateGraphic() {
         data.append("content", neiRong);
         data.append("attach",$('#attach')[0].files[0]);
         data.append("urlHidden",  $("#urlHidden").val());
+        data.append("graTypeId",$("#graTypeId").val())
         $.ajax({
             url: '/manager/updateGraphic',
             type: 'POST',

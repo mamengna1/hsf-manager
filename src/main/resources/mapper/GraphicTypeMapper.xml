@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace:映射命名空间-->
+<mapper namespace="cn.hsf.hsfmanager.mapper.GraphicTypeMapper">
+
+  <select id="selAllGraName" resultType="cn.hsf.hsfmanager.pojo.platform.GraphicType">
+      select`id` ,`graName` from `tb_graphic_type`
+  </select>
+
+    <select id="selByGraId" resultType="cn.hsf.hsfmanager.pojo.platform.GraphicType" parameterType="int">
+       select`id` ,`graName` from `tb_graphic_type`   where id =#{id}
+   </select>
+
+    <delete id="delGraphicTypeById" parameterType="int">
+        delete  from tb_graphic_type where id = #{id}
+    </delete>
+
+    <update id="updGraphicType" parameterType="cn.hsf.hsfmanager.pojo.platform.GraphicType">
+        update tb_graphic_type set graName = #{graName} where id = #{id}
+    </update>
+
+    <insert id="insGraphicType" parameterType="cn.hsf.hsfmanager.pojo.platform.GraphicType">
+        insert into tb_graphic_type(graName) values(#{graName})
+    </insert>
+</mapper>

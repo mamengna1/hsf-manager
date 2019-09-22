@@ -70,6 +70,7 @@ public class LoginController {
     public String goIndex(HttpServletRequest request, Model model){
         //System.out.println("==============登录成功================"+new Date());
        Admin admin = (Admin) request.getSession().getAttribute("admin");
+       adminService.updAdmin(new Admin(admin.getId(),1));
        model.addAttribute("admins",admin);
         request.getSession().setAttribute("waitTotal",userDetailService.selUserDetailTotal(null,3,-1));
         request.getSession().setAttribute("userTotal",userService.userTotal());

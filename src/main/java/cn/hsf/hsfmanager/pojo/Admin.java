@@ -1,5 +1,7 @@
 package cn.hsf.hsfmanager.pojo;
 
+import java.util.Date;
+
 public class Admin {
 
     private Integer id;
@@ -9,12 +11,22 @@ public class Admin {
     private Integer typeId;   // 类别id
     private String accountOpenId;  //运行商openId
     private String permissions;  //权限
+    private Date lastDate;   //最后登录时间
 
+    private Integer mark;  //标记
     private AdminType adminType;
 
     public Admin(String account, String password, Integer typeId, String accountOpenId, String permissions) {
         this.account = account;
         this.password = password;
+        this.typeId = typeId;
+        this.accountOpenId = accountOpenId;
+        this.permissions = permissions;
+    }
+
+    public Admin(Integer id, String account, Integer typeId, String accountOpenId, String permissions) {
+        this.id = id;
+        this.account = account;
         this.typeId = typeId;
         this.accountOpenId = accountOpenId;
         this.permissions = permissions;
@@ -52,6 +64,27 @@ public class Admin {
     }
 
     public Admin() {
+    }
+
+    public Admin(Integer id, Integer mark) {
+        this.id = id;
+        this.mark = mark;
+    }
+
+    public Date getLastDate() {
+        return lastDate;
+    }
+
+    public void setLastDate(Date lastDate) {
+        this.lastDate = lastDate;
+    }
+
+    public Integer getMark() {
+        return mark;
+    }
+
+    public void setMark(Integer mark) {
+        this.mark = mark;
     }
 
     public String getAccountOpenId() {

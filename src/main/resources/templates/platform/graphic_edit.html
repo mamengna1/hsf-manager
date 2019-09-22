@@ -32,13 +32,13 @@
 <section class="content">
 
     <div class="box-body">
-        <form action="/manager/Saveue" method="post" enctype="multipart/form-data" id="myForm">
+        <form action="" method="post" enctype="multipart/form-data" id="myForm">
             <!--表单内容-->
             <div class="row data-type">
 
                 <div class="col-md-2 title">* 标题</div>
                 <div class="col-md-10 data">
-                    <input type="text" name="title" id="title"/>
+                    <input type="text" name="title" class="form-control" id="title"/>
                 </div>
 
                 <div class="col-md-2 title" style="height: 130px">压缩图</div>
@@ -51,7 +51,13 @@
 
                 <div class="col-md-2 title">* 副标题</div>
                 <div class="col-md-10 data">
-                    <input type="text" name="subtitle" id="subtitle"  placeholder="副标题" >
+                    <input type="text" name="subtitle" id="subtitle" class="form-control" placeholder="副标题" >
+                </div>
+                <div class="col-md-2 title">类别</div>
+                <div class="col-md-10 data">
+                    <select id="graTypeId" name="graTypeId"  class="form-control" >
+                        <option th:each="mt :${graName}" th:value="${mt.id}" th:text="${mt.graName}" />
+                    </select><br/>
                 </div>
 
                 <div class="col-md-2 title">浏览量</div>

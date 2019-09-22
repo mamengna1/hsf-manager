@@ -30,11 +30,13 @@
 			<!-- 数据表格 -->
 			<div class="table-box">
 				<table id="dataList"  class="table table-bordered table-striped table-hover dataTable">
+					<input type="hidden" id="id" th:value="${admins.id}">
 					<tr>
 						* 管理员账号：<input type="text" name="account" class="form-control" id="account" th:value="${admins.account}"/><br/>
 					</tr>
 					<tr>
 						* 管理员类型：
+						<input type="hidden" id="typeId3" th:value="${admins.typeId}"/>
 						<select id="typeId" name="typeId"  class="form-control"  th:onchange="funType()" >
 							<option th:each="mt :${adminTypes}" th:value="${mt.id}" th:text="${mt.typeName}" />
 						</select><br/>
@@ -48,25 +50,22 @@
                                 <label style="margin-right: 20px"><input type="checkbox" value="${entry.key}"/><span>${entry.value}</span></label>
                             </td>-->
 
-						<input type="hidden" name="permissions" id="permissions1" th:value="${admins.permissions}">
+						<input type="hidden" name="permissions1" id="permissions1" th:value="${admins.permissions}">
 						<input type="hidden" name="permissions" id="permissions">
-						<label style="margin-left: 20px "><input name="checkbox" type="checkbox" value="1"  class="quanXian" />用户管理 </label>
-						<label style="margin-left: 20px" ><input name="checkbox" type="checkbox" value="2"  class="quanXian" />订单管理 </label>
-						<label style="margin-left: 20px" ><input name="checkbox" type="checkbox" value="3"  class="quanXian" />师傅管理 </label>
-						<label style="margin-left: 20px" ><input name="checkbox" type="checkbox" value="4"  class="quanXian" />动态管理 </label>
-						<label style="margin-left: 20px" ><input name="checkbox" type="checkbox" value="5"  class="quanXian" />技能管理 </label><br>
-						<label style="margin-left: 20px" ><input name="checkbox" type="checkbox" value="6"  class="quanXian" />账目管理 </label>
-						<label style="margin-left: 20px" ><input name="checkbox" type="checkbox" value="7"  class="quanXian" />菜单管理 </label>
-						<label style="margin-left: 20px" ><input name="checkbox" type="checkbox" value="8"  class="quanXian" />管理员信息 </label>
-						<label style="margin-left: 20px" ><input name="checkbox" type="checkbox" value="9"  class="quanXian" />其他管理 </label>
-						<!--<label style="margin-left: 20px" ><input name="checkall" type="checkbox" value="-1" class="quanXian"  />全选 </label><br>-->
+						<td style="background-color: white">
+							<label style="margin-right: 40px" th:each="entry ,u: ${columns}">
+								<input type="checkbox" name="checkbox" class="quanXian"  th:value="${u.index + 1}"/><span>[[${entry}]]</span>
+							</label>
+						</td>
+
 
 					</tr>
 				</table>
 				<!--数据列表/-->
 			</div>
 			<!-- 数据表格 /-->
-			<input type="button" value="提交" id="btn" class="btn-info">
+			<input type="button" value="确认修改" id="btn" class="btn-info">
+			<input type="button" value="返回" id="btn2" class="btn-info">
 		</div>
 	</form>
 </div>
@@ -75,28 +74,30 @@
 <script type="text/javascript">
 
 	$(function () {
-		var permissions1 = ("#permissions1").split(",");
+		$("#typeId").val($("#typeId3").val())
+		var permissions1 = ($("#permissions1").val()).split(",");
+		var quanXians = document.getElementsByClassName("quanXian");
 		for (var i = 0; i < permissions1.length; i++) {
-			$(".checkbox".val(permissions1[i])).prop("checked", "checked");
+			$(quanXians[permissions1[i] - 1]).prop("checked","checked")
 		}
-	})
-	/*var permissions = $("#permissions").val().split(",");
-	$(".quanXian").click(function () {
-		var len = $(".quanXian").filter(":checked").length;
-		if ($(this).prop('checked')) {
-			if($(this).val() != -1){
-				permissions.push($(this).val());
+		var permissions = $("#permissions1").val().split(",");
+		$(".quanXian").click(function () {
+			var len = $(".quanXian").filter(":checked").length;
+			if ($(this).prop('checked')) {
+				if($(this).val() != -1){
+					permissions.push($(this).val());
+				}
+			} else {
+				permissions.splice(jQuery.inArray($(this).val(), permissions), 1);  //从数组中删除当前项，删除1个
 			}
-		} else {
-			permissions.splice(jQuery.inArray($(this).val(), permissions), 1);  //从数组中删除当前项，删除1个
-		}
-		$("#permissions").val(permissions.join());
+			$("#permissions").val(permissions.join());
+		})
 	})
 
+
 	$("#btn").click(function () {
+		var id =$("#id").val()
 		var account = $("#account").val();
-		var password = $("#password").val();
-		/!*	var level = $("#level").val();*!/
 		var typeId = $("#typeId").val();
 		var permissions2;
 		if(typeId == 2){
@@ -107,27 +108,26 @@
 
 		var accountOpenId = $("#accountOpenId").val();
 		var flag = true;
-		if(account == null || password == null || typeId == null ||
-				account == '' || password == '' || typeId == '' ||
-				account == undefined || password == undefined  || typeId == undefined
+		if(account == null || typeId == null ||
+				account == '' || typeId == '' ||
+				account == undefined || typeId == undefined
 		){
 			alert("必填信息不能为null")
 			flag = false;
 		}
 		if(flag == true){
-			$.getJSON("/manager/adminController/saveAdmin",{"account":account,"password":password,"typeId":typeId,"accountOpenId":accountOpenId,"permissions":permissions2},function (data) {
+			alert(permissions2)
+			$.getJSON("/manager/adminController/updAdmin",{"id":id,"account":account,"typeId":typeId,"accountOpenId":accountOpenId,"permissions":permissions2},function (data) {
 				if(data == true){
-					alert("新增成功！")
+					alert("修改成功！")
 					location.href="/manager/adminController/goAdminList";
 				}else{
-					alert("新增失败！")
+					alert("修改失败！")
 				}
 			})
 		}
 	})
-
 	function funType() {
-
 		var typeId = $("#typeId").val();
 		if(typeId == 2){
 			$('input[name="checkbox"]').each(function(){
@@ -139,7 +139,9 @@
 			});
 		}
 	}
-*/
+$("#btn2").click(function () {
+	location.href="/manager/adminController/goAdminList";
+})
 
 </script>
 

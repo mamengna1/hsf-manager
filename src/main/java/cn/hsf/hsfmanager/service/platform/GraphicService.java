@@ -1,6 +1,7 @@
 package cn.hsf.hsfmanager.service.platform;
 
 import cn.hsf.hsfmanager.pojo.platform.Graphic;
+import cn.hsf.hsfmanager.pojo.platform.GraphicType;
 
 import java.util.List;
 
@@ -21,4 +22,11 @@ public interface GraphicService {
     int delGraphicById(Integer[] array);
 
     int delFile(Integer id);
+
+
+    List<GraphicType> selAllGraName();
+    GraphicType selByGraId(Integer id);
+    int delGraphicTypeById(Integer id);
+    int insGraphicType(GraphicType graphicType);
+    int updGraphicType(GraphicType graphicType);
 }

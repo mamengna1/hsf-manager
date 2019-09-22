@@ -6,8 +6,16 @@
 <!--namespace:映射命名空间-->
 <mapper namespace="cn.hsf.hsfmanager.mapper.GraphicMapper">
 
-    <select id="selAllGraphicList" resultType="cn.hsf.hsfmanager.pojo.platform.Graphic">
-        SELECT `id`,`title`,`subtitle`,`content`,`imageUrl`,`viewCount`,`createDate`
+
+    <resultMap id="selGra" type="cn.hsf.hsfmanager.pojo.platform.Graphic">
+        <id property="id" column="id"/>
+        <result property="graTypeId" column="graTypeId"/>
+        <association property="graphicType" column="graTypeId" select="cn.hsf.hsfmanager.mapper.GraphicTypeMapper.selByGraId"/>
+    </resultMap>
+
+
+    <select id="selAllGraphicList" resultMap="selGra">
+        SELECT `id`,`title`,`subtitle`,`content`,`imageUrl`,`viewCount`,`createDate`,`graTypeId`
         FROM `tb_graphic`
         <where>
             <if test="title !=null and title  !=''">
@@ -29,14 +37,14 @@
     </select>
 
     <select id="selGraphicById" resultType="cn.hsf.hsfmanager.pojo.platform.Graphic" parameterType="int">
-         SELECT `id`,`title`,`subtitle`,`content`,`imageUrl`,`viewCount`,`createDate`
+         SELECT `id`,`title`,`subtitle`,`content`,`imageUrl`,`viewCount`,`createDate`,`graTypeId`
         FROM `tb_graphic`
         where id = #{id}
     </select>
 
 
     <insert id="insGraphic" parameterType="cn.hsf.hsfmanager.pojo.platform.Graphic">
-        insert into `tb_graphic` (`title`,`subtitle`,`content`,`imageUrl`,`viewCount`,`createDate`) values(#{title},#{subtitle},#{content},#{imageUrl},#{viewCount},now())
+        insert into `tb_graphic` (`title`,`subtitle`,`content`,`imageUrl`,`viewCount`,`createDate`,`graTypeId`) values(#{title},#{subtitle},#{content},#{imageUrl},#{viewCount},now(),#{graTypeId})
     </insert>
 
     <update id="updGraphic"  parameterType="cn.hsf.hsfmanager.pojo.platform.Graphic">
@@ -59,6 +67,9 @@
             </if>
             <if test="viewCount != null and viewCount !='' ">
                 `viewCount` = #{viewCount},
+            </if>
+            <if test="graTypeId != null and graTypeId !='' ">
+                `graTypeId` = #{graTypeId},
             </if>
         </set>
         where id =#{id}

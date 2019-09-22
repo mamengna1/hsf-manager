@@ -17,6 +17,7 @@ function searchGraphicShow(currentPage,titles) {
                 "<td>" + data.list[i].subtitle + "</td>" +
                 "<td><img src='"+  data.list[i].imageUrl +"' width='50px' height='50px'/></td>" +
                 "<td>" + data.list[i].viewCount+ "</td>" +
+                "<td>" + data.list[i].graphicType.graName+ "</td>" +
                 "<td>" + createDate+ "</td>" +
                 "<td>" +
                 "<a href='javascript:void(0)'  class=\"btn btn-xs btn-warning\"  onclick='goUpdateUe("+data.list[i].id+")'>修改</a>" +

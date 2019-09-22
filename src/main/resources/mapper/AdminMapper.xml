@@ -7,13 +7,13 @@
 <mapper namespace="cn.hsf.hsfmanager.mapper.AdminMapper">
 
     <select id="checkLogin"  resultMap="selAdminType" parameterType="cn.hsf.hsfmanager.pojo.Admin">
-        SELECT `id`,`account`,`password`,`level`,`typeId`,`accountOpenId`,`permissions`
+        SELECT `id`,`account`,`password`,`level`,`typeId`,`accountOpenId`,`permissions`,`lastDate`
         FROM `tb_admin`
         WHERE account = #{account} AND password = #{password}
     </select>
 
     <select id="selListAdmin" resultMap="selAdminType" parameterType="cn.hsf.hsfmanager.pojo.Admin">
-         SELECT `id`,`account`,`password`,`level`,`typeId`,`accountOpenId`,`permissions`
+         SELECT `id`,`account`,`password`,`level`,`typeId`,`accountOpenId`,`permissions`,`lastDate`
          FROM `tb_admin`
          <where>
 
@@ -29,8 +29,8 @@
              <if test="typeId != null and typeId !='' ">
                 and `typeId` &lt;=  #{typeId}
              </if>
-
          </where>
+         order by lastDate desc
     </select>
 
     <resultMap id="selAdminType" type="cn.hsf.hsfmanager.pojo.Admin">
@@ -41,11 +41,11 @@
 
 
     <insert id="saveAdmin" parameterType="cn.hsf.hsfmanager.pojo.Admin">
-        insert into `tb_admin` (`account`,`password`,`level`,`typeId`,`accountOpenId`,`permissions`) values(#{account},#{password},#{level},#{typeId},#{accountOpenId},#{permissions})
+        insert into `tb_admin` (`account`,`password`,`level`,`typeId`,`accountOpenId`,`permissions`,`lastDate`) values(#{account},#{password},#{level},#{typeId},#{accountOpenId},#{permissions},now())
     </insert>
 
     <select id="selAdmin" parameterType="cn.hsf.hsfmanager.pojo.Admin" resultType="cn.hsf.hsfmanager.pojo.Admin">
-        SELECT `id`,`account`,`password`,`level`,`typeId`,`accountOpenId`,`permissions`
+        SELECT `id`,`account`,`password`,`level`,`typeId`,`accountOpenId`,`permissions`,`lastDate`
         FROM `tb_admin`
         <where>
 
@@ -88,6 +88,9 @@
             </if>
             <if test="permissions != null and permissions !='' ">
                 `permissions` = #{permissions},
+            </if>
+            <if test="mark != null and mark ==1 ">
+                `lastDate` = now(),
             </if>
         </set>
         where id =#{id}

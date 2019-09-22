@@ -56,9 +56,7 @@ public class AdminController {
 
         model.addAttribute("adminTypes",adminTypes);
         model.addAttribute("admins",admin);
-        Map map = getMap(Contents.COLUMN);
-        System.out.println(map);
-        model.addAttribute("column",map);
+        model.addAttribute("columns",Contents.COLUMN);
 
         return "admin/createAdmin";
     }
@@ -101,6 +99,7 @@ public class AdminController {
 
         model.addAttribute("admins",adminService.selAdmin(admin));
         model.addAttribute("adminTypes",adminTypes);
+        model.addAttribute("columns",Contents.COLUMN);
         return  "admin/updAdmin";
     }
     /**
@@ -109,8 +108,8 @@ public class AdminController {
      */
     @RequestMapping("/updAdmin")
     @ResponseBody
-    public boolean updAdmin(Integer id,String account,Integer level,Integer typeId){
-        Admin admin = new Admin(id,account,level,typeId);
+    public boolean updAdmin(Integer id,String account,Integer typeId,String accountOpenId,String permissions){
+        Admin admin = new Admin(id,account,typeId,accountOpenId,permissions);
         return adminService.updAdmin(admin) > 0 ? true : false;
     }
 
@@ -120,11 +119,5 @@ public class AdminController {
         return adminService.delAdmin(id) > 0 ? true : false;
     }
 
-    public Map getMap(String[] array){
-        Map map = new HashMap();
-        for (int i = 0; i <array.length ; i++) {
-            map.put((i+1),array[i]);
-        }
-        return map;
-    }
+
 }

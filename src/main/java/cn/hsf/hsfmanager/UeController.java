@@ -32,7 +32,8 @@ public class UeController {
      * @return
      */
     @RequestMapping("/goGraphic")
-    public String goGraphic(){
+    public String goGraphic(Model model){
+        model.addAttribute("graName",graphicService.selAllGraName());
         return "platform/graphic_edit";
     }
 
@@ -148,6 +149,7 @@ public class UeController {
     @RequestMapping("/goUpdateUe")
     public String goUpdateUe(@RequestParam("id") Integer id, Model model){
        model.addAttribute("graphic",graphicService.selGraphicById(id));
+        model.addAttribute("graName",graphicService.selAllGraName());
         return "platform/graphic_upd";
     }
 

@@ -57,7 +57,13 @@
                 <div class="col-md-10 data">
                     <input type="text" class="form-control" placeholder="副标题" th:value="${graphic.subtitle}"  name="subtitle" id="subtitle" >
                 </div>
-
+                <div class="col-md-2 title">类别</div>
+                <div class="col-md-10 data">
+                    <input type="hidden" id="graTypeId3" th:value="${graphic.graTypeId}">
+                    <select id="graTypeId" name="graTypeId"  class="form-control" >
+                        <option th:each="mt :${graName}" th:value="${mt.id}" th:text="${mt.graName}" />
+                    </select><br/>
+                </div>
                 <div class="col-md-2 title">浏览量</div>
                 <div class="col-md-10 data">
                     <div class="input-group">

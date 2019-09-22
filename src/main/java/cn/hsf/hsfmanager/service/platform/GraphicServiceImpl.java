@@ -1,7 +1,9 @@
 package cn.hsf.hsfmanager.service.platform;
 
 import cn.hsf.hsfmanager.mapper.GraphicMapper;
+import cn.hsf.hsfmanager.mapper.GraphicTypeMapper;
 import cn.hsf.hsfmanager.pojo.platform.Graphic;
+import cn.hsf.hsfmanager.pojo.platform.GraphicType;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -12,6 +14,9 @@ public class GraphicServiceImpl implements GraphicService {
 
     @Resource
     private GraphicMapper graphicMapper;
+    @Resource
+    private GraphicTypeMapper graphicTypeMapper;
+
 
     @Override
     public List<Graphic> selAllGraphicList(Integer pageCurrentNo, Integer pageSize, String title) {
@@ -52,4 +57,31 @@ public class GraphicServiceImpl implements GraphicService {
     public int delFile(Integer id) {
         return graphicMapper.delFile(id);
     }
+
+    @Override
+    public List<GraphicType> selAllGraName() {
+        return graphicTypeMapper.selAllGraName();
+    }
+
+    @Override
+    public GraphicType selByGraId(Integer id) {
+        return graphicTypeMapper.selByGraId(id);
+    }
+
+    @Override
+    public int delGraphicTypeById(Integer id) {
+        return graphicTypeMapper.delGraphicTypeById(id);
+    }
+
+    @Override
+    public int insGraphicType(GraphicType graphicType) {
+        return graphicTypeMapper.insGraphicType(graphicType);
+    }
+
+    @Override
+    public int updGraphicType(GraphicType graphicType) {
+        return graphicTypeMapper.updGraphicType(graphicType);
+    }
+
+
 }
