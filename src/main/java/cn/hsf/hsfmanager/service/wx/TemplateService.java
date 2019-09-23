@@ -39,7 +39,7 @@ public class TemplateService {
                 "                       \"color\":\"#173177\"\n" +
                 "                   },\n" +
                 "                   \"remark\":{\n" +
-                "                       \"value\":\"欢迎您的加盟！\",\n" +
+                "                       \"value\":\""+map.get("end")+"\",\n" +
                 "                       \"color\":\"#173177\"\n" +
                 "                   }\n" +
                 "           }\n" +

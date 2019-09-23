@@ -72,6 +72,9 @@ function selAudit(id) {
         }else if(data.userDetail.status == 0 || data.userDetail.status == ''){
             stateType = -1
             $("#statusMessage").attr("disabled","disabled")
+        }else{
+            stateType = data.userDetail.status
+            $("#statusMessage").attr("disabled","disabled")
         }
         $("#stateType").val(stateType)
         $("#realNames").html(data.userDetail.name)
@@ -95,7 +98,7 @@ function updateAudit() {
     if(flag == true){
         $.getJSON("/manager/userMaster/updateUserDetail",{"id":id,"status":stateType,"statusMessage":statusMessage},function (data) {
             if(data ==true){
-                alert("修改审核结果成功！")
+                alert("修改状态结果成功！")
                 window.location.reload();
             }else{
                 alert("修改审核结果成功！状态为【审核不通过】")

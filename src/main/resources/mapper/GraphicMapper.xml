@@ -59,9 +59,9 @@
             <if test="subtitle != null and subtitle !='' ">
                 `subtitle` = #{subtitle},
             </if>
-            <if test="content != null and content !='' ">
+          <!--  <if test="content != null and content !='' ">
                   `content` = #{content},
-            </if>
+            </if>-->
             <if test="imageUrl != null and imageUrl !='' ">
                  `imageUrl` = #{imageUrl},
             </if>
@@ -70,6 +70,9 @@
             </if>
             <if test="graTypeId != null and graTypeId !='' ">
                 `graTypeId` = #{graTypeId},
+            </if>
+            <if test="mark != null and mark ==1 ">
+                `content` = #{content},
             </if>
         </set>
         where id =#{id}

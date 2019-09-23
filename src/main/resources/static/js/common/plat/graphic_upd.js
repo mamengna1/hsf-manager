@@ -22,11 +22,9 @@ $(function () {
 })
 
 //返回
-$("#returnGraphics").click(function () {
+function returnGraphics() {
     location.href="/manager/goGraphicAllView"
-})
-
-
+}
 
 /**
  * 更换图片
@@ -53,14 +51,13 @@ function updateGraphic() {
     }
     if(flag == true ){
         var ueText = UE.getEditor('editor').getContent();
-        var neiRong =  $("#neirong").val(ueText)
         var data = new FormData();
         data.append("id",$("#ids").val())
         data.append("title",$("#title").val())
         data.append("subtitle",  $("#subtitle").val());
         data.append("imageUrl",  $("#logoPicPath").val());
         data.append("viewCount",  $("#viewCount").val());
-        data.append("content", neiRong);
+        data.append("content", ueText);
         data.append("attach",$('#attach')[0].files[0]);
         data.append("urlHidden",  $("#urlHidden").val());
         data.append("graTypeId",$("#graTypeId").val())

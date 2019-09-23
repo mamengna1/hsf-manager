@@ -49,7 +49,7 @@ function searchCommission(currentPage,backStatusId,userName) {
                 "<td>" + comment + "</td>" +
                 "<td style=\"" + ((data.level ==1) ? '' : 'display:none;')+"\"  >" +
                 "<a href='javascript:void(0)'  class=\"btn btn-xs btn-success\" onclick='savePay(this)' id='pays'  style=\"" + ((data.list[i].backStatusId==1) ? '' : 'display:none;')+"\" >确认支付</a>" +
-                "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn btn-xs btn-warning\" data-toggle=\"modal\" data-target=\"#editCommission\" onclick='upCommon(\""+data.list[i].id+"\")' id='up'  >修改</a>" +
+                "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn btn-xs btn-warning\" data-toggle=\"modal\" data-target=\"#editCommission\" onclick='upCommon(\""+data.list[i].id+"\")' id='up'  style=\"" + ((data.list[i].backStatusId==2) ? 'display:none;' : '')+"\" >修改</a>" +
                 "</tr>")
 
         }

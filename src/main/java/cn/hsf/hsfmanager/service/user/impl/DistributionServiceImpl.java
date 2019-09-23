@@ -7,6 +7,7 @@ import cn.hsf.hsfmanager.mapper.UserReleaseMapper;
 import cn.hsf.hsfmanager.pojo.user.*;
 import cn.hsf.hsfmanager.service.user.DistributionService;
 import cn.hsf.hsfmanager.service.user.UserDetailService;
+import cn.hsf.hsfmanager.service.user.UserScoreSourceService;
 import cn.hsf.hsfmanager.service.user.UserService;
 import cn.hsf.hsfmanager.service.wx.TemplateService;
 import cn.hsf.hsfmanager.util.URLS;
@@ -34,6 +35,8 @@ public class DistributionServiceImpl implements DistributionService {
     private TemplateService templateService;
     @Resource
     private UserDetailService userDetailService;
+    @Resource
+    private UserScoreSourceService userScoreSourceService;
 
     @Override
     public int insDistribution(Distribution distribution) {
@@ -166,7 +169,15 @@ public class DistributionServiceImpl implements DistributionService {
             String changeMessagesf1 = s+"\\n雇主信息 ："+userRelease.getNickName()+":"+userRelease.getPhone();
             changeMessagesf = statusId == 6 ?  changeMessagesf1+"\\n感谢您的使用" :changeMessagesf1 +"\\n请您耐心等待";
 
-
+            if(statusId ==6){ //已完工
+                //添加积分表
+                UserScoreSource userScoreSource = new UserScoreSource(SfUser.getOpenId(),2,9);
+                userScoreSource.setUserName(SfUser.getNickName());
+                userScoreSourceService.insScoreSource(userScoreSource);
+                //修改用户表
+                User user1 = new User(SfUser.getOpenId(),Double.valueOf(2),Double.valueOf(2));
+                userService.updateUserByOpenId(user1);
+            }
             //给用户发送的
             Map map = new HashMap();
             map.put("openId",userOpenId) ;

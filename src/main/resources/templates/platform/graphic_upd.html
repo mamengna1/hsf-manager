@@ -77,8 +77,8 @@
                     <input type="hidden" name="neirong" id="neirong" th:value="${graphic.content}" >
                 </div>
             </div>
-            <input class="btn btn-primary" type="button" value="保存修改" id="btns" onclick="updateGraphic()"/>
-            <input class="btn btn-default" type="button" value="返回" id="returnGraphics"/>
+            <input class="btn btn-primary" type="button" value="保存修改" id="btns" th:onclick="updateGraphic()"/>
+            <input class="btn btn-default" type="button" value="返回"  th:onclick="returnGraphics()"/>
         </form>
     </div>
 

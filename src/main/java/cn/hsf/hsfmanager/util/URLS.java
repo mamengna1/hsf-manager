@@ -19,7 +19,7 @@ public class URLS {
     public static final String SLIDE_SHOW ="/images/sfsd/manager/slideshow/";              //轮播图存放路径
     public static final String SLIDE_SHOW_TEMP ="/images/sfsd/manager/slideshowTemp/";     //轮播图存放的临时路径路径
     public static final String GRAPHIC ="/images/sfsd/manager/graphic/thumbnail/";    //图文管理缩略图存入的图片
-
+    public static final String SKILL_ICON ="/images/sfsd/manager/skillIocn/";    //技能图标保存路径
 
     //以下是中蓝的支付商户，目前为代付，先不写入数据库
     public static final String MCHID ="1537153931";   //支付商户

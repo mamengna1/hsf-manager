@@ -152,6 +152,7 @@ public class UserMasterController {
             map.put("openId",o);
             map.put("name",userDetail.getName());
             map.put("url",URLS.DOMAIN_NAME+"/_api/goSFHone?id="+id);
+            map.put("end","欢迎您的加盟");
             templateService.sendAuditSuccess(map);
 
             //给管理员发送模板信息
@@ -192,6 +193,22 @@ public class UserMasterController {
                 templateService.serviceStatus(map2);
             }
             return false;
+        }else if(status ==4 || status ==5 || status ==6){
+            Integer line = (status == 4 || status == 5) ? 2 :1;
+            Integer s = status == 6 ? 1 : status;
+            UserDetail detail = new UserDetail(id,s,statusMessage,line,1);
+            userDetailService.updateUserDetail(detail);
+            String res = status == 4 ? "待激活":status == 5 ? "待恢复" : "恢复成功";
+            if(status==6){
+                Map map = new HashMap();
+                map.put("openId",o);
+                map.put("name",userDetail.getName());
+                map.put("url",URLS.DOMAIN_NAME+"/_api/goSFHone?id="+id);
+                map.put("end","师傅状态恢复成功，欢迎您的回归");
+                templateService.sendAuditSuccess(map);
+            }
+
+            return true;
         }
         return false;
     }
@@ -245,6 +262,9 @@ public class UserMasterController {
      */
     @RequestMapping("/insUserDetail")
     public String insUserDetail(UserScoreSource userScoreSource, UserDetail userDetail, String phone, Integer source,Integer score){
+        if(userDetail.getStatus() == 6){
+            userDetail.setStatus(1);
+        }
         Integer status = userDetailService.selUserDetailById(userDetail.getId()).getStatus();
         if(userScoreSource.getScore() !=0 ){
             userScoreSourceService.insScoreSource(userScoreSource);

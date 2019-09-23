@@ -646,12 +646,12 @@
     }
 
     $(function () {
-        for (var i = 0; i < 9; i++) {
+        for (var i = 0; i < 10; i++) {
             var c = "column"+(i+1)
             $("#"+c).hide();
         }
         var  permissions = $("#column").val().split(",");
-        for (var i = 0; i <9 ; i++) {
+        for (var i = 0; i <10 ; i++) {
             for (var j = 0; j <permissions.length ; j++) {
                 if((i+1)== permissions[j]){
                     var c = "column"+(i+1)

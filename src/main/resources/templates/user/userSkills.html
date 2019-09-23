@@ -54,7 +54,9 @@
 				</th>-->
 				<th class="sorting_asc">id</th>
 				<th class="sorting">技能名称</th>
+				<th class="sorting">图标</th>
 				<th class="sorting">描述</th>
+				<th class="sorting">是否推荐</th>
 				<th class="sorting">操作</th>
 			</tr>
 			</thead>
@@ -84,7 +86,7 @@
 
 
 <!-- 新建父类技能信息窗口 -->
-<div class="modal fade" id="insModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="insModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="top:-20%">
 	<div class="modal-dialog" >
 		<div class="modal-content">
 			<div class="modal-header">
@@ -97,6 +99,22 @@
 						<td>技能名称</td>
 						<td >
 							<input type="text" id="skillName" name="skillName">
+						</td>
+					</tr>
+					<tr>
+						<td>图标</td>
+						<td >
+							<input type="hidden" name ="url" id="url">
+							<input id="attach"  type="file"  name="attach" accept="image/jpg,image/png,image/jpeg,image/pneg" />
+							<img id="pic" src="" width="106" alt="">
+						</td>
+					</tr>
+					<tr>
+						<td>是否推荐</td>
+						<td >
+							<input type="hidden" name="isRecommend" id="isRecommend" value="2"/>
+							&nbsp; <input type="radio" name="radio1" value="推荐"  onclick="changeSou(1)" />推荐
+							<input type="radio" name="radio1" value="不推荐" onclick="changeSou(2)" checked="checked" />不推荐
 						</td>
 					</tr>
 				</table>
@@ -113,7 +131,7 @@
 
 
 <!-- 新增子类技能 -->
-<div class="modal fade" id="childModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="childModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="top:-20%">
 	<div class="modal-dialog" >
 		<div class="modal-content">
 			<div class="modal-header">
@@ -139,9 +157,26 @@
 						</td>
 					</tr>
 					<tr>
+						<td>图标</td>
+						<td >
+							<input type="hidden" name ="urlZi" id="urlZi">
+							<input id="attach2"  type="file"  name="attach2" accept="image/jpg,image/png,image/jpeg,image/pneg" />
+							<img id="picZi" src="" width="106" alt="">
+
+						</td>
+					</tr>
+					<tr>
 						<td>子类技能描述</td>
 						<td >
 							<textarea name="describes" id="describes" placeholder="如价格，时长之类的" style="margin:0px; height: 170px;width: 463px;resize: none;"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>是否推荐</td>
+						<td >
+							<input type="hidden" name="isRecommend2" id="isRecommend2" value="2"/>
+							&nbsp; <input type="radio" name="checkbox1" value="推荐"  onclick="changeSou2(1)" />推荐
+							<input type="radio" name="checkbox1" value="不推荐" onclick="changeSou2(2)" checked="checked" />不推荐
 						</td>
 					</tr>
 				</table>
@@ -155,8 +190,8 @@
 	</div>
 </div>
 
-<!-- 新增子类技能 -->
-<div class="modal fade" id="updateSkills" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- 修改技能 -->
+<div class="modal fade" id="updateSkills" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="top:-20%">
 	<div class="modal-dialog" >
 		<div class="modal-content">
 			<div class="modal-header">
@@ -165,22 +200,36 @@
 			</div>
 
 			<input type="hidden" id="skillsId"  />
+			<input type="hidden" id="skillNamefu2" name="skillNamefu2" >
 
 			<div class="modal-body" id="fuSkills">
 				<table class="table table-bordered table-striped"  width="800px">
 					<tr>
 						<td>父类名称</td>
 						<td >
-							<input type="text" id="skillNamefu" name="skillNamefu" readonly>
+							<input type="text" id="skillNamefu" name="skillNamefu" >
 						</td>
 					</tr>
 					<tr>
-						<td>新名称</td>
-						<td >
-							<input type="text" id="skillNamefuNew" name="skillNamefuNew">
+						<td>图标</td>
+						<td>
+							<input type="hidden" id="logoPicPath3" name="logoPicPath3" />
+							<div id="uploadfile3" style="display: none">
+								<input id="attach3"  type="file" class="form-control col-md-7 col-xs-12" name="attach3" accept="image/jpg,image/png,image/jpeg,image/pneg" />
+							</div>
+							<div id="logoFile3"></div>
+							<input type="hidden" id="urlHidden3" name="urlHidden3">
+							<img id="pic3" src="" width="106" height="70" alt=""><br/>
 						</td>
 					</tr>
-
+					<tr>
+						<td>是否推荐</td>
+						<td >
+							<input type="hidden" name="isRecommend3" id="isRecommend3" />
+							<input type="radio" id="fuTui" value="推荐"  name="fuLeiRadio" onclick="changeSou3(1)" />推荐
+							<input type="radio"  id="fuNotTui" value="不推荐"  name="fuLeiRadio" onclick="changeSou3(2)"  />不推荐
+						</td>
+					</tr>
 				</table>
 			</div>
 
@@ -202,12 +251,31 @@
 						</td>
 					</tr>
 					<tr>
+						<td>图标</td>
+						<td>
+							<input type="hidden" id="logoPicPath4" name="logoPicPath3" />
+							<div id="uploadfile4" style="display: none">
+								<input id="attach4"  type="file" class="form-control col-md-7 col-xs-12" name="attach4" accept="image/jpg,image/png,image/jpeg,image/pneg" />
+							</div>
+							<div id="logoFile4"></div>
+							<input type="hidden" id="urlHidden4" name="urlHidden4">
+							<img id="pic4" src="" width="106" height="70" alt=""><br/>
+						</td>
+					</tr>
+					<tr>
 						<td>子类技能描述</td>
 						<td >
 							<textarea name="describeszi" id="describeszi" placeholder="取消订单以及拒单填写（其他状态可不填）" style="margin:0px; height: 170px;width: 463px;resize: none;"></textarea>
 						</td>
 					</tr>
-
+					<tr>
+						<td>是否推荐</td>
+						<td >
+							<input type="hidden" name="isRecommend4" id="isRecommend4" />
+							<input type="radio" id="ziTui" value="推荐" name="ziLeiRadio" onclick="changeSou4(1)" />推荐
+							<input type="radio"  id="ziNotTui" value="不推荐"  name="ziLeiRadio" onclick="changeSou4(2)"  />不推荐
+						</td>
+					</tr>
 				</table>
 			</div>
 
@@ -221,6 +289,6 @@
 
 
 </body>
-
+<script type="text/javascript" src="/manager/js/common/user/UserSkillsUpd.js"></script>  <!--引入修改skill的js-->
 
 </html>

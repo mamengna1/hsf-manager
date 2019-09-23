@@ -101,7 +101,7 @@
 		var typeId = $("#typeId").val();
 		var permissions2;
 		if(typeId == 2){
-			permissions2 = ",1,2,3,4,5,6,7,8,9"
+			permissions2 = ",1,2,3,4,5,6,7,8,9,10"
 		}else{
 			permissions2 = $("#permissions").val();
 		}
@@ -116,7 +116,6 @@
 			flag = false;
 		}
 		if(flag == true){
-			alert(permissions2)
 			$.getJSON("/manager/adminController/updAdmin",{"id":id,"account":account,"typeId":typeId,"accountOpenId":accountOpenId,"permissions":permissions2},function (data) {
 				if(data == true){
 					alert("修改成功！")

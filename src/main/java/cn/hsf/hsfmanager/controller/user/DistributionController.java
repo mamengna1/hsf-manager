@@ -1,9 +1,6 @@
 package cn.hsf.hsfmanager.controller.user;
 
-import cn.hsf.hsfmanager.pojo.user.Distribution;
-import cn.hsf.hsfmanager.pojo.user.DistributionStatus;
-import cn.hsf.hsfmanager.pojo.user.UserOrder;
-import cn.hsf.hsfmanager.pojo.user.UserRelease;
+import cn.hsf.hsfmanager.pojo.user.*;
 import cn.hsf.hsfmanager.service.user.*;
 import cn.hsf.hsfmanager.service.wx.TemplateService;
 import cn.hsf.hsfmanager.util.Contents;
@@ -40,6 +37,8 @@ public class DistributionController {
     private UserDetailService userDetailService;
     @Resource
     private UserOrderService userOrderService;
+    @Resource
+    private UserScoreSourceService userScoreSourceService;
 
     /**
      * 进入派发记录页面  接单记录
@@ -111,8 +110,16 @@ public class DistributionController {
         String orderNo = distributionService.selByResId(new Distribution(id)).getOrderId()+"";
 
         //System.out.println("给用户发送的id ： "+ distribution1.getReleaseId() +"\t给师傅发送的id :"+id);
-        //给用户发送模板信息
 
+        //添加积分表
+        UserScoreSource userScoreSource = new UserScoreSource(sfOpenId, 2, 9);
+        userScoreSource.setUserName(userService.selUserByDetailId( userRelease.getReceiveId()).getNickName());
+        userScoreSourceService.insScoreSource(userScoreSource);
+        //修改用户表积分
+        User user = new User(sfOpenId,Double.valueOf(2),Double.valueOf(2));
+        userService.updateUserByOpenId(user);
+
+        //给用户发送模板信息
         Map map = new HashMap();
         map.put("openId",userOpenId) ;
         map.put("url", URLS.DOMAIN_NAME+"/_api/goUserOrderDetail?id="+distribution1.getReleaseId());
@@ -133,7 +140,7 @@ public class DistributionController {
         map1.put("serviceType",userRelease.getTitle()) ;
         map1.put("orderNo",orderNo) ;
         map1.put("orderState","已完工") ;
-        map1.put("end","用户信息："+userRelease.getNickName()+userRelease.getPhone()) ;
+        map1.put("end","用户信息："+userRelease.getNickName()+userRelease.getPhone()+"\\n附：服务顺利结束，本次奖励2积分") ;
         templateService.serviceStatus(map1);
 
         String[] managerOpenId = Contents.MANAGER_OPENID;

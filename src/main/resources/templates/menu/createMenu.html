@@ -24,7 +24,7 @@
 	<body class="hold-transition skin-red sidebar-mini">
 		<div style="margin:0 auto; width: 60%;">
 			<!-- .box-body -->
-			<form action="/menu/saveMenu">
+			<form action="/manager/menu/saveMenu">
 
 				<div class="box-header with-border">
 					<h3 class="box-title">新增菜单</h3>
@@ -128,9 +128,10 @@
 			var path = $("#path").val();
 			var keys = key ==null ? path : key;
 			var query = query1 == -1 ? 0 : query1;
+			var mess = message == null ? path : message;
 			$.ajaxSettings.async = false;
 			var flag  = false;
-			$.getJSON("/menu/showMenu",{"parentId":query},function (data) {
+			$.getJSON("/manager/menu/showMenu",{"parentId":query},function (data) {
 				if(query == 0){
 					if(data.menus.length  == 3){
 						alert("父类已经满了")
@@ -164,7 +165,7 @@
 				flag = true;
 			})
 			if (flag == true){
-				$.getJSON("/manager/menu/saveMenu",{"menuName":menuName,"menuTypeId":menuTypeId,"parentMenuId":query1,"message":message,"key":keys},function (data) {
+				$.getJSON("/manager/menu/saveMenu",{"menuName":menuName,"menuTypeId":menuTypeId,"parentMenuId":query1,"message":mess,"key":key},function (data) {
 					if(data == true){
 						alert("创建成功")
 						location.href="/manager/showMenu/goMenuIndex";

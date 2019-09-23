@@ -112,7 +112,7 @@ public class CreateMenuController {
         SubButton sb = null;
         for (AppMenu menu : menus) {
             List<AppMenu> subMenus = appMenuService.selAllByParent(menu.getId());
-            if (subMenus != null && subMenus.size() > 0) {
+            if (subMenus != null && subMenus.size() > 1) {
                 sb = new SubButton(menu.getMenuName());
                 for (AppMenu subMenu : subMenus) {
                     sb.getSub_button().add(createMenu(subMenu));

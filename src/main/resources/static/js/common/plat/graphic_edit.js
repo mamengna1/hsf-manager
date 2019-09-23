@@ -10,13 +10,12 @@ function subGraphic() {
     }
     if(flag == true ){
         var ueText = UE.getEditor('editor').getContent();
-        var neiRong = $("#neirong").val(ueText)
         var data = new FormData();
         data.append("title",$("#title").val())
         data.append("subtitle",  $("#subtitle").val());
         data.append("imageUrl",  $("#url").val());
         data.append("viewCount",  $("#viewCount").val());
-        data.append("content", neiRong);
+        data.append("content", ueText);
         data.append("graTypeId",$("#graTypeId").val())
         $.ajax({
             url: '/manager/insGraphic',

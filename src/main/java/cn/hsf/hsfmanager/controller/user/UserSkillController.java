@@ -1,16 +1,21 @@
 package cn.hsf.hsfmanager.controller.user;
 
+import cn.hsf.hsfmanager.controller.platform.SlideShowController;
+import cn.hsf.hsfmanager.pojo.StateMessage;
 import cn.hsf.hsfmanager.pojo.user.UserSkills;
 import cn.hsf.hsfmanager.service.user.UserSkillService;
 import cn.hsf.hsfmanager.util.Contents;
 import cn.hsf.hsfmanager.util.Page;
+import cn.hsf.hsfmanager.util.URLS;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -19,7 +24,7 @@ public class UserSkillController {
 
     @Resource
     private UserSkillService userSkillService;
-
+    private SlideShowController slideShowController = new SlideShowController();
 
     /**
      * 去到技能管理页面
@@ -62,20 +67,37 @@ public class UserSkillController {
 
 
     /**
-     * 新增父类
+     * 新增父类 子类
      * @param skillName
      * @return
      */
     @RequestMapping("/saveSkills")
     @ResponseBody
-    public boolean saveSkills(String skillName,Integer parentId ,@RequestParam(value = "describes",required = false,defaultValue = "") String describes){
+    public boolean saveSkills(String skillName,Integer parentId ,@RequestParam(value = "describes",required = false,defaultValue = "") String describes,String url,Integer isRecommend){
         UserSkills userSkills = null ;
         if(parentId == null || parentId == -1){
-            userSkills = new UserSkills(skillName,null,null);
+            userSkills = new UserSkills(skillName,null,null,url,isRecommend);
+
         }else{
-            userSkills = new UserSkills(skillName,parentId,describes);
+            userSkills = new UserSkills(skillName,parentId,describes,url,isRecommend);
+        }
+        if(isRecommend == 1){
+            userSkills.setUpdDate(new Date());
+        }else{
+            userSkills.setUpdDate(null);
         }
         return userSkillService.insertUserSkills(userSkills) > 0 ? true : false;
+    }
+
+    /**
+     * 上传图片  保存技能图标
+     * @param multipartFile
+     * @return
+     */
+    @RequestMapping("/userSkillSaveImageUrl")
+    @ResponseBody
+    public StateMessage userSkillSaveImageUrl(@RequestParam("attach") MultipartFile multipartFile){
+        return slideShowController.showImageUrl(URLS.SKILL_ICON,multipartFile,"skill");
     }
 
     /**
@@ -108,14 +130,20 @@ public class UserSkillController {
      */
     @RequestMapping("/saveUpdSkill")
     @ResponseBody
-    public boolean saveUpdSkill(Integer id,String skillName,Integer parentId ,@RequestParam(value = "describes",required = false,defaultValue = "") String describes){
+    public boolean saveUpdSkill(Integer id,String skillName,Integer parentId ,@RequestParam(value = "describes",required = false,defaultValue = "") String describes,String url,Integer isRecommend){
         UserSkills userSkills = null;
         if(parentId == null || parentId == -1){
             userSkills = new UserSkills(id,skillName,null,null);
         }else{
             userSkills = new UserSkills(id,skillName,parentId,describes);
         }
-
+        userSkills.setImgUrl(url);
+        userSkills.setIsRecommend(isRecommend);
+        if(isRecommend == 1){
+            userSkills.setMark(1);
+        }else if(isRecommend == 2){
+            userSkills.setMark(2);
+        }
         return userSkillService.updSkills(userSkills) > 0 ? true : false;
     }
 
@@ -161,5 +189,24 @@ public class UserSkillController {
             UserSkills     = userSkillService.selSkillName(Integer.valueOf(parentId));
         }
         return UserSkills;
+    }
+
+    /**
+     * 推荐  取消推荐
+     * @param id
+     * @param isRecommend
+     * @return
+     */
+    @RequestMapping("/goRecommend")
+    @ResponseBody
+    public boolean goRecommend(Integer id,Integer isRecommend){
+        UserSkills userSkills = new UserSkills(id, isRecommend);
+        if(isRecommend == 1){
+            userSkills.setMark(1);
+        }else if(isRecommend == 2){
+            userSkills.setMark(2);
+        }
+        System.out.println("userSkills ； "+userSkills);
+        return  userSkillService.updSkills(userSkills) > 0 ? true : false;
     }
 }

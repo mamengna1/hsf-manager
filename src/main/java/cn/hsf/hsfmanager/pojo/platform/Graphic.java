@@ -15,6 +15,7 @@ public class Graphic {
     private Date createDate;
     private Integer graTypeId;  //类型id
 
+    private Integer mark;
     private GraphicType graphicType;
     public Graphic() {
     }
@@ -36,7 +37,17 @@ public class Graphic {
                 ", imageUrl='" + imageUrl + '\'' +
                 ", viewCount=" + viewCount +
                 ", createDate=" + createDate +
+                ", graTypeId=" + graTypeId +
+                ", graphicType=" + graphicType +
                 '}';
+    }
+
+    public Integer getMark() {
+        return mark;
+    }
+
+    public void setMark(Integer mark) {
+        this.mark = mark;
     }
 
     public GraphicType getGraphicType() {
