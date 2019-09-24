@@ -35,7 +35,7 @@
     </insert>
 
     <select id="selAllKey"  resultType="String">
-        SELECT `key` FROM `tb_app_menu`
+        SELECT `key` FROM `tb_app_menu` where `key` != ''
     </select>
 
     <delete id="delMenuById" parameterType="int">
@@ -70,4 +70,12 @@
             `key` = #{key}
         </trim>
     </update>
+
+
+    <delete id="delMenuByArray" parameterType="int">
+        delete from tb_app_menu where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>

@@ -8,7 +8,7 @@ function searchCustomer(currentPage) {
         $("#theBody").html("");
         for (var i = 0; i < data.list.length; i++) {
             $("#theBody").append("<tr>" +
-                "<td><input type=\"checkbox\" class='menuCheck'/></td>" +
+                "<td><input type=\"checkbox\" class='userCheck'    name='checkbox'/></td>" +
                 "<td>" + data.list[i].id + "</td>" +
                 "<td>" + data.list[i].menuName + "</td>" +
                 "<td>" + data.list[i].parentMenuId + "</td>" +
@@ -70,23 +70,41 @@ $(function () {
 })
 
 
+
 //删除
 function delMenu() {
-    var delUsers = document.getElementsByClassName("menuCheck");
-    for (var i = 0; i < delUsers.length; i++) {
+    var delUsers = document.getElementsByClassName("userCheck");
+    var j = 0;
+    var arrayId = new Array() ;
+
+    for (var i = 0; i <delUsers.length ; i++) {
         if (delUsers[i].checked) {
             var id = $(delUsers[i]).parent().next().html();
-            $.getJSON("/manager/showMenu/delMenuById", {"id": id}, function (data) {
-                if(data == true){
-                    alert("删除成功！")
-                    window.location.reload();
-                }else {
-                    alert("删除失败！")
-                }
-            });
+            arrayId[j] = id
+            j++;
         }
     }
+    if(j ==0 ){
+        alert("您没有选择，删除失败")
+    }else{
+        var resMessage=confirm("您确认删除这些数据吗？");
+        if(resMessage == true){
+            $.getJSON("/manager/showMenu/delMenuByArray",{"ids":arrayId.toString()},function (data) {
+                if(data == true){
+                    alert("批量删除成功！")
+                    window.location.reload();
+                }else {
+                    alert("批量删除失败！")
+                }
+            })
+        }else{
+            alert("您取消了删除")
+        }
+
+    }
+
 }
+
 
 //新建
 function goCreateMenu() {

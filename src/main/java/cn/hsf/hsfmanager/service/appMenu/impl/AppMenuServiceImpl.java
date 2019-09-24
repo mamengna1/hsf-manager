@@ -63,4 +63,9 @@ public class AppMenuServiceImpl implements AppMenuService {
         return appMenuMapper.updateAppMenuById(appMenu);
     }
 
+    @Override
+    public int delMenuByArray(Integer[] array) {
+        return appMenuMapper.delMenuByArray(array);
+    }
+
 }

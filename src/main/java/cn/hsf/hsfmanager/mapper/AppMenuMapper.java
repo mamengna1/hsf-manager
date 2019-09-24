@@ -26,4 +26,5 @@ public interface AppMenuMapper {
     //修改
     int updateAppMenuById(AppMenu appMenu);
 
+    int delMenuByArray(Integer[] array);
 }

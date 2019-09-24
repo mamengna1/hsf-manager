@@ -203,22 +203,18 @@ function updateSkills(id) {
     $.ajaxSettings.async = false;
     $.getJSON("/manager/userSkill/selSkillsById",{"id":id},function (data) {
         $("#skillsId,#skillNamefu,#skillNamefu2,#parentIdfu,#skillNamezi,#describeszi,#logoPicPath3,#logoPicPath4,#isRecommend3,#isRecommend4").val("")
-        //$("#fuTui,#ziTui,#fuNotTui,#ziNotTui").attr("checked", false);
+        $("#fuTui,#ziTui,#fuNotTui,#ziNotTui").prop("checked", false);
         $("#skillsId").val(data.id);
         $("#skillNamefu").val(data.skillName)
         $("#skillNamefu2").val(data.skillName)
         $("#logoPicPath3").val(data.imgUrl)
         $("#isRecommend3").val(data.isRecommend )
         if(data.isRecommend == 1){
-            $("#fuTui").attr("checked", true);
-            $("#ziTui").attr("checked", true);
-           /* $("#fuNotTui").attr("checked", false);
-            $("#ziNotTui").attr("checked", false);*/
-        }else{
-            $("#fuNotTui").attr("checked", true);
-            $("#ziNotTui").attr("checked", true);
-           /* $("#fuTui").attr("checked", false);
-            $("#ziTui").attr("checked", false);*/
+            $("#fuTui").prop("checked", true);
+            $("#ziTui").prop("checked", true);
+        }else if(data.isRecommend == 2){
+            $("#fuNotTui").prop("checked", true);
+            $("#ziNotTui").prop("checked", true);
         }
 
         //子类信息

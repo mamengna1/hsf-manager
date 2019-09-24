@@ -97,8 +97,13 @@ public class CreateMenuController {
             parentId = parentMenuId;
         }
         AppMenu appMenu = new AppMenu(menuName,menuTypeId,parentId,message,key);
+        System.out.println("appMenu : "+appMenu);
         int n = appMenuService.insertAppMenu(appMenu);
-       return n > 0 ? true : false;
+        boolean b = false;
+        if(n >0){
+            b = create();
+        }
+       return b;
     }
     /**
      * 创建菜单
@@ -112,7 +117,7 @@ public class CreateMenuController {
         SubButton sb = null;
         for (AppMenu menu : menus) {
             List<AppMenu> subMenus = appMenuService.selAllByParent(menu.getId());
-            if (subMenus != null && subMenus.size() > 1) {
+            if (subMenus != null && subMenus.size() > 0) {
                 sb = new SubButton(menu.getMenuName());
                 for (AppMenu subMenu : subMenus) {
                     sb.getSub_button().add(createMenu(subMenu));
@@ -126,7 +131,7 @@ public class CreateMenuController {
         JSONObject jsonObject = JSONObject.fromObject(btn);
 
         String url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN".replace("ACCESS_TOKEN", wxService.getAccessToken());
-       // System.out.println(WxSend.post(url, jsonObject.toString()));
+       System.out.println(WxSend.post(url, jsonObject.toString()));
         return true;
     }
 

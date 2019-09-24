@@ -19,6 +19,7 @@ public class ShowMenuController {
 
      @Resource
     private AppMenuService appMenuService;
+     private CreateMenuController createMenuController = new CreateMenuController();
     /**
      * 去到详细类表页面
      * @return
@@ -50,15 +51,23 @@ public class ShowMenuController {
     }
 
     /**
-     * 删除
-     * @param id
+     * 批量删除
+     *
+     * @param ids
      * @return
      */
-    @RequestMapping("/delMenuById")
+    @RequestMapping("/delMenuByArray")
     @ResponseBody
-    public boolean delMenuById(Integer id){
-        return appMenuService.delMenuById(id) >0 ? true : false ;
+    public boolean delMenuByArray(@RequestParam String ids) {
+        String str[] = ids.split(",");
+        Integer array[] = new Integer[str.length];
+        for (int i = 0; i < str.length; i++) {
+            array[i] = Integer.parseInt(str[i]);
+        }
+        int res = appMenuService.delMenuByArray(array);
+        return res > 0 ? true : false;
     }
+
 
     /**
      * 根据id查询
@@ -80,7 +89,12 @@ public class ShowMenuController {
     @ResponseBody
     public boolean updateAppMenu(@RequestParam("id") Integer id,@RequestParam("menuName") String menuName,@RequestParam("menuTypeId") Integer menuTypeId,@RequestParam("message") String message,@RequestParam("key") String key){
         AppMenu appMenu = new AppMenu(id,menuName,menuTypeId,message,key);
-        return appMenuService.updateAppMenuById(appMenu) > 0 ? true : false;
+        int n = appMenuService.updateAppMenuById(appMenu);
+        boolean b = false;
+        if(n >0){
+            b = createMenuController.create();
+        }
+        return b;
     }
 
 }
