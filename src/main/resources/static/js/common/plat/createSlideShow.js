@@ -4,6 +4,7 @@ function changeSou(btn) {
 }
 
 function sub() {
+    $.ajaxSettings.async = false;
     var flag = true;
     if($("#title").val() == undefined || $("#title").val() == null || $("#title").val()==''
         || $("#linkUrl").val() == undefined || $("#linkUrl").val() == null || $("#linkUrl").val() == ''
@@ -11,6 +12,15 @@ function sub() {
         alert("必填选项不能为空")
         flag = false;
     }
+    $.getJSON("/manager/slideshow/selSlideShow",{"imgType":$("#imgType").val()},function (data) {
+        for (var i = 0; i < data.selPriority.length; i++) {
+            if(data.selPriority[i] == $("#priority").val()){
+                alert("当前类别下已经存在相同的级别，请更换")
+                flag = false;
+            }
+        }
+    })
+
     if(flag == true ){
         var data = new FormData();
         data.append("title",$("#title").val())
@@ -37,7 +47,7 @@ function sub() {
             }
         });
     }
-
+    $.ajaxSettings.async = true;
 }
 
 $(function () {

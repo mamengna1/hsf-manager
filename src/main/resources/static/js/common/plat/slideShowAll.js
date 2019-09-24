@@ -16,10 +16,11 @@ function searchSlideShow(currentPage,imgType) {
                 "<td><input type=\"checkbox\" class='userCheck'    name='checkbox'/></td>" +
                 "<td >" + data.list[i].id + "</td>" +
                 "<td>" + data.list[i].title + "</td>" +
-                "<td><img src='"+  data.list[i].url +"' width='50px' height='50px'/></td>" +
+                "<td><img src='"+  data.list[i].url +"' width='50px' height='50px' onclick='showBig(this)'/></td>" +
                 "<td>" + data.list[i].type.imgType+ "</td>" +
                 "<td>" + createDate+ "</td>" +
                 "<td>" + state+ "</td>" +
+                "<td>" + data.list[i].priority+ "</td>" +
                 "<td>" +
                 "<a href='javascript:void(0)'  class=\"btn btn-xs btn-warning\"  onclick='selSlideById("+data.list[i].id+")'>修改</a>" +
                 "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn btn-xs btn-info \"  onclick='delById(\""+data.list[i].id+"\")'>删除</a>" +
@@ -73,6 +74,13 @@ $(function () {
 
 })
 
+function showBig(btn){
+    $("#showBig img").attr("src", $(btn).attr("src"));
+    $("#showBig").show();
+}
+function myhide(){
+    $("#showBig").hide();
+}
 /**
  * 去到新增界面
  */

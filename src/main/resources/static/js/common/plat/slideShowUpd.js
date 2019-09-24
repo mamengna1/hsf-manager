@@ -40,6 +40,7 @@ function delfile(id) {
  * 保存修改
  */
 function updateSlide() {
+    $.ajaxSettings.async = false;
     var flag = true;
     if($("#title").val() == undefined || $("#title").val() == null || $("#title").val()==''
         || $("#linkUrl").val() == undefined || $("#linkUrl").val() == null || $("#linkUrl").val() == ''
@@ -47,6 +48,18 @@ function updateSlide() {
         alert("必填选项不能为空")
         flag = false;
     }
+    var priority2 = $("#priority2").val()
+    if(priority2 != $("#priority").val()){
+        $.getJSON("/manager/slideshow/selSlideShow",{"imgType":$("#imgType").val()},function (data) {
+            for (var i = 0; i < data.selPriority.length; i++) {
+                if(data.selPriority[i] == $("#priority").val()){
+                    alert("当前类别下已经存在相同的级别，请更换")
+                    flag = false;
+                }
+            }
+        })
+    }
+
     if(flag == true ){
         var data = new FormData();
         data.append("id",$("#id").val())
@@ -76,7 +89,7 @@ function updateSlide() {
             }
         });
     }
-
+    $.ajaxSettings.async = true;
 }
 
 /**

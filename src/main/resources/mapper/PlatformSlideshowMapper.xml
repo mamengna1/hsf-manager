@@ -86,4 +86,8 @@
           set url = null
           where id = #{id}
     </update>
+
+    <select id="selPriority" resultType="int" parameterType="int">
+        select priority from tb_platform_slideshow where imgType = #{imgType}
+    </select>
 </mapper>

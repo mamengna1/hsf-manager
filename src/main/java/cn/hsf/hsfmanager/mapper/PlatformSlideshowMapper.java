@@ -21,4 +21,7 @@ public interface PlatformSlideshowMapper {
     PlatformSlideshow selSlideById(@Param("id") Integer id);
 
     int delFile(Integer id);
+
+    //根据类型查询所有的优先级
+    List<Integer> selPriority(Integer imgType);
 }

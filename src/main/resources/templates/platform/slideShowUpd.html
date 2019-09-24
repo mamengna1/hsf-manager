@@ -56,7 +56,8 @@
                 </div>
                 <div class="col-md-2 title">级别</div>
                 <div class="col-md-10 data">
-                    <input type="text" name="priority" th:value="${slideShow.priority}" id="priority" class="form-control"/>
+                    <input type="number" name="priority" th:value="${slideShow.priority}" id="priority" class="form-control"/>
+                    <input type="hidden" name="priority2" th:value="${slideShow.priority}" id="priority2" class="form-control"/>
                 </div>
 
                 <div class="col-md-2 title">状态</div>

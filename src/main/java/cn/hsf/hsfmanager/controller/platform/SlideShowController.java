@@ -234,4 +234,13 @@ public class SlideShowController {
     public StateMessage updImageUrl(@RequestParam("attach") MultipartFile multipartFile){
         return showImageUrl(URLS.SLIDE_SHOW,multipartFile,"slide");
     }
+
+
+    @RequestMapping("/selSlideShow")
+    @ResponseBody
+    public Map selSlideShow(Integer imgType){
+        Map map =new HashMap();
+        map.put("selPriority",platformService.selPriority(imgType));
+        return map;
+    }
 }

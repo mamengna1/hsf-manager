@@ -67,4 +67,9 @@ public class PlatformServiceImpl implements PlatformService {
     public int delFile(Integer id) {
         return platformSlideshowMapper.delFile(id);
     }
+
+    @Override
+    public List<Integer> selPriority(Integer imgType) {
+        return platformSlideshowMapper.selPriority(imgType);
+    }
 }
