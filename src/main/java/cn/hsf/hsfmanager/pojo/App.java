@@ -13,6 +13,7 @@ public class App {
     private String token;
     //支付秘钥
     private String key;
+
     private String accessToken;  //token
     private Long expireTime;  //过期时间
 
@@ -25,6 +26,16 @@ public class App {
         this.expireTime = System.currentTimeMillis()+Integer.parseInt(expireIn)*1000;
         ;
     }
+
+    public App(Integer id, String appId, String mchId, String appSecret, String token, String key) {
+        this.id = id;
+        this.appId = appId;
+        this.mchId = mchId;
+        this.appSecret = appSecret;
+        this.token = token;
+        this.key = key;
+    }
+
     /**
      * 判断token是否过期
      * @return

@@ -7,12 +7,19 @@ import cn.hsf.hsfmanager.pojo.user.UserScoreSource;
 import java.util.List;
 
 public interface UserScoreSourceService {
-
-    int insScoreSource(UserScoreSource userScoreSource);
-
-
     ScoreSourceType selById(Integer id);
     List<ScoreSourceType> selScoreType();
+    int delScoreSourceTypeById(Integer id);
+    int insScoreSourceType(ScoreSourceType scoreSourceType);
+    int updScoreSourceType(ScoreSourceType scoreSourceType);
+
+
+
+
+
+
+
+    int insScoreSource(UserScoreSource userScoreSource);
     /*分页查询积分记录信息*/
     List<UserScoreSource> selAllScore(Integer pageCurrentNo,  Integer pageSize,  String openId,Integer scoreSourceId,String userName);
     int scoreTotal( String openId,Integer scoreSourceId,String userName);

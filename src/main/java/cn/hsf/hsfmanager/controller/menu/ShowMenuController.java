@@ -50,12 +50,12 @@ public class ShowMenuController {
         return page;
     }
 
-    /**
+  /*  *//**
      * 批量删除
      *
      * @param ids
      * @return
-     */
+     *//*
     @RequestMapping("/delMenuByArray")
     @ResponseBody
     public boolean delMenuByArray(@RequestParam String ids) {
@@ -68,7 +68,7 @@ public class ShowMenuController {
         return res > 0 ? true : false;
     }
 
-
+*/
     /**
      * 根据id查询
      * @param id
@@ -80,11 +80,11 @@ public class ShowMenuController {
         return appMenuService.selAppMenuById(id);
     }
 
-    /**
+  /*  *//**
      * 修改  "menuName":menuName,"menuTypeId":menuTypeId,"message":m,"key":k
      * @param id
      * @return
-     */
+     *//*
     @RequestMapping("/updateAppMenu")
     @ResponseBody
     public boolean updateAppMenu(@RequestParam("id") Integer id,@RequestParam("menuName") String menuName,@RequestParam("menuTypeId") Integer menuTypeId,@RequestParam("message") String message,@RequestParam("key") String key){
@@ -95,6 +95,6 @@ public class ShowMenuController {
             b = createMenuController.create();
         }
         return b;
-    }
+    }*/
 
 }

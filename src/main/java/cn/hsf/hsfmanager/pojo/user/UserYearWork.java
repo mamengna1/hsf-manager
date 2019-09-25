@@ -16,6 +16,18 @@ public class UserYearWork {
                 '}';
     }
 
+    public UserYearWork(Integer id, String yearName) {
+        this.id = id;
+        this.yearName = yearName;
+    }
+
+    public UserYearWork() {
+    }
+
+    public UserYearWork(String yearName) {
+        this.yearName = yearName;
+    }
+
     public Integer getId() {
         return id;
     }

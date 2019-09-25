@@ -9,4 +9,8 @@ public interface AdminTypeService {
     AdminType selAdminTypeById( Integer id);
 
     List<AdminType> selAdminTypeList();
+
+    int delAdminTypeById(Integer id);
+    int insAdminType(AdminType adminType);
+    int updAdminType(AdminType adminType);
 }

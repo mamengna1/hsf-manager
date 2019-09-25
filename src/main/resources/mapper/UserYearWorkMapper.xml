@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace:映射命名空间-->
+<mapper namespace="cn.hsf.hsfmanager.mapper.UserYearWorkMapper">
+
+    <select id="selById" resultType="cn.hsf.hsfmanager.pojo.user.UserYearWork">
+        SELECT `id`, `yearName` FROM tb_user_year_work WHERE id = #{id}
+    </select>
+
+    <select id="selUserYearWorkAll" resultType="cn.hsf.hsfmanager.pojo.user.UserYearWork">
+          SELECT `id`, `yearName` FROM tb_user_year_work
+    </select>
+
+    <delete id="delUserYearWorkById" parameterType="int">
+        delete  from tb_user_year_work where id = #{id}
+    </delete>
+
+    <update id="updUserYearWork" parameterType="cn.hsf.hsfmanager.pojo.user.UserYearWork">
+        update tb_user_year_work set yearName = #{yearName} where id = #{id}
+    </update>
+
+    <insert id="insUserYearWork" parameterType="cn.hsf.hsfmanager.pojo.user.UserYearWork">
+        insert into tb_user_year_work(yearName) values(#{yearName})
+    </insert>
+</mapper>

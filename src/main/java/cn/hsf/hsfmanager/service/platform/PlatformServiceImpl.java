@@ -24,6 +24,26 @@ public class PlatformServiceImpl implements PlatformService {
     }
 
     @Override
+    public ImgType selById(Integer id) {
+        return imgTypeMapper.selById(id);
+    }
+
+    @Override
+    public int delImgTypeById(Integer id) {
+        return imgTypeMapper.delImgTypeById(id);
+    }
+
+    @Override
+    public int insImgType(ImgType imgType) {
+        return imgTypeMapper.insImgType(imgType);
+    }
+
+    @Override
+    public int updImgType(ImgType imgType) {
+        return imgTypeMapper.updImgType(imgType);
+    }
+
+    @Override
     public List<PlatformSlideshow> selAll(Integer imgType) {
         return platformSlideshowMapper.selAll(imgType);
     }

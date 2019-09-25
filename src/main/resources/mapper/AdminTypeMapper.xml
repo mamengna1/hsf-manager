@@ -13,5 +13,15 @@
     <select id="selAdminTypeList" resultType="cn.hsf.hsfmanager.pojo.AdminType" >
         select `id`,`typeName` from `tb_admin_type`
     </select>
+    <delete id="delAdminTypeById" parameterType="int">
+        delete  from tb_admin_type where id = #{id}
+    </delete>
 
+    <update id="updAdminType" parameterType="cn.hsf.hsfmanager.pojo.AdminType">
+        update tb_admin_type set typeName = #{typeName} where id = #{id}
+    </update>
+
+    <insert id="insAdminType" parameterType="cn.hsf.hsfmanager.pojo.AdminType">
+        insert into tb_admin_type(typeName) values(#{typeName})
+    </insert>
 </mapper>

@@ -9,7 +9,10 @@ public interface PlatformService {
 
     //类别
     List<ImgType> selImgTypeAll();
-
+    ImgType selById(Integer id);
+    int delImgTypeById(Integer id);
+    int insImgType(ImgType imgType);
+    int updImgType(ImgType imgType);
 
     
 

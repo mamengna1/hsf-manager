@@ -546,7 +546,7 @@
                 <li class="treeview" id="column8">
                     <a href="#">
                         <i class="fa fa-folder"></i>
-                        <span>管理员信息</span>
+                        <span>系统管理</span>
                         <span class="pull-right-container">
 				       			<i class="fa fa-angle-left pull-right"></i>
 				   		 	</span>
@@ -554,15 +554,19 @@
                     <ul class="treeview-menu">
                         <li id="admin-login">
                             <a href="/manager/adminController/goAdminList" target="iframe">
-                                <i class="fa fa-circle-o"></i>查看管理员
+                                <i class="fa fa-circle-o"></i>管理员管理
                             </a>
                         </li>
                         <li id="admin-login">
-                            <a href="/manager/adminController/goCreateAdmin" target="iframe">
-                                <i class="fa fa-circle-o"></i>新增管理员
+                            <a href="/manager/CategoryController/goAdminTypCategory" target="iframe">
+                                <i class="fa fa-circle-o"></i>角色管理
                             </a>
                         </li>
-
+                        <li id="admin-login">
+                            <a href="/manager/appController/goAppIndex" target="iframe">
+                                <i class="fa fa-circle-o"></i>系统设置
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li class="treeview" id="column9">
@@ -600,7 +604,21 @@
                                 <i class="fa fa-circle-o"></i>图文类别
                             </a>
                         </li>
-
+                        <li id="admin-login">
+                            <a href="/manager/CategoryController/goImageTypeCategory" target="iframe">
+                                <i class="fa fa-circle-o"></i>轮播图类别
+                            </a>
+                        </li>
+                        <li id="admin-login">
+                            <a href="/manager/CategoryController/goScoreTypeCategory" target="iframe">
+                                <i class="fa fa-circle-o"></i>积分来源类别
+                            </a>
+                        </li>
+                        <li id="admin-login">
+                            <a href="/manager/CategoryController/goYearWorkCategory" target="iframe">
+                                <i class="fa fa-circle-o"></i>工作年限类别
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ul>

@@ -15,12 +15,6 @@ public class UserScoreSourceServiceImpl implements UserScoreSourceService {
     @Resource
     private UserScoreSourceMapper scoreSourceMapper;
 
-
-    @Override
-    public int insScoreSource(UserScoreSource userScoreSource) {
-        return scoreSourceMapper.insScoreSource(userScoreSource);
-    }
-
     @Override
     public ScoreSourceType selById(Integer id) {
         return scoreSourceMapper.selById(id);
@@ -31,6 +25,27 @@ public class UserScoreSourceServiceImpl implements UserScoreSourceService {
         return scoreSourceMapper.selScoreType();
     }
 
+    @Override
+    public int delScoreSourceTypeById(Integer id) {
+        return scoreSourceMapper.delScoreSourceTypeById(id);
+    }
+
+    @Override
+    public int insScoreSourceType(ScoreSourceType scoreSourceType) {
+        return scoreSourceMapper.insScoreSourceType(scoreSourceType);
+    }
+
+    @Override
+    public int updScoreSourceType(ScoreSourceType scoreSourceType) {
+        return scoreSourceMapper.updScoreSourceType(scoreSourceType);
+    }
+
+
+
+    @Override
+    public int insScoreSource(UserScoreSource userScoreSource) {
+        return scoreSourceMapper.insScoreSource(userScoreSource);
+    }
     @Override
     public List<UserScoreSource> selAllScore(Integer pageCurrentNo, Integer pageSize, String openId,Integer scoreSourceId,String userName) {
         return scoreSourceMapper.selAllScore((pageCurrentNo-1)*pageSize, pageSize, openId,scoreSourceId,userName);

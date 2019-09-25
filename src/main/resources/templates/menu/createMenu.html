@@ -131,6 +131,10 @@
 			var mess = (message == null || message == undefined || message == '') ? path : message;
 			$.ajaxSettings.async = false;
 			var flag  = false;
+			if(menuTypeId == -1){
+				alert("菜单类型不能为请选择")
+				flag  = false;
+			}
 			$.getJSON("/manager/menu/showMenu",{"parentId":query},function (data) {
 				if(query == 0){
 					if(data.menus.length  == 3){

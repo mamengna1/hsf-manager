@@ -13,6 +13,22 @@ public class ImgType {
                 '}';
     }
 
+    public ImgType(Integer id, String imgType) {
+        this.id = id;
+        this.imgType = imgType;
+    }
+
+    public ImgType(String imgType) {
+        this.imgType = imgType;
+    }
+
+    public ImgType(Integer id) {
+        this.id = id;
+    }
+
+    public ImgType() {
+    }
+
     public Integer getId() {
         return id;
     }

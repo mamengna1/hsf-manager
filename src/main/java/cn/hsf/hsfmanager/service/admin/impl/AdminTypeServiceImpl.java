@@ -23,4 +23,19 @@ public class AdminTypeServiceImpl implements AdminTypeService {
     public List<AdminType> selAdminTypeList() {
         return adminTypeMapper.selAdminTypeList();
     }
+
+    @Override
+    public int delAdminTypeById(Integer id) {
+        return adminTypeMapper.delAdminTypeById(id);
+    }
+
+    @Override
+    public int insAdminType(AdminType adminType) {
+        return adminTypeMapper.insAdminType(adminType);
+    }
+
+    @Override
+    public int updAdminType(AdminType adminType) {
+        return adminTypeMapper.updAdminType(adminType);
+    }
 }

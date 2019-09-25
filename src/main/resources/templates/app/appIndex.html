@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- 页面meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>系统管理</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+
+    <link rel="stylesheet" href="/manager/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/manager/plugins/adminLTE/css/AdminLTE.css">
+    <link rel="stylesheet" href="/manager/plugins/adminLTE/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="/manager/css/style.css">
+    <script src="/manager/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="/manager/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/manager/js/common/utils/common.js" type="text/javascript"></script>  <!--去除弹框域名-->
+    <script src="/manager/js/common/utils/tranceToDate.js"></script>
+</head>
+
+<body class="hold-transition skin-red sidebar-mini">
+
+<!-- 正文区域 -->
+<section class="content">
+
+    <div class="box-body">
+        <form action="/manager/userDetail/updUserRelease" method="post" enctype="multipart/form-data" id="myForm">
+            <input type="hidden" name="id" id="id" th:value="${app.id}">
+            <!--表单内容-->
+            <div class="row data-type">
+                <div class="col-md-2 title">AppId</div>
+                <div class="col-md-10 data">
+                    <input type="text" name="appId" id="appId" th:value="${app.appId}" class="form-control"/>
+                </div>
+                <div class="col-md-2 title">商户号</div>
+                <div class="col-md-10 data">
+                    <input type="text" name="mchId" id="mchId" th:value="${app.mchId}" class="form-control"/>
+                </div>
+                <div class="col-md-2 title">开发者密码</div>
+                <div class="col-md-10 data">
+                    <input type="text" name="appSecret" id="appSecret" th:value="${app.appSecret}"class="form-control" />
+                </div>
+                <div class="col-md-2 title">token</div>
+                <div class="col-md-10 data">
+                    <input type="text" name="token" id="token" th:value="${app.token}" class="form-control" />
+                </div>
+                <div class="col-md-2 title">支付秘钥</div>
+                <div class="col-md-10 data">
+                    <input type="text" name="key" id="key" th:value="${app.key}" class="form-control" />
+                </div>
+                <div class="col-md-10 data" style="width:100%;"></div>
+
+            </div>
+            <input class="btn btn-primary" type="button" value="保存修改" id="btns" th:onclick="saveApp()"/>
+            <input class="btn btn-primary" type="reset" value="重置"/>
+        </form>
+    </div>
+
+
+</section>
+
+</body>
+
+
+<script type="text/javascript">
+    function saveApp() {
+        var id = $("#id").val();
+        var appId = $("#appId").val();
+        var mchId = $("#mchId").val();
+        var appSecret = $("#appSecret").val();
+        var token = $("#token").val();
+        var key = $("#key").val();
+        $.getJSON("/manager/appController/saveApp",{"id":id,"appId":appId,"mchId":mchId,"appSecret":appSecret,"token":token,"key":key},function (data) {
+            if(data == true){
+                alert("修改成功")
+                window.location.href="/manager/appController/goAppIndex";
+            }else{
+                alert("修改失败")
+            }
+        })
+    }
+</script>
+
+
+</html>

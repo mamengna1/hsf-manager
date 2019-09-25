@@ -13,4 +13,16 @@
     <select id="selImgTypeAll" resultType="cn.hsf.hsfmanager.pojo.platform.ImgType">
           SELECT `id`, `imgType` FROM tb_img_type
     </select>
+
+    <delete id="delImgTypeById" parameterType="int">
+        delete  from tb_img_type where id = #{id}
+    </delete>
+
+    <update id="updImgType" parameterType="cn.hsf.hsfmanager.pojo.platform.ImgType">
+        update tb_img_type set imgType = #{imgType} where id = #{id}
+    </update>
+
+    <insert id="insImgType" parameterType="cn.hsf.hsfmanager.pojo.platform.ImgType">
+        insert into tb_img_type(imgType) values(#{imgType})
+    </insert>
 </mapper>

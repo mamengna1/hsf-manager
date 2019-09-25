@@ -18,4 +18,9 @@ public class AppServiceImpl implements AppService {
     public App selApp() {
         return appMapper.selApp();
     }
+
+    @Override
+    public int updApp(App app) {
+        return appMapper.updApp(app);
+    }
 }

@@ -96,7 +96,13 @@ public class CreateMenuController {
         }else{
             parentId = parentMenuId;
         }
-        AppMenu appMenu = new AppMenu(menuName,menuTypeId,parentId,message,key);
+        String mess = null;
+        if(message == null || message.equals("")){
+            mess ="https://#";
+        }else{
+            mess = message;
+        }
+        AppMenu appMenu = new AppMenu(menuName,menuTypeId,parentId,mess,key);
         System.out.println("appMenu : "+appMenu);
         int n = appMenuService.insertAppMenu(appMenu);
         boolean b = false;
@@ -112,27 +118,32 @@ public class CreateMenuController {
     @RequestMapping("/create")
     public boolean create() {
         List<AppMenu> menus = appMenuService.selAllByParent(0);
-        // 创建菜单对象
-        Button btn = new Button();
-        SubButton sb = null;
-        for (AppMenu menu : menus) {
-            List<AppMenu> subMenus = appMenuService.selAllByParent(menu.getId());
-            if (subMenus != null && subMenus.size() > 0) {
-                sb = new SubButton(menu.getMenuName());
-                for (AppMenu subMenu : subMenus) {
-                    sb.getSub_button().add(createMenu(subMenu));
+        if(menus !=null){
+            // 创建菜单对象
+            Button btn = new Button();
+            SubButton sb = null;
+            for (AppMenu menu : menus) {
+                List<AppMenu> subMenus = appMenuService.selAllByParent(menu.getId());
+                if (subMenus != null && subMenus.size() > 0) {
+                    sb = new SubButton(menu.getMenuName());
+                    for (AppMenu subMenu : subMenus) {
+                        sb.getSub_button().add(createMenu(subMenu));
+                    }
+                    btn.getButton().add(sb);
+                } else {
+                    btn.getButton().add(createMenu(menu));
                 }
-                btn.getButton().add(sb);
-            } else {
-                btn.getButton().add(createMenu(menu));
             }
-        }
-        // 转为JSON
-        JSONObject jsonObject = JSONObject.fromObject(btn);
+            // 转为JSON
+            JSONObject jsonObject = JSONObject.fromObject(btn);
 
-        String url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN".replace("ACCESS_TOKEN", wxService.getAccessToken());
-       System.out.println(WxSend.post(url, jsonObject.toString()));
-        return true;
+            String url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN".replace("ACCESS_TOKEN", wxService.getAccessToken());
+            System.out.println(WxSend.post(url, jsonObject.toString()));
+            return true;
+        }else{
+            return  false;
+        }
+
     }
 
     private AbstractButton createMenu(AppMenu menu) {
@@ -151,5 +162,45 @@ public class CreateMenuController {
                 break;
         }
         return null;
+    }
+
+    /**
+     * 批量删除
+     *
+     * @param ids
+     * @return
+     */
+    @RequestMapping("/delMenuByArray")
+    @ResponseBody
+    public boolean delMenuByArray(@RequestParam String ids) {
+        String str[] = ids.split(",");
+        Integer array[] = new Integer[str.length];
+        for (int i = 0; i < str.length; i++) {
+            array[i] = Integer.parseInt(str[i]);
+        }
+        int res = appMenuService.delMenuByArray(array);
+
+        boolean b = false;
+        if(res >0){
+            b = create();
+        }
+        return b;
+    }
+
+    /**
+     * 修改  "menuName":menuName,"menuTypeId":menuTypeId,"message":m,"key":k
+     * @param id
+     * @return
+     */
+    @RequestMapping("/updateAppMenu")
+    @ResponseBody
+    public boolean updateAppMenu(@RequestParam("id") Integer id,@RequestParam("menuName") String menuName,@RequestParam("menuTypeId") Integer menuTypeId,@RequestParam("message") String message,@RequestParam("key") String key){
+        AppMenu appMenu = new AppMenu(id,menuName,menuTypeId,message,key);
+        int n = appMenuService.updateAppMenuById(appMenu);
+        boolean b = false;
+        if(n >0){
+            b = create();
+        }
+        return b;
     }
 }

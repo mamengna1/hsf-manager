@@ -30,10 +30,12 @@ public interface UserDetailMapper {
     int updateUserDetail(UserDetail userDetail);
 
     List<UserYearWork> selYearAll();
+    UserYearWork selYearById(@Param("id") Integer id);
+
 
     List<ScoreSourceType> selSourceType();
 
-    UserYearWork selYearById(@Param("id") Integer id);
+
 
 
 

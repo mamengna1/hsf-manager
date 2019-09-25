@@ -7,4 +7,6 @@ public interface AppMapper {
     App selApp();
 
     int updAppToken(App app);
+
+    int updApp(App app);
 }

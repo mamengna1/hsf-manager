@@ -16,6 +16,18 @@ public class ScoreSourceType {
                 '}';
     }
 
+    public ScoreSourceType(Integer id, String sourceName) {
+        this.id = id;
+        this.sourceName = sourceName;
+    }
+
+    public ScoreSourceType() {
+    }
+
+    public ScoreSourceType(String sourceName) {
+        this.sourceName = sourceName;
+    }
+
     public Integer getId() {
         return id;
     }

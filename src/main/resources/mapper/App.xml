@@ -15,5 +15,27 @@
         update tb_app set `accessToken` = #{accessToken},`expireTime` = #{expireTime}
     </update>
 
-
+    <update id="updApp" parameterType="cn.hsf.hsfmanager.pojo.App">
+          update tb_app
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+            <if test="id != null and id!=''">
+                id=#{id},
+            </if>
+            <if test="appId != null and appId!=''">
+                appId=#{appId},
+            </if>
+            <if test="mchId != null and mchId!=''">
+                mchId=#{mchId},
+            </if>
+            <if test="appSecret != null and appSecret !=''">
+                appSecret=#{appSecret},
+            </if>
+            <if test="token != null and token !=''">
+                token=#{token},
+            </if>
+            <if test="key != null and key !=''">
+                `key`=#{key},
+            </if>
+        </trim>
+    </update>
 </mapper>

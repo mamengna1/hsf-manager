@@ -37,6 +37,7 @@ function searchSlideShow(currentPage,imgType) {
 
 //初始化加载数据
 $(function () {
+    $("#showBig").hide();
    searchSlideShow(currentPage,imgType);
     //首页
     $("#begin").click(function () {

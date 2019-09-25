@@ -6,17 +6,36 @@
 <!--namespace:映射命名空间-->
 <mapper namespace="cn.hsf.hsfmanager.mapper.UserScoreSourceMapper">
 
-    <insert id="insScoreSource" parameterType="cn.hsf.hsfmanager.pojo.user.UserScoreSource">
-        insert into `tb_user_score_source`(`openId`,`score`,`scoreSourceId`,`sourceOpenId`,`createDate`,`note`) values(#{openId},#{score},#{scoreSourceId},#{sourceOpenId},now(),#{note})
-    </insert>
 
-   <select id="selById" resultType="cn.hsf.hsfmanager.pojo.user.ScoreSourceType" parameterType="int">
+    <select id="selById" resultType="cn.hsf.hsfmanager.pojo.user.ScoreSourceType" parameterType="int">
         select `id`,`sourceName`  from `tb_score_source_type` where id = #{id}
    </select>
 
     <select id="selScoreType" resultType="cn.hsf.hsfmanager.pojo.user.ScoreSourceType">
            select `id`,`sourceName`  from `tb_score_source_type`
     </select>
+    <delete id="delScoreSourceTypeById" parameterType="int">
+        delete  from tb_score_source_type where id = #{id}
+    </delete>
+
+    <update id="updScoreSourceType" parameterType="cn.hsf.hsfmanager.pojo.user.ScoreSourceType">
+        update tb_score_source_type set sourceName = #{sourceName} where id = #{id}
+    </update>
+
+    <insert id="insScoreSourceType" parameterType="cn.hsf.hsfmanager.pojo.user.ScoreSourceType">
+        insert into tb_score_source_type(sourceName) values(#{sourceName})
+    </insert>
+
+
+
+
+
+
+
+    <insert id="insScoreSource" parameterType="cn.hsf.hsfmanager.pojo.user.UserScoreSource">
+        insert into `tb_user_score_source`(`openId`,`score`,`scoreSourceId`,`sourceOpenId`,`createDate`,`note`) values(#{openId},#{score},#{scoreSourceId},#{sourceOpenId},now(),#{note})
+    </insert>
+
     <!--关联查询-->
     <resultMap id="selScoreType" type="cn.hsf.hsfmanager.pojo.user.UserScoreSource">
         <id property="id" column="id"/>

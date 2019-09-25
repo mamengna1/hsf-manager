@@ -89,7 +89,7 @@ function delMenu() {
     }else{
         var resMessage=confirm("您确认删除这些数据吗？");
         if(resMessage == true){
-            $.getJSON("/manager/showMenu/delMenuByArray",{"ids":arrayId.toString()},function (data) {
+            $.getJSON("/manager/menu/delMenuByArray",{"ids":arrayId.toString()},function (data) {
                 if(data == true){
                     alert("批量删除成功！")
                     window.location.reload();
@@ -191,7 +191,7 @@ function saveAppMenu() {
         flag = true;
     })
     if (flag == true) {
-        $.getJSON("/manager/showMenu/updateAppMenu", {"id": id, "menuName": menuName, "menuTypeId": menuTypeId, "message": m, "key": k
+        $.getJSON("/manager/menu/updateAppMenu", {"id": id, "menuName": menuName, "menuTypeId": menuTypeId, "message": m, "key": k
         }, function (data) {
             if (data == true) {
                 alert("修改成功")
