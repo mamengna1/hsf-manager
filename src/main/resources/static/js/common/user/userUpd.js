@@ -1,4 +1,21 @@
 $(function () {
+    var workAddress1 = ($("#workAddress1").val()).split(",");
+    var quanXians = document.getElementsByClassName("quanXian");
+    for (var i = 0; i < workAddress1.length; i++) {
+        $("[value="+[workAddress1[i]]+"][class=quanXian]").prop("checked","checked")
+    }
+    var workAddress = $("#workAddress1").val().split(",");
+    $(".quanXian").click(function () {
+        if ($(this).prop('checked')) {
+            if($(this).val() != -1){
+                workAddress.push($(this).val());
+            }
+        } else {
+            workAddress.splice(jQuery.inArray($(this).val(), workAddress), 1);  //从数组中删除当前项，删除1个
+        }
+        $("#workAddress").val(workAddress.join());
+    })
+
     $.ajaxSettings.async = false;
     var id = $("#id").val();
     $.getJSON("/manager/userMaster/selById", {"id": id}, function (res) {
@@ -11,18 +28,12 @@ $(function () {
         $("#placeCity").val(res.placeCity);
         $("#placeArea").val(res.placeArea);
 
-        //chooseProvince2(res.workProvince);
-/*
-        alert("xxx : "+res.workProvince+"ccc :"+ res.workCity)
-        $("#workProvince1").val(res.workProvince);
-        alert("111 :"+ $("#workProvince1").val())
-       // chooseCity2(res.workCity);
+        $("#workProvince").val(res.workProvince);
+        $("#workCity").val(res.workCity);
+        
 
-        $("#workCity1").val(res.workCity);
-        alert("222 :"+  $("#workCity1").val())*/
 
-        //$("#workArea").val(res.workArea);
-       var totalRefuse = res.totalRefuse == null ? 0 : res.totalRefuse
+        var totalRefuse = res.totalRefuse == null ? 0 : res.totalRefuse
         var totalOrder = res.totalOrder == null ? 0 : res.totalOrder
         $("#totalRefuse").val(totalRefuse);
         $("#totalOrder").val(totalOrder);
@@ -74,6 +85,8 @@ $(function () {
         $("#skills").val(skills.join());
     })
 
+
+
 });
 
 function changeSou(btn) {
@@ -100,4 +113,12 @@ function func(){
         $('#statusMessage').removeAttr("disabled");//去除textarea元素的disabled属性
 
     }
+}
+
+
+function aaa() {
+    var x1 = $("#workProvince").val()
+    var x2 = $("#workCity").val();
+    var x3 = $("#workAddress").val();
+    alert("x1 :"+ x1 +"x2 :"+ x2+"x3 :"+ x3)
 }

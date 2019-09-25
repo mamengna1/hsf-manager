@@ -285,6 +285,11 @@ public class UserMasterController {
         model.addAttribute("userSkills", userSkillService.selAllSkills());
         model.addAttribute("sources", userDetailService.selSourceType());
         model.addAttribute("user", userService.selUserByDetailId(id));
+        UserDetail userDetail = userDetailService.selUserDetailById(id);
+        model.addAttribute("category1",serAddressService.selByParent(null));
+        model.addAttribute("category2",serAddressService.selByParent(userDetail.getWorkProvince()));
+        model.addAttribute("category3",serAddressService.selByParent(userDetail.getWorkCity()));
+        model.addAttribute("userDeatil",userDetail);
         return "user/userUpd";
     }
 

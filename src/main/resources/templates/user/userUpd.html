@@ -82,28 +82,34 @@
                         </tr>
                     </table>
                 </div>
-                <div class="col-md-2 title">工作地区</div>
-                <div class="col-md-10 data">
+                <div class="col-md-2 title" style="height: 120px">工作地区</div>
+                <div class="col-md-10 data" style="height: 120px">
                     <table>
                         <tr>
                             <td>
-                                <select name="workProvince1" id="workProvince1" class="select1 form-control" >
-                                        <option value="-1">选择省</option>
+                                <select name="workProvince" id="workProvince" class="select1 form-control" >
+                                   <option value="-1">选择省</option>
+                                    <option th:each="category :${category1}" th:value="${category.id}"
+                                            th:text="${category.addName}">
+                                    </option>
 
                                 </select>
 
                             </td>
                             <td>
-                                <select  name="workCity1" id="workCity1" class="select1 form-control"  >
-                                        <option value="-1">选择市</option>
-
+                                <select  name="workCity" id="workCity" class="select1 form-control"  >
+                                    <option value="-1">选择市</option>
+                                    <option th:each="category :${category2}" th:value="${category.id}"
+                                            th:text="${category.addName}">
+                                    </option>
                                 </select>
-
                             </td>
-                            <td>
-                                <select  name="workArea1" id="workArea1" class="select1 form-control" >
-                                        <option value="-1">所有区县</option>
-                                </select>
+                        </tr>
+                        <tr >
+                            <input type="hidden" id="workAddress1" th:value="${userDeatil.workArea}">
+                            <input type="hidden" id="workAddress" name="workArea" >
+                            <td id="areas" name="areas" th:each="workArea1 : ${category3}" >
+                                <label style="margin-right: 20px"><input type="checkbox" name="checkbox" class="quanXian"  th:value="${workArea1.id}"/><span>[[${workArea1.addName}]]</span></label>
                             </td>
                         </tr>
                     </table>
@@ -173,30 +179,11 @@
 
 </section>
 
-<script type="text/javascript">
-    $(function () {
-        aa()
-    })
-    function aa() {
-        var id = $("#id").val();
-        $.getJSON("/manager/userMaster/selById", {"id": id}, function (res) {
-            alert("xxx : "+res.workProvince+"ccc :"+ res.workCity)
-            $("#workProvince1").val(res.workProvince);
-            alert("111 :"+ $("#workProvince1").val())
-            // chooseCity2(res.workCity);
-
-            $("#workCity1").val(res.workCity);
-            alert("222 :"+  $("#workCity1").val())
-
-        })
-    }
-</script>
-<script src="/manager/js/common/user/serAddressUpd.js"></script>
 
 <script src="/manager/js/common/utils/area.js"></script>
 
 <script src="/manager/js/common/user/userUpd.js"></script>
-
+<script src="/manager/js/common/user/serAddressUpd.js"></script>
 
 </body>
 
