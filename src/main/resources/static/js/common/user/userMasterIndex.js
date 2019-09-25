@@ -7,6 +7,7 @@ var statusId;  //全部信息
 var lineStatus = -1    //在线状态
 //过滤查询
 function searchCustomer(currentPage,names,statusId,lineStatus) {
+    //$.ajaxSettings.async = false;
     $.getJSON("/manager/userMaster/userAll",{"pageCurrentNo":currentPage,"names":names,"statusId":statusId,"lineStatus":lineStatus},callback)
     //回调
     function callback(data) {
@@ -15,7 +16,9 @@ function searchCustomer(currentPage,names,statusId,lineStatus) {
         $("#liXian").html(data.liXian);
         for (var i = 0; i < data.list.length; i++) {
             var a = data.list[i].status;
-            var workArea = showProvince(data.list[i].workProvince,data.list[i].workCity,data.list[i].workArea);
+        //    var workArea = showProvince(data.list[i].workProvince,data.list[i].workCity,data.list[i].workArea);
+          //  var workArea = getWorkName(data.list[i].workProvince,data.list[i].workCity,data.list[i].workArea);
+          /*  var workArea = getWorkName(1,2,"-1");*/
             var updTime = data.list[i].updTime == null ? '' : toDate(new Date(data.list[i].updTime).toJSON())
             var passTime = data.list[i].passTime == null ? '' : toDate(new Date(data.list[i].passTime).toJSON())
             var lineStatus = data.list[i].lineStatus == 1 ? "在线" : data.list[i].lineStatus == null ? "无状态(审核失败)" : "离线"
@@ -31,7 +34,7 @@ function searchCustomer(currentPage,names,statusId,lineStatus) {
                 "<td>" + data.list[i].card + "</td>" +
                 "<td><img src='"+  data.list[i].cardOne +"' width='50px' height='50px' onclick='showBig(this)'/></td>" +
                 "<td><img src='"+  data.list[i].cardTwo +"' width='50px' height='50px' onclick='showBig(this)'/></td>" +
-                "<td>" + workArea+"</td>" +
+            /*    "<td>" + workArea+"</td>" +*/
                 "<td>" +message+"</td>" +
                 "<td>" + updTime+"</td>" +
                 "<td>" +passTime+"</td>" +
@@ -53,6 +56,7 @@ function searchCustomer(currentPage,names,statusId,lineStatus) {
         $("#pageNo").html(curr);
 
     }
+    //$.ajaxSettings.async = true;
 }
 
 function showBig(btn){

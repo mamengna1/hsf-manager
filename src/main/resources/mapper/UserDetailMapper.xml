@@ -78,7 +78,7 @@
 
 
     <select id="selUserDetailById" parameterType="int" resultType="cn.hsf.hsfmanager.pojo.user.UserDetail">
-         SELECT `id`,`name`,`card`,`placeProvince`,`placeCity`,`placeArea`,`address`,`cardOne`,`cardTwo`,`skills`,`workProvince`,`workCity`,`workArea`,`status`,`statusMessage`,`lineStatus`,`yearWorkId`,`totalOrder`,`totalRefuse`,`updTime`,`passTime`
+        SELECT `id`,`name`,`card`,`placeProvince`,`placeCity`,`placeArea`,`address`,`cardOne`,`cardTwo`,`skills`,`workProvince`,`workCity`,`workArea`,`status`,`statusMessage`,`lineStatus`,`yearWorkId`,`totalOrder`,`totalRefuse`,`updTime`,`passTime`
         FROM `tb_user_detail`
         where id = #{id}
     </select>
@@ -208,8 +208,12 @@
             <if test="workCity != null  and workCity !='' ">
                 and workCity = #{workCity}
             </if>
-            <if test="workArea != null  and workArea &gt; -1 ">
-                and workArea = #{workArea}
+            <if test="workArea != null  and workArea != '' ">
+                and workArea in
+                <foreach collection="workArea.split(',')" separator="or" item="workArea">
+                    #{workArea}
+                </foreach>
+                )
             </if>
             AND `status`=1
         </where>
@@ -234,8 +238,12 @@
             <if test="workCity != null  and workCity !='' ">
                 and workCity = #{workCity}
             </if>
-            <if test="workArea != null  and workArea &gt; -1 ">
-                and workArea = #{workArea}
+            <if test="workArea != null  and workArea != '' ">
+                and workArea in
+                <foreach collection="workArea.split(',')" separator="or" item="workArea">
+                   #{workArea}
+                </foreach>
+                )
             </if>
             AND `status`=1
         </where>

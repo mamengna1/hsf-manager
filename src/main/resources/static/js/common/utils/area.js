@@ -426,9 +426,11 @@ var provinceTag = document.getElementById("placeProvince");
 var cityTag = document.getElementById("placeCity");
 var areaTag = document.getElementById("placeArea");
 
+/*
 var workProvinceTag = document.getElementById("workProvince");
 var workCityTag = document.getElementById("workCity");
 var workAreaTag = document.getElementById("workArea");
+*/
 
 
 for(var i=0; i<provinceList.length; i++){
@@ -438,9 +440,9 @@ for(var i=0; i<provinceList.length; i++){
     if (provinceTag != null){
         provinceTag.add(new Option(provinceName,i));
     }
-    if (workProvinceTag != null){
+   /* if (workProvinceTag != null){
         workProvinceTag.add(new Option(provinceName,i));
-    }
+    }*/
 }
 
 
@@ -509,7 +511,7 @@ function chooseCity(tag){
     }
 }
 
-//选择省
+/*//选择省
 function chooseProvince2(th) {
     var index;
     if (typeof th == "object") {
@@ -571,7 +573,7 @@ function chooseCity2(tag) {
             }
         }
     }
-}
+}*/
 
 /**
  *  三级回显 文字

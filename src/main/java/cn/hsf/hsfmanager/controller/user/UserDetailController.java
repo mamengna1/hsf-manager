@@ -73,17 +73,17 @@ public class UserDetailController {
                         @RequestParam(value = "skillId",required = false,defaultValue = "-1")  String skillId,
                         @RequestParam(value = "serviceProvince",required = false,defaultValue = "")  Integer serviceProvince,
                         @RequestParam(value = "serviceCity",required = false,defaultValue = "")  Integer serviceCity,
-                        @RequestParam(value = "serviceArea",required = false,defaultValue = "")  Integer serviceArea,
+                        @RequestParam(value = "serviceArea",required = false,defaultValue = "")  String serviceArea,
                         @RequestParam(value = "recId",required = false,defaultValue = "")  Integer recId){
 
         int total;
         List<UserDetail> userDetails = null;
         if(skillId == null || skillId.equals("-1") || skillId =="-1"){
-           total  = userDetailService.selPaiDanTotal(null, serviceProvince, serviceCity, -1);
-            userDetails = userDetailService.selPaiDanAll(pageCurrentNo, Contents.PAGENO,null,serviceProvince,serviceCity,-1);
+           total  = userDetailService.selPaiDanTotal(null, serviceProvince, serviceCity, serviceArea);
+            userDetails = userDetailService.selPaiDanAll(pageCurrentNo, Contents.PAGENO,null,serviceProvince,serviceCity,serviceArea);
         }else{
-            total  = userDetailService.selPaiDanTotal(skillId, serviceProvince, serviceCity, -1);
-            userDetails = userDetailService.selPaiDanAll(pageCurrentNo, Contents.PAGENO,skillId,serviceProvince,serviceCity,-1);
+            total  = userDetailService.selPaiDanTotal(skillId, serviceProvince, serviceCity, serviceArea);
+            userDetails = userDetailService.selPaiDanAll(pageCurrentNo, Contents.PAGENO,skillId,serviceProvince,serviceCity,serviceArea);
         }
         UserRelease userRelease = userReleaseService.selUserReleaseById(recId);
         Integer detailId =  userService.selUserById( userRelease.getUserId()).getDetailId();

@@ -53,11 +53,6 @@
                     <input type="text" id="workArea" name="workArea" class="form-control" readonly>
                 </div>
 
-
-                <div class="col-md-2 title">详细地址</div>
-                <div class="col-md-10 data">
-                    <input type="text" name="address" id="address" class="form-control" readonly/>
-                </div>
                 <div class="col-md-2 title">工作年限</div>
                 <div class="col-md-10 data">
                     <input type="text" id="workYear2" name="workYear2" class="form-control" readonly>
@@ -82,36 +77,6 @@
                 <div class="col-md-10 data">
                     <input type="text" name="phone" th:value="${user.balanceScore}" class="form-control" readonly/>
                 </div>
-               <!-- <div class="col-md-2 title" style="height:180px;">账目</div>
-                <div class="col-md-10 data" style="height:180px;">
-                    <table>
-                        <tr>
-                            <td>累计充值</td>
-                            <td>
-                                <input type="text"  th:value="${user.totalMoney}" placeholder="累计充值" class="form-control" readonly>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>账户余额</td>
-                            <td>
-                                <input type="text"  th:value="${user.balanceMoney}" placeholder="账户余额" class="form-control" readonly>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>总积分</td>
-                            <td>
-                              <input type="text"  th:value="${user.totalScore}" placeholder="总积分"  class="form-control" readonly>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>剩余积分</td>
-                            <td>
-                                <input type="text"  th:value="${user.balanceScore}" placeholder="剩余积分" class="form-control" readonly>
-                            </td>
-                        </tr>
-
-                    </table>
-                </div>-->
                 <div class="col-md-2 title">总接单量</div>
                 <div class="col-md-10 data">
                     <input type="text" name="totalOrder"  id="totalOrder" class="form-control" readonly/>
@@ -132,6 +97,8 @@
 <script src="/manager/js/common/utils/area.js"></script>
 <script src="/manager/js/common/user/UserSkillById.js"></script>
 <script src="/manager/js/common/user/userMasterShow.js"></script>
+<script type="text/javascript" src="/manager/js/common/utils/serAddressUtil.js"></script>
+
 </body>
 
 </html>

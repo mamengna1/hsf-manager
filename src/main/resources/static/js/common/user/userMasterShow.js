@@ -7,9 +7,10 @@ $(function () {
         $("#card").val(res.card);
         $("#address").val(res.address);
 
-        var placeArea =   showProvince(res.placeProvince,res.placeCity,res.placeArea);
+        var placeArea =   showProvince(res.placeProvince,res.placeCity,res.placeArea) +"/"+ res.address;
         $("#placeArea").val(placeArea);
-        var workArea =   showProvince(res.workProvince,res.workCity,res.workArea);
+       // var workArea =   showProvince(res.workProvince,res.workCity,res.workArea);
+        var workArea = getWorkName(1,2,"2,3,4");
         $("#workArea").val(workArea);
 
         //技能

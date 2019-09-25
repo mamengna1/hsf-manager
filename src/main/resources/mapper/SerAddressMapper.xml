@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace:映射命名空间-->
+<mapper namespace="cn.hsf.hsfmanager.mapper.SerAddressMapper">
+
+    <select id="selByParent" resultType="cn.hsf.hsfmanager.pojo.user.SerAddress">
+        SELECT `id`,`addName`,`parentId` FROM `tb_ser_address`
+        <if test="parentId != null">
+            where parentId = #{parentId}
+        </if>
+        <if test="parentId == null">
+            where parentId is null
+        </if>
+    </select>
+
+    <select id="getName" resultType="string" parameterType="int">
+        select addName from tb_ser_address where id = #{id}
+    </select>
+
+    <select id="getNameList" resultType="string" parameterType="int">
+      select addName from tb_ser_address
+        <if test="array !=null and array !=''">
+            where id in
+            <foreach item="id" collection="array" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+        </if>
+
+    </select>
+</mapper>

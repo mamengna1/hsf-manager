@@ -4,6 +4,7 @@ public class StateMessage {
     private String message;
     private String errCode;
 
+
     public String getMessage() {
         return message;
     }

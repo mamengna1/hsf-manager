@@ -1,10 +1,8 @@
 package cn.hsf.hsfmanager.controller.user;
 
+import cn.hsf.hsfmanager.pojo.StateMessage;
 import cn.hsf.hsfmanager.pojo.user.*;
-import cn.hsf.hsfmanager.service.user.UserDetailService;
-import cn.hsf.hsfmanager.service.user.UserScoreSourceService;
-import cn.hsf.hsfmanager.service.user.UserService;
-import cn.hsf.hsfmanager.service.user.UserSkillService;
+import cn.hsf.hsfmanager.service.user.*;
 import cn.hsf.hsfmanager.service.wx.TemplateService;
 import cn.hsf.hsfmanager.util.Contents;
 import cn.hsf.hsfmanager.util.Page;
@@ -34,7 +32,65 @@ public class UserMasterController {
     private UserScoreSourceService scoreSourceService;
     @Resource
     private TemplateService templateService;
+    @Resource
+    private SerAddressService serAddressService;
 
+    //得到地区名称
+    @RequestMapping("/getAddName")
+    @ResponseBody
+    public StateMessage getAddName( Integer id ){
+        String name = serAddressService.getName(id);
+        return  new StateMessage(name);
+    }
+
+    @RequestMapping("/getAddNameList")
+    @ResponseBody
+    public StateMessage getAddNameList( String ids ){
+
+        if(ids !=null && !ids.equals("-1")){
+            String str[] = ids.split(",");
+            Integer array[] = new Integer[str.length];
+            for (int i = 0; i < str.length; i++) {
+                array[i] = Integer.parseInt(str[i]);
+            }
+            List<String> nameList=  serAddressService.getNameList(array);
+
+            //把其转换为String传给前端
+            StringBuilder result = new StringBuilder();
+            boolean flag = false;
+            for (String string : nameList) {
+                if (flag) {
+                    result.append(",");
+                } else {
+                    flag = true;
+                }
+                result.append(string);
+            }
+            return  new StateMessage(result.toString());
+        }else{
+            return new StateMessage("全区");
+        }
+
+
+    }
+
+
+    /**
+     * 显示级别分类
+     * @return
+     */
+    @RequestMapping("/showLevelAddress")
+    @ResponseBody
+    public Object showLevel1(@RequestParam(value = "parentId",required = false) String parentId ){
+
+        List<SerAddress> categoryLevel = null;
+        if(parentId ==null || parentId ==""){
+            categoryLevel     = serAddressService.selByParent(null);
+        }else {
+            categoryLevel     = serAddressService.selByParent(Integer.valueOf(parentId));
+        }
+        return categoryLevel;
+    }
     /**
      * 进入师父信息界面
      * @return

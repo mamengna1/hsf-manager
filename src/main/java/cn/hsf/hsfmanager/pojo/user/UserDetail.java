@@ -31,7 +31,7 @@ public class UserDetail {
     //工作城市
     private Integer workCity;
     //工作区
-    private Integer workArea;
+    private String  workArea;
     //审核状态 (0 审核中 1 审核通过 2 审核不通过)
     private Integer status;
     //审核不通过的原因
@@ -288,11 +288,11 @@ public class UserDetail {
         this.workCity = workCity;
     }
 
-    public Integer getWorkArea() {
+    public String getWorkArea() {
         return workArea;
     }
 
-    public void setWorkArea(Integer workArea) {
+    public void setWorkArea(String workArea) {
         this.workArea = workArea;
     }
 

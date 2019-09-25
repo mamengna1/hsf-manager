@@ -11,11 +11,17 @@ $(function () {
         $("#placeCity").val(res.placeCity);
         $("#placeArea").val(res.placeArea);
 
-        chooseProvince2(res.workProvince);
-        $("#workProvince").val(res.workProvince);
-        chooseCity2(res.workCity);
-        $("#workCity").val(res.workCity);
-        $("#workArea").val(res.workArea);
+        //chooseProvince2(res.workProvince);
+/*
+        alert("xxx : "+res.workProvince+"ccc :"+ res.workCity)
+        $("#workProvince1").val(res.workProvince);
+        alert("111 :"+ $("#workProvince1").val())
+       // chooseCity2(res.workCity);
+
+        $("#workCity1").val(res.workCity);
+        alert("222 :"+  $("#workCity1").val())*/
+
+        //$("#workArea").val(res.workArea);
        var totalRefuse = res.totalRefuse == null ? 0 : res.totalRefuse
         var totalOrder = res.totalOrder == null ? 0 : res.totalOrder
         $("#totalRefuse").val(totalRefuse);
