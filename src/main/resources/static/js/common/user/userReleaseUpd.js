@@ -6,9 +6,8 @@ $(function () {
         $("#appointTime").val(newDate)
 
         $("#demand").val(res.demand);
-        chooseProvince(res.serviceProvince);
+
         $("#placeProvince").val(res.serviceProvince);
-        chooseCity(res.serviceCity);
         $("#placeCity").val(res.serviceCity);
         $("#placeArea").val(res.serviceArea);
 

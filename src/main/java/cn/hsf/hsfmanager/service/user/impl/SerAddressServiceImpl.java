@@ -27,4 +27,9 @@ public class SerAddressServiceImpl implements  SerAddressService {
     public List<String> getNameList(Integer[] array) {
         return serAddressMapper.getNameList(array);
     }
+
+    @Override
+    public int insProvinceName(String addName) {
+        return serAddressMapper.insProvinceName(addName);
+    }
 }

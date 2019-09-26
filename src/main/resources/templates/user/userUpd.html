@@ -105,12 +105,15 @@
                                 </select>
                             </td>
                         </tr>
-                        <tr >
-                            <input type="hidden" id="workAddress1" th:value="${userDeatil.workArea}">
-                            <input type="hidden" id="workAddress" name="workArea" >
-                            <td id="areas" name="areas" th:each="workArea1 : ${category3}" >
-                                <label style="margin-right: 20px"><input type="checkbox" name="checkbox" class="quanXian"  th:value="${workArea1.id}"/><span>[[${workArea1.addName}]]</span></label>
-                            </td>
+                        <input type="hidden" id="workAddress1" th:value="${userDeatil.workArea}">
+                        <input type="hidden" id="workAddress" name="workArea" >
+                        <tr id="bbb" name = "bbb">
+
+                                <td id="areas" name="areas" th:each="workArea1 : ${category3}" >
+                                    <label style="margin-right: 20px"><input type="checkbox" name="checkbox" class="quanXian"  th:value="${workArea1.id}"/><span>[[${workArea1.addName}]]</span></label>
+                                </td>
+
+
                         </tr>
                     </table>
 
@@ -171,7 +174,7 @@
                 <div class="col-md-10 data" style="width:100%;"></div>
 
             </div>
-            <input class="btn btn-primary" type="submit" value="保存修改" id="btns"/>
+            <input class="btn btn-primary" type="submit" value="保存修改" id="btns" />
             <input class="btn btn-primary" type="button" value="返回" id="returnUpUserMaster"/>
         </form>
     </div>

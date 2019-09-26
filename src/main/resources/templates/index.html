@@ -621,6 +621,23 @@
                         </li>
                     </ul>
                 </li>
+                <li class="treeview" id="column11">
+                    <a href="#">
+                        <i class="fa fa-folder"></i>
+                        <span>开放地区</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li id="admin-login">
+                            <a href="/manager/openAreaController/goOpenAreaIndex" target="iframe">
+                                <i class="fa fa-circle-o"></i>开放地区管理
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
             </ul>
         </section>
         <!-- /.sidebar -->
@@ -669,12 +686,12 @@
     }
 
     $(function () {
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < 11; i++) {
             var c = "column"+(i+1)
             $("#"+c).hide();
         }
         var  permissions = $("#column").val().split(",");
-        for (var i = 0; i <10 ; i++) {
+        for (var i = 0; i <11 ; i++) {
             for (var j = 0; j <permissions.length ; j++) {
                 if((i+1)== permissions[j]){
                     var c = "column"+(i+1)

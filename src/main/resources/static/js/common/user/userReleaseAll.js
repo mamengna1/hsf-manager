@@ -1,4 +1,4 @@
-
+//此js是全部订单
 
 //初始化数据
 var currentPage = 1;  //当前页码
@@ -6,6 +6,7 @@ var state = -1;
 var mark;
 //过滤查询
 function searchRelease(currentPage,state,mark) {
+    $.ajaxSettings.async = false;
     $.getJSON("/manager/userRelease/userAll",{"pageCurrentNo":currentPage,"state":state,"mark":mark},callback)
     //回调
     function callback(data) {
@@ -20,7 +21,7 @@ function searchRelease(currentPage,state,mark) {
             }
             var appointTime = toDate(new Date(data.list[i].appointTime).toJSON())
             var createDate = toDate(new Date(data.list[i].createDate).toJSON())
-            var address  = showProvince(data.list[i].serviceProvince,data.list[i].serviceCity,data.list[i].serviceArea)+"/"+data.list[i].serverDetail;
+            var address  = getUserWork(data.list[i].serviceProvince,data.list[i].serviceCity,data.list[i].serviceArea)+"/"+data.list[i].serverDetail;
             var receiveId = data.list[i].receiveId == null ? '' :data.list[i].receiveId;
             var a = data.list[i].state;
             $("#theBody").append("<tr>" +
@@ -53,6 +54,7 @@ function searchRelease(currentPage,state,mark) {
         $("#totalPages").html(data.totalPages);
         var curr = data.totalPages == 0 ? 0 : currentPage
         $("#pageNo").html(curr);
+        $.ajaxSettings.async = true;
     }
 }
 
@@ -173,7 +175,7 @@ function selShifuById(id) {
         $("#realName").html(data.userDetail.name)
         $("#card").html(data.userDetail.card)
         $("#phones").html(data.user.phone)
-        var workAddress = showProvince(data.userDetail.workProvince,data.userDetail.workCity,data.userDetail.workArea)
+        var workAddress = getWorkName(data.userDetail.workProvince,data.userDetail.workCity,data.userDetail.workArea)
         $("#workAddress").html(workAddress)
 
         //技能

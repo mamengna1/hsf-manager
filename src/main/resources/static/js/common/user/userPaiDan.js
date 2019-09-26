@@ -9,14 +9,14 @@ var serviceArea
 var userReleaseId;
 //过滤查询
 function searchPaiDan(currentPage,skillId,serviceProvince,serviceCity,serviceArea,userReleaseId) {
+    $.ajaxSettings.async = false;
     $.getJSON("/manager/userDetail/userAll",{"pageCurrentNo":currentPage,"skillId":skillId,"serviceProvince":serviceProvince,"serviceCity":serviceCity,"serviceArea":serviceArea,"recId":userReleaseId},callback)
     //回调
     function callback(data) {
-        $.ajaxSettings.async = false;
         $("#theBody").html("");
 
         for (var i = 0; i < data.list.length; i++) {
-            var workArea = showProvince(data.list[i].workProvince,data.list[i].workCity,data.list[i].workArea);
+            var workArea = getWorkName(data.list[i].workProvince,data.list[i].workCity,data.list[i].workArea);
             var skillName = getSkillName(data.list[i].skills)
             var yearWork = userWorkYearById(data.list[i].yearWorkId);
             var totalOrder = data.list[i].totalOrder == null ? 0 : data.list[i].totalOrder

@@ -46,7 +46,8 @@ public class UserDetailController {
     private DistributionService distributionService;
     @Resource
     private TemplateService templateService;
-
+    @Resource
+    private SerAddressService serAddressService;
     /**
      * 去到派单页面
      * @param model
@@ -73,7 +74,7 @@ public class UserDetailController {
                         @RequestParam(value = "skillId",required = false,defaultValue = "-1")  String skillId,
                         @RequestParam(value = "serviceProvince",required = false,defaultValue = "")  Integer serviceProvince,
                         @RequestParam(value = "serviceCity",required = false,defaultValue = "")  Integer serviceCity,
-                        @RequestParam(value = "serviceArea",required = false,defaultValue = "")  String serviceArea,
+                                @RequestParam(value = "serviceArea",required = false,defaultValue = "")  Integer serviceArea,
                         @RequestParam(value = "recId",required = false,defaultValue = "")  Integer recId){
 
         int total;
@@ -215,6 +216,9 @@ public class UserDetailController {
         UserRelease userRelease = userReleaseService.selUserReleaseById(id);
         model.addAttribute("userRelease",userRelease);
         model.addAttribute("mark",mark);
+        model.addAttribute("category1",serAddressService.selByParent(null));
+        model.addAttribute("category2",serAddressService.selByParent(userRelease.getServiceProvince()));
+        model.addAttribute("category3",serAddressService.selByParent(userRelease.getServiceCity()));
         return "user/userReleaseUpd";
     }
 

@@ -1,12 +1,16 @@
 
 $(function () {
     selLevel1();
+
 })
 //渲染一级
 function  selLevel1() {
     sel=document.getElementById("workProvince");
     sel.onchange=function(){
         $("#workCity").html("");
+       $("#bbb").html("");
+       $("#workAddress1").val("")
+        $("#workAddress").val("")
         var parentId = sel.options[sel.selectedIndex].value;
         selLevel2(parentId);
     }
@@ -25,25 +29,27 @@ function  selLevel2(parentId1) {
 
     var sel=document.getElementById("workCity");
     sel.onchange=function(){
-        alert(1111)
         var parentId = sel.options[sel.selectedIndex].value;
-        $("#areas").html("");
-        $("#areas").val("");
+        $("#bbb").html("");
+
         selLevel3(parentId);
 
     }
 }
- //  <label style="margin-right: 20px"><input type="checkbox" name="checkbox" class="quanXian"  th:value="${workArea1.id}"/><span>[[${workArea1.addName}]]</span></label>
-function selLevel3(parentId1) {
-    alert(2222)
-    $("#areas").html("");
-    $("#areas").val("");
-    $.getJSON("/manager/userMaster/showLevelAddress",{"parentId":parentId1},callback);
+
+function selLevel3(parentId2) {
+    $("#bbb").html("");
+    $.getJSON("/manager/userMaster/showLevelAddress",{"parentId":parentId2},callback);
     function callback(data) {
-        alert(33333)
+        alert("进入")
         $(data).each(function () {
-           // $("[name=areas]").append("<option value='"+this.id+"'>"+this.addName+"</option>")
-            $("[name=areas]").append("<label style=\"margin-right: 20px\"><input type=\"checkbox\" name=\"checkbox\" class=\"quanXian\"  value='"+this.id+"' />"+this.addName+"</label>")
+            $("[name=bbb]").append("<td><label style=\"margin-right: 20px\"><input type=\"checkbox\" name=\"checkbox\" class=\"quanXian\"  value='"+this.id+"' /><span>"+this.addName+"</span></label></td>")
         })
     }
+
+}
+
+function aaa() {
+    var a = $("#workAddress").val()
+    alert("aaa : "+ a)
 }

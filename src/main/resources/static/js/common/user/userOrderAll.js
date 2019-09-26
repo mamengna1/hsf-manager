@@ -143,9 +143,11 @@ function selShifuById(id) {
         $("#realName").html(data.userDetail.name)
         $("#card").html(data.userDetail.card)
         $("#phones").html(data.user.phone)
-        var workAddress = showProvince(data.userDetail.workProvince,data.userDetail.workCity,data.userDetail.workArea)
-        $("#workAddress").html(workAddress)
 
+        var liveAddress = showProvince(data.userDetail.placeProvince,data.userDetail.placeCity,data.userDetail.placeArea)
+        $("#liveAddress").html(liveAddress)
+        var workAddress2 = getWorkName(data.userDetail.workProvince,data.userDetail.workCity,data.userDetail.workArea)
+        $("#workAddress").html(workAddress2)
         //技能
         var skills = (data.userDetail.skills).split(",");
         var array = new Array();

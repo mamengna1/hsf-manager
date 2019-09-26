@@ -209,11 +209,7 @@
                 and workCity = #{workCity}
             </if>
             <if test="workArea != null  and workArea != '' ">
-                and workArea in
-                <foreach collection="workArea.split(',')" separator="or" item="workArea">
-                    #{workArea}
-                </foreach>
-                )
+                and workArea  like concat('%',#{workArea},'%')
             </if>
             AND `status`=1
         </where>
@@ -239,11 +235,7 @@
                 and workCity = #{workCity}
             </if>
             <if test="workArea != null  and workArea != '' ">
-                and workArea in
-                <foreach collection="workArea.split(',')" separator="or" item="workArea">
-                   #{workArea}
-                </foreach>
-                )
+                and workArea  like concat('%',#{workArea},'%')
             </if>
             AND `status`=1
         </where>

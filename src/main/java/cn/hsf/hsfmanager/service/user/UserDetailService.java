@@ -44,9 +44,9 @@ public interface UserDetailService {
      * @param skillId   技能
      * @return
      */
-    List<UserDetail> selPaiDanAll(Integer pageCurrentNo,Integer pageSize,String skillId, Integer workProvince, Integer workCity, String workArea);
+    List<UserDetail> selPaiDanAll(Integer pageCurrentNo,Integer pageSize,String skillId, Integer workProvince, Integer workCity, Integer workArea);
     //总数量
-    int selPaiDanTotal( String skillId, Integer workProvince, Integer workCity,String workArea);
+    int selPaiDanTotal( String skillId, Integer workProvince, Integer workCity,Integer workArea);
 
     int delMasterById(Integer[] array);
 }

@@ -30,4 +30,8 @@
         </if>
 
     </select>
+
+    <insert id="insProvinceName" parameterType="string">
+        insert into tb_ser_address(addName) values (#{addName})
+    </insert>
 </mapper>

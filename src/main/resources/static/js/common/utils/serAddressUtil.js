@@ -26,3 +26,11 @@ function getWorkName(workProvince,workCity,workArea) {
     return workProvince +"/"+ workCity+"/("+ workArea+")"
 }
 
+//得到用户所填写的最终地址
+function getUserWork(workProvince,workCity,workArea) {
+    var workProvince = showGetName(workProvince)
+    var workCity = showGetName(workCity)
+    var workArea = showGetName(workArea)
+    return workProvince +"/"+ workCity+"/"+ workArea
+
+}

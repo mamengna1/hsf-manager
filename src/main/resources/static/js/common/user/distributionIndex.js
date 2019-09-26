@@ -153,18 +153,16 @@ function delDetailById(id) {
      * @param id
      */
     function selShifuById(id) {
-        alert("id"+ id)
         $.ajaxSettings.async = false;
         $.getJSON("/manager/userMaster/selRealMessage",{"id":id},function (data) {
             $("#realName,#card,#phones2,#workAddress2,#skills,#workYear2").html("");
             $("#realName").html(data.userDetail.name)
             $("#card").html(data.userDetail.card)
-            alert("data.user.phone : "+ data.user.phone )
             $("#phones2").html(data.user.phone)
-            alert("data.userDetail.workArea : "+ data.userDetail.workArea)
-            var workAddress = showProvince(data.userDetail.workProvince,data.userDetail.workCity,data.userDetail.workArea)
-            alert("workAddress : "+ workAddress)
-            $("#workAddress2").html(workAddress)
+            var liveAddress = showProvince(data.userDetail.placeProvince,data.userDetail.placeCity,data.userDetail.placeArea)
+            $("#liveAddress").html(liveAddress)
+            var workAddress2 = getWorkName(data.userDetail.workProvince,data.userDetail.workCity,data.userDetail.workArea)
+            $("#workAddress2").html(workAddress2)
 
             //技能
             var skills = (data.userDetail.skills).split(",");
@@ -228,19 +226,21 @@ function delDetailById(id) {
      * @param resId   雇佣人下单的id
      */
     function selResById(resId) {
+        $.ajaxSettings.async = false;
         $.getJSON("/manager/userDetail/selUserReleaseById",{"id":resId},function (data) {
             $("#relName,#title,#phones,#workAddress,#appointTime,#demand").html("");
 
             $("#relName").append(data.nickName)
             $("#title").append(data.title)
             $("#phones").append(data.phone)
-            var workAddress = showProvince(data.serviceProvince,data.serviceCity,data.serviceArea)+"/"+data.serverDetail
+            var workAddress = getUserWork(data.serviceProvince,data.serviceCity,data.serviceArea)+"/"+data.serverDetail
             $("#workAddress").append(workAddress)
             var appointTime = toDate(new Date(data.appointTime).toJSON())
             $("#appointTime").append(appointTime)
             $("#demand").append(data.demand)
 
         })
+        $.ajaxSettings.async = true;
     }
 
     /**
@@ -279,37 +279,6 @@ function delDetailById(id) {
 
 
 
-/**
- * 查询师傅详情信息
- * @param id
- */
-function selShifuById(id) {
-    $.ajaxSettings.async = false;
-    $.getJSON("/manager/userMaster/selRealMessage",{"id":id},function (data) {
-        $("#realName,#card,#phones2,#workAddress2,#skills,#workYear2").html("");
-        $("#realName").html(data.userDetail.name)
-        $("#card").html(data.userDetail.card)
-        $("#phones2").html(data.user.phone)
-        var workAddress = showProvince(data.userDetail.workProvince,data.userDetail.workCity,data.userDetail.workArea)
-        $("#workAddress2").html(workAddress)
-
-        //技能
-        var skills = (data.userDetail.skills).split(",");
-        var array = new Array();
-        for (var i = 0; i < skills.length; i ++){
-            array[i] =  userSkillById(skills[i])
-        }
-        var a = array.join();
-        if(a.substr(0,1)==','){
-            a = a.substr(1)
-        }
-
-        $("#skills").html(a);
-        var yearWork = userWorkYearById(data.userDetail.yearWorkId);
-        $("#workYear2").html(yearWork);
-    })
-    $.ajaxSettings.async = true;
-}
 
 /**
  * 从接单中心返回全部师傅界面

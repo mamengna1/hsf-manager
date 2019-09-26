@@ -9,4 +9,7 @@ public interface SerAddressService {
     List<SerAddress> selByParent(Integer parentId);
     String getName(Integer id);
     List<String> getNameList(Integer[] array);
+
+    //新增省份
+    int insProvinceName(String addName);
 }

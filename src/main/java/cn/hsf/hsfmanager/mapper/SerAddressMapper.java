@@ -11,4 +11,7 @@ public interface SerAddressMapper {
     String getName(Integer id);
 
     List<String> getNameList(Integer[] array);
+
+    //新增省份
+    int insProvinceName(@Param("addName") String addName);
 }

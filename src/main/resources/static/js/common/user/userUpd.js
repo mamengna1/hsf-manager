@@ -1,6 +1,5 @@
 $(function () {
     var workAddress1 = ($("#workAddress1").val()).split(",");
-    var quanXians = document.getElementsByClassName("quanXian");
     for (var i = 0; i < workAddress1.length; i++) {
         $("[value="+[workAddress1[i]]+"][class=quanXian]").prop("checked","checked")
     }
@@ -14,6 +13,7 @@ $(function () {
             workAddress.splice(jQuery.inArray($(this).val(), workAddress), 1);  //从数组中删除当前项，删除1个
         }
         $("#workAddress").val(workAddress.join());
+        alert("xxx : "+$("#workAddress").val())
     })
 
     $.ajaxSettings.async = false;
@@ -115,10 +115,3 @@ function func(){
     }
 }
 
-
-function aaa() {
-    var x1 = $("#workProvince").val()
-    var x2 = $("#workCity").val();
-    var x3 = $("#workAddress").val();
-    alert("x1 :"+ x1 +"x2 :"+ x2+"x3 :"+ x3)
-}
