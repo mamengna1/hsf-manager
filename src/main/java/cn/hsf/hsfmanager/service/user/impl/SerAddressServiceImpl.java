@@ -34,8 +34,13 @@ public class SerAddressServiceImpl implements  SerAddressService {
     }
 
     @Override
-    public int deSerAddress(int id) {
+    public int deSerAddress(Integer id) {
         return serAddressMapper.deSerAddress(id);
+    }
+
+    @Override
+    public int deSerAddressByParentId(Integer parentId) {
+        return serAddressMapper.deSerAddressByParentId(parentId);
     }
 
     @Override

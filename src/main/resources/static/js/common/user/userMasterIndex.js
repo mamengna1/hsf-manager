@@ -16,9 +16,6 @@ function searchCustomer(currentPage,names,statusId,lineStatus) {
         $("#liXian").html(data.liXian);
         for (var i = 0; i < data.list.length; i++) {
             var a = data.list[i].status;
-        //    var workArea = showProvince(data.list[i].workProvince,data.list[i].workCity,data.list[i].workArea);
-          //  var workArea = getWorkName(data.list[i].workProvince,data.list[i].workCity,data.list[i].workArea);
-          /*  var workArea = getWorkName(1,2,"-1");*/
             var updTime = data.list[i].updTime == null ? '' : toDate(new Date(data.list[i].updTime).toJSON())
             var passTime = data.list[i].passTime == null ? '' : toDate(new Date(data.list[i].passTime).toJSON())
             var lineStatus = data.list[i].lineStatus == 1 ? "在线" : data.list[i].lineStatus == null ? "无状态(审核失败)" : "离线"

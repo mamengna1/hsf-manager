@@ -3,8 +3,10 @@ $(function () {
     for (var i = 0; i < workAddress1.length; i++) {
         $("[value="+[workAddress1[i]]+"][class=quanXian]").prop("checked","checked")
     }
-    var workAddress = $("#workAddress1").val().split(",");
-    $(".quanXian").click(function () {
+
+
+    $("#bbb").on("click",":checkbox[class=quanXian]",function () {
+        var workAddress = $("#workAddress1").val().split(",");
         if ($(this).prop('checked')) {
             if($(this).val() != -1){
                 workAddress.push($(this).val());
@@ -12,10 +14,13 @@ $(function () {
         } else {
             workAddress.splice(jQuery.inArray($(this).val(), workAddress), 1);  //从数组中删除当前项，删除1个
         }
-        $("#workAddress").val(workAddress.join());
-        alert("xxx : "+$("#workAddress").val())
-    })
+        $("#workAddress1").val(workAddress.join());
+        var s =workAddress.join()
+        if (s.substr(0,1)==',')
+            s=s.substr(1);
+        $("#workAddress").val(s);
 
+    })
     $.ajaxSettings.async = false;
     var id = $("#id").val();
     $.getJSON("/manager/userMaster/selById", {"id": id}, function (res) {

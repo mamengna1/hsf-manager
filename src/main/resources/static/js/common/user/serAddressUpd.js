@@ -26,30 +26,25 @@ function  selLevel2(parentId1) {
             $("[name=workCity]").append("<option value='"+this.id+"'>"+this.addName+"</option>")
         })
     }
+}
 
-    var sel=document.getElementById("workCity");
-    sel.onchange=function(){
-        var parentId = sel.options[sel.selectedIndex].value;
-        $("#bbb").html("");
-
-        selLevel3(parentId);
-
-    }
+var sel=document.getElementById("workCity");
+sel.onchange=function(){
+    var parentId = sel.options[sel.selectedIndex].value;
+    $("#bbb").html("");
+    selLevel3(parentId);
 }
 
 function selLevel3(parentId2) {
+   /* if(parentId2 == null || parentId2 == undefined || parentId2 ==''){
+        parentId2 = $("#workCity").val()
+    }*/
     $("#bbb").html("");
     $.getJSON("/manager/userMaster/showLevelAddress",{"parentId":parentId2},callback);
     function callback(data) {
-        alert("进入")
         $(data).each(function () {
             $("[name=bbb]").append("<td><label style=\"margin-right: 20px\"><input type=\"checkbox\" name=\"checkbox\" class=\"quanXian\"  value='"+this.id+"' /><span>"+this.addName+"</span></label></td>")
         })
     }
 
-}
-
-function aaa() {
-    var a = $("#workAddress").val()
-    alert("aaa : "+ a)
 }

@@ -58,4 +58,20 @@ public class OpenAreaController {
     public boolean insCityModal(String areaName,Integer parentId){
         return serAddressService.insSerAddress(new SerAddress(areaName,parentId)) >0 ? true : false;
     }
+
+
+    //删除三级单独
+    @RequestMapping("/delCity")
+    @ResponseBody
+    public boolean delCity(Integer id){
+        return serAddressService.deSerAddress(id) > 0 ? true : false;
+    }
+
+    //删除三级
+    @RequestMapping("/delCityFu")
+    @ResponseBody
+    public boolean delCityFu(Integer parentId){
+         serAddressService.deSerAddressByParentId(parentId);
+        return serAddressService.deSerAddress(parentId) > 0 ? true : false;  //此时传入的是id
+    }
 }

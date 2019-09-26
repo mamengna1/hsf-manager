@@ -13,7 +13,8 @@ public interface SerAddressService {
     //新增省份
     int insProvinceName(String addName);
 
-    int deSerAddress(int id);
+    int deSerAddress(Integer id);
+    int deSerAddressByParentId(Integer parentId);
     int updSerAddress(SerAddress serAddress);
     int insSerAddress(SerAddress serAddress);
 }

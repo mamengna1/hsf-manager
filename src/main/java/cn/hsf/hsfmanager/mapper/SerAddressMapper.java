@@ -15,7 +15,8 @@ public interface SerAddressMapper {
     //新增省份
     int insProvinceName(@Param("addName") String addName);
 
-    int deSerAddress(int id);
+    int deSerAddress(Integer id);
+    int deSerAddressByParentId(Integer parentId);
     int updSerAddress(SerAddress serAddress);
     int insSerAddress(SerAddress serAddress);
 }
