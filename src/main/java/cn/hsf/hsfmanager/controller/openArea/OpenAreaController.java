@@ -44,9 +44,18 @@ public class OpenAreaController {
         return categoryLevel;
     }
 
+    //新增省份
     @RequestMapping("/saveProvinceName")
     @ResponseBody
     public boolean saveProvinceName(String provinceName){
        return serAddressService.insProvinceName(provinceName) >0 ? true : false;
+    }
+
+
+    //新增子类
+    @RequestMapping("/insCityModal")
+    @ResponseBody
+    public boolean insCityModal(String areaName,Integer parentId){
+        return serAddressService.insSerAddress(new SerAddress(areaName,parentId)) >0 ? true : false;
     }
 }

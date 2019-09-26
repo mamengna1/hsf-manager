@@ -34,4 +34,28 @@
     <insert id="insProvinceName" parameterType="string">
         insert into tb_ser_address(addName) values (#{addName})
     </insert>
+
+    <delete id="deSerAddress" parameterType="int">
+        delete from tb_ser_address where id = #{id}
+    </delete>
+
+    <update id="updSerAddress" parameterType="cn.hsf.hsfmanager.pojo.user.SerAddress">
+        update tb_ser_address
+        <set>
+            <if test="parentId != null and parentId != '' ">
+                parentId = #{parentId},
+            </if>
+            <if test="addName != null and addName != '' ">
+                addName = #{addName},
+            </if>
+            <if test="id != null and id != '' ">
+                id = #{id},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <insert id="insSerAddress" parameterType="cn.hsf.hsfmanager.pojo.user.SerAddress">
+          insert into tb_ser_address(addName,parentId) values (#{addName},#{parentId})
+    </insert>
 </mapper>

@@ -32,4 +32,19 @@ public class SerAddressServiceImpl implements  SerAddressService {
     public int insProvinceName(String addName) {
         return serAddressMapper.insProvinceName(addName);
     }
+
+    @Override
+    public int deSerAddress(int id) {
+        return serAddressMapper.deSerAddress(id);
+    }
+
+    @Override
+    public int updSerAddress(SerAddress serAddress) {
+        return serAddressMapper.updSerAddress(serAddress);
+    }
+
+    @Override
+    public int insSerAddress(SerAddress serAddress) {
+        return serAddressMapper.insSerAddress(serAddress);
+    }
 }

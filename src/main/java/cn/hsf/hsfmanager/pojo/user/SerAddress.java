@@ -8,6 +8,14 @@ public class SerAddress {
     private String addName;
     private Integer parentId;  //父类id
 
+    public SerAddress() {
+    }
+
+    public SerAddress(String addName, Integer parentId) {
+        this.addName = addName;
+        this.parentId = parentId;
+    }
+
     @Override
     public String toString() {
         return "SerAddress{" +

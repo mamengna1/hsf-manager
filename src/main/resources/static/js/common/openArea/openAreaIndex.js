@@ -23,7 +23,7 @@ function showOpenAreas(parentId) {
                 "<td>" +
                 "<a href='javascript:void(0)'  class=\"btn btn-xs btn-warning\"  >修改</a>" +
                 "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn btn-xs btn-info \" >删除</a>" +
-                "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn btn-xs btn-success\"  >添加子类</a>" +
+                "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn btn-xs btn-success\"  data-toggle=\"modal\" data-target=\"#insCityModal\" onclick='insCityModal("+parentId+")' >添加子类</a>" +
                 "</td>" +
                 "</tr>")
             parentId = data[i].id   // 1  2
@@ -71,4 +71,18 @@ function saveProvinceName() {
         }
     })
 
+}
+
+//新增子类
+function insCityModal(parentId) {
+    alert(" parentId :"+ parentId)
+    var areaName = $("#areaName").val()
+    $.getJSON("/manager/openAreaController/insCityModal",{"areaName":areaName,"parentId":parentId},function (data) {
+        if(data == true){
+            alert("新增成功")
+            window.location.reload()
+        }else{
+            alert("新增失败")
+        }
+    })
 }
