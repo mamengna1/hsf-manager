@@ -48,7 +48,7 @@ public class OpenAreaController {
     @RequestMapping("/saveProvinceName")
     @ResponseBody
     public boolean saveProvinceName(String provinceName){
-       return serAddressService.insProvinceName(provinceName) >0 ? true : false;
+        return serAddressService.insProvinceName(provinceName) >0 ? true : false;
     }
 
 
@@ -71,7 +71,48 @@ public class OpenAreaController {
     @RequestMapping("/delCityFu")
     @ResponseBody
     public boolean delCityFu(Integer parentId){
-         serAddressService.deSerAddressByParentId(parentId);
+        serAddressService.deSerAddressByParentId(parentId);
         return serAddressService.deSerAddress(parentId) > 0 ? true : false;  //此时传入的是id
+    }
+
+    @RequestMapping("/selById")
+    @ResponseBody
+    public SerAddress selById(Integer id){
+        return serAddressService.selById(id);
+    }
+
+    @RequestMapping("/updSerAddress")
+    @ResponseBody
+    public boolean updSerAddress(Integer id, String addName, @RequestParam(value = "parentId",required = false,defaultValue = "") Integer parentId){
+        return serAddressService.updSerAddress(new SerAddress(id,addName,parentId)) > 0 ? true : false;
+    }
+
+    //去到省份管理界面
+    @RequestMapping("/goProvincesManager")
+    public String goProvincesManager(Model model){
+        List<SerAddress> serAddresses = serAddressService.selByParent(null);
+        model.addAttribute("serAddresses",serAddresses);
+        return "openArea/provincesManager";
+    }
+
+    //删除最顶级的父类
+    @RequestMapping("/delCityLeavl1")
+    @ResponseBody
+    public boolean delCityLeavl1(Integer id){
+        List<SerAddress> serAddresses = serAddressService.selByParent(id);  //查询出是否有二级
+        if(serAddresses.size() > 0 ){   //存在二级
+            //判断是否存在3级
+            for (int i = 0; i <serAddresses.size() ; i++) {
+                Integer level2Id = serAddresses.get(i).getId();
+                List<SerAddress> serAddresses3 = serAddressService.selByParent(level2Id);  //查询出三级
+                if(serAddresses3.size() > 0 ){  //存在3级
+                    serAddressService.deSerAddressByParentId(serAddresses.get(i).getId());   //删除3级
+                }
+                serAddressService.deSerAddressByParentId(id);   //删除2级
+            }
+        }
+        //最后删除1级
+        Integer n =  serAddressService.deSerAddress(id);
+        return n > 0 ? true : false;
     }
 }

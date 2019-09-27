@@ -24,13 +24,14 @@ function  selLevel2(parentId1) {
             $("[name=serviceCity]").append("<option value='"+this.id+"'>"+this.addName+"</option>")
         })
     }
-    var sel=document.getElementById("placeCity");
-    sel.onchange=function(){
-        var parentId = sel.options[sel.selectedIndex].value;
-        $("#placeArea").html("");
-        selLevel3(parentId);
 
-    }
+}
+var selll=document.getElementById("placeCity");
+selll.onchange=function(){
+    var parentId = selll.options[selll.selectedIndex].value;
+    $("#placeArea").html("");
+    selLevel3(parentId);
+
 }
 //渲染三级
 function  selLevel3(parentId2) {

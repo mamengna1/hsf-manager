@@ -62,4 +62,8 @@
     <insert id="insSerAddress" parameterType="cn.hsf.hsfmanager.pojo.user.SerAddress">
           insert into tb_ser_address(addName,parentId) values (#{addName},#{parentId})
     </insert>
+
+    <select id="selById" parameterType="int" resultType="cn.hsf.hsfmanager.pojo.user.SerAddress">
+          SELECT `id`,`addName`,`parentId` FROM `tb_ser_address` where id = #{id}
+    </select>
 </mapper>

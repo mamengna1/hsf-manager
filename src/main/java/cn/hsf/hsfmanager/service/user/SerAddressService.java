@@ -17,4 +17,6 @@ public interface SerAddressService {
     int deSerAddressByParentId(Integer parentId);
     int updSerAddress(SerAddress serAddress);
     int insSerAddress(SerAddress serAddress);
+
+    SerAddress selById(Integer id);
 }

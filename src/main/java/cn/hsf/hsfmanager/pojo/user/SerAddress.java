@@ -16,6 +16,12 @@ public class SerAddress {
         this.parentId = parentId;
     }
 
+    public SerAddress(Integer id, String addName, Integer parentId) {
+        this.id = id;
+        this.addName = addName;
+        this.parentId = parentId;
+    }
+
     @Override
     public String toString() {
         return "SerAddress{" +

@@ -52,4 +52,9 @@ public class SerAddressServiceImpl implements  SerAddressService {
     public int insSerAddress(SerAddress serAddress) {
         return serAddressMapper.insSerAddress(serAddress);
     }
+
+    @Override
+    public SerAddress selById(Integer id) {
+        return serAddressMapper.selById(id);
+    }
 }

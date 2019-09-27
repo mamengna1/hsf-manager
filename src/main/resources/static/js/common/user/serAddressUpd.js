@@ -28,9 +28,9 @@ function  selLevel2(parentId1) {
     }
 }
 
-var sel=document.getElementById("workCity");
-sel.onchange=function(){
-    var parentId = sel.options[sel.selectedIndex].value;
+var selll=document.getElementById("workCity");
+selll.onchange=function(){
+    var parentId = selll.options[selll.selectedIndex].value;
     $("#bbb").html("");
     selLevel3(parentId);
 }

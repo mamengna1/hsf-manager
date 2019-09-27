@@ -50,11 +50,15 @@
                             <button class="btn btn-default"  onclick="searchOpenArea()">查询</button>
                         </td>
 
-                        <td style="display: block; margin-left: 20px">
-                            <button type="button" class="btn-group btn btn-info" title="刷新" onclick="window.location.reload();"  id="release4"><i class="fa fa-refresh"></i> 刷新</button>
+
+                        <td style="display: inline-block; margin-left: 20px">
+                            <button type="button" class="btn-group btn btn-success" title="省份管理" onclick="provincesManager()" ><i class="fa fa-refresh"></i> 省份管理</button>
                         </td>
-                        <td>
-                            <button type="button" class="btn-group btn btn-success" title="新增省份" data-toggle="modal" data-target="#insModal" ><i class="fa fa-refresh"></i> 新增省份</button>
+                        <td style="display: inline-block; margin-left: 20px">
+                            <button type="button" class="btn-group btn btn-success" title="新增市级" data-toggle="modal" data-target="#insCity2" ><i class="fa fa-refresh"></i> 新增市级</button>
+                        </td>
+                        <td style="display: inline-block; margin-left: 20px">
+                            <button type="button" class="btn-group btn btn-info" title="刷新" onclick="window.location.reload();"  id="release4"><i class="fa fa-refresh"></i> 刷新</button>
                         </td>
                     </tr>
                 </table>
@@ -87,8 +91,8 @@
 </div>
 
 
-<!-- 新建省份 -->
-<div class="modal fade" id="insModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="top:-20%">
+<!-- 新建市 -->
+<div class="modal fade" id="insCity2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="top:-20%">
     <div class="modal-dialog" >
         <div class="modal-content">
             <div class="modal-header">
@@ -98,16 +102,26 @@
             <div class="modal-body">
                 <table class="table table-bordered table-striped"  width="800px">
                     <tr>
-                        <td>省份名称</td>
+                        <td>省份</td>
+                        <td>
+                            <select id="addFu2" name="addFu2" class="form-control">
+                                <option th:each="category :${category1}" th:value="${category.id}"
+                                        th:text="${category.addName}">
+                                </option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>市级名称</td>
                         <td >
-                            <input type="text" id="provinceName" name="provinceName">
+                            <input type="text" id="cityName" name="cityName" class="form-control">
                         </td>
                     </tr>
                 </table>
 
             </div>
             <div class="modal-footer">
-                <button class="btn btn-success" data-dismiss="modal" aria-hidden="true" onclick="saveProvinceName()">保存</button>
+                <button class="btn btn-success" data-dismiss="modal" aria-hidden="true" onclick="insCity2()">保存</button>
                 <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
             </div>
         </div>
@@ -141,6 +155,125 @@
         </div>
     </div>
 </div>
+<!-- 新建同级 -->
+<div class="modal fade" id="insCitySame" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="top:-20%">
+    <div class="modal-dialog" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">新增同级(市)</h3>
+                <input type="hidden" id="sameParentId">
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered table-striped"  width="800px">
+                    <tr>
+                        <td>市级名称</td>
+                        <td >
+                            <input type="text" id="sameName" name="sameName">
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" data-dismiss="modal" aria-hidden="true" onclick="saveSameName()">保存</button>
+                <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 修改二级 -->
+<div class="modal fade" id="updateLeavel2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="top:-20%">
+    <div class="modal-dialog" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">修改市级</h3>
+                <input type="hidden" id="leavel2Id">
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered table-striped"  width="800px">
+                    <tr>
+                        <td>所属上级</td>
+                        <td >
+                            <select id="leavel1Parent" name="leavel1Parent" class="form-control">
+                                <option th:each="category :${category1}" th:value="${category.id}"
+                                        th:text="${category.addName}">
+                                </option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>市级名称</td>
+                        <td >
+                            <input type="text" id="leavel2Name" name="leavel2Name" class="form-control">
+                        </td>
+                    </tr>
+
+                </table>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" data-dismiss="modal" aria-hidden="true" onclick="saveLeavel2()">修改</button>
+                <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 修改三级 -->
+<div class="modal fade" id="updateLeavel3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="top:-20%">
+    <div class="modal-dialog" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">修改区域</h3>
+                <input type="hidden" id="leavel3Id">
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered table-striped"  width="800px">
+                    <tr>
+                        <td>所属省份</td>
+                        <td >
+                            <select id="leavel1Parent1" name="leavel1Parent1" class="form-control">
+                                <option value="-1">请选择</option>
+                                <option th:each="category :${category1}" th:value="${category.id}"
+                                        th:text="${category.addName}">
+                                </option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>所属市区</td>
+                        <td >
+                            <select id="leavel2Parent1" name="leavel2Parent1" class="form-control">
+                               <!-- <option th:each="category :${category1}" th:value="${category.id}"
+                                        th:text="${category.addName}">
+                                </option>-->
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>区域名称</td>
+                        <td >
+                            <input type="text" id="leavel3Name" name="leavel2Name" class="form-control">
+                        </td>
+                    </tr>
+
+
+                </table>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" data-dismiss="modal" aria-hidden="true" onclick="saveLeavel3()">修改</button>
+                <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 </body>
 
