@@ -19,4 +19,6 @@ public interface AdminMapper {
     int updAdmin(Admin admin);
 
     int delAdmin(@Param("id") Integer id);
+
+    List<String> selAccountOpenId();
 }

@@ -2,6 +2,7 @@ package cn.hsf.hsfmanager.controller.user;
 
 import cn.hsf.hsfmanager.pojo.StateMessage;
 import cn.hsf.hsfmanager.pojo.user.*;
+import cn.hsf.hsfmanager.service.admin.AdminService;
 import cn.hsf.hsfmanager.service.user.*;
 import cn.hsf.hsfmanager.service.wx.TemplateService;
 import cn.hsf.hsfmanager.util.Contents;
@@ -34,6 +35,8 @@ public class UserMasterController {
     private TemplateService templateService;
     @Resource
     private SerAddressService serAddressService;
+    @Resource
+    private AdminService adminService;
 
     //得到地区名称
     @RequestMapping("/getAddName")
@@ -167,7 +170,6 @@ public class UserMasterController {
         UserDetail userDetail = userDetailService.selUserDetailById(id);
         String o = u.getOpenId();;
         if(status ==1 ){
-
             String openId =u.getOpenId();
             double[] pre = new double[]{5,2};
             UserScoreSource userScoreSource1 = scoreSourceService.selUserScore(new UserScoreSource(openId, 5));
@@ -212,10 +214,11 @@ public class UserMasterController {
             templateService.sendAuditSuccess(map);
 
             //给管理员发送模板信息
-            String[] managerOpenId = Contents.MANAGER_OPENID;
-            for (int j = 0; j <managerOpenId.length ; j++) {
+            //给管理员发送模板信息
+            List<String> getOpenIdList =adminService.selAccountOpenId();
+            for (int i = 0; i <getOpenIdList.size() ; i++) {
                 Map map2 = new HashMap();
-                map2.put("openId",managerOpenId[j]) ;
+                map2.put("openId",getOpenIdList.get(i)) ;
                 map2.put("template_id","HI9ygOFtJ_rbPK1JT3KD8ujsfIcaRBeCJrhQqgRZ0Oc") ;
                 map2.put("title","又有一位新的师傅诞生啦") ;
                 map2.put("serviceType","师傅审核成功通知") ;
@@ -224,6 +227,7 @@ public class UserMasterController {
                 map2.put("end","师傅信息："+userDetail.getName()+u.getPhone()) ;
                 templateService.serviceStatus(map2);
             }
+
             return  true;
         }else if(status ==2){   //审核失败
             Map map = new HashMap();
@@ -232,14 +236,14 @@ public class UserMasterController {
             map.put("message",statusMessage);
             map.put("url", URLS.DOMAIN_NAME+"/_api/goRegister");
             templateService.sendAuditFail(map);
-            UserDetail detail = new UserDetail(id,status,statusMessage,2,1);
+            UserDetail detail = new UserDetail(id,2,statusMessage,2,1);
             userDetailService.updateUserDetail(detail);
 
             //给管理员发送模板信息
-            String[] managerOpenId = Contents.MANAGER_OPENID;
-            for (int j = 0; j <managerOpenId.length ; j++) {
+            List<String> getOpenIdList =adminService.selAccountOpenId();
+            for (int i = 0; i <getOpenIdList.size() ; i++) {
                 Map map2 = new HashMap();
-                map2.put("openId",managerOpenId[j]) ;
+                map2.put("openId",getOpenIdList.get(i)) ;
                 map2.put("template_id","HI9ygOFtJ_rbPK1JT3KD8ujsfIcaRBeCJrhQqgRZ0Oc") ;
                 map2.put("title","师傅审核未通过提醒") ;
                 map2.put("serviceType","师傅审核失败通知") ;
@@ -248,23 +252,8 @@ public class UserMasterController {
                 map2.put("end","师傅信息："+userDetail.getName()+u.getPhone()) ;
                 templateService.serviceStatus(map2);
             }
-            return false;
-        }else if(status ==4 || status ==5 || status ==6){
-            Integer line = (status == 4 || status == 5) ? 2 :1;
-            Integer s = status == 6 ? 1 : status;
-            UserDetail detail = new UserDetail(id,s,statusMessage,line,1);
-            userDetailService.updateUserDetail(detail);
-            String res = status == 4 ? "待激活":status == 5 ? "待恢复" : "恢复成功";
-            if(status==6){
-                Map map = new HashMap();
-                map.put("openId",o);
-                map.put("name",userDetail.getName());
-                map.put("url",URLS.DOMAIN_NAME+"/_api/goSFHone?id="+id);
-                map.put("end","师傅状态恢复成功，欢迎您的回归");
-                templateService.sendAuditSuccess(map);
-            }
 
-            return true;
+            return false;
         }
         return false;
     }
@@ -367,11 +356,10 @@ public class UserMasterController {
 
         }
         if(status != userDetail.getStatus()){
-            // updateUserDetail(userDetail.getId(),userDetail.getStatus(),userDetail.getStatusMessage());
-            updUserDetail2(userDetail.getId(),userDetail.getStatus(),userDetail.getStatusMessage());
+           updUserDetail2(userDetail.getId(), userDetail.getStatus(), userDetail.getStatusMessage());
         }else{
         }
-        return "user/userMasterAll";
+        return "redirect:/userMaster/selMaster";
     }
 
     /**

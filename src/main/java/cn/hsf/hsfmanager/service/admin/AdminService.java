@@ -15,5 +15,5 @@ public interface AdminService {
     Admin selAdmin(Admin admin);
     int updAdmin(Admin admin);
     int delAdmin(Integer id);
-
+    List<String> selAccountOpenId();
 }

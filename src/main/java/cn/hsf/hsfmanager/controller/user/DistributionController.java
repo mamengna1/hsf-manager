@@ -1,6 +1,7 @@
 package cn.hsf.hsfmanager.controller.user;
 
 import cn.hsf.hsfmanager.pojo.user.*;
+import cn.hsf.hsfmanager.service.admin.AdminService;
 import cn.hsf.hsfmanager.service.user.*;
 import cn.hsf.hsfmanager.service.wx.TemplateService;
 import cn.hsf.hsfmanager.util.Contents;
@@ -39,6 +40,8 @@ public class DistributionController {
     private UserOrderService userOrderService;
     @Resource
     private UserScoreSourceService userScoreSourceService;
+    @Resource
+    private AdminService adminService;
 
     /**
      * 进入派发记录页面  接单记录
@@ -143,11 +146,10 @@ public class DistributionController {
         map1.put("end","用户信息："+userRelease.getNickName()+userRelease.getPhone()+"\\n附：服务顺利结束，本次奖励2积分") ;
         templateService.serviceStatus(map1);
 
-        String[] managerOpenId = Contents.MANAGER_OPENID;
-        //给管理员发送模板信息
-        for (int j = 0; j <managerOpenId.length ; j++) {
+        List<String> getOpenIdList =adminService.selAccountOpenId();
+        for (int j = 0; j <getOpenIdList.size() ;j++) {
             Map map2 = new HashMap();
-            map2.put("openId",managerOpenId[j]) ;
+            map2.put("openId",getOpenIdList.get(j)) ;
             map2.put("template_id","HI9ygOFtJ_rbPK1JT3KD8ujsfIcaRBeCJrhQqgRZ0Oc") ;
             map2.put("title","服务已经顺利完工") ;
             map2.put("serviceType",userRelease.getTitle()) ;
@@ -156,6 +158,7 @@ public class DistributionController {
             map2.put("end","用户信息："+userRelease.getNickName()+userRelease.getPhone()+"\\n师傅信息 ："+sfName+sfPhone) ;
             templateService.serviceStatus(map2);
         }
+
         return  n > 0 ? true : false;
     }
 

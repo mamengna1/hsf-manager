@@ -3,6 +3,7 @@ package cn.hsf.hsfmanager.controller.user;
 import cn.hsf.hsfmanager.pojo.user.Distribution;
 import cn.hsf.hsfmanager.pojo.user.UserDetail;
 import cn.hsf.hsfmanager.pojo.user.UserRelease;
+import cn.hsf.hsfmanager.service.admin.AdminService;
 import cn.hsf.hsfmanager.service.user.*;
 import cn.hsf.hsfmanager.service.wx.TemplateService;
 import cn.hsf.hsfmanager.util.Contents;
@@ -48,6 +49,8 @@ public class UserDetailController {
     private TemplateService templateService;
     @Resource
     private SerAddressService serAddressService;
+    @Resource
+    private AdminService adminService;
     /**
      * 去到派单页面
      * @param model
@@ -187,11 +190,12 @@ public class UserDetailController {
             templateService.sendNewMessage(map2);
 
 
-            String[] managerOpenId = Contents.MANAGER_OPENID;
+
             //给管理员发送模板信息
-            for (int j = 0; j <managerOpenId.length ; j++) {
+            List<String> getOpenIdList =adminService.selAccountOpenId();
+            for (int i = 0; i <getOpenIdList.size() ; i++) {
                 Map map3 = new HashMap();
-                map3.put("openId",managerOpenId[j]) ;
+                map3.put("openId",getOpenIdList.get(i)) ;
                 map3.put("template_id","HI9ygOFtJ_rbPK1JT3KD8ujsfIcaRBeCJrhQqgRZ0Oc") ;
                 map3.put("title","平台推荐师傅信息") ;
                 map3.put("serviceType",userRelease.getTitle()) ;
@@ -200,6 +204,7 @@ public class UserDetailController {
                 map3.put("end","用户信息："+userRelease.getNickName()+userRelease.getPhone()+"\\n推荐师傅信息 ："+sfName+sfPhone) ;
                 templateService.serviceStatus(map3);
             }
+
             return true;
         }
         return false;

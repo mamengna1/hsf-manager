@@ -72,9 +72,6 @@ function selAudit(id) {
         }else if(data.userDetail.status == 0 || data.userDetail.status == ''){
             stateType = -1
             $("#statusMessage").attr("disabled","disabled")
-        }else{
-            stateType = data.userDetail.status
-            $("#statusMessage").attr("disabled","disabled")
         }
         $("#stateType").val(stateType)
         $("#realNames").html(data.userDetail.name)
@@ -102,7 +99,7 @@ function updateAudit() {
                 window.location.reload();
             }else{
                 alert("修改审核结果成功！状态为【审核不通过】")
-                window.location.reload();
+              window.location.reload();
             }
         })
     }

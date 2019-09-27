@@ -66,9 +66,6 @@ $(function () {
         }else if(res.status == 0 || res.status == ''){   //审核中
             stateType = -1
             $("#statusMessage").attr("disabled","disabled")
-        }else { //4 待激活 5  待恢复
-            stateType = res.status
-            $("#statusMessage").attr("disabled","disabled")
         }
         $("#status").val(stateType)
 

@@ -23,15 +23,6 @@
             <if test="status == 2">
                 and  `status` = 2
             </if>
-            <if test="status == 4">
-                and  `status` = 4
-            </if>
-            <if test="status == 5">
-                and  `status` = 5
-            </if>
-            <if test="status == 6">
-                and  `status` = 6
-            </if>
             <if test="status == -1">
                 and  `status` >=0
             </if>
@@ -57,15 +48,6 @@
             </if>
             <if test="status == 2">
                 and  `status` = 2
-            </if>
-            <if test="status == 4">
-                and  `status` = 4
-            </if>
-            <if test="status == 5">
-                and  `status` = 5
-            </if>
-            <if test="status == 6">
-                and  `status` = 6
             </if>
             <if test="status == -1">
                 and  `status` >=0
@@ -106,15 +88,6 @@
             </if>
             <if test="status != null and status == -1">
                 status=0,
-            </if>
-            <if test="status != null and status ==4">
-                status=4,
-            </if>
-            <if test="status != null and status ==5">
-                status=5,
-            </if>
-            <if test="status != null and status ==6">
-                status=6,
             </if>
             <if test="workProvince != null and workProvince!=''">
                 workProvince=#{workProvince},

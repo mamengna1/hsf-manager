@@ -44,4 +44,9 @@ public class AdminServiceImpl implements AdminService {
     public int delAdmin(Integer id) {
         return adminMapper.delAdmin(id);
     }
+
+    @Override
+    public List<String> selAccountOpenId() {
+        return adminMapper.selAccountOpenId();
+    }
 }
