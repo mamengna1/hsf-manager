@@ -82,6 +82,10 @@ function showBig(btn){
 function myhide(){
     $("#showBig").hide();
 }
+
+function searchSlide(btn) {
+    searchSlideShow(currentPage,$(btn).val());
+}
 /**
  * 去到新增界面
  */

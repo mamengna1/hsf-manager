@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface GraphicService {
 
-    List<Graphic> selAllGraphicList( Integer pageCurrentNo, Integer pageSize, String title );
+    List<Graphic> selAllGraphicList( Integer pageCurrentNo, Integer pageSize, String title ,Integer graTypeId );
 
-    int selAllListCount(String title);
+    int selAllListCount(String title,Integer graTypeId );
 
     Graphic selGraphicById(Integer id);
 

@@ -171,7 +171,7 @@ public class UserMasterController {
         String o = u.getOpenId();;
         if(status ==1 ){
             String openId =u.getOpenId();
-            double[] pre = new double[]{5,2};
+            double[] pre = new double[]{200,100};
             UserScoreSource userScoreSource1 = scoreSourceService.selUserScore(new UserScoreSource(openId, 5));
             if(userScoreSource1 ==null ){   //之前没有审核过的，没有为这位师傅增加过积分的
                 userService.updateUserByOpenId(new User(openId,pre[0],pre[0]));    //修改提交审核人的积分
@@ -179,19 +179,19 @@ public class UserMasterController {
                 scoreSourceService.insScoreSource(userScoreSource);   //记录成为师父的积分来源记录
 
                 //修改推广人的积分
-                for (int i = 0; i < 2; i++) {
+                for (int i = 0; i < 1; i++) {
                     User user = userService.selUserByOpenId(openId);
                     if(user !=null){
                         String userParent = user.getUserParent();
                         if(userParent !=null && !userParent.equals("")){
-                            User parent = new User(userParent,pre[i],pre[i]);
+                            User parent = new User(userParent,pre[1],pre[1]);
                             userService.updateUserByOpenId(parent);
-                            UserScoreSource ScoreSource = new UserScoreSource(userParent,pre[i],4,o);
+                            UserScoreSource ScoreSource = new UserScoreSource(userParent,pre[1],4,o);
                             scoreSourceService.insScoreSource(ScoreSource);   //记录分红的积分来源记录
                             Map map2 = new HashMap();
                             map2.put("openId",userParent);
                             map2.put("title","恭喜，您获得了一笔新的分销积分啦。来自："+user.getNickName());
-                            map2.put("fenHong",String.valueOf(pre[i]));
+                            map2.put("fenHong",String.valueOf(pre[1]));
                             map2.put("total",String.valueOf(pre[0]));
                             map2.put("url",URLS.DOMAIN_NAME+"/_api/goYongJin");
                             templateService.sendScore(map2);
@@ -312,6 +312,7 @@ public class UserMasterController {
      */
     @RequestMapping("/insUserDetail")
     public String insUserDetail(UserScoreSource userScoreSource, UserDetail userDetail, String phone, Integer source,Integer score){
+
         if(userDetail.getStatus() == 6){
             userDetail.setStatus(1);
         }

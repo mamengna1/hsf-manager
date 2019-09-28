@@ -89,7 +89,7 @@ public class DistributionController {
     public boolean confirmAll(Integer id){
         Distribution distribution1 = distributionService.selByResId(new Distribution(id));
         UserRelease userRelease = userReleaseService.selUserReleaseById(distribution1.getReleaseId());
-
+        Integer money = 500;  //完工积分
         //修改派单表
         Distribution distribution = new Distribution();
         distribution.setId(id);
@@ -115,11 +115,11 @@ public class DistributionController {
         //System.out.println("给用户发送的id ： "+ distribution1.getReleaseId() +"\t给师傅发送的id :"+id);
 
         //添加积分表
-        UserScoreSource userScoreSource = new UserScoreSource(sfOpenId, 2, 9);
+        UserScoreSource userScoreSource = new UserScoreSource(sfOpenId, money, 9);
         userScoreSource.setUserName(userService.selUserByDetailId( userRelease.getReceiveId()).getNickName());
         userScoreSourceService.insScoreSource(userScoreSource);
         //修改用户表积分
-        User user = new User(sfOpenId,Double.valueOf(2),Double.valueOf(2));
+        User user = new User(sfOpenId,Double.valueOf(money),Double.valueOf(money));
         userService.updateUserByOpenId(user);
 
         //给用户发送模板信息
@@ -143,7 +143,7 @@ public class DistributionController {
         map1.put("serviceType",userRelease.getTitle()) ;
         map1.put("orderNo",orderNo) ;
         map1.put("orderState","已完工") ;
-        map1.put("end","用户信息："+userRelease.getNickName()+userRelease.getPhone()+"\\n附：服务顺利结束，本次奖励2积分") ;
+        map1.put("end","用户信息："+userRelease.getNickName()+userRelease.getPhone()+"\\n附：服务顺利结束，本次奖励500积分") ;
         templateService.serviceStatus(map1);
 
         List<String> getOpenIdList =adminService.selAccountOpenId();

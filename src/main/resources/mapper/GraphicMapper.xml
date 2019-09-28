@@ -21,6 +21,9 @@
             <if test="title !=null and title  !=''">
                 and  title like concat('%',#{title},'%')
             </if>
+            <if test="graTypeId !=null and graTypeId  &gt; -1">
+                and  graTypeId = #{graTypeId}
+            </if>
         </where>
         order by createDate desc
         limit #{pageCurrentNo},#{pageSize}
@@ -32,6 +35,9 @@
         <where>
             <if test="title !=null and title  !=''">
                 and  title like concat('%',#{title},'%')
+            </if>
+            <if test="graTypeId !=null and graTypeId  &gt; -1">
+                and  graTypeId = #{graTypeId}
             </if>
         </where>
     </select>

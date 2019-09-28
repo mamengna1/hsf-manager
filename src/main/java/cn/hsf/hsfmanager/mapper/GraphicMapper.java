@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface GraphicMapper {
 
-    List<Graphic> selAllGraphicList(@Param("pageCurrentNo") Integer pageCurrentNo, @Param("pageSize") Integer pageSize, @Param("title") String title );
+    List<Graphic> selAllGraphicList(@Param("pageCurrentNo") Integer pageCurrentNo, @Param("pageSize") Integer pageSize, @Param("title") String title ,@Param("graTypeId") Integer graTypeId );
 
-    int selAllListCount( @Param("title") String title);
+    int selAllListCount( @Param("title") String title,@Param("graTypeId") Integer graTypeId);
 
     Graphic selGraphicById(Integer id);
 

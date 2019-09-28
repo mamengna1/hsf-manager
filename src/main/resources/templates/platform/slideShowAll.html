@@ -39,8 +39,7 @@
 		<div class="pull-left">
 			<div class="form-group form-inline">
 				<div >
-					<button type="button" class="btn-group btn btn-success" title="首页轮播图" onclick="searchSlideShow(1,1)"><i class="fa fa-file-o"></i> 首页轮播图</button>
-					<button type="button" class="btn-group btn btn-success" title="中间广告图" onclick="searchSlideShow(1,2)"><i class="fa fa-trash-o"></i> 中间广告图</button>
+					<button type="button" class="btn-group btn btn-success" th:each="mt :${imgTypes}" th:value="${mt.id}"  onclick="searchSlide(this)" style="display: inline-block; margin-left: 10px"><i class="fa fa-trash-o"></i> [[${mt.imgType}]]</button>
 					<button type="button" class="btn-group btn btn-primary" title="新建" onclick="goCreateSlide()"><i class="fa fa-file-o"></i> 新建</button>
 					<button type="button" class="btn-group btn btn-danger" title="批量删除" onclick="delUser()"><i class="fa fa-trash-o"></i> 批量删除</button>
 					<button type="button" class="btn-group btn btn-info" title="刷新" onclick="window.location.reload();" ><i class="fa fa-refresh"></i> 刷新</button>

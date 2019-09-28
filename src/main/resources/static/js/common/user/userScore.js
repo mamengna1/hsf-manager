@@ -37,12 +37,14 @@ function searchUserScore(currentPage,scoreSourceId,userName) {
             }else{
                $("#fenhong").hide();
             }
+            var note  = data.list[i].note == null ? '' : data.list[i].note;
             var userId = getUserId(data.list[i].openId)
+            var name = data.list[i].user.nickName== null ? "无名氏": data.list[i].user.nickName
             $("#theBody").append("<tr>" +
                 "<td><input type=\"checkbox\" class='userCheck' name='checkbox' /></td>" +
                 "<td>" + data.list[i].id + "</td>" +
                 "<td>" +
-                "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\"  onclick='selUserByOpenId(\""+data.list[i].openId+"\")'>"+ data.list[i].user.nickName+"</a>" +
+                "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\"  onclick='selUserByOpenId(\""+data.list[i].openId+"\")'>"+ name+"</a>" +
                 "</td>" +
                 "<td>" + userId + "</td>" +
                 "<td>" + data.list[i].score + "</td>" +
@@ -52,7 +54,7 @@ function searchUserScore(currentPage,scoreSourceId,userName) {
                 "</td>" +
                 "<td>" + biaoshi + "</td>" +
                 "<td>" + createDate+ "</td>" +
-                "<td>" + data.list[i].note+ "</td>" +
+                "<td>" +note+ "</td>" +
                 "<td>" +
                 "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#updateModal\" class=\"btn btn-xs btn-warning\" onclick='goUpdScore("+data.list[i].id+")'>积分回馈</a>" +
                 "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn btn-xs btn-danger\" onclick='delScoreById("+data.list[i].id+")'>删除</a>" +
@@ -107,6 +109,9 @@ $(function () {
 
 })
 
+function searchUserScore1(btn) {
+    searchUserScore(1,$(btn).val(),userName);
+}
 
 //删除
 function delScoreById(id) {

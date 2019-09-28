@@ -37,7 +37,8 @@ public class SlideShowController {
      * @return
      */
     @RequestMapping("/goSlide")
-    public String goslideshow(){
+    public String goslideshow(Model model){
+        model.addAttribute("imgTypes",platformService.selImgTypeAll());
         return "platform/slideShowAll";
     }
 

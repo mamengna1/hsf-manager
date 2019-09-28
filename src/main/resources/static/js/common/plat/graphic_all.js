@@ -2,9 +2,10 @@
 //初始化数据
 var currentPage = 1;  //当前页码
 var titles = $("#titles").val();
+var graTypeId = -1 
 //过滤查询
-function searchGraphicShow(currentPage,titles) {
-    $.getJSON("/manager/graphicAll",{"pageCurrentNo":currentPage,"titles":titles},callback)
+function searchGraphicShow(currentPage,titles,graTypeId) {
+    $.getJSON("/manager/graphicAll",{"pageCurrentNo":currentPage,"titles":titles,"graTypeId":graTypeId},callback)
     //回调
     function callback(data) {
         $("#theBody").html("");
@@ -35,11 +36,11 @@ function searchGraphicShow(currentPage,titles) {
 
 //初始化加载数据
 $(function () {
-   searchGraphicShow(currentPage,titles);
+  searchGraphicShow(currentPage,titles,graTypeId);
     //首页
     $("#begin").click(function () {
         currentPage = 1;
-       searchGraphicShow(currentPage,titles);
+      searchGraphicShow(currentPage,titles,graTypeId);
         $("#pageNo").html(currentPage);
     })
     //上一页
@@ -48,7 +49,7 @@ $(function () {
         if (parseInt(currentPage) <1) {
             alert("已经是第一页了")
         } else {
-           searchGraphicShow(currentPage,titles);
+          searchGraphicShow(currentPage,titles,graTypeId);
             $("#pageNo").html(currentPage);
         }
     })
@@ -59,14 +60,14 @@ $(function () {
             alert("已经最后一页了");
             return;
         } else {
-           searchGraphicShow(currentPage,titles);
+          searchGraphicShow(currentPage,titles,graTypeId);
             $("#pageNo").html(currentPage);
         }
     })
     //最后一页
     $("#end").click(function () {
         currentPage = parseInt($("#totalPages").html());
-       searchGraphicShow(currentPage,titles);
+      searchGraphicShow(currentPage,titles,graTypeId);
         $("#pageNo").html(currentPage);
     })
 
@@ -82,9 +83,11 @@ function goGraphicEdit() {
 //模糊查询
 function searchGrapsh() {
     var title2 = $("#titles").val();
-    searchGraphicShow(currentPage,title2);
+    searchGraphicShow(currentPage,title2,graTypeId);
 }
-
+function searchGraphic(btn) {
+    searchGraphicShow(1,titles,$(btn).val());
+}
 
 
 

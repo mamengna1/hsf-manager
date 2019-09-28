@@ -42,7 +42,6 @@ public class UeController {
     @RequestMapping("/insGraphic")
     @ResponseBody
     public boolean insGraphic(Graphic graphic){
-        System.out.println("graphic : "+graphic);
         int res = graphicService.insGraphic(graphic);
         return res > 0 ? true : false;
     }
@@ -51,7 +50,8 @@ public class UeController {
      * @return
      */
     @RequestMapping("/goGraphicAllView")
-    public String goGraphicAllView(){
+    public String goGraphicAllView(Model model){
+        model.addAttribute("graName",graphicService.selAllGraName());
         return "platform/graphic_all";
     }
 
@@ -63,14 +63,14 @@ public class UeController {
     @RequestMapping("/graphicAll")
     @ResponseBody
     public Page userAllIndex(@RequestParam(value = "pageCurrentNo",required = false,defaultValue = "1") Integer pageCurrentNo,
-                             @RequestParam(value = "titles",required = false,defaultValue = "") String title){
-        int total = graphicService.selAllListCount(title);
+                             @RequestParam(value = "titles",required = false,defaultValue = "") String title,@RequestParam(value = "graTypeId",required = false,defaultValue = "-1") Integer graTypeId ){
+        int total = graphicService.selAllListCount(title,graTypeId);
         Page page = new Page();
         page.setPageSize( Contents.PAGENO);
         page.setPageCurrentNo(pageCurrentNo);
         page.setTotalCount(total);
         page.setTotalPages(page.getTotalPages());
-        List<Graphic> graphicList =graphicService.selAllGraphicList(pageCurrentNo, Contents.PAGENO,title);
+        List<Graphic> graphicList =graphicService.selAllGraphicList(pageCurrentNo, Contents.PAGENO,title,graTypeId);
         page.setList(graphicList);
         return page;
     }

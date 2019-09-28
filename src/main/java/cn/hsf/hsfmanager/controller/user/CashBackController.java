@@ -68,15 +68,12 @@ public class CashBackController {
         page.setTotalPages(page.getTotalPages());
         List<CashBack> cashBacks = cashBackService.selAll(pageCurrentNo, Contents.PAGENO,backStatusId,o,userName);
         for (int i = 0; i <cashBacks.size() ; i++) {
-            CashBack cashs = cashBackService.selAllById(cashBacks.get(i).getId());
-            if(cashs.getUserName() == null || cashs.getUserName().equals("")){
-                cashs.setUserName("未知");
-            }
-            if(cashBacks.get(i).getUserName() == null || (!cashs.getUserName().equals(cashBacks.get(i).getUser().getNickName()))){
-                cashBacks.get(i).setUserName(cashBacks.get(i).getUser().getNickName());
+            String a =(cashBacks.get(i).getUserName() == null || "".equals( cashBacks.get(i).getUserName())) ? "无名氏" : cashBacks.get(i).getUserName();
+            String b = (cashBacks.get(i).getUser().getNickName() == null || "".equals(cashBacks.get(i).getUser().getNickName())) ? "无名氏" : cashBacks.get(i).getUser().getNickName();
+            if(a == "无名氏" || (!b.equals(a))){
                 CashBack cashBack = new CashBack();
                 cashBack.setId( cashBacks.get(i).getId());
-                cashBack.setUserName(cashBacks.get(i).getUserName());
+                cashBack.setUserName(b);
                 cashBackService.updateCashBack(cashBack);
             }
         }

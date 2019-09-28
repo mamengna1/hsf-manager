@@ -66,16 +66,13 @@ public class UserScoreController {
         page.setTotalPages(page.getTotalPages());
         List<UserScoreSource> userScoreSources =userScoreSourceService.selAllScore(pageCurrentNo,Contents.PAGENO,openid,scoreSourceId,userName);
         for (int i = 0; i <userScoreSources.size() ; i++) {
-            UserScoreSource userScore = userScoreSourceService.selScoreById(userScoreSources.get(i).getId());
-            if(userScore.getUserName() == null || userScore.getUserName().equals("")){
-                userScore.setUserName("未知");
-            }
-            if(userScoreSources.get(i).getUserName() == null || (!userScore.getUserName().equals(userScoreSources.get(i).getUser().getNickName()))){
-                userScoreSources.get(i).setUserName(userScoreSources.get(i).getUser().getNickName());
+            String a =(userScoreSources.get(i).getUserName() == null || "".equals( userScoreSources.get(i).getUserName())) ? "无名氏" : userScoreSources.get(i).getUserName();
+            String b = (userScoreSources.get(i).getUser().getNickName() == null || "".equals(userScoreSources.get(i).getUser().getNickName())) ? "无名氏" : userScoreSources.get(i).getUser().getNickName();
+            if(a == "无名氏" || (!b.equals(a))){
                 UserScoreSource user1 = new UserScoreSource();
                 user1.setId( userScoreSources.get(i).getId());
-                user1.setUserName(userScoreSources.get(i).getUserName());
-                int i1 = userScoreSourceService.updScore(user1);
+                user1.setUserName(b);
+                 userScoreSourceService.updScore(user1);
             }
         }
         page.setList(userScoreSources);

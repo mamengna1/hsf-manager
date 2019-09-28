@@ -40,14 +40,15 @@
 		<div class="pull-left">
 			<div class="form-group form-inline">
 				<div>
-					<button type="button" class="btn-group btn btn-success" title="删除" onclick="searchUserScore(1,1)" ><i class="fa fa-trash-o"></i> 充值</button>
+				<!--	<button type="button" class="btn-group btn btn-success" title="删除" onclick="searchUserScore(1,1)" ><i class="fa fa-trash-o"></i> 充值</button>
 					<button type="button" class="btn-group btn btn-success" title="新建"  onclick="searchUserScore(1,2)"  ><i class="fa fa-file-o"></i> 分红</button>
 					<button type="button" class="btn-group btn btn-success" title="新建"  onclick="searchUserScore(1,3)"  ><i class="fa fa-file-o"></i> 首次关注</button>
 					<button type="button" class="btn-group btn btn-success" title="删除" onclick="searchUserScore(1,4)" ><i class="fa fa-trash-o"></i> 推广</button>
 					<button type="button" class="btn-group btn btn-success" title="新建"  onclick="searchUserScore(1,5)"  ><i class="fa fa-file-o"></i> 升级为师傅</button>
 					<button type="button" class="btn-group btn btn-success" title="新建"  onclick="searchUserScore(1,6)"  ><i class="fa fa-file-o"></i> 商家活动</button>
 					<button type="button" class="btn-group btn btn-success" title="新建"  onclick="searchUserScore(1,7)"  ><i class="fa fa-file-o"></i> 违规操作</button>
-					<button type="button" class="btn-group btn btn-success" title="新建"  onclick="searchUserScore(1,8)"  ><i class="fa fa-file-o"></i> 发布动态</button>
+					<button type="button" class="btn-group btn btn-success" title="新建"  onclick="searchUserScore(1,8)"  ><i class="fa fa-file-o"></i> 发布动态</button>-->
+					<button type="button" class="btn-group btn btn-success" th:each="mt :${scoreSourceTypes}" th:value="${mt.id}"  onclick="searchUserScore1(this)" style="display: inline-block; margin-left: 10px"><i class="fa fa-trash-o"></i> [[${mt.sourceName}]]</button>
 					<button type="button" class="btn-group btn btn-danger" title="刷新" onclick="delUserScoreAll()"  ><i class="fa fa-refresh"></i> 批量删除</button>
 					<button type="button" class="btn-group btn btn-info" title="刷新" onclick="window.location.reload();" ><i class="fa fa-refresh"></i> 刷新</button>
 				</div>

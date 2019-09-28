@@ -93,7 +93,7 @@ public class TemplateService {
     }
 
     /**
-     * 给推广人发送积分 分红  分销提成
+     * 给推广人发送积分 分红  分销提成 （结算成功通知）
      * @param map
      */
     public  void sendScore(Map<String,String> map){

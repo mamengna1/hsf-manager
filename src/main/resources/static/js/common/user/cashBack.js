@@ -30,6 +30,7 @@ function searchCommission(currentPage,backStatusId,userName) {
             var shi = (data.list[i].money-sui).toFixed(2);
             var comment = data.list[i].comment == null ? '' : data.list[i].comment
             var userId = getUserId(data.list[i].openId)
+            var name = data.list[i].user.nickName == null ? "无名氏" : data.list[i].user.nickName
             $("#theBody").append("<tr>" +
                 "<td><input type=\"checkbox\" class='userCheck'  name='checkbox' /></td>" +
                 "<td id='uid'>" + data.list[i].id + "</td>" +
@@ -40,7 +41,7 @@ function searchCommission(currentPage,backStatusId,userName) {
                 "<a id='openIds2' href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\" >"+ data.list[i].openId+"</a>" +
                 "<a id='proxyOpenId' href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\" style='display: none' >"+ data.list[i].user.proxyOpenId+"</a>" +
                 "</td>" +
-                "<td >" + data.list[i].user.nickName+ "</td>" +
+                "<td >" + name+ "</td>" +
                 "<td >" + data.list[i].money +"/"+sui+ "</td>" +
                 "<td style='display: none' id='suiMoney'>" +sui+ "</td>" +
                 "<td id='moneys'>" + shi + "</td>" +

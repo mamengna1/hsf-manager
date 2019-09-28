@@ -33,7 +33,7 @@
 
 
     <insert id="insScoreSource" parameterType="cn.hsf.hsfmanager.pojo.user.UserScoreSource">
-        insert into `tb_user_score_source`(`openId`,`score`,`scoreSourceId`,`sourceOpenId`,`createDate`,`note`) values(#{openId},#{score},#{scoreSourceId},#{sourceOpenId},now(),#{note})
+        insert into `tb_user_score_source`(`openId`,`score`,`scoreSourceId`,`sourceOpenId`,`createDate`,`userName`,`note`) values(#{openId},#{score},#{scoreSourceId},#{sourceOpenId},now(),#{userName},#{note})
     </insert>
 
     <!--关联查询-->

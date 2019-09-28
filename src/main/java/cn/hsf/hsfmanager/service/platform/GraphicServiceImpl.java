@@ -19,13 +19,13 @@ public class GraphicServiceImpl implements GraphicService {
 
 
     @Override
-    public List<Graphic> selAllGraphicList(Integer pageCurrentNo, Integer pageSize, String title) {
-        return graphicMapper.selAllGraphicList((pageCurrentNo-1)*pageSize,pageSize,title);
+    public List<Graphic> selAllGraphicList(Integer pageCurrentNo, Integer pageSize, String title,Integer graTypeId ) {
+        return graphicMapper.selAllGraphicList((pageCurrentNo-1)*pageSize,pageSize,title,graTypeId);
     }
 
     @Override
-    public int selAllListCount(String title) {
-        return graphicMapper.selAllListCount(title);
+    public int selAllListCount(String title,Integer graTypeId ) {
+        return graphicMapper.selAllListCount(title,graTypeId);
     }
 
     @Override

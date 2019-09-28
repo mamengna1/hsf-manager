@@ -171,11 +171,11 @@ public class DistributionServiceImpl implements DistributionService {
 
             if(statusId ==6){ //已完工
                 //添加积分表
-                UserScoreSource userScoreSource = new UserScoreSource(SfUser.getOpenId(),2,9);
+                UserScoreSource userScoreSource = new UserScoreSource(SfUser.getOpenId(),500,9);
                 userScoreSource.setUserName(SfUser.getNickName());
                 userScoreSourceService.insScoreSource(userScoreSource);
                 //修改用户表
-                User user1 = new User(SfUser.getOpenId(),Double.valueOf(2),Double.valueOf(2));
+                User user1 = new User(SfUser.getOpenId(),Double.valueOf(500),Double.valueOf(500));
                 userService.updateUserByOpenId(user1);
             }
             //给用户发送的
