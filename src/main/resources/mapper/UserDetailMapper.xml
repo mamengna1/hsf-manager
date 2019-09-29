@@ -185,6 +185,7 @@
                 and workArea  like concat('%',#{workArea},'%')
             </if>
             AND `status`=1
+            and lineStatus = 1
         </where>
         order by `updTime` desc
         limit #{pageCurrentNo},#{pageSize}
@@ -211,6 +212,7 @@
                 and workArea  like concat('%',#{workArea},'%')
             </if>
             AND `status`=1
+            and lineStatus = 1
         </where>
     </select>
 

@@ -47,8 +47,12 @@ public class UserInformationController {
         page.setTotalPages(page.getTotalPages());
         List<UserInformation> userInformations = userInformationService.selAll(pageCurrentNo, page.getPageSize(),isDelete);
         for (UserInformation user : userInformations) {
-            String userName = userDetailService.selUserDetailById(userService.selUserByOpenId(user.getOpenId()).getDetailId()).getName() == null ? "未知" :userDetailService.selUserDetailById(userService.selUserByOpenId(user.getOpenId()).getDetailId()).getName();
-            user.setName(userName);
+            User user1 = userService.selUserByOpenId(user.getOpenId());
+            String name = null;
+            if(user1 != null){
+                name = userDetailService.selUserDetailById(user1.getDetailId()).getName();
+            }
+            user.setName(name);
         }
         page.setList(userInformations);
         return page;

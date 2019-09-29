@@ -210,10 +210,9 @@ public class UserMasterController {
             map.put("openId",o);
             map.put("name",userDetail.getName());
             map.put("url",URLS.DOMAIN_NAME+"/_api/goSFHone?id="+id);
-            map.put("end","欢迎您的加盟");
+            map.put("end","欢迎您的加盟\\备注：升级成为师傅奖励200积分");
             templateService.sendAuditSuccess(map);
 
-            //给管理员发送模板信息
             //给管理员发送模板信息
             List<String> getOpenIdList =adminService.selAccountOpenId();
             for (int i = 0; i <getOpenIdList.size() ; i++) {

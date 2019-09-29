@@ -23,7 +23,7 @@ function searchUserScore(currentPage,scoreSourceId,userName) {
     function callback(data) {
         $("#theBody").html("");
         for (var i = 0; i < data.list.length; i++) {
-            var createDate = toDate(new Date(data.list[i].createDate).toJSON())
+            var createDate = toDate(data.list[i].createDate)
             var a = data.list[i].user.detailId;
             var biaoshi;
             if(a == 0 || a == '' || a== null){

@@ -18,8 +18,8 @@ function searchDistribution(currentPage,statusId) {
         $("#theBody").html("");
       
         for (var i = 0; i < data.list.length; i++) {
-            var createTime = toDate(new Date(data.list[i].createTime).toJSON())
-            var updateTime = data.list[i].updateTime == null ? '' : toDate(new Date(data.list[i].updateTime).toJSON());
+            var createTime = toDate(data.list[i].createTime)
+            var updateTime = data.list[i].updateTime == null ? '' : toDate(data.list[i].updateTime);
             var message = data.list[i].refusedMessage == null ? '' : data.list[i].refusedMessage
             var a = data.list[i].statusId;
             $("#reason").hide()
@@ -235,7 +235,7 @@ function delDetailById(id) {
             $("#phones").append(data.phone)
             var workAddress = getUserWork(data.serviceProvince,data.serviceCity,data.serviceArea)+"/"+data.serverDetail
             $("#workAddress").append(workAddress)
-            var appointTime = toDate(new Date(data.appointTime).toJSON())
+            var appointTime = toDate(data.appointTime)
             $("#appointTime").append(appointTime)
             $("#demand").append(data.demand)
 

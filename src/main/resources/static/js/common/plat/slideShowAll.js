@@ -9,7 +9,7 @@ function searchSlideShow(currentPage,imgType) {
     function callback(data) {
         $("#theBody").html("");
         for (var i = 0; i < data.list.length; i++) {
-            var createDate = data.list[i].createDate ==null ? '' : toDate(new Date(data.list[i].createDate).toJSON())
+            var createDate = data.list[i].createDate ==null ? '' : toDate(data.list[i].createDate)
             var state = data.list[i].state == 1 ? "未审" : "已审";
 
             $("#theBody").append("<tr>" +

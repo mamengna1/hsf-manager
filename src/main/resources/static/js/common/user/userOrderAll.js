@@ -10,7 +10,7 @@ function searchUserOrder(currentPage,commentTypeId) {
     function callback(data) {
         $("#theBody").html("");
         for (var i = 0; i < data.list.length; i++) {
-            var commentTime = toDate(new Date(data.list[i].commentTime).toJSON())
+            var commentTime = toDate(data.list[i].commentTime)
             var a = data.list[i].commentTypeId;
 
             $("#theBody").append("<tr>" +

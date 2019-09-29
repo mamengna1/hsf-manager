@@ -19,8 +19,8 @@ function searchRelease(currentPage,state,mark) {
             }else if(mark == 2){
                 $("#release1,#release2,#release3,#release4").hide();
             }
-            var appointTime = toDate(new Date(data.list[i].appointTime).toJSON())
-            var createDate = toDate(new Date(data.list[i].createDate).toJSON())
+            var appointTime = toDate(data.list[i].appointTime)
+            var createDate = toDate(data.list[i].createDate)
             var address  = getUserWork(data.list[i].serviceProvince,data.list[i].serviceCity,data.list[i].serviceArea)+"/"+data.list[i].serverDetail;
             var receiveId = data.list[i].receiveId == null ? '' :data.list[i].receiveId;
             var a = data.list[i].state;

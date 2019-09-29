@@ -25,7 +25,7 @@ function searchCommission(currentPage,backStatusId,userName) {
             if(data.level == 1){
                 $("#caozuo").show()
             }
-            var createDate = toDate(new Date(data.list[i].createDate).toJSON())
+            var createDate = toDate(data.list[i].createDate)
             var sui =(data.list[i].money*0.1).toFixed(2);
             var shi = (data.list[i].money-sui).toFixed(2);
             var comment = data.list[i].comment == null ? '' : data.list[i].comment
@@ -113,7 +113,7 @@ function upCommon(id) {
         var money = (data.commission.money)-(data.commission.money*0.1)
         $("#commOpenId").append(data.commission.openId)
         $("#cashBack").append(money)
-        var createDate = toDate(new Date(data.commission.createDate).toJSON())
+        var createDate = toDate(data.commission.createDate)
         $("#commissionDate").append(createDate)
         for (var i = 0; i < data.listCommission.length; i ++){
             if (data.listCommission[i].id == data.commission.backStatusId) {

@@ -16,8 +16,8 @@ function searchCustomer(currentPage,names,statusId,lineStatus) {
         $("#liXian").html(data.liXian);
         for (var i = 0; i < data.list.length; i++) {
             var a = data.list[i].status;
-            var updTime = data.list[i].updTime == null ? '' : toDate(new Date(data.list[i].updTime).toJSON())
-            var passTime = data.list[i].passTime == null ? '' : toDate(new Date(data.list[i].passTime).toJSON())
+            var updTime = data.list[i].updTime == null ? '' : toDate(data.list[i].updTime)
+            var passTime = data.list[i].passTime == null ? '' : toDate(data.list[i].passTime)
             var lineStatus = data.list[i].lineStatus == 1 ? "在线" : data.list[i].lineStatus == null ? "无状态(审核失败)" : "离线"
             var message = a == 0 ? "待审核" :a == 1 ? "审核成功" : a == 2 ? "审核失败 ："+data.list[i].statusMessage : a==3 ? "再次提交信息，上次审核失败原因是 ："+data.list[i].statusMessage :''
             $("#theBody").append("<tr>" +

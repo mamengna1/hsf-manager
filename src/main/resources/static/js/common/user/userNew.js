@@ -17,7 +17,7 @@ function searchNewUser(currentPage) {
     function callback(data) {
         $("#theBody").html("");
         for (var i = 0; i < data.list.length; i++) {
-            var createDate = toDate(new Date(data.list[i].createDate).toJSON())
+            var createDate = toDate(data.list[i].createDate)
             var userParentId;
             var userParent = (data.list[i].userParent == null || data.list[i].userParent == '' || data.list[i].userParent == undefined) ? '' : data.list[i].userParent;
             if(data.list[i].userParent == null || data.list[i].userParent == '' || data.list[i].userParent == undefined){

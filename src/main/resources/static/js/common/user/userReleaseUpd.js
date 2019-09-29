@@ -1,7 +1,7 @@
 $(function () {
     var id = $("#id").val();
     $.getJSON("/manager/userDetail/selUserReleaseById", {"id": id}, function (res) {
-        var appointTime = toDate(new Date(res.appointTime).toJSON())
+        var appointTime = toDate(res.appointTime)
         var newDate=/\d{4}-\d{1,2}-\d{1,2}/g.exec(appointTime)
         $("#appointTime").val(newDate)
 
