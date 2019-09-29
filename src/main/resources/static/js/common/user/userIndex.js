@@ -19,9 +19,9 @@ function searchCustomer(currentPage,isSub,detailId,userName) {
     function callback(data) {
         $("#theBody").html("");
         for (var i = 0; i < data.list.length; i++) {
-           // var createDate = toDate(new Date(data.list[i].createDate).toJSON())
             var createDate = toDate(data.list[i].createDate)
             var userParentId;
+            var aaa = data.list[i].detailId == 0 ? "用户" : "师傅"
             var userParent = (data.list[i].userParent == null || data.list[i].userParent == '' || data.list[i].userParent == undefined) ? '' : data.list[i].userParent;
             if(data.list[i].userParent == null || data.list[i].userParent == '' || data.list[i].userParent == undefined){
                 userParentId = '';
@@ -43,6 +43,7 @@ function searchCustomer(currentPage,isSub,detailId,userName) {
                 "<td>" +
                 "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\"  onclick='selUserByOpenId(\""+data.list[i].userParent+"\")'>"+ userParentId+"</a>" +
                 "</td>" +
+                "<td>" + aaa+ "</td>" +
                 "<td>" +
                 "<a href='javascript:void(0)'  class=\"btn btn-xs btn-warning\" data-toggle=\"modal\" data-target=\"#updateModal\" onclick='selUserById("+data.list[i].id+")'>修改</a>" +
                 "&nbsp;&nbsp;<a href='javascript:void(0)'  class=\"btn btn-xs btn-info \"  onclick='goScore(\""+data.list[i].openId+"\")'>积分来源</a>" +
