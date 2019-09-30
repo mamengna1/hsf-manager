@@ -31,14 +31,15 @@ function searchUserScore(currentPage,scoreSourceId,userName) {
             }else{
                 biaoshi = "师傅"
             }
-            var sourceOpenId = data.list[i].sourceOpenId
-            if(sourceOpenId == 2 || sourceOpenId == 4){
+            var scoreSourceId = data.list[i].scoreSourceId
+            if(scoreSourceId == 2 || scoreSourceId == 4){
                 $("#fenhong").show();
             }else{
                $("#fenhong").hide();
             }
             var note  = data.list[i].note == null ? '' : data.list[i].note;
             var userId = getUserId(data.list[i].openId)
+            var sourceId = (data.list[i].sourceOpenId == null || data.list[i].sourceOpenId == undefined) ? '' : getUserId(data.list[i].sourceOpenId)
             var name = data.list[i].user.nickName== null ? "无名氏": data.list[i].user.nickName
             $("#theBody").append("<tr>" +
                 "<td><input type=\"checkbox\" class='userCheck' name='checkbox' /></td>" +
@@ -49,8 +50,8 @@ function searchUserScore(currentPage,scoreSourceId,userName) {
                 "<td>" + userId + "</td>" +
                 "<td>" + data.list[i].score + "</td>" +
                 "<td>" + data.list[i].scoreSourceType.sourceName + "</td>" +
-                "<td style='" + ((sourceOpenId == 2|| sourceOpenId ==4) ? '' : 'display:none;') + "'>" +
-                "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\"  onclick='selUserByOpenId(\""+data.list[i].sourceOpenId+"\")' >"+ data.list[i].sourceOpenId+"</a>" +
+                "<td style='" + ((scoreSourceId == 2|| scoreSourceId ==4) ? '' : 'display:none;') + "'>" +
+                "<a href='javascript:void(0)'  data-toggle=\"modal\" data-target=\"#editModal\"  onclick='selUserByOpenId(\""+data.list[i].sourceOpenId+"\")' >"+ sourceId+"</a>" +
                 "</td>" +
                 "<td>" + biaoshi + "</td>" +
                 "<td>" + createDate+ "</td>" +

@@ -5,7 +5,7 @@
 	<!-- 页面meta -->
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>佣金提现管理</title>
+	<title>提现管理</title>
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
 	<link rel="stylesheet" href="/manager/plugins/bootstrap/css/bootstrap.min.css">
@@ -24,7 +24,7 @@
 <!-- .box-body -->
 
 <div class="box-header with-border">
-	<h3 class="box-title">佣金提现管理</h3>
+	<h3 class="box-title">提现管理</h3>
 </div>
 
 <div class="box-body">
@@ -96,7 +96,7 @@
 
 
 <!-- 编辑窗口 -->
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="top:-20%">
 	<div class="modal-dialog" >
 		<div class="modal-content">
 			<div class="modal-header">
@@ -104,7 +104,6 @@
 				<h3 id="myModalLabel">个人详情信息</h3>
 			</div>
 			<div class="modal-body">
-
 				<table class="table table-bordered table-striped"  width="800px">
 					<tr>
 						<td>头像</td>
@@ -114,7 +113,7 @@
 					</tr>
 					<tr>
 						<td>昵称</td>
-						<td id="nickName"></td>
+						<td id="nickName" ></td>
 					</tr>
 					<tr>
 						<td>openId</td>
@@ -134,30 +133,38 @@
 						<td id="userType"></td>
 					</tr>
 					<tr>
-						<td>是否关注</td>
-						<td id="isConcern"></td>
-					</tr>
-					<tr>
 						<td>手机号</td>
 						<td id="phone"></td>
 					</tr>
+
 					<tr>
-						<td>金币数量</td>
-						<td id="money"></td>
+						<td>累计充值</td>
+						<td id="totalMoney"></td>
 					</tr>
 					<tr>
-						<td>积分</td>
-						<td id="score"></td>
+						<td>账户余额</td>
+						<td id="balanceMoney"></td>
 					</tr>
 					<tr>
-						<td>关注时间</td>
-						<td id="subscribe_time"></td>
+						<td>总积分</td>
+						<td id="totalScore"></td>
+					</tr>
+					<tr>
+						<td>剩余积分</td>
+						<td id="balanceScore"></td>
+					</tr>
+					<tr>
+						<td>最后登录时间</td>
+						<td id="lastLoginTime"></td>
 					</tr>
 
 				</table>
 
 			</div>
-
+			<div class="modal-footer">
+				<button class="btn btn-success" data-dismiss="modal" aria-hidden="true">保存</button>
+				<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
+			</div>
 		</div>
 	</div>
 </div>
