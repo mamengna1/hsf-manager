@@ -31,7 +31,7 @@ function searchUserScore(currentPage,scoreSourceId,userName) {
             }else{
                 biaoshi = "师傅"
             }
-            var scoreSourceId = data.list[i].scoreSourceId
+          //  var scoreSourceId = data.list[i].scoreSourceId
             if(scoreSourceId == 2 || scoreSourceId == 4){
                 $("#fenhong").show();
             }else{

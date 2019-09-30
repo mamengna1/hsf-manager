@@ -37,6 +37,7 @@
 					<tr>
 						* 管理员类型：
 						<input type="hidden" id="typeId3" th:value="${admins.typeId}"/>
+						<input type="hidden" id="typeId1" th:value="${admin1.typeId}"/>
 						<select id="typeId" name="typeId"  class="form-control"  th:onchange="funType()" >
 							<option th:each="mt :${adminTypes}" th:value="${mt.id}" th:text="${mt.typeName}" />
 						</select><br/>
@@ -75,6 +76,7 @@
 
 	$(function () {
 		$("#typeId").val($("#typeId3").val())
+
 		var permissions1 = ($("#permissions1").val()).split(",");
 		var quanXians = document.getElementsByClassName("quanXian");
 		for (var i = 0; i < permissions1.length; i++) {
@@ -92,6 +94,39 @@
 			}
 			$("#permissions").val(permissions.join());
 		})
+
+
+		var typeId2 = $("#typeId1").val();
+		if(typeId2 == 1){  //判断是谁在修改
+			$("#typeId").prop("disabled","disabled")
+			$('input[name="checkbox"]').each(function(){
+				if($(this).val()== 7){
+					$(this).siblings("span").hide()
+					$(this).hide()
+				}
+			});
+		}else{
+			$('#typeId').removeAttr("disabled");//去除textarea元素的disabled属性
+			$('input[name="checkbox"]').each(function(){
+				if($(this).val()== 7){
+					$(this).siblings("span").show()
+					$(this).show()
+				}
+			});
+		}
+
+
+		if($("#typeId3").val() == 1){   //如果是修改普通管理员信息，把其隐藏菜单管理
+			$('input[name="checkbox"]').each(function(){
+				if($(this).val()== 7){
+					$(this).siblings("span").hide()
+					$(this).hide()
+				}else{
+					$(this).siblings("span").show()
+					$(this).show()
+				}
+			});
+		}
 	})
 
 
@@ -131,10 +166,18 @@
 		if(typeId == 2){
 			$('input[name="checkbox"]').each(function(){
 				$(this).prop("checked",true);
+				if($(this).val()== 7){
+					$(this).siblings("span").show()
+					$(this).show()
+				}
 			});
 		}else{
 			$('input[name="checkbox"]').each(function(){
 				$(this).prop("checked",false);
+				if($(this).val()== 7){
+					$(this).siblings("span").hide()
+					$(this).hide()
+				}
 			});
 		}
 	}

@@ -92,7 +92,7 @@ public class AdminController {
      * @return
      */
     @RequestMapping("/goUpdAdmin")
-    public String goUpdAdmin(Integer id,Model model) {
+    public String goUpdAdmin(Integer id,Model model,HttpServletRequest request) {
         Admin admin = new Admin();
         admin.setId(id);
         List<AdminType> adminTypes = adminTypeService.selAdminTypeList();
@@ -100,6 +100,8 @@ public class AdminController {
         model.addAttribute("admins",adminService.selAdmin(admin));
         model.addAttribute("adminTypes",adminTypes);
         model.addAttribute("columns",Contents.COLUMN);
+        Admin admin1 = (Admin) request.getSession().getAttribute("admin");
+        model.addAttribute("admin1",admin1);
         return  "admin/updAdmin";
     }
     /**

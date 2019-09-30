@@ -30,6 +30,7 @@
 			<!-- 数据表格 -->
 			<div class="table-box">
 				<table id="dataList"  class="table table-bordered table-striped table-hover dataTable">
+					<input type="hidden" id="typeId2" th:value="${admins.typeId}" />
 					<tr>
 						* 管理员账号：<input type="text" name="account" class="form-control" id="account"/><br/>
 					</tr>
@@ -67,12 +68,30 @@
 			</div>
 			<!-- 数据表格 /-->
 			<input type="button" value="提交" id="btn" class="btn-success">
+			<input type="button" value="返回" id="btn2" class="btn-info">
 		</div>
 	</form>
 </div>
 </body>
 
 <script type="text/javascript">
+	$(function () {
+		$('input[name="checkbox"]').each(function(){
+			if($(this).val()== 7){
+				$(this).siblings("span").hide()
+				$(this).hide()
+			}else{
+				$(this).siblings("span").show()
+				$(this).show()
+			}
+		});
+		var typeId2 = $("#typeId2").val()
+		if(typeId2 == 1){
+			$("#typeId").prop("disabled","disabled")
+		}else{
+			$('#typeId').removeAttr("disabled");//去除textarea元素的disabled属性
+		}
+	})
 	var permissions = $("#permissions").val().split(",");
 	$(".quanXian").click(function () {
 		var len = $(".quanXian").filter(":checked").length;
@@ -124,15 +143,26 @@
 		if(typeId == 2){
 			$('input[name="checkbox"]').each(function(){
 				$(this).prop("checked",true);
+				if($(this).val()== 7){
+					$(this).siblings("span").show()
+					$(this).show()
+				}
 			});
 		}else{
 			$('input[name="checkbox"]').each(function(){
 				$(this).prop("checked",false);
+				if($(this).val()== 7){
+					$(this).siblings("span").hide()
+					$(this).hide()
+				}
 			});
+
 		}
 	}
 
-
+	$("#btn2").click(function () {
+		location.href="/manager/adminController/goAdminList";
+	})
 </script>
 
 <!--<script type="text/javascript" src="/manager/js/common/utils/checkBoxUtil.js"></script>  &lt;!&ndash;全选与全不选&ndash;&gt;-->
